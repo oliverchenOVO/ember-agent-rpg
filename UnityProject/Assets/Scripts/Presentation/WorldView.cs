@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ember.Core;
+using Ember.Core.Phase2;
 using UnityEngine;
 
 namespace Ember.Presentation
@@ -12,25 +13,30 @@ namespace Ember.Presentation
         readonly List<Transform> arms=new List<Transform>();
         Material ground, stone, dark, brass, green, glow, red;
         Material[] robes=new Material[4];
-        float angle=0;
+        float angle=0,observedRestLimit=Simulation.RestLimit;
         float[] previousDamage=new float[4], previousHealing=new float[4];
         class Effect {public Transform visual;public Vector3 from,to;public float left=.35f;}
         readonly List<Effect> effects=new List<Effect>();
+        readonly Stack<Effect> effectPool=new Stack<Effect>();
+        readonly List<Mesh> ownedMeshes=new List<Mesh>();readonly List<Material> ownedMaterials=new List<Material>();bool disposed;
+        public void Dispose(){if(disposed)return;disposed=true;foreach(var ps in world.GetComponentsInChildren<ParticleSystem>(true)){ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);}Object.Destroy(world.gameObject);Object.Destroy(camera.gameObject);foreach(var m in ownedMeshes)Object.Destroy(m);foreach(var m in ownedMaterials)Object.Destroy(m);}
         public WorldView()
         {
             world=new GameObject("EMBER WORLD").transform;
             ground=Mat(new Color(.075f,.13f,.15f),.25f,.45f);stone=Mat(new Color(.17f,.24f,.25f),.15f,.55f);dark=Mat(new Color(.035f,.055f,.065f),.3f,.65f);
             brass=Mat(new Color(.64f,.42f,.16f),.7f,.7f);green=Mat(new Color(.18f,.31f,.22f),.25f,.4f);
             glow=Mat(new Color(.24f,.81f,.77f),.2f,.8f,1.6f);red=Mat(new Color(.95f,.27f,.13f),.1f,.6f,1.5f);
+            violet=Mat(new Color(.46f,.2f,.7f),.3f,.55f,.7f);whiteHot=Mat(new Color(1,.85f,.55f),.4f,.7f,1.2f);
             for(int i=0;i<4;i++)robes[i]=Mat(colors[i],.35f,.65f,.25f);
             camera=new GameObject("Witness Camera").AddComponent<Camera>();camera.fieldOfView=42;camera.nearClipPlane=.2f;camera.farClipPlane=160;camera.backgroundColor=new Color(.035f,.065f,.08f);
             RenderSettings.fog=true;RenderSettings.fogColor=camera.backgroundColor;RenderSettings.fogDensity=.012f;
             RenderSettings.ambientLight=new Color(.27f,.38f,.43f);RenderSettings.ambientIntensity=.85f;
-            var key=new GameObject("Moon / key").AddComponent<Light>();key.type=LightType.Directional;key.color=new Color(.63f,.81f,1);key.intensity=1.6f;key.transform.rotation=Quaternion.Euler(48,-38,0);key.shadows=LightShadows.Soft;
+            var key=new GameObject("Moon / key").AddComponent<Light>();key.transform.SetParent(world,false);key.type=LightType.Directional;key.color=new Color(.63f,.81f,1);key.intensity=1.6f;key.transform.rotation=Quaternion.Euler(48,-38,0);key.shadows=LightShadows.Soft;
             QualitySettings.shadows=ShadowQuality.All;QualitySettings.shadowDistance=60;QualitySettings.antiAliasing=4;
             arena=new GameObject("01 / Rootcrown Amphitheatre").transform;arena.SetParent(world);
             refuge=new GameObject("Refuge / Ashen Crossing").transform;refuge.SetParent(world);
-            MakeArena();MakeRefuge();MakeBoss();
+            var arenaParent=arena;arena=new GameObject("Rootcrown architecture").transform;arena.SetParent(arenaParent,false);MakeArena();baseArchitecture=arena;arena=arenaParent;
+            var restParent=refuge;refuge=new GameObject("Crossing architecture").transform;refuge.SetParent(restParent,false);MakeRefuge();baseRestArchitecture=refuge;refuge=restParent;MakeBoss();
             warning=Ring("Danger telegraph",arena,Vector3.zero,3.2f,.13f,red);
             shock=Ring("Impact pulse",arena,Vector3.zero,3.2f,.1f,glow);
             for(int i=0;i<4;i++) {bodies[i]=new GameObject("Witness "+i).transform;bodies[i].SetParent(world);auras[i]=Ring("Witness aura",bodies[i],new Vector3(0,.03f,0),.65f,.04f,robes[i]);}
@@ -38,7 +44,7 @@ namespace Ember.Presentation
         Material Mat(Color c,float metal,float smooth,float emission=0)
         {
             var m=new Material(Shader.Find("Standard"));m.color=c;m.SetFloat("_Metallic",metal);m.SetFloat("_Glossiness",smooth);
-            if(emission>0){m.EnableKeyword("_EMISSION");m.SetColor("_EmissionColor",c*emission);}return m;
+            if(emission>0){m.EnableKeyword("_EMISSION");m.SetColor("_EmissionColor",c*emission);}ownedMaterials.Add(m);return m;
         }
         Transform Part(string name,PrimitiveType type,Transform parent,Vector3 p,Vector3 scale,Material m,Vector3 rotation=default)
         {
@@ -48,7 +54,7 @@ namespace Ember.Presentation
         Transform Ring(string name,Transform parent,Vector3 pos,float radius,float width,Material material,int segments=96)
         {
             var g=new GameObject(name);g.transform.SetParent(parent,false);g.transform.localPosition=pos;
-            var mesh=new Mesh();var vertices=new Vector3[segments*2];var triangles=new int[segments*6];
+            var mesh=new Mesh();ownedMeshes.Add(mesh);var vertices=new Vector3[segments*2];var triangles=new int[segments*6];
             for(int i=0;i<segments;i++) {float a=i*Mathf.PI*2/segments;vertices[i*2]=new Vector3(Mathf.Cos(a)*(radius-width),.035f,Mathf.Sin(a)*(radius-width));vertices[i*2+1]=new Vector3(Mathf.Cos(a)*(radius+width),.035f,Mathf.Sin(a)*(radius+width));int n=(i+1)%segments;int j=i*6;triangles[j]=i*2;triangles[j+1]=n*2;triangles[j+2]=i*2+1;triangles[j+3]=i*2+1;triangles[j+4]=n*2;triangles[j+5]=n*2+1;}
             mesh.vertices=vertices;mesh.triangles=triangles;mesh.RecalculateNormals();g.AddComponent<MeshFilter>().sharedMesh=mesh;g.AddComponent<MeshRenderer>().sharedMaterial=material;return g.transform;
         }
@@ -144,7 +150,7 @@ namespace Ember.Presentation
         {
             var g=new GameObject("Drifting embers");g.transform.SetParent(parent,false);g.transform.localPosition=p;
             var ps=g.AddComponent<ParticleSystem>();var main=ps.main;main.startColor=c;main.startSize=size;main.startLifetime=4;main.startSpeed=.18f;main.maxParticles=100;var emission=ps.emission;emission.rateOverTime=rate;var shape=ps.shape;shape.shapeType=ParticleSystemShapeType.Sphere;shape.radius=radius;
-            var m=new Material(Shader.Find("Particles/Standard Unlit"));m.color=c;ps.GetComponent<ParticleSystemRenderer>().sharedMaterial=m;ps.Play();
+            var m=new Material(Shader.Find("Particles/Standard Unlit"));ownedMaterials.Add(m);m.color=c;ps.GetComponent<ParticleSystemRenderer>().sharedMaterial=m;ps.Play();
         }
         public void RebuildCharacters(World w,Catalog catalog)
         {
@@ -165,7 +171,7 @@ namespace Ember.Presentation
         public void Update(World w,float dt,float orbit)
         {
             bool battle=w.phase==Phase.Battle||(w.phase==Phase.Ended&&w.boss.hp>0);arena.gameObject.SetActive(battle);refuge.gameObject.SetActive(!battle);angle+=orbit*dt*35;
-            Vector3 focus=battle?new Vector3(-2,0,0):new Vector3(-1,0,0);
+            Vector3 focus=SpectatorFocus(w,orbit);
             var desired=focus+Quaternion.Euler(0,angle,0)*new Vector3(17,22,-27);
             camera.transform.position=Vector3.Lerp(camera.transform.position,desired,camera.transform.position==Vector3.zero?1:dt*3);camera.transform.LookAt(focus+Vector3.up*.5f);
             float t=Time.time;
@@ -175,7 +181,7 @@ namespace Ember.Presentation
                 float lift=w.boss.telegraph?Mathf.Clamp01(1-w.boss.windup/1.2f)*-95:Mathf.Sin(t*1.7f)*8;
                 for(int i=0;i<arms.Count;i++)arms[i].localRotation=Quaternion.Euler(lift,0,(i==0?1:-1)*5);
                 crown.localRotation=Quaternion.Euler(0,Mathf.Sin(t)*4,0);
-                warning.gameObject.SetActive(w.boss.telegraph);warning.position=new Vector3(w.boss.targetX,.06f,w.boss.targetZ);warning.localScale=Vector3.one*(observedGroup!=null?observedRadius/3.2f:w.boss.enraged?1.25f:1);
+                warning.gameObject.SetActive(w.boss.telegraph&&(observedGroup==null||observedGroup.boss.cue.shape==CueShape.Circle));warning.position=new Vector3(w.boss.targetX,.06f,w.boss.targetZ);warning.localScale=Vector3.one*(observedGroup!=null?observedRadius/3.2f:w.boss.enraged?1.25f:1);
                 shock.gameObject.SetActive(!w.boss.telegraph&&w.boss.timer>2.9f);shock.position=warning.position;shock.localScale=Vector3.one*(1+(3.6f-w.boss.timer)*2);
             }
             for(int i=0;i<4;i++)
@@ -195,11 +201,11 @@ namespace Ember.Presentation
             for(int i=effects.Count-1;i>=0;i--)
             {
                 var e=effects[i];e.left-=dt;e.visual.position=Vector3.Lerp(e.from,e.to,1-e.left/.35f);e.visual.localScale=Vector3.one*(.15f+.1f*Mathf.Sin((1-e.left/.35f)*Mathf.PI));
-                if(e.left<=0){Object.Destroy(e.visual.gameObject);effects.RemoveAt(i);}
+                if(e.left<=0){e.visual.gameObject.SetActive(false);effects.RemoveAt(i);effectPool.Push(e);}
             }
             if(!battle)
             {
-                float collapse=-10+Mathf.Max(0,w.phaseClock-Simulation.RestLimit)*2.3f;
+                float collapse=-10+Mathf.Max(0,w.phaseClock-observedRestLimit)*2.3f;
                 collapseFront.gameObject.SetActive(collapse>-10);collapseVoid.gameObject.SetActive(collapse>-10);
                 collapseFront.localPosition=new Vector3(collapse,.35f,0);collapseVoid.localPosition=new Vector3((-10+collapse)*.5f,.01f,0);collapseVoid.localScale=new Vector3(Mathf.Max(.01f,collapse+10),.2f,11);
                 if(collapse>-10) camera.backgroundColor=new Color(.12f,.04f,.04f);else camera.backgroundColor=new Color(.035f,.065f,.08f);
@@ -207,7 +213,9 @@ namespace Ember.Presentation
         }
         void AddEffect(Vector3 from,Vector3 to,Material material)
         {
-            var orb=Part("Spell / impact mote",PrimitiveType.Sphere,world,from,Vector3.one*.2f,material);effects.Add(new Effect{visual=orb,from=from,to=to});
+            if(effects.Count>=64)return;
+            var effect=effectPool.Count>0?effectPool.Pop():new Effect{visual=Part("Pooled impact mote",PrimitiveType.Sphere,world,from,Vector3.one*.2f,material)};
+            effect.from=from;effect.to=to;effect.left=.35f;effect.visual.gameObject.SetActive(true);effect.visual.GetComponent<Renderer>().sharedMaterial=material;effects.Add(effect);
         }
         public Vector3 Screen(Agent a) => camera.WorldToScreenPoint(new Vector3(a.x,2.5f,a.z));
     }

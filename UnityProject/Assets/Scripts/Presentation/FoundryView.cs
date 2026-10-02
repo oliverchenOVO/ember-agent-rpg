@@ -125,11 +125,12 @@ namespace Ember.Presentation
             bool active=g.phase==Phase.Battle;
             laneCue.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.shape==CueShape.Lane);crossCue.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.shape==CueShape.Cross);annulusCue.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.shape==CueShape.Annulus);innerCue.gameObject.SetActive(annulusCue.gameObject.activeSelf);
             laneCue.localPosition=new Vector3(b.cue.x,.07f,b.cue.z);laneCue.localScale=new Vector3(b.cue.length,.045f,b.cue.radius*2);laneCue.localRotation=Quaternion.Euler(0,-b.cue.angle*Mathf.Rad2Deg,0);
-            crossCue.localPosition=new Vector3(b.cue.x,.07f,b.cue.z);crossCue.localRotation=laneCue.localRotation;crossCue.localScale=new Vector3(b.cue.length/18,1,b.cue.radius);
+            crossCue.localPosition=new Vector3(b.cue.x,.07f,b.cue.z);crossCue.localRotation=laneCue.localRotation;crossCue.localScale=Vector3.one;crossCue.GetChild(0).localScale=new Vector3(b.cue.length,.04f,b.cue.radius*2);crossCue.GetChild(1).localScale=new Vector3(b.cue.radius*2,.04f,b.cue.length);
             annulusCue.localPosition=new Vector3(b.cue.x,.08f,b.cue.z);innerCue.localPosition=annulusCue.localPosition;annulusCue.localScale=Vector3.one*b.cue.radius;innerCue.localScale=Vector3.one*b.cue.innerRadius;
             castRing.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.interruptible);castRing.localPosition=new Vector3(b.x,.1f,b.z);
-            feedbackRing.gameObject.SetActive(active&&(Time.time<phaseUntil||b.hitFlash>0||b.interruptFlash>0||b.survivalLeft>0||b.weakFlash>0||b.visible.enraged));feedbackRing.localPosition=new Vector3(b.x,.12f,b.z);
-            feedbackRing.GetComponent<Renderer>().sharedMaterial=b.interruptFlash>0?glow:b.weakFlash>0?whiteHot:b.survivalLeft>0?stone:b.visible.enraged?red:brass;
+            bool debuffed=b.effects.Exists(e=>e.agent==-1);
+            feedbackRing.gameObject.SetActive(active&&(Time.time<phaseUntil||b.hitFlash>0||b.interruptFlash>0||b.survivalLeft>0||b.blockedFlash>0||b.shield>0||b.weakFlash>0||b.visible.enraged||debuffed));feedbackRing.localPosition=new Vector3(b.x,.12f,b.z);
+            feedbackRing.GetComponent<Renderer>().sharedMaterial=b.interruptFlash>0?glow:b.weakFlash>0?whiteHot:b.survivalLeft>0||b.blockedFlash>0||b.shield>0?stone:b.visible.enraged?red:debuffed?violet:brass;
         }
     }
 }

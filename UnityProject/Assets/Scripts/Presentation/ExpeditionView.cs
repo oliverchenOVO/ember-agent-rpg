@@ -10,7 +10,7 @@ namespace Ember.Presentation
         readonly System.Collections.Generic.Dictionary<string,Transform> variantCache=new System.Collections.Generic.Dictionary<string,Transform>();
         public void SetExpedition(TowerContent data,GroupState group)
         {
-            observedGroup=group;observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
+            observedGroup=group;observedRestLimit=data.Rest(group.restId).collapseAfter;observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
             if(visualTheme!=f.theme)
             {
                 visualTheme=f.theme;var color=new Color(profile.r,profile.g,profile.b);
@@ -57,7 +57,8 @@ namespace Ember.Presentation
             for(int i=0;i<4;i++)auras[i].GetComponent<Renderer>().sharedMaterial=group.boss.statuses.Any(s=>s.agent==i)?red:robes[i];
             hazard.gameObject.SetActive(group.boss.hazardLeft>0);hazard.localPosition=new Vector3(group.boss.hazardX,.09f,group.boss.hazardZ);
             if(group.boss.visible.hp<previousBossHp)impactUntil=Time.time+.25f;previousBossHp=group.boss.visible.hp;
-            phaseRing.gameObject.SetActive(Time.time<impactUntil||visualPhase!=group.boss.phase);phaseRing.localPosition=new Vector3(group.boss.x,.15f,group.boss.z);visualPhase=group.boss.phase;
+            if(visualPhase!=group.boss.phase)phaseUntil=Time.time+1.2f;
+            phaseRing.gameObject.SetActive(Time.time<impactUntil||Time.time<phaseUntil);phaseRing.localPosition=new Vector3(group.boss.x,.15f,group.boss.z);visualPhase=group.boss.phase;
             if(f.theme=="astral_foundry")SetFoundry(data,group);
             else
             {

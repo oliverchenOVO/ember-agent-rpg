@@ -28,6 +28,7 @@ namespace Ember.Presentation
     public sealed partial class WitnessGame
     {
         EmberAudio sound;int audioPhase=-1,audioCasts=-1,audioInterrupt=-1,audioGroup=-1;bool wasCasting;readonly bool[] aliveAudio={true,true,true,true};
+        int audioSkill;bool audioCollapse;readonly float[] audioDamage=new float[4];
         void UpdateAudio()
         {
             if(sound==null)sound=gameObject.AddComponent<EmberAudio>();
@@ -37,6 +38,9 @@ namespace Ember.Presentation
             if(!wasCasting&&b.visible.telegraph)sound.Play(AudioEvent.Warning);wasCasting=b.visible.telegraph;
             if(audioCasts!=b.casts){sound.Play(AudioEvent.BossCast);audioCasts=b.casts;}
             if(audioInterrupt!=b.interrupts){sound.Play(AudioEvent.Interrupt);audioInterrupt=b.interrupts;}
+            if(b.skillPresentation.serial!=audioSkill){audioSkill=b.skillPresentation.serial;var skill=simulation.Catalog.Skill(b.skillPresentation.skill);if(skill!=null)sound.Play(skill.effect=="Heal"?AudioEvent.Heal:skill.effect=="Guard"||skill.effect=="Enchant"?AudioEvent.Buff:skill.id=="poison"||skill.id=="frost"||skill.id=="trap"?AudioEvent.Debuff:AudioEvent.Spell);}
+            bool collapsing=g.phase==Ember.Core.Phase.Rest&&g.phaseClock>tower.Data.Rest(g.restId).collapseAfter;if(collapsing&&!audioCollapse)sound.Play(AudioEvent.Collapse);audioCollapse=collapsing;
+            foreach(var a in tower.State.Members(g)){if(a.damage>audioDamage[a.id]){var weapon=simulation.Catalog.Item(a.weapon.id).weapon;sound.Play(weapon=="Bow"?AudioEvent.Ranged:weapon=="Staff"?AudioEvent.Spell:AudioEvent.Melee);}audioDamage[a.id]=a.damage;}
             foreach(var a in tower.State.Members(g)){if(aliveAudio[a.id]&&!a.alive)sound.Play(AudioEvent.Death);aliveAudio[a.id]=a.alive;}
         }
     }

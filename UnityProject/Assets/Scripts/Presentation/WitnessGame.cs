@@ -115,7 +115,7 @@ namespace Ember.Presentation
             GUI.Label(rect,text,chosen);
         }
         void Bar(float x,float y,float width,float ratio,Color color,float height=4){Box(x,y,width,height,new Color(.14f,.2f,.21f));Box(x,y,width*Mathf.Clamp01(ratio),height,color);}
-        bool Button(float x,float y,float width,string text){var rect=new Rect(x,y,width,32);Box(x,y,width,32,new Color(.13f,.21f,.23f,.95f));if(qaEnabled)CheckLayout(rect,text,button,true);return GUI.Button(rect,text,button);}
+        bool Button(float x,float y,float width,string text){var rect=new Rect(x,y,width,32);Box(x,y,width,32,new Color(.13f,.21f,.23f,.95f));if(qaEnabled)CheckLayout(rect,text,button,true);bool pressed=GUI.Button(rect,text,button);if(pressed&&sound!=null)sound.Play(AudioEvent.UI);return pressed;}
         string TimeText(float seconds) => ((int)seconds/60).ToString("00")+":"+((int)seconds%60).ToString("00");
         void OnGUI()
         {
@@ -154,8 +154,8 @@ namespace Ember.Presentation
             else
             {
                 Box(425,110,590,78,new Color(.035f,.062f,.075f,.9f));Text(448,122,380,24,w.phase==Phase.Ended?Loc.T("ui.epilogue"):Loc.T("ui.refuge_title"),subtitle);
-                Text(448,149,535,27,w.phase==Phase.Ended?Loc.T("ui.restart",Loc.Outcome(w.outcome),Mathf.CeilToInt(8-w.restartTimer)):w.phaseClock>=Simulation.RestLimit?Loc.T("ui.collapse_active"):Loc.T("ui.collapse_timer",Mathf.Max(0,Simulation.RestLimit-w.phaseClock).ToString("F1")),label);
-                Bar(448,178,542,1-w.phaseClock/Simulation.RestLimit,amber,3);
+                Text(448,149,535,27,w.phase==Phase.Ended?Loc.T("ui.restart",Loc.Outcome(w.outcome),Mathf.CeilToInt(8-w.restartTimer)):w.phaseClock>=(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit)?Loc.T("ui.collapse_active"):Loc.T("ui.collapse_timer",Mathf.Max(0,(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit)-w.phaseClock).ToString("F1")),label);
+                Bar(448,178,542,1-w.phaseClock/(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit),amber,3);
             }
             // Floating nameplates track real 3D actors.
             var usedPlates=new System.Collections.Generic.List<Rect>();
