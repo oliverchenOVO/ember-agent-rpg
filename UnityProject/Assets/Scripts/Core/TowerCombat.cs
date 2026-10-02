@@ -22,6 +22,7 @@ namespace Ember.Core.Phase2
             foreach(var a in State.Members(g).Where(a=>a.alive))
             {a.escaped=false;a.x=-6+a.id*3.5f;a.z=-5;a.taskTimer=0;a.task="";a.intent=new Intent();var p=State.Plan(a.id);p.nextDecision=0;p.workLeft=0;p.visited.Clear();}
             State.world.Say(-1,Loc.Token("p2.event.floor",g.id,g.floor,Loc.Token(Data.Floor(g.floor).nameKey)),"floor");
+            if(!string.IsNullOrEmpty(Data.Floor(g.floor).introKey))State.world.Say(-1,Loc.Token(Data.Floor(g.floor).introKey),"boss");
         }
         void ExecuteCombat(Agent a,GroupState g,float dt)
         {

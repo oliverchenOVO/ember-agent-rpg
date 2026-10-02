@@ -7,6 +7,7 @@ for id,en,zh,intel,zintel in bosses:
 for id,en,zh in [('furnace_lane','Furnace lane','熔爐灼道'),('rail_sweep','Rail sweep','軌道掃掠'),('rail_cross','Crosscut','十字裁切'),('hatch','Crystal hatch','晶偶孵化'),('extract','Ether extraction','法力抽取'),('pulse_ring','Resonance ring','共振環'),('clock_line','Pendulum strike','鐘擺射線'),('core_shield','Core insulation','晶核隔熱'),('core_cross','Astral cross','星鑄十字')]:add('ability.'+id,en,zh)
 for id,en,zh in [('1','Ignition','第一階段／點火'),('2','Overload','第二階段／過載'),('3','Stellar collapse','第三階段／星核崩解')]:add('phase.'+id,en,zh)
 add('cause.pressure','foundry heat pressure','工坊熱壓')
+add('cause.enrage','escalating guardian enrage','守護者狂暴升溫')
 add('cue','{0} · {1:0.0}s','{0} · {1:0.0} 秒')
 add('intel','Boss intel: {0}','Boss 情報：{0}')
 add('infusion','Infusion: {0} · {1} MP · {2:0.0}s cooldown','灌注：{0} · 法力 {1} · 冷卻 {2:0.0} 秒')

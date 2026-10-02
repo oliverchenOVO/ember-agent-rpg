@@ -1,6 +1,6 @@
 # 玩家可見文字盤點 / zh-TW 字串表
 
-共 398 個語意鍵。英文與繁中各一份；保留全部技術識別字。
+共 399 個語意鍵。英文與繁中各一份；保留全部技術識別字。
 
 搜尋範圍：Assets 全部 C#、JSON、Unity Scene、ProjectSettings，以及會再產生內容的 Tools/write_catalog.py。
 可見來源：WitnessGame UI 與列舉顯示、PlayerWindow 視窗標題、UtilityBrain 意圖、Simulation 系統/對話/遺言、catalog 技能與物品名、舊存檔。
@@ -360,6 +360,7 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 | `p3.phase.2` | Overload | 第二階段／過載 |
 | `p3.phase.3` | Stellar collapse | 第三階段／星核崩解 |
 | `p3.cause.pressure` | foundry heat pressure | 工坊熱壓 |
+| `p3.cause.enrage` | escalating guardian enrage | 守護者狂暴升溫 |
 | `p3.cue` | {0} · {1:0.0}s | {0} · {1:0.0} 秒 |
 | `p3.intel` | Boss intel: {0} | Boss 情報：{0} |
 | `p3.infusion` | Infusion: {0} · {1} MP · {2:0.0}s cooldown | 灌注：{0} · 法力 {1} · 冷卻 {2:0.0} 秒 |

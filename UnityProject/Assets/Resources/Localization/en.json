@@ -1406,6 +1406,10 @@
       "value": "foundry heat pressure"
     },
     {
+      "key": "p3.cause.enrage",
+      "value": "escalating guardian enrage"
+    },
+    {
       "key": "p3.cue",
       "value": "{0} · {1:0.0}s"
     },

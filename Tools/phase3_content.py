@@ -14,11 +14,16 @@ def apply(data):
     ]
     for id,mechanic,damage,interval,windup,radius,shape,inner,push,drain,status,element,interrupt in specs:
         data['abilities'].append(dict(id=id,nameKey='p3.ability.'+id,mechanic=mechanic,target=2 if 'rail' in id else 0,damage=damage,interval=interval,windup=windup,radius=radius,shape=shape,length=18,innerRadius=inner,push=push,resourceDrain=drain,status=status,element=element,duration=5,interruptible=interrupt,interruptWindow=.9))
-    identities=[('stoker','loading',1350,3,'',.28,[['furnace_lane'],['furnace_lane','bolt']]),
-                ('railjudge','rails',1500,3.5,'Rail',.32,[['rail_sweep'],['rail_cross','rail_sweep']]),
-                ('weavemother','hatchery',1700,4,'',.42,[['hatch','extract'],['hatch','extract','core_shield']]),
-                ('metronome','pressure',1800,4,'Pendulum',.5,[['clock_line','pulse_ring'],['clock_line','rail_cross','pulse_ring']]),
-                ('armillary','armillary',2350,5,'',.6,[['furnace_lane'],['hatch','core_shield','extract'],['pulse_ring','core_cross','clock_line']])]
+    hp_curve=[900,1300,1800,2400,3200,6500,7000,7800,8500,12000,9500,11000,12500,14500,18000,16000,18500,21000,23500,27000,28000,31000,34000,37000,44000]
+    for i,b in enumerate(data['bosses']):
+        b['hp']=hp_curve[i]
+        if i>=10:b['ambientPressure']=1.3+(i-10)*.13
+        for j,phase in enumerate(b['phases']):phase['enrageAfter']=130 if i<10 else 150;phase['afterSeconds']=55 if i<5 and j==1 else 0
+    identities=[('stoker','loading',5500,3,'',4,[['furnace_lane'],['furnace_lane','bolt']]),
+                ('railjudge','rails',6500,3.5,'Rail',4.4,[['rail_sweep'],['rail_cross','rail_sweep']]),
+                ('weavemother','hatchery',7500,4,'',4.8,[['hatch','extract'],['hatch','extract','core_shield']]),
+                ('metronome','pressure',8500,4,'Pendulum',5.2,[['clock_line','pulse_ring'],['clock_line','rail_cross','pulse_ring']]),
+                ('armillary','armillary',12000,5,'',5.8,[['furnace_lane'],['hatch','core_shield','extract'],['pulse_ring','core_cross','clock_line']])]
     for i,(identity,layout,hp,armor,movement,pressure,sets) in enumerate(identities):
         f=data['floors'][i+5];b=data['bosses'][i+5];n=i+6
         b.update(nameKey='p3.boss.'+identity,archetype=identity,presentation=identity,movement=movement,hp=hp,armor=armor,ambientPressure=pressure,placeholder=False,weaknessElement='Ice' if i in (0,3,4) else 'Fire',deathMechanic='None')

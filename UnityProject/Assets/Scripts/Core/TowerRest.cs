@@ -21,6 +21,7 @@ namespace Ember.Core.Phase2
             CloseTelemetry(g,true);
             g.phase=Phase.Rest;g.phaseClock=0;g.boss.visible.telegraph=false;State.floorsCleared++;
             var f=Data.Floor(g.floor);g.restId=f.restPool[State.world.Pick(f.restPool.Length)];
+            if(!string.IsNullOrEmpty(f.deathKey))State.world.Say(-1,Loc.Token(f.deathKey),"boss");
             State.world.Say(-1,Loc.Token("p2.event.victory",Loc.Token(Data.Boss(g.boss.definition).nameKey),g.id),"run");
             foreach(var a in State.Members(g).Where(a=>a.alive))
             {
@@ -32,9 +33,9 @@ namespace Ember.Core.Phase2
                 foreach(string tableId in f.lootTables)
                 {
                     var table=Array.Find(Data.loot,l=>l.id==tableId);a.materials+=table.materials;
-                    for(int i=0;i<table.rolls;i++){var item=a.Make(table.items[State.world.Pick(table.items.Length)]);Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);Measure(a,"loot");}
+                    for(int i=0;i<table.rolls;i++){var item=a.Make(!string.IsNullOrEmpty(table.affix)&&i==0?Catalog.Class(a.profession).weapon:table.items[State.world.Pick(table.items.Length)],!string.IsNullOrEmpty(table.affix)?1.15f:1);item.affix=table.affix??"";Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);Measure(a,"loot",1,item.id+":"+item.affix);}
                 }
-                while(g.claimedLoot.Count>32)g.claimedLoot.RemoveAt(0);Adapter.ResolveInventory(a);
+                while(g.claimedLoot.Count>32)g.claimedLoot.RemoveAt(0);Adapter.ResolveInventory(a);ResolveLoadout(a);
                 a.x=-8;a.z=-3+a.id*2;a.escaped=false;a.readBook=false;a.intent=new Intent();a.taskTimer=0;a.task="";
                 var plan=State.Plan(a.id);plan.workLeft=0;plan.site="";plan.visited.Clear();plan.nextDecision=0;
                 State.Memory(a.id).Add(new Knowledge{key="victory:"+g.floor,text=Loc.Token("p2.memory.victory",g.floor),scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=.8f});
@@ -76,14 +77,14 @@ namespace Ember.Core.Phase2
         }
         public void CompleteSite(Agent a,GroupState g,RestSite site)
         {
-            if(site==null)return;Measure(a,"rest");if(site.effect=="Craft")Measure(a,"craft");
+            if(site==null)return;Measure(a,"rest",1,site.id);if(site.effect=="Craft")Measure(a,"craft");
             switch(site.effect)
             {
                 case "Heal":a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.35f);a.mp=Mathf.Min(a.MaxMp,a.mp+35);break;
                 case "Cleanse":g.boss.statuses.RemoveAll(s=>s.agent==a.id);a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.3f);break;
                 case "Bless":a.guard=Mathf.Max(a.guard,site.reward);break;
                 case "Craft":
-                    var recipe=Catalog.Recipe("forge"+(int)a.profession);var item=a.Make(recipe.item,recipe.quality+.25f+a.stats.wis*.01f,a.equipped.FirstOrDefault()??"");
+                    var recipe=Catalog.Recipe("forge"+(int)a.profession);var item=a.Make(recipe.item,recipe.quality+.25f+a.stats.wis*.01f,a.equipped.FirstOrDefault()??"");item.affix="Custom";
                     Adapter.AddItem(a,a.weapon);a.weapon=item;State.world.Say(a.id,Loc.Token("event.craft_done",Loc.Ref("item",item.id),Loc.Ref("skill",item.infusion),item.quality.ToString("F2")),"craft");break;
                 case "Intel":
                     int next=Math.Min(25,g.floor+1);State.Memory(a.id).Add(new Knowledge{key="intel:"+next,text=Loc.Token("p2.memory.intel",next),scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=site.reward,importance=.8f});
@@ -95,6 +96,7 @@ namespace Ember.Core.Phase2
                 case "Materials":a.materials+=(int)site.reward;break;
             }
             if(site.risk>0&&State.world.Roll()<site.risk)Hurt(a,14+g.floor*.3f,Loc.Token("p2.cause.resource"));
+            ResolveLoadout(a);
             State.world.Say(a.id,Loc.Token("p2.event.work_done",Loc.Token(site.nameKey)),"rest");
         }
         void UpdateDepartures(GroupState g)
@@ -103,7 +105,7 @@ namespace Ember.Core.Phase2
             if(alive.All(a=>a.escaped)){g.travelLeft=1.5f;return;}
             // Those who chose to leave can advance while other Agents continue spending the refuge budget.
             var departed=alive.Where(a=>a.escaped).Select(a=>a.id).ToList();
-            if(departed.Count>0&&departed.Count<g.members.Count)
+            if(departed.Count>0&&departed.Count<g.members.Count&&g.phaseClock>=Data.Rest(g.restId).collapseAfter-3)
             {var branch=Split(g.id,departed);if(branch!=null)branch.travelLeft=1.5f;}
         }
         void Move(Agent a,float x,float z,float dt,float multiplier=1)

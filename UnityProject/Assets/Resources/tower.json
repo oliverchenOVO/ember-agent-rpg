@@ -192,14 +192,14 @@
       "intelKey": "p3.intel.stoker",
       "lootIdentity": "Scorch",
       "difficulty": {
-        "effectiveHp": 1674.0,
+        "effectiveHp": 6820.0,
         "incomingDamage": 36.0,
         "attackFrequency": 0.23931623931623927,
         "aoePressure": 0.3,
         "positioningPressure": 0.3,
         "reactionWindow": 1,
         "mechanicComplexity": 2,
-        "resourceAttrition": 0.28,
+        "resourceAttrition": 4,
         "buildDependency": 0.2,
         "coordinationDependency": 0.2
       }
@@ -240,14 +240,14 @@
       "intelKey": "p3.intel.railjudge",
       "lootIdentity": "Mobility",
       "difficulty": {
-        "effectiveHp": 1920.0,
+        "effectiveHp": 8320.0,
         "incomingDamage": 44.666666666666664,
         "attackFrequency": 0.2794117647058824,
         "aoePressure": 0.45,
         "positioningPressure": 0.7,
         "reactionWindow": 1.65,
         "mechanicComplexity": 2,
-        "resourceAttrition": 0.32,
+        "resourceAttrition": 4.4,
         "buildDependency": 0.3,
         "coordinationDependency": 0.4
       }
@@ -288,14 +288,14 @@
       "intelKey": "p3.intel.weavemother",
       "lootIdentity": "Recovery",
       "difficulty": {
-        "effectiveHp": 2244.0,
+        "effectiveHp": 9900.0,
         "incomingDamage": 12.0,
         "attackFrequency": 0.20161616161616164,
         "aoePressure": 0.35,
         "positioningPressure": 0.45,
         "reactionWindow": 1.6,
         "mechanicComplexity": 3,
-        "resourceAttrition": 0.42,
+        "resourceAttrition": 4.8,
         "buildDependency": 0.6,
         "coordinationDependency": 0.7
       }
@@ -336,14 +336,14 @@
       "intelKey": "p3.intel.metronome",
       "lootIdentity": "Break",
       "difficulty": {
-        "effectiveHp": 2376.0,
+        "effectiveHp": 11220.0,
         "incomingDamage": 38.0,
         "attackFrequency": 0.3667701863354037,
         "aoePressure": 0.65,
         "positioningPressure": 0.8,
         "reactionWindow": 1.35,
         "mechanicComplexity": 3,
-        "resourceAttrition": 0.5,
+        "resourceAttrition": 5.2,
         "buildDependency": 0.55,
         "coordinationDependency": 0.55
       }
@@ -384,14 +384,14 @@
       "intelKey": "p3.intel.armillary",
       "lootIdentity": "Astral",
       "difficulty": {
-        "effectiveHp": 3290.0,
+        "effectiveHp": 16800.0,
         "incomingDamage": 29.714285714285715,
         "attackFrequency": 0.27018626645955834,
         "aoePressure": 0.8,
         "positioningPressure": 0.85,
         "reactionWindow": 1.35,
         "mechanicComplexity": 7,
-        "resourceAttrition": 0.6,
+        "resourceAttrition": 5.8,
         "buildDependency": 0.7,
         "coordinationDependency": 0.8
       }
@@ -867,7 +867,7 @@
       "id": "rootcrown",
       "nameKey": "p2.boss.rootcrown",
       "archetype": "guardian",
-      "hp": 468,
+      "hp": 900,
       "armor": 1.12,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -877,7 +877,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -890,7 +890,7 @@
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
           "afterSeconds": 55,
-          "enrageAfter": 85,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -906,7 +906,7 @@
       "id": "thornweaver",
       "nameKey": "p2.boss.thornweaver",
       "archetype": "caster",
-      "hp": 506,
+      "hp": 1300,
       "armor": 1.24,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -916,7 +916,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -930,7 +930,7 @@
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
           "afterSeconds": 55,
-          "enrageAfter": 85,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -947,7 +947,7 @@
       "id": "moonfang",
       "nameKey": "p2.boss.moonfang",
       "archetype": "charger",
-      "hp": 544,
+      "hp": 1800,
       "armor": 1.3599999999999999,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -957,7 +957,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -970,7 +970,7 @@
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
           "afterSeconds": 55,
-          "enrageAfter": 85,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -986,7 +986,7 @@
       "id": "mirecoil",
       "nameKey": "p2.boss.mirecoil",
       "archetype": "summoner",
-      "hp": 582,
+      "hp": 2400,
       "armor": 1.48,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -996,7 +996,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1010,7 +1010,7 @@
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
           "afterSeconds": 55,
-          "enrageAfter": 85,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1027,7 +1027,7 @@
       "id": "heartwood",
       "nameKey": "p2.boss.heartwood",
       "archetype": "environment",
-      "hp": 620,
+      "hp": 3200,
       "armor": 1.6,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1037,7 +1037,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 130,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1051,7 +1051,7 @@
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
           "afterSeconds": 55,
-          "enrageAfter": 85,
+          "enrageAfter": 130,
           "dpsDeadline": 75,
           "requiredDamage": 0.2,
           "abilities": [
@@ -1069,7 +1069,7 @@
       "id": "frostplate",
       "nameKey": "p3.boss.stoker",
       "archetype": "stoker",
-      "hp": 1350,
+      "hp": 5500,
       "armor": 3,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1106,13 +1106,13 @@
       "placeholder": false,
       "presentation": "stoker",
       "movement": "",
-      "ambientPressure": 0.28
+      "ambientPressure": 4
     },
     {
       "id": "snowmirror",
       "nameKey": "p3.boss.railjudge",
       "archetype": "railjudge",
-      "hp": 1500,
+      "hp": 6500,
       "armor": 3.5,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1149,13 +1149,13 @@
       "placeholder": false,
       "presentation": "railjudge",
       "movement": "Rail",
-      "ambientPressure": 0.32
+      "ambientPressure": 4.4
     },
     {
       "id": "tidewhale",
       "nameKey": "p3.boss.weavemother",
       "archetype": "weavemother",
-      "hp": 1700,
+      "hp": 7500,
       "armor": 4,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1194,13 +1194,13 @@
       "placeholder": false,
       "presentation": "weavemother",
       "movement": "",
-      "ambientPressure": 0.42
+      "ambientPressure": 4.8
     },
     {
       "id": "zeroform",
       "nameKey": "p3.boss.metronome",
       "archetype": "metronome",
-      "hp": 1800,
+      "hp": 8500,
       "armor": 4,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1239,13 +1239,13 @@
       "placeholder": false,
       "presentation": "metronome",
       "movement": "Pendulum",
-      "ambientPressure": 0.5
+      "ambientPressure": 5.2
     },
     {
       "id": "whitewing",
       "nameKey": "p3.boss.armillary",
       "archetype": "armillary",
-      "hp": 2350,
+      "hp": 12000,
       "armor": 5,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1298,13 +1298,13 @@
       "placeholder": false,
       "presentation": "armillary",
       "movement": "",
-      "ambientPressure": 0.6
+      "ambientPressure": 5.8
     },
     {
       "id": "headless",
       "nameKey": "p2.boss.headless",
       "archetype": "guardian",
-      "hp": 848,
+      "hp": 9500,
       "armor": 2.32,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1314,7 +1314,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1326,8 +1326,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1337,13 +1337,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 1.3
     },
     {
       "id": "grimoire",
       "nameKey": "p2.boss.grimoire",
       "archetype": "caster",
-      "hp": 886,
+      "hp": 11000,
       "armor": 2.44,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1353,7 +1354,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1366,8 +1367,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1378,13 +1379,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 1.4300000000000002
     },
     {
       "id": "clockwork",
       "nameKey": "p2.boss.clockwork",
       "archetype": "charger",
-      "hp": 924,
+      "hp": 12500,
       "armor": 2.56,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1394,7 +1396,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1406,8 +1408,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1417,13 +1419,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 1.56
     },
     {
       "id": "falsesaint",
       "nameKey": "p2.boss.falsesaint",
       "archetype": "summoner",
-      "hp": 962,
+      "hp": 14500,
       "armor": 2.6799999999999997,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1433,7 +1436,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1446,8 +1449,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1458,13 +1461,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 1.69
     },
     {
       "id": "starfall",
       "nameKey": "p2.boss.starfall",
       "archetype": "environment",
-      "hp": 1000,
+      "hp": 18000,
       "armor": 2.8,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1474,7 +1478,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1487,8 +1491,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 75,
           "requiredDamage": 0.2,
           "abilities": [
@@ -1500,13 +1504,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 1.82
     },
     {
       "id": "lavabeast",
       "nameKey": "p2.boss.lavabeast",
       "archetype": "guardian",
-      "hp": 1038,
+      "hp": 16000,
       "armor": 2.92,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1516,7 +1521,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1528,8 +1533,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1539,13 +1544,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 1.9500000000000002
     },
     {
       "id": "riftfiend",
       "nameKey": "p2.boss.riftfiend",
       "archetype": "caster",
-      "hp": 1076,
+      "hp": 18500,
       "armor": 3.04,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1555,7 +1561,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1568,8 +1574,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1580,13 +1586,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.08
     },
     {
       "id": "chimera",
       "nameKey": "p2.boss.chimera",
       "archetype": "charger",
-      "hp": 1114,
+      "hp": 21000,
       "armor": 3.16,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1596,7 +1603,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1608,8 +1615,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1619,13 +1626,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.21
     },
     {
       "id": "souleater",
       "nameKey": "p2.boss.souleater",
       "archetype": "summoner",
-      "hp": 1152,
+      "hp": 23500,
       "armor": 3.28,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1635,7 +1643,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1648,8 +1656,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1660,13 +1668,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.34
     },
     {
       "id": "hellgate",
       "nameKey": "p2.boss.hellgate",
       "archetype": "environment",
-      "hp": 1190,
+      "hp": 27000,
       "armor": 3.4,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1676,7 +1685,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1689,8 +1698,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 75,
           "requiredDamage": 0.2,
           "abilities": [
@@ -1702,13 +1711,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.4699999999999998
     },
     {
       "id": "ashheart",
       "nameKey": "p2.boss.ashheart",
       "archetype": "guardian",
-      "hp": 1228,
+      "hp": 28000,
       "armor": 3.52,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1718,7 +1728,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1730,8 +1740,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1741,13 +1751,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.6
     },
     {
       "id": "stilldragon",
       "nameKey": "p2.boss.stilldragon",
       "archetype": "caster",
-      "hp": 1266,
+      "hp": 31000,
       "armor": 3.6399999999999997,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
@@ -1757,7 +1768,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1770,8 +1781,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1782,13 +1793,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.7300000000000004
     },
     {
       "id": "voidking",
       "nameKey": "p2.boss.voidking",
       "archetype": "charger",
-      "hp": 1304,
+      "hp": 34000,
       "armor": 3.76,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1798,7 +1810,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1810,8 +1822,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1821,13 +1833,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.8600000000000003
     },
     {
       "id": "endchimera",
       "nameKey": "p2.boss.endchimera",
       "archetype": "summoner",
-      "hp": 1342,
+      "hp": 37000,
       "armor": 3.88,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1837,7 +1850,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1850,8 +1863,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1862,13 +1875,14 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 2.99
     },
     {
       "id": "witness",
       "nameKey": "p2.boss.witness",
       "archetype": "environment",
-      "hp": 1380,
+      "hp": 44000,
       "armor": 4.0,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
@@ -1878,7 +1892,7 @@
           "nameKey": "p2.phase.opening",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 150,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
@@ -1891,8 +1905,8 @@
         {
           "nameKey": "p2.phase.intense",
           "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "afterSeconds": 0,
+          "enrageAfter": 150,
           "dpsDeadline": 75,
           "requiredDamage": 0.2,
           "abilities": [
@@ -1904,7 +1918,8 @@
           "weakness": 0.35
         }
       ],
-      "placeholder": true
+      "placeholder": true,
+      "ambientPressure": 3.12
     }
   ],
   "abilities": [

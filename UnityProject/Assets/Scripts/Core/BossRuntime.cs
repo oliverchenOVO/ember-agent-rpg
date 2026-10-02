@@ -27,9 +27,11 @@ namespace Ember.Core.Phase2
                 if(b.hp/b.maxHp<=next.hpBelow||(next.afterSeconds>0&&elapsed>=next.afterSeconds))
                 {phase++;phaseTime=0;phaseStartHp=b.hp;transitioned=true;b.telegraph=false;b.timer=1;events.Say(-1,Loc.Token("p2.event.phase",Loc.Token(def.nameKey),Loc.Token(next.nameKey)),"boss");}
             }
-            var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter||phase>0;
+            var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter;
             if(p.dpsDeadline>0&&phaseTime>=p.dpsDeadline&&phaseStartHp-b.hp<b.maxHp*p.requiredDamage){b.enraged=true;shield=0;}
             if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)hurt(a,def.ambientPressure*dt*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"));
+            // Enrage escalation prevents indefinitely sustainable recovery-only strategies.
+            if(elapsed>240)foreach(var a in members)if(a.alive&&!a.escaped)hurt(a,a.MaxHp*dt*(elapsed-240)*.015f,Loc.Token("p3.cause.enrage"));
             for(int i=statuses.Count-1;i>=0;i--)
             {
                 var s=statuses[i];s.left-=dt;var a=members.Find(v=>v.id==s.agent);
