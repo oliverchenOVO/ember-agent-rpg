@@ -12,7 +12,8 @@ Editor：產生場景、執行驗證、Windows BuildPipeline。Resources/catalog
 採 Built-in render pipeline，避免無需使用的套件與網路依賴。使用 PBR 材質、霧、陰影、程序化幾何與光效。
 ## 品質與限制
 先證明單 Boss + 休息探索 + 周目結算迴圈；不宣稱完成 25 層或最終美術。
-無外部 LLM 呼叫、憑證或費用。IBrain 提供可替換介面；LLM 未實作。
+第一階段 IBrain / UtilityBrain 與無外部呼叫模式保留。Phase 2 的 IAgentReasoner / RuleBasedReasoner / LLMReasoner 以高階快照與結構化回覆為邊界，optional gateway 使用環境設定，預設無網路呼叫與费用。
 JsonUtility schema v1 存檔含 RNG 狀態、角色、關係、技能、庫存、事件、周目歷史；原子替換與備份。
 發佈存檔位於 Application.persistentDataPath，與專案檔案分離。
+Phase 2 TowerSimulation / ExpeditionState / GroupState 使用独立 schema-2 存檔；多隊各自更新 Boss/休息/樓層，觀察 World 是投影。schema-1 原檔保留並明確匯入 1F。完整架構與資料內容限制見 PHASE2_ARCHITECTURE.md、PHASE2_CONTENT_PIPELINE.md。
 參考：https://docs.unity.com/en-us/engine/6000.0/manual/unity-editor/command-line-arguments/editor

@@ -1,6 +1,6 @@
 # 玩家可見文字盤點 / zh-TW 字串表
 
-共 169 個語意鍵。英文與繁中各一份；保留全部技術識別字。
+共 313 個語意鍵。英文與繁中各一份；保留全部技術識別字。
 
 搜尋範圍：Assets 全部 C#、JSON、Unity Scene、ProjectSettings，以及會再產生內容的 Tools/write_catalog.py。
 可見來源：WitnessGame UI 與列舉顯示、PlayerWindow 視窗標題、UtilityBrain 意圖、Simulation 系統/對話/遺言、catalog 技能與物品名、舊存檔。
@@ -178,3 +178,147 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 | `item.book2` | Arcane codex | 秘法技能書 |
 | `item.book3` | Prayer codex | 祈禱技能書 |
 | `boss.rootcrown` | THE ROOTCROWN | 根冠之主 |
+| `p2.groups` | Expeditions | 遠征分隊 |
+| `p2.group_row` | Group {0} · F{1} · {2} | 第 {0} 隊 · {1} 樓 · {2} |
+| `p2.goal` | Goal: {0} | 目前目標：{0} |
+| `p2.membership` | Group {0} / F{1} | 第 {0} 隊 / {1} 樓 |
+| `p2.intel` | Boss intel: {0} | Boss 情報：{0} |
+| `p2.intel_unknown` | Not studied yet | 尚未研究 |
+| `p2.memory` | {0}: {1} | {0}：{1} |
+| `p2.details` | Agent insight | Agent 觀察 |
+| `p2.split_status` | {0} groups · {1} splits · {2} reunions | {0} 支分隊 · {1} 次分隊 · {2} 次會合 |
+| `p2.debug` | Reasoner debug | 推理除錯 |
+| `p2.provider` | Provider: {0} · revision {1} | 推理來源：{0} · 決策 {1} |
+| `p2.rule` | Local rules | 本機規則 |
+| `p2.fallback` | Local fallback | 本機備援 |
+| `p2.llm` | LLM | LLM |
+| `p2.boss_state` | {0} / Adds {1} / Interrupts {2} | {0} / 召喚物 {1} / 打斷 {2} |
+| `p2.status` | Status: {0} | 狀態：{0} |
+| `p2.none` | None | 無 |
+| `p2.group_battle` | Combat | 戰鬥中 |
+| `p2.group_rest` | Refuge | 休息探索 |
+| `p2.group_travel` | Travelling | 前往下一層 |
+| `p2.group_complete` | Completed | 已完成 |
+| `p2.group_dead` | Fallen | 已全滅 |
+| `p2.observation` | Observe a witness to follow their group. | 選擇見證者，即可觀看所屬分隊。 |
+| `p2.footer` | AUTONOMOUS LIVES. TWENTY-FIVE FLOORS. | 自主生命，二十五層見證。 |
+| `p2.event.split` | Group {0} splits; group {1} continues independently. | 第 {0} 隊分裂，第 {1} 隊將獨自前進。 |
+| `p2.event.rejoin` | Group {0} meets its companions again. | 第 {0} 隊與同伴再次會合。 |
+| `p2.event.goal` | My current goal is {0}. | 我目前的目標是{0}。 |
+| `p2.event.victory` | We defeated {0}. Group {1} enters the refuge. | 我們擊敗了{0}，第 {1} 隊進入避難層。 |
+| `p2.event.phase` | {0}: {1}. | {0}：{1}。 |
+| `p2.event.telegraph` | {0} prepares {1}. | {0}正在準備{1}。 |
+| `p2.event.floor` | Group {0} enters F{1}: {2}. | 第 {0} 隊進入 {1} 樓：{2}。 |
+| `p2.event.work` | I will spend time at {0}. | 我準備在{0}花些時間。 |
+| `p2.event.work_done` | I finished at {0}. | 我完成了{0}的工作。 |
+| `p2.event.clear` | The twenty-five floors have been witnessed. | 二十五層的旅程，已被見證。 |
+| `p2.event.group_clear` | Group {0} reached the tower summit. | 第 {0} 隊抵達了塔頂。 |
+| `p2.cause.status` | {0} | {0} |
+| `p2.cause.ability` | {0} | {0} |
+| `p2.cause.adds` | summoned creatures | 召喚生物 |
+| `p2.cause.hazard` | arena hazard | 競技場危險區域 |
+| `p2.cause.final_pulse` | the final pulse | 臨終衝擊 |
+| `p2.cause.resource` | a dangerous resource room | 危險資源室 |
+| `p2.memory.victory` | I survived floor {0}. | 我活著通過了第 {0} 層。 |
+| `p2.memory.intel` | I studied the threats on floor {0}. | 我研究了第 {0} 層的威脅。 |
+| `p2.memory.told` | {0} told me about floor {1}. | {0} 告訴我第 {1} 層的情報。 |
+| `p2.memory.clear` | I reached the summit in my own life. | 這是我的親身記憶：我抵達了塔頂。 |
+| `p2.phase.opening` | First phase | 第一階段 |
+| `p2.phase.intense` | Second phase / Enraged | 第二階段 / 狂暴 |
+| `p2.goal.Fight` | defeat the guardian | 擊敗守護者 |
+| `p2.goal.Support` | support my group | 支援隊友 |
+| `p2.goal.Recover` | recover strength | 恢復體力 |
+| `p2.goal.Forge` | improve my build | 改善配置 |
+| `p2.goal.Intel` | learn the next boss | 研究下一層的 Boss |
+| `p2.goal.ReadBook` | read the Book of the Dead | 閱讀死者之書 |
+| `p2.goal.Loot` | search for resources | 搜尋資源 |
+| `p2.goal.Exit` | leave before collapse | 在坍塌前撤離 |
+| `p2.goal.Rescue` | rescue a companion | 救援同伴 |
+| `p2.goal.LeaveParty` | continue independently | 離隊獨自前進 |
+| `p2.goal.Rejoin` | meet my companions | 與同伴會合 |
+| `p2.ability.slam` | Ground break | 裂地重擊 |
+| `p2.ability.bolt` | Frost volley | 寒霜連射 |
+| `p2.ability.charge` | Moonfang charge | 月牙衝鋒 |
+| `p2.ability.summon` | Call the forgotten | 召喚遺忘者 |
+| `p2.ability.storm` | Ember storm | 餘燼風暴 |
+| `p2.ability.drain` | Soul siphon | 靈魂汲取 |
+| `p2.ability.shield` | Mirror ward | 鏡面護盾 |
+| `p2.ability.survival` | Frozen sanctuary | 冰封試煉 |
+| `p2.ability.doom` | Witness of doom | 終末見證 |
+| `p2.site.bed` | bed | 床鋪 |
+| `p2.site.forge` | forge | 鍛造台 |
+| `p2.site.church` | church | 教堂 |
+| `p2.site.clinic` | clinic | 醫療站 |
+| `p2.site.library` | library | 圖書館 |
+| `p2.site.corpse` | fallen adventurer | 冒險者遺骸 |
+| `p2.site.cache` | hidden cache | 隱藏寶箱 |
+| `p2.site.resource` | dangerous resource room | 危險資源室 |
+| `p2.site.book` | Book of the Dead | 死者之書 |
+| `p2.status.Burn` | Burn | 燃燒 |
+| `p2.status.Slow` | Slow | 緩速 |
+| `p2.status.Stun` | Stun | 暈眩 |
+| `p2.status.Weaken` | Weaken | 虛弱 |
+| `p2.status.Doom` | Doom | 死亡倒數 |
+| `p2.source.OwnExperience` | My own experience | 親身經歷 |
+| `p2.source.BookOfDead` | Written in the Book of the Dead | 死者之書記載 |
+| `p2.source.ToldByAgent` | Told by a companion | 同伴轉述 |
+| `p2.relationship.Healed` | {0} healed me. | {0} 治療了我。 |
+| `p2.relationship.Rescued` | {0} protected me. | {0} 保護了我。 |
+| `p2.relationship.Abandoned` | {0} left me behind. | {0} 把我留在身後。 |
+| `p2.relationship.LootStolen` | {0} took my loot. | {0} 拿走了我的戰利品。 |
+| `p2.relationship.TacticSuccess` | Our strategy with {0} succeeded. | 我與 {0} 的戰術成功了。 |
+| `p2.relationship.TacticFailure` | Our strategy with {0} failed. | 我與 {0} 的戰術失敗了。 |
+| `p2.relationship.Conversation` | I talked with {0}. | 我與 {0} 交談過。 |
+| `p2.relationship.Death` | I witnessed {0} die. | 我目睹了 {0} 的死亡。 |
+| `p2.relationship.RiskyRescue` | {0} risked their life to save me. | {0} 冒著生命危險救了我。 |
+| `p2.relationship.Rejoined` | I met {0} again. | 我再次遇見了 {0}。 |
+| `p2.boss.rootcrown` | Rootcrown | 根冠之主 |
+| `p2.floor.1` | Rootcrown sanctuary | 根冠之主之境 |
+| `p2.boss.thornweaver` | Thornweaver | 荊棘蛛后 |
+| `p2.floor.2` | Thornweaver sanctuary | 荊棘蛛后之境 |
+| `p2.boss.moonfang` | Moonfang | 蝕月狼 |
+| `p2.floor.3` | Moonfang sanctuary | 蝕月狼之境 |
+| `p2.boss.mirecoil` | Mirecoil | 毒沼蛇 |
+| `p2.floor.4` | Mirecoil sanctuary | 毒沼蛇之境 |
+| `p2.boss.heartwood` | Heartwood | 千年樹心 |
+| `p2.floor.5` | Heartwood sanctuary | 千年樹心之境 |
+| `p2.boss.frostplate` | Frostplate | 霜甲巨人 |
+| `p2.floor.6` | Frostplate sanctuary | 霜甲巨人之境 |
+| `p2.boss.snowmirror` | Snowmirror | 鏡雪妖 |
+| `p2.floor.7` | Snowmirror sanctuary | 鏡雪妖之境 |
+| `p2.boss.tidewhale` | Tidewhale | 凍潮鯨 |
+| `p2.floor.8` | Tidewhale sanctuary | 凍潮鯨之境 |
+| `p2.boss.zeroform` | Zeroform | 零度構裝 |
+| `p2.floor.9` | Zeroform sanctuary | 零度構裝之境 |
+| `p2.boss.whitewing` | Whitewing | 白龍 |
+| `p2.floor.10` | Whitewing sanctuary | 白龍之境 |
+| `p2.boss.headless` | Headless | 無首騎士 |
+| `p2.floor.11` | Headless sanctuary | 無首騎士之境 |
+| `p2.boss.grimoire` | Grimoire | 亡書師 |
+| `p2.floor.12` | Grimoire sanctuary | 亡書師之境 |
+| `p2.boss.clockwork` | Clockwork | 鐘樓機械 |
+| `p2.floor.13` | Clockwork sanctuary | 鐘樓機械之境 |
+| `p2.boss.falsesaint` | FalseSaint | 偽聖祭司 |
+| `p2.floor.14` | FalseSaint sanctuary | 偽聖祭司之境 |
+| `p2.boss.starfall` | Starfall | 墜星君王 |
+| `p2.floor.15` | Starfall sanctuary | 墜星君王之境 |
+| `p2.boss.lavabeast` | Lavabeast | 熔岩獸 |
+| `p2.floor.16` | Lavabeast sanctuary | 熔岩獸之境 |
+| `p2.boss.riftfiend` | Riftfiend | 裂地魔 |
+| `p2.floor.17` | Riftfiend sanctuary | 裂地魔之境 |
+| `p2.boss.chimera` | Chimera | 奇美拉 |
+| `p2.floor.18` | Chimera sanctuary | 奇美拉之境 |
+| `p2.boss.souleater` | Souleater | 吞魂者 |
+| `p2.floor.19` | Souleater sanctuary | 吞魂者之境 |
+| `p2.boss.hellgate` | Hellgate | 地獄門 |
+| `p2.floor.20` | Hellgate sanctuary | 地獄門之境 |
+| `p2.boss.ashheart` | Ashheart | 灰燼樹心 |
+| `p2.floor.21` | Ashheart sanctuary | 灰燼樹心之境 |
+| `p2.boss.stilldragon` | Stilldragon | 靜止之龍 |
+| `p2.floor.22` | Stilldragon sanctuary | 靜止之龍之境 |
+| `p2.boss.voidking` | Voidking | 失墜君王 |
+| `p2.floor.23` | Voidking sanctuary | 失墜君王之境 |
+| `p2.boss.endchimera` | Endchimera | 終末奇美拉 |
+| `p2.floor.24` | Endchimera sanctuary | 終末奇美拉之境 |
+| `p2.boss.witness` | Witness | 記錄者 |
+| `p2.floor.25` | Witness sanctuary | 記錄者之境 |
