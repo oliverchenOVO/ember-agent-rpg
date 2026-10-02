@@ -14,6 +14,12 @@ namespace Ember.Editor
         public static void Build()
         {
             Phase2Validation.RunAll();
+            BuildPlayer(false);
+        }
+        public static void BuildDevelopment(){BuildPlayer(true);}
+        public static void BuildReleaseDiagnostics(){BuildPlayer(false);}
+        static void BuildPlayer(bool development)
+        {
             Directory.CreateDirectory("Assets/Scenes");var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             new GameObject("Witness / runtime bootstrap").AddComponent<WitnessGame>();EditorSceneManager.SaveScene(scene,"Assets/Scenes/Witness.unity");
             PlayerSettings.companyName="WitnessWorks";PlayerSettings.productName="Ember - The Witness Tower";
@@ -29,8 +35,9 @@ namespace Ember.Editor
             }
             settings.ApplyModifiedProperties();AssetDatabase.SaveAssets();
             EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene("Assets/Scenes/Witness.unity",true)};
-            string path=Path.GetFullPath("../Builds/Windows/Ember.exe");Directory.CreateDirectory(Path.GetDirectoryName(path));
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{"Assets/Scenes/Witness.unity"},locationPathName=path,target=BuildTarget.StandaloneWindows64,options=BuildOptions.None});
+            PlayerSettings.enableFrameTimingStats=true;
+            string path=Path.GetFullPath(development?"../Builds/Development/Ember.exe":"../Builds/Windows/Ember.exe");Directory.CreateDirectory(Path.GetDirectoryName(path));
+            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{"Assets/Scenes/Witness.unity"},locationPathName=path,target=BuildTarget.StandaloneWindows64,options=development?BuildOptions.Development:BuildOptions.None});
             if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Windows build failed: "+report.summary.result);
             Debug.Log("EMBER WINDOWS BUILD PASSED / "+path);
         }
