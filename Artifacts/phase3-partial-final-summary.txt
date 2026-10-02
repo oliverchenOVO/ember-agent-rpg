@@ -1,0 +1,4 @@
+Snapshot seeds=1200; planned=5000; encounters=23619; outcomes={'TowerClear': 611, 'Wipe': 589}
+5000-seed validation: INCOMPLETE. Snapshot excludes all seeds >1200.
+120-minute soak: INCOMPLETE. No new tests scheduled.
+Snapshot UTC=2026-10-02T17:47:46.371359+00:00

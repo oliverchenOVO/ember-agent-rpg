@@ -4,7 +4,7 @@
 
 ## 字串表與新增文案
 
-`UnityProject/Assets/Resources/Localization/zh-TW.json` 與 `en.json` 是獨立的執行期字串表，Phase 3 共 399 個語意鍵（Phase 2 的 313 鍵全部保留）（原切片 169 鍵全部保留）。`Core/Localization.cs` 的 `Loc.T` 讀取字串表、格式化參數及處理缺鍵；缺鍵會記入 `MissingKeys`，並回退至英文表。UI 不自行保存翻譯內容。
+`UnityProject/Assets/Resources/Localization/zh-TW.json` 與 `en.json` 是獨立的執行期字串表，Phase 3 共 399 個語意鍵，保留 Phase 2 的 313 鍵與原切片的 169 鍵。`Core/Localization.cs` 的 `Loc.T` 讀取字串表、格式化參數及處理缺鍵；缺鍵會記入 `MissingKeys`，並回退至英文表。UI 不自行保存翻譯內容。
 
 `Tools/write_localization.py` 集中維護中英對照，匯入 `Tools/phase2_strings.py` 與 `Tools/phase3_strings.py`，產生兩份表及 `Docs/LOCALIZATION_INVENTORY.md`。新增文案時增加穩定的語意鍵，再執行此工具；新增技能或物品也要補入對照，不要改動 catalog ID。盤點清單列出完整英文來源、中文與語意鍵，包含視窗標題、HUD、提示、按鈕、職業、行動、結局、技能、物品、Boss、休息層、Agent 意圖與對話、戰鬥紀錄、記憶和遺言，以及分隊、記憶來源與推理除錯文案。
 

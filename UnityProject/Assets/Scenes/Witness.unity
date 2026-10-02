@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &813019748
+--- !u!1 &531000084
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 813019750}
-  - component: {fileID: 813019749}
+  - component: {fileID: 531000086}
+  - component: {fileID: 531000085}
   m_Layer: 0
   m_Name: Witness / runtime bootstrap
   m_TagString: Untagged
@@ -136,25 +136,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &813019749
+--- !u!114 &531000085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813019748}
+  m_GameObject: {fileID: 531000084}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c916f753ddddd44381e5f10de4f5463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ember.Presentation.WitnessGame
---- !u!4 &813019750
+  profileAiMs: 0
+  profileSaveMs: 0
+  profileTelemetryMs: 0
+  profileMaintenances: 0
+--- !u!4 &531000086
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813019748}
+  m_GameObject: {fileID: 531000084}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -167,4 +171,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 813019750}
+  - {fileID: 531000086}

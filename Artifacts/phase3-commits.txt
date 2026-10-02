@@ -1,0 +1,17 @@
+88af6d6 docs: define phase 3 content direction
+628a11f feat: add simulation telemetry
+349301c feat: add floors 6 through 10 content
+c2511d9 feat: add theme b boss encounters
+74f04e4 feat: add theme b environment framework
+3876ef7 feat: deepen combat skill effects
+4633010 feat: expand skill infusion feedback
+1c0e166 feat: expand audio event system
+9b2445e balance: tune floors 1 through 10
+224eed4 fix: resolve jobtempalloc lifecycle
+e9f33d5 feat: improve spectator presentation
+7c97ee6 perf: instrument long running sessions
+cd32b41 fix: validate revival and preserve spatial skill effects
+3f441e3 feat: render bounded control zones and enable frame timing
+8550b6a test: add phase 3 regression coverage
+e55154b perf: report measured sessions and exclude shutdown samples
+efe9ad2 docs: prepare phase 3 evidence and project relocation

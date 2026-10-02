@@ -30,3 +30,7 @@
 ## 搬移後待補
 
 最後版本的 30 / 60 / 120 分鐘完整渲染長測、JobTempAlloc runtime 與退出檢查、逐幀 GC call stack、單機不與 Editor 回歸競爭的獨立 CPU/GPU 比較。先重跑既有命令，避免以 headless 模擬取代 rendering profile。
+
+## 短程修改前參考
+
+`before-pooling` 有 179 秒有效渲染；暖機後 frame p95 6.07 ms、CPU 3.41 ms、GPU 0.82 ms、GC 約 50.6 KB / sampled frame。它的樓層/情境與最後版本不同，不能用兩者 CPU 差值宣稱優化比例。退出曾有 OnGUI 對已清理 Camera 的例外，後續以停用遊戲更新再清理的退出流程處理；原始失敗 log 保留。後續應建立固定樓層、固定鏡頭與相同硬體負載的比較。
