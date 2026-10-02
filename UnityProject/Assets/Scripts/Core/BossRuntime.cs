@@ -18,7 +18,7 @@ namespace Ember.Core.Phase2
         {
             var def=data.Boss(definition);var b=visible;transitioned=false;elapsed+=dt;phaseTime+=dt;
             hitFlash=Mathf.Max(0,hitFlash-dt);weakFlash=Mathf.Max(0,weakFlash-dt);interruptFlash=Mathf.Max(0,interruptFlash-dt);blockedFlash=Mathf.Max(0,blockedFlash-dt);
-            bool rooted=effects.Exists(e=>e.kind=="Root"&&e.agent==-1);
+            bool rooted=effects.Exists(e=>e.kind=="Root"&&e.agent==-1&&(e.radius<=0||Simulation.Distance(e.x,e.z,x,z)<e.radius));
             if(!rooted&&!b.telegraph&&def.movement=="Rail")x=Mathf.Sin(elapsed*.45f)*5;
             if(!rooted&&!b.telegraph&&def.movement=="Pendulum"){x=Mathf.Sin(elapsed*.9f)*3;z=1+Mathf.Cos(elapsed*.9f)*2;}
             if(phase+1<def.phases.Length)
@@ -99,9 +99,9 @@ namespace Ember.Core.Phase2
                 if(a.interruptible&&visible.windup<=a.interruptWindow){visible.telegraph=false;visible.timer=a.interval;interrupts++;interruptFlash=.65f;}
             }
             // Summons have independent pressure and must be removed before damaging their owner.
-            if(adds>0){adds--;return 0;}
+            if(adds>0){if(amount>0)adds--;return 0;}
             if(survivalLeft>0){blockedFlash=.4f;return 0;}
-            amount=Simulation.Damage(amount,def.armor,shield);
+            amount=amount<1?Mathf.Max(0,amount)*100/(100+Mathf.Max(0,def.armor)*8)*(1-Mathf.Clamp(shield,0,.8f)):Simulation.Damage(amount,def.armor,shield);
             if(element==def.weaknessElement){amount*=1+p.weakness;weakFlash=.35f;}
             if(element==def.resistElement)amount*=1-p.resistance;
             float dealt=Mathf.Min(visible.hp,amount);visible.hp-=dealt;attacker.damage+=dealt;hitFlash=.2f;return dealt;

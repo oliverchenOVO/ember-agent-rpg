@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ember.Core.Phase2
 {
-    [Serializable] public class CombatEffect { public int agent,source;public string kind,element;public float left,power; }
+    [Serializable] public class CombatEffect { public int agent,source;public string kind,element;public float left,power,x,z,radius; }
     [Serializable] public class SkillPresentation { public int agent,target,serial;public string skill,origin,element;public float x,z;public bool infused; }
     public sealed partial class TowerSimulation
     {
@@ -16,7 +16,7 @@ namespace Ember.Core.Phase2
         CombatEffect Effect(BossRuntime b,int agent,string kind)=>b.effects.Find(e=>e.agent==agent&&e.kind==kind);
         void ApplyEffect(BossRuntime b,int agent,int source,string kind,float seconds,float power,string element="")
         {
-            var e=Effect(b,agent,kind);if(e==null){e=new CombatEffect{agent=agent,source=source,kind=kind};b.effects.Add(e);}e.left=Mathf.Max(e.left,seconds);e.power=Mathf.Max(e.power,power);e.element=element;
+            var e=Effect(b,agent,kind);if(e==null){e=new CombatEffect{agent=agent,source=source,kind=kind};b.effects.Add(e);}if(power>=e.power)e.source=source;e.left=Mathf.Max(e.left,seconds);e.power=Mathf.Max(e.power,power);e.element=element;if(kind=="Zone"||kind=="Root"){e.x=b.x;e.z=b.z;e.radius=3;}
         }
         void TickEffects(GroupState g,float dt)
         {
@@ -25,7 +25,7 @@ namespace Ember.Core.Phase2
             {
                 var e=b.effects[i];e.left-=dt;
                 var source=State.world.agents[e.source];
-                if(e.agent==-1&&(e.kind=="Poison"||e.kind=="Burn"||e.kind=="Zone"||e.kind=="Summon")&&b.visible.hp>0)Deal(source,g,e.power*dt,e.element,false);
+                if(e.agent==-1&&(e.kind=="Poison"||e.kind=="Burn"||e.kind=="Zone"||e.kind=="Summon")&&b.visible.hp>0&&(e.kind!="Zone"||e.radius<=0||Simulation.Distance(e.x,e.z,b.x,b.z)<e.radius))Deal(source,g,e.power*dt,e.element,false);
                 if(e.agent>=0&&e.kind=="Regen"){var a=State.world.agents[e.agent];if(a.alive&&!a.escaped)Heal(source,a,e.power*dt);}
                 if(e.left<=0)b.effects.RemoveAt(i);
             }
@@ -75,7 +75,7 @@ namespace Ember.Core.Phase2
         void SkillFeedback(Agent a,GroupState g,SkillDef s,int target,bool infused)
         {
             string origin=Catalog.Item(a.weapon.id).weapon;
-            var b=g.boss;b.skillPresentation=new SkillPresentation{agent=a.id,target=target,serial=b.skillPresentation.serial+1,skill=s.id,infused=infused,origin=origin,element=s.id=="holy"||s.effect=="Heal"?"Light":s.id=="frost"?"Ice":s.id=="fireball"||s.id=="meteor"||a.enchant>0?"Fire":"Physical",x=a.x,z=a.z};
+            var b=g.boss;b.skillPresentation=new SkillPresentation{agent=a.id,target=target,serial=b.skillPresentation.serial+1,skill=s.id,infused=infused,origin=origin,element=s.id=="holy"||s.effect=="Heal"?"Light":s.id=="frost"?"Ice":s.id=="fireball"||s.id=="meteor"||s.id=="enchant"||a.enchant>0?"Fire":"Physical",x=a.x,z=a.z};
         }
     }
 }

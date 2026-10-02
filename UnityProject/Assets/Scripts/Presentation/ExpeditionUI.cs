@@ -59,7 +59,8 @@ namespace Ember.Presentation
             else
             {
                 var m=tower.State.Memory(selected);var plan=tower.State.Plan(selected);
-                var statuses=tower.State.GroupOf(selected).boss.statuses.Where(s=>s.agent==selected).Select(s=>Loc.T("p2.status."+s.kind)).Distinct();
+                var selectedBoss=tower.State.GroupOf(selected).boss;
+                var statuses=selectedBoss.statuses.Where(s=>s.agent==selected).Select(s=>Loc.T("p2.status."+s.kind)).Concat(selectedBoss.effects.Where(e=>e.agent==selected).Select(e=>Loc.T("p3.status."+e.kind))).Distinct();
                 Text(46,714,1140,24,Loc.T("p2.goal",Loc.T("p2.goal."+plan.decision.intent))+" / "+Loc.T("p2.status",statuses.Any()?string.Join(" / ",statuses):Loc.T("p2.none")),label);
                 var g=tower.State.GroupOf(selected);var learned=m.entries.FirstOrDefault(e=>e.key=="intel:"+g.floor);
                 string intel=learned!=null?(string.IsNullOrEmpty(tower.Data.Floor(g.floor).intelKey)?string.Join(" / ",tower.Data.Boss(g.boss.definition).phases[g.boss.phase].abilities.Select(id=>Loc.T(tower.Data.Ability(id).nameKey))):Loc.T(tower.Data.Floor(g.floor).intelKey)):Loc.T("p2.intel_unknown");

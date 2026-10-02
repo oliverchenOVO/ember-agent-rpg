@@ -34,7 +34,7 @@ namespace Ember.Core.Phase2
         public float hp, armor; public PhaseDefinition[] phases; public bool placeholder;
         public string movement="",presentation="";public float ambientPressure;
     }
-    [Serializable] public class LootTable { public string id,affix; public string[] items; public int rolls, materials; }
+    [Serializable] public class LootTable { public string id,affix,infusion; public string[] items; public int rolls, materials; }
     [Serializable] public class RestSite { public string id, nameKey, effect; public float x,z,seconds,risk,reward; public int materialCost; }
     [Serializable] public class RestDefinition { public string id; public float collapseAfter, collapseSpeed; public RestSite[] sites; }
     [Serializable] public class EnvironmentProfile { public string id; public float r,g,b, fog; public string lighting,vfx,music,ambience; }

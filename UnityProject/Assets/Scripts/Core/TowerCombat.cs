@@ -58,7 +58,7 @@ namespace Ember.Core.Phase2
                     if(id=="revive"){var dead=State.Members(g).FirstOrDefault(v=>!v.alive&&!State.revivedAgents.Contains(v.id));if(dead!=null){a.intent=new Intent{kind=ActionKind.Skill,skill=id,target=dead.id};break;}}
                     if(id=="cleanse"){var afflicted=State.Members(g).FirstOrDefault(v=>v.alive&&b.statuses.Any(e=>e.agent==v.id));if(afflicted!=null){a.intent=new Intent{kind=ActionKind.Skill,skill=id,target=afflicted.id};break;}}
                 }
-                if(!string.IsNullOrEmpty(a.weapon.infusion)&&CanUseSkill(a,a.weapon.infusion,true)&&a.intent.kind==ActionKind.Attack)a.intent=new Intent{kind=ActionKind.Skill,skill=a.weapon.infusion,target=a.id};
+                if(!string.IsNullOrEmpty(a.weapon.infusion)&&CanUseSkill(a,a.weapon.infusion,true)&&a.intent.kind==ActionKind.Attack)a.intent=new Intent{kind=ActionKind.Skill,skill=a.weapon.infusion,target=Catalog.Skill(a.weapon.infusion).effect=="Heal"?a.id:-1};
                 if(plan.decision.intent=="Support"||plan.decision.intent=="Rescue")
                 {
                     var ally=State.Members(g).Where(v=>v.alive&&!v.escaped).OrderBy(v=>v.hp/v.MaxHp).FirstOrDefault();
@@ -76,7 +76,8 @@ namespace Ember.Core.Phase2
             {
                 var s=Catalog.Skill(a.intent.skill);var ally=s.effect=="Heal"?State.Members(g).FirstOrDefault(v=>v.id==a.intent.target&&(v.alive||s.id=="revive")):null;
                 float tx=ally?.x??b.x,tz=ally?.z??b.z;
-                if(s.range>0&&Simulation.Distance(a.x,a.z,tx,tz)>s.range)Move(a,tx,tz,dt,speed);
+                float range=s.id=="trap"?8:s.range;
+                if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)Move(a,tx,tz,dt,speed);
                 else Cast(a,g,s.id,a.intent.target,a.weapon.infusion==s.id);
             }
             else
@@ -99,8 +100,9 @@ namespace Ember.Core.Phase2
             if(State.GroupOf(a.id)!=g||g.phase!=Phase.Battle||!CanUseSkill(a,id,weapon))return false;
             var s=Catalog.Skill(id);var ally=State.Members(g).FirstOrDefault(v=>v.id==target&&(v.alive||id=="revive")&&!v.escaped);
             if(s.effect=="Heal"&&ally==null)return false;
+            if(id=="revive"&&!ally.alive&&State.revivedAgents.Contains(ally.id))return false;
             float tx=s.effect=="Heal"?ally.x:g.boss.x,tz=s.effect=="Heal"?ally.z:g.boss.z;
-            if(s.range>0&&Simulation.Distance(a.x,a.z,tx,tz)>s.range)return false;
+            float range=id=="trap"?8:s.range;if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)return false;
             Measure(a,"skill",1,id);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
             SkillFeedback(a,g,s,target,weapon);
             if(SpecialSkill(a,g,s,ally)){State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),s.effect=="Heal"?"heal":"skill");return true;}

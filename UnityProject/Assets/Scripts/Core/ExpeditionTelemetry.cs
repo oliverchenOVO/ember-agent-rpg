@@ -14,6 +14,7 @@ namespace Ember.Core.Phase2
         public uint seed;public int run,group,floor,deaths,potions,loot,crafts,splits,rejoins,restActions,collapses,survivors;
         public string boss,result="Active",finalResult="";public float start,clearTime,damage,damageTaken,healing,gearQuality;
         public List<UnitTelemetry> team=new List<UnitTelemetry>();public List<SkillCount> skills=new List<SkillCount>();
+        public List<SkillCount> lootItems=new List<SkillCount>(),restSites=new List<SkillCount>();
     }
     public sealed partial class TowerSimulation
     {
@@ -23,6 +24,7 @@ namespace Ember.Core.Phase2
             if(!TelemetryEnabled||g==null)return null;
             var row=State.telemetry.FindLast(r=>r.run==State.world.run&&r.group==g.id&&r.floor==g.floor);
             if(row!=null)return row;
+            if(g.phase!=Phase.Battle){return State.telemetry.FindLast(r=>r.run==State.world.run&&r.floor==g.floor&&r.team.Exists(u=>g.members.Contains(u.agent)));}
             row=new FloorTelemetry{seed=TelemetrySeed,run=State.world.run,group=g.id,floor=g.floor,boss=g.boss.definition,start=State.world.clock};
             foreach(var a in State.Members(g))if(a.alive)row.team.Add(new UnitTelemetry{agent=a.id,profession=a.profession.ToString(),weapon=a.weapon.id,quality=a.weapon.quality});
             State.telemetry.Add(row);return row;
@@ -38,9 +40,9 @@ namespace Ember.Core.Phase2
                 case "potion":r.potions++;if(u!=null)u.potions++;break;
                 case "death":r.deaths++;if(u!=null)u.deaths++;if(id.Contains("collapse"))r.collapses++;break;
                 case "skill":var s=r.skills.Find(v=>v.id==id);if(s==null){s=new SkillCount{id=id};r.skills.Add(s);}s.count++;break;
-                case "loot":r.loot+=(int)amount;break;
+                case "loot":r.loot+=(int)amount;var drop=r.lootItems.Find(v=>v.id==id);if(drop==null){drop=new SkillCount{id=id};r.lootItems.Add(drop);}drop.count+=(int)amount;break;
                 case "craft":r.crafts++;break;
-                case "rest":r.restActions++;break;
+                case "rest":r.restActions++;var site=r.restSites.Find(v=>v.id==id);if(site==null){site=new SkillCount{id=id};r.restSites.Add(site);}site.count++;break;
             }
         }
         void CloseTelemetry(GroupState g,bool clear)

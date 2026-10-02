@@ -2272,7 +2272,8 @@
       ],
       "rolls": 2,
       "materials": 3,
-      "affix": "Scorch"
+      "affix": "Scorch",
+      "infusion": "enchant"
     },
     {
       "id": "foundry_7",
@@ -2286,7 +2287,8 @@
       ],
       "rolls": 2,
       "materials": 3,
-      "affix": "Mobility"
+      "affix": "Mobility",
+      "infusion": ""
     },
     {
       "id": "foundry_8",
@@ -2300,7 +2302,8 @@
       ],
       "rolls": 2,
       "materials": 3,
-      "affix": "Recovery"
+      "affix": "Recovery",
+      "infusion": ""
     },
     {
       "id": "foundry_9",
@@ -2314,7 +2317,8 @@
       ],
       "rolls": 2,
       "materials": 3,
-      "affix": "Break"
+      "affix": "Break",
+      "infusion": ""
     },
     {
       "id": "foundry_10",
@@ -2328,7 +2332,8 @@
       ],
       "rolls": 2,
       "materials": 3,
-      "affix": "Astral"
+      "affix": "Astral",
+      "infusion": "holy"
     }
   ],
   "rests": [

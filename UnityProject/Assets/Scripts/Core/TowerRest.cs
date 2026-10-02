@@ -29,11 +29,11 @@ namespace Ember.Core.Phase2
                 for(int j=0;j<3;j++)a.stats.Add(RuleBasedReasoner.SelectAttribute(a,State.Profile(a.id)),1);
                 string skill=RuleBasedReasoner.SelectSkill(a,Catalog,State.Profile(a.id));if(skill!=null)Adapter.Unlock(a,skill);
                 // Keep only four active skills, choosing a strategy rather than growing slots.
-                if(a.unlocked.Count>4){var choice=a.unlocked.Select(id=>Catalog.Skill(id)).OrderByDescending(s=>s.effect=="Heal"?a.personality.empathy*80:s.power+(s.effect=="Guard"?State.Profile(a.id).caution*40:0)).Take(4).Select(s=>s.id).ToList();var attack=a.unlocked.FirstOrDefault(id=>Catalog.Skill(id).effect=="Damage");if(attack!=null&&!choice.Any(id=>Catalog.Skill(id).effect=="Damage")){choice[3]=attack;}a.equipped=choice;}
+                if(a.unlocked.Count>4){var choice=a.unlocked.Select(id=>Catalog.Skill(id)).OrderByDescending(s=>s.effect=="Heal"?a.personality.empathy*80:s.power+(s.effect=="Guard"?State.Profile(a.id).caution*40:0)).Take(4).Select(s=>s.id).ToList();var attack=a.unlocked.FirstOrDefault(id=>Catalog.Skill(id).effect=="Damage");if(attack!=null&&!choice.Any(id=>Catalog.Skill(id).effect=="Damage")){choice[3]=attack;}if(a.unlocked.Contains("revive")&&a.personality.empathy>.35f&&State.Members(g).Any(v=>!v.alive)&&!choice.Contains("revive")){int replace=choice.FindIndex(id=>id!="holy"&&id!="heal");if(replace>=0)choice[replace]="revive";}a.equipped=choice;}
                 foreach(string tableId in f.lootTables)
                 {
                     var table=Array.Find(Data.loot,l=>l.id==tableId);a.materials+=table.materials;
-                    for(int i=0;i<table.rolls;i++){var item=a.Make(!string.IsNullOrEmpty(table.affix)&&i==0?Catalog.Class(a.profession).weapon:table.items[State.world.Pick(table.items.Length)],!string.IsNullOrEmpty(table.affix)?1.15f:1);item.affix=table.affix??"";Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);Measure(a,"loot",1,item.id+":"+item.affix);}
+                    for(int i=0;i<table.rolls;i++){var item=a.Make(!string.IsNullOrEmpty(table.affix)&&i==0?Catalog.Class(a.profession).weapon:table.items[State.world.Pick(table.items.Length)],!string.IsNullOrEmpty(table.affix)?1.15f:1);item.affix=table.affix??"";if(Catalog.Item(item.id).kind=="Weapon")item.infusion=table.infusion??"";Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);Measure(a,"loot",1,item.id+":"+item.affix);}
                 }
                 while(g.claimedLoot.Count>32)g.claimedLoot.RemoveAt(0);Adapter.ResolveInventory(a);ResolveLoadout(a);
                 a.x=-8;a.z=-3+a.id*2;a.escaped=false;a.readBook=false;a.intent=new Intent();a.taskTimer=0;a.task="";
