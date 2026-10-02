@@ -7,12 +7,24 @@ def analyze(source, dest):
     floors=collections.defaultdict(list); classes=collections.defaultdict(lambda:[0,0,0]); skills=collections.Counter(); weapons=collections.defaultdict(lambda:[0,0])
     with source.open(encoding='utf-8-sig') as f:
         for line in f:
-            r=json.loads(line);floors[r['floor']].append(r)
+            r=json.loads(line)
+            # The first baseline instrument also opened bookkeeping rows for rest-only splits.
+            # No baseline agent died: non-Clear rows are these extra bookkeeping rows, not encounters.
+            if source.stem=='baseline' and r['result']!='Clear':continue
+            floors[r['floor']].append(r)
             for u in r['team']:
                 v=classes[u['profession']];v[0]+=u['damage'];v[1]+=u['healing'];v[2]+=1
                 v=weapons[u['weapon']];v[0]+=u['damage'];v[1]+=1
             skills.update({v['id']:v['count'] for v in r['skills']})
     dest.parent.mkdir(parents=True,exist_ok=True)
+    rawkeys=['run_id','seed','run','group','floor','clearTime','boss','team','deaths','damage','damageTaken','healing','potions','skills','loot','lootItems','crafts','splits','rejoins','restActions','restSites','collapses','result','finalResult']
+    with dest.with_name(dest.name+'-encounters.csv').open('w',encoding='utf-8-sig',newline='') as f:
+        w=csv.DictWriter(f,fieldnames=rawkeys);w.writeheader()
+        for rows in floors.values():
+            for r in rows:
+                row={k:r.get(k,'') for k in rawkeys};row['run_id']=str(r['seed'])+':'+str(r['run'])
+                for k in ['team','skills','lootItems','restSites']:row[k]=json.dumps(row[k],ensure_ascii=False)
+                w.writerow(row)
     keys=['floor','encounters','runs_reached','runs_cleared','run_clear_rate','encounter_clear_rate','average_clear_time','deaths','damage_taken','healing','potions','average_survivors','split_encounter_rate','average_gear_quality','crafts','rest_actions','collapses']
     summary=[]
     for floor,rows in sorted(floors.items()):
