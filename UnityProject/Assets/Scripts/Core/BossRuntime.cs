@@ -10,11 +10,17 @@ namespace Ember.Core.Phase2
         public string definition,ability=""; public BossState visible=new BossState();
         public int phase,casts,interrupts,adds,target=-1; public float elapsed,phaseTime,phaseStartHp,x,z=1,shield,survivalLeft,hazardLeft,hazardX,hazardZ;
         public bool transitioned,deathResolved; public List<StatusState> statuses=new List<StatusState>();
+        public CombatCue cue=new CombatCue();public float hitFlash,weakFlash,interruptFlash,blockedFlash;public int sequence;
+        public List<CombatEffect> effects=new List<CombatEffect>();public List<int> revived=new List<int>();public SkillPresentation skillPresentation=new SkillPresentation();
         public static BossRuntime Create(BossDefinition def)=>new BossRuntime{definition=def.id,visible=new BossState{hp=def.hp,maxHp=def.hp,timer=2},phaseStartHp=def.hp};
         public float Radius(TowerContent data)=>string.IsNullOrEmpty(ability)?3:data.Ability(ability).radius;
         public void Tick(TowerContent data,List<Agent> members,World events,float dt,Action<Agent,float,string> hurt)
         {
             var def=data.Boss(definition);var b=visible;transitioned=false;elapsed+=dt;phaseTime+=dt;
+            hitFlash=Mathf.Max(0,hitFlash-dt);weakFlash=Mathf.Max(0,weakFlash-dt);interruptFlash=Mathf.Max(0,interruptFlash-dt);blockedFlash=Mathf.Max(0,blockedFlash-dt);
+            bool rooted=effects.Exists(e=>e.kind=="Root"&&e.agent==-1);
+            if(!rooted&&!b.telegraph&&def.movement=="Rail")x=Mathf.Sin(elapsed*.45f)*5;
+            if(!rooted&&!b.telegraph&&def.movement=="Pendulum"){x=Mathf.Sin(elapsed*.9f)*3;z=1+Mathf.Cos(elapsed*.9f)*2;}
             if(phase+1<def.phases.Length)
             {
                 var next=def.phases[phase+1];
@@ -23,6 +29,7 @@ namespace Ember.Core.Phase2
             }
             var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter||phase>0;
             if(p.dpsDeadline>0&&phaseTime>=p.dpsDeadline&&phaseStartHp-b.hp<b.maxHp*p.requiredDamage){b.enraged=true;shield=0;}
+            if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)hurt(a,def.ambientPressure*dt*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"));
             for(int i=statuses.Count-1;i>=0;i--)
             {
                 var s=statuses[i];s.left-=dt;var a=members.Find(v=>v.id==s.agent);
@@ -39,7 +46,7 @@ namespace Ember.Core.Phase2
             var living=members.FindAll(a=>a.alive&&!a.escaped);if(living.Count==0)return;
             if(b.telegraph)
             {
-                b.windup-=dt;if(b.windup>0)return;
+                b.windup-=dt;cue.left=b.windup;if(b.windup>0)return;
                 var abilityDef=data.Ability(ability);b.telegraph=false;b.hits++;casts++;
                 Resolve(abilityDef,living,events,hurt);b.timer=abilityDef.interval*(b.enraged?.8f:1);return;
             }
@@ -53,6 +60,9 @@ namespace Ember.Core.Phase2
                 if(attack.target==TargetRule.HighestDamage&&a.damage>chosen.damage)chosen=a;
             }
             target=chosen.id;b.targetX=chosen.x;b.targetZ=chosen.z;b.windup=attack.windup;b.telegraph=true;
+            cue=new CombatCue{shape=attack.shape,x=b.targetX,z=b.targetZ,angle=(casts%2==0?0:Mathf.PI*.5f),radius=attack.radius,length=attack.length,innerRadius=attack.innerRadius,left=attack.windup,interruptible=attack.interruptible,element=attack.element};
+            if(attack.shape==CueShape.Cross||attack.shape==CueShape.Annulus){cue.x=x;cue.z=z;b.targetX=x;b.targetZ=z;}
+            sequence++;
             events.Say(-1,Loc.Token("p2.event.telegraph",Loc.Token(def.nameKey),Loc.Token(attack.nameKey)),"boss");
         }
         void Resolve(AbilityDefinition attack,List<Agent> living,World events,Action<Agent,float,string> hurt)
@@ -65,11 +75,14 @@ namespace Ember.Core.Phase2
             if(attack.mechanic==Mechanic.Storm){hazardLeft=attack.duration;hazardX=b.targetX;hazardZ=b.targetZ;}
             foreach(var a in living)
             {
-                float dist=Simulation.Distance(a.x,a.z,b.targetX,b.targetZ);
-                bool hits=dist<attack.radius;
+                bool hits=cue.Contains(a.x,a.z);
+                // Old saves/fixtures did not contain a cue. Their circle remains authoritative.
+                if(cue.radius<=0)hits=Simulation.Distance(a.x,a.z,b.targetX,b.targetZ)<attack.radius;
                 if(attack.mechanic==Mechanic.Drain)hits=a.id==target;
                 if(!hits)continue;
                 hurt(a,attack.damage*multiplier,Loc.Token("p2.cause.ability",Loc.Token(attack.nameKey)));
+                if(attack.push>0){var direction=new Vector2(a.x-x,a.z-z).normalized;if(direction==Vector2.zero)direction=Vector2.right;a.x=Mathf.Clamp(a.x+direction.x*attack.push,-9,9);a.z=Mathf.Clamp(a.z+direction.y*attack.push,-7.5f,7.5f);}
+                a.mp=Mathf.Max(0,a.mp-attack.resourceDrain);
                 if(attack.mechanic==Mechanic.Drain){a.mp=Mathf.Max(0,a.mp-10);b.hp=Mathf.Min(b.maxHp,b.hp+8);}
                 if(!string.IsNullOrEmpty(attack.status)&&a.alive)statuses.Add(new StatusState{agent=a.id,kind=attack.status,element=attack.element,left=attack.duration,power=2});
             }
@@ -81,15 +94,15 @@ namespace Ember.Core.Phase2
             if(canInterrupt&&visible.telegraph)
             {
                 var a=data.Ability(ability);
-                if(a.interruptible&&visible.windup<=a.interruptWindow){visible.telegraph=false;visible.timer=a.interval;interrupts++;}
+                if(a.interruptible&&visible.windup<=a.interruptWindow){visible.telegraph=false;visible.timer=a.interval;interrupts++;interruptFlash=.65f;}
             }
             // Summons have independent pressure and must be removed before damaging their owner.
             if(adds>0){adds--;return 0;}
-            if(survivalLeft>0)return 0;
+            if(survivalLeft>0){blockedFlash=.4f;return 0;}
             amount=Simulation.Damage(amount,def.armor,shield);
-            if(element==def.weaknessElement)amount*=1+p.weakness;
+            if(element==def.weaknessElement){amount*=1+p.weakness;weakFlash=.35f;}
             if(element==def.resistElement)amount*=1-p.resistance;
-            float dealt=Mathf.Min(visible.hp,amount);visible.hp-=dealt;attacker.damage+=dealt;return dealt;
+            float dealt=Mathf.Min(visible.hp,amount);visible.hp-=dealt;attacker.damage+=dealt;hitFlash=.2f;return dealt;
         }
         public void ResolveDeath(TowerContent data,List<Agent> members,Action<Agent,float,string> hurt)
         {
