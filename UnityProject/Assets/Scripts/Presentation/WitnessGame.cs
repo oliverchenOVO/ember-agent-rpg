@@ -18,6 +18,7 @@ namespace Ember.Presentation
         void Start()
         {
             var args=Environment.GetCommandLineArgs();int localeIndex=Array.IndexOf(args,"--locale");
+            int probe=Array.IndexOf(args,"--native-diag");if(probe>=0){gameObject.AddComponent<NativeAllocationProbe>().mode=args[probe+1];enabled=false;return;}
             Loc.SetLocale(localeIndex>=0&&localeIndex+1<args.Length?args[localeIndex+1]:PlayerPrefs.GetString("locale","zh-TW"));
             uiFont=Resources.Load<Font>("Fonts/NotoSansCJKtc-Regular");
             if(uiFont==null)throw new InvalidOperationException("Missing embedded CJK font");
@@ -40,6 +41,7 @@ namespace Ember.Presentation
             Invoke(nameof(LocalizeWindowTitle),.3f);
             if(qaEnabled){paused=true;qaNext=Time.realtimeSinceStartup+.5f;}
             if(towerQA){paused=true;qaEnabled=true;qaNext=Time.realtimeSinceStartup+.5f;}
+            StartProfile(args);
         }
         AudioClip Tone(float frequency,float duration)
         {
@@ -55,8 +57,10 @@ namespace Ember.Presentation
             if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;
             if(!paused)
             {
+                var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
                 accumulator+=Mathf.Min(Time.unscaledDeltaTime,.25f)*speed;
                 while(accumulator>=Simulation.StepSeconds){if(tower!=null)tower.Step();else simulation.Step();accumulator-=Simulation.StepSeconds;}
+                if(profile)profileAiMs=stepWatch.Elapsed.TotalMilliseconds;
             }
             if(tower!=null){simulation.Restore(tower.Observe(selected));view.SetExpedition(tower.Data,tower.State.GroupOf(selected));}
             var w=simulation.State;
@@ -66,29 +70,32 @@ namespace Ember.Presentation
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
             view.Update(w,Time.unscaledDeltaTime,orbit);noticeTimer-=Time.unscaledDeltaTime;
+            view.ShowInfusions(w,simulation.Catalog);
             if(towerSmoke)UpdateTowerSmoke();
+            UpdateAudio();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
             {
-                var msg=w.messages[w.messages.Count-1];lastSound=msg;if(msg.category=="skill")audioSource.PlayOneShot(strike);if(msg.category=="heal")audioSource.PlayOneShot(heal);
+                var msg=w.messages[w.messages.Count-1];lastSound=msg;
+                if(sound!=null){if(msg.category=="skill")sound.Play(AudioEvent.Spell);if(msg.category=="heal")sound.Play(AudioEvent.Heal);if(msg.category=="craft")sound.Play(AudioEvent.Craft);if(msg.category=="exit")sound.Play(AudioEvent.Loot);}
             }
             if(smoke)
             {
                 if(!shotBattle&&w.phase==Phase.Battle&&w.clock>=12){shotBattle=true;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"battle.png"));}
                 if(!shotRest&&w.phase==Phase.Rest&&w.phaseClock>=7){shotRest=true;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"refuge.png"));}
                 if(!shotEnd&&w.phase==Phase.Ended){shotEnd=true;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"end.png"));File.WriteAllText(Path.Combine(artifactPath,"player-run.json"),JsonUtility.ToJson(w,true));}
-                if(w.run>=2&&w.clock>=2) {Debug.Log("EMBER PLAYER SMOKE PASSED / run ended and restarted");Application.Quit(shotBattle&&shotRest&&shotEnd?0:2);}
-                if(Time.realtimeSinceStartup>150) {Debug.LogError("EMBER PLAYER SMOKE TIMEOUT");Application.Quit(3);}
+                if(w.run>=2&&w.clock>=2) {Debug.Log("EMBER PLAYER SMOKE PASSED / run ended and restarted");RequestQuit(shotBattle&&shotRest&&shotEnd?0:2);}
+                if(Time.realtimeSinceStartup>150) {Debug.LogError("EMBER PLAYER SMOKE TIMEOUT");RequestQuit(3);}
             }
             if(collapseSmoke)
             {
                 if(!shotRest&&Time.realtimeSinceStartup>1.5f){shotRest=true;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"collapse.png"));}
-                if(Time.realtimeSinceStartup>3){Debug.Log("EMBER COLLAPSE PRESENTATION CHECK COMPLETE");Application.Quit(0);}
+                if(Time.realtimeSinceStartup>3){Debug.Log("EMBER COLLAPSE PRESENTATION CHECK COMPLETE");RequestQuit(0);}
             }
         }
         void TrySave(){try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LocalizeWindowTitle(){PlayerWindow.LocalizeTitle();}
         void RefreshLanguage(){title=null;LocalizeWindowTitle();}
-        void OnDestroy(){Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();}
+        void OnDestroy(){Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
         void Notice(string text){notice=text;noticeTimer=5;}
         void Styles()
         {
@@ -111,7 +118,8 @@ namespace Ember.Presentation
         string TimeText(float seconds) => ((int)seconds/60).ToString("00")+":"+((int)seconds%60).ToString("00");
         void OnGUI()
         {
-            if(simulation==null)return;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
+            using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
+            if(simulation==null||!enabled)return;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
             var w=simulation.State;var a=w.agents[selected];
             Box(0,0,1600,86,new Color(.035f,.065f,.08f,.96f));Box(0,85,1600,1,new Color(.25f,.36f,.36f,.6f));
@@ -166,12 +174,13 @@ namespace Ember.Presentation
             Text(47,301,258,22,Loc.T("ui.traits2",Mathf.RoundToInt(a.personality.empathy*100),Mathf.RoundToInt(a.personality.greed*100)),small);
             Text(47,326,258,32,Loc.T("ui.intent",Loc.Action(a.intent.kind)),subtitle);
             Box(28,394,294,251,new Color(.035f,.062f,.075f,.89f));Text(47,412,258,22,Loc.T("ui.build",w.run),subtitle);
-            Text(47,442,258,25,Loc.Item(a.weapon.id),label);
+            Text(47,442,258,25,string.IsNullOrEmpty(a.weapon.affix)?Loc.Item(a.weapon.id):Loc.T("p3.affix",Loc.Item(a.weapon.id),Loc.T("p3.affix."+a.weapon.affix)),label);
             Text(47,468,258,52,Loc.T("ui.quality",a.weapon.quality.ToString("F2"),Loc.Skill(a.weapon.infusion)),small);
             Text(47,523,258,24,Loc.T("ui.stats",a.stats.str,a.stats.dex,a.stats.intel,a.stats.vit),small);
             Text(47,552,258,50,Loc.T("ui.skills",string.Join(" / ",a.equipped.ConvertAll(Loc.Skill))),small);
             Text(47,609,258,22,Loc.T("ui.resources",a.materials,a.inventory.Count,tower!=null?tower.State.Memory(a.id).entries.Count:a.memory.Count),small);
             Bottom(w);
+            DrawSkillTooltip(a);
             Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);
             if(Button(1350,843,222,Loc.T("ui.language"))){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");PlayerPrefs.SetString("locale",Loc.Locale);PlayerPrefs.Save();}
             if(noticeTimer>0){Box(450,830,750,33,new Color(.08f,.16f,.17f,.95f));Text(467,836,715,25,Loc.Render(notice),label);}

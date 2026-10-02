@@ -34,7 +34,7 @@ namespace Ember.Core
         public ClassDef Class(Profession p) => Array.Find(classes,c=>c.profession==p);
         public RecipeDef Recipe(string id) => Array.Find(recipes,r=>r.id==id);
     }
-    [Serializable] public class Item { public int uid; public string id, infusion=""; public float quality=1; public int upgrade; }
+    [Serializable] public class Item { public int uid; public string id, infusion="",affix=""; public float quality=1; public int upgrade; }
     [Serializable] public class Cooldown { public string id; public float left; }
     [Serializable] public class Intent { public ActionKind kind; public string skill="", reason=""; public int target=-1; public float score; }
     [Serializable] public class Agent
