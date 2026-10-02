@@ -21,7 +21,7 @@ namespace Ember.Core.Phase2
     [Serializable] public class AgentDecisionContext
     {
         public int run,agent,group,floor,revision; public Phase phase;
-        public float hp,mp,x,z,remaining,escapeSeconds,taskSeconds,fear,attachment,inventoryValue,bossHealth,intelConfidence;
+        public float hp,mp,x,z,remaining,escapeSeconds,taskSeconds,fear,attachment,inventoryValue,bossHealth,intelConfidence,bookConfidence;
         public int materials,inventoryCount; public bool readBook,canForge,canRejoin;
         public Personality personality; public PersonalityProfile profile;
         public string[] intel,memorySources,relationshipReasons,allowedSites; public int[] livingMembers;
@@ -54,13 +54,13 @@ namespace Ember.Core.Phase2
             else
             {
                 float urgency=Mathf.Clamp01(1-(c.remaining-c.escapeSeconds-3)/12);
-                Add(Goal.Exit,12+urgency*(90+q.caution*20-p.risk*12),"collapse_budget");
+                Add(Goal.Exit,12+urgency*(90+q.caution*20-p.risk*12+c.bookConfidence*8),"collapse_budget");
                 Add(Goal.Recover,(1-c.hp)*75+(1-c.mp)*22+q.caution*8-urgency*70,"recover","bed");
                 if(c.materials>0)Add(Goal.Support,12+p.empathy*14+q.caution*8-urgency*65,"bless_group","church");
                 if(c.canForge)Add(Goal.Forge,24+p.greed*10+q.strategic*15-c.inventoryValue*7-urgency*65,"plan_build","forge");
                 Add(Goal.Intel,16+p.curiosity*14+q.strategic*12-(c.intel.Length>0?24:0)-urgency*55,"learn_boss","library");
                 if(!c.readBook)Add(Goal.ReadBook,22+p.curiosity*17-urgency*60,"legacy_source","book");
-                Add(Goal.Loot,17+p.greed*17+p.curiosity*6-c.inventoryCount*.4f-urgency*(68-p.risk*15),"loot_value",p.greed>.7f?"resource":"cache");
+                Add(Goal.Loot,17+p.greed*17+p.curiosity*6-c.inventoryCount*.4f-c.bookConfidence*4-urgency*(68-p.risk*15),"loot_value",p.greed>.7f?"resource":"cache");
                 Add(Goal.Loot,13+p.greed*15-urgency*60,"fallen_adventurer","corpse");
                 Add(Goal.Rescue,c.fear*18+p.empathy*10+c.attachment*9-(1-c.hp)*20-urgency*30,"rescue_ally");
                 if(c.livingMembers.Length>1)Add(Goal.LeaveParty,4+(1-c.attachment)*15+c.fear*8+p.risk*10+q.confidence*7-p.loyalty*12-q.attachment*10-urgency*25,"independent_strategy");

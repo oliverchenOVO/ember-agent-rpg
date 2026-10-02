@@ -170,7 +170,7 @@ namespace Ember.Presentation
             Text(47,468,258,52,Loc.T("ui.quality",a.weapon.quality.ToString("F2"),Loc.Skill(a.weapon.infusion)),small);
             Text(47,523,258,24,Loc.T("ui.stats",a.stats.str,a.stats.dex,a.stats.intel,a.stats.vit),small);
             Text(47,552,258,50,Loc.T("ui.skills",string.Join(" / ",a.equipped.ConvertAll(Loc.Skill))),small);
-            Text(47,609,258,22,Loc.T("ui.resources",a.materials,a.inventory.Count,a.memory.Count),small);
+            Text(47,609,258,22,Loc.T("ui.resources",a.materials,a.inventory.Count,tower!=null?tower.State.Memory(a.id).entries.Count:a.memory.Count),small);
             Bottom(w);
             Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);
             if(Button(1350,843,222,Loc.T("ui.language"))){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");PlayerPrefs.SetString("locale",Loc.Locale);PlayerPrefs.Save();}

@@ -10,7 +10,7 @@ namespace Ember.Presentation
     public sealed partial class WitnessGame
     {
         TowerSimulation tower;HttpReasonerTransport llmTransport;bool towerSmoke,towerQA,reasonerDebug;
-        bool towerCaptured;int towerLastFloor;
+        bool towerCaptured,towerClear;int towerLastFloor,towerMaxFloor;
         readonly string[] towerCases={"guardian","caster","charger","summoner","environment","phase_transition","refuge","split","independent","memory","relationships","saved","loaded","book","history","final","english","ice","castle","abyss","terminal_forest","terminal_ice","terminal_castle","terminal_abyss","debug"};
         void StartExpedition(Catalog c,string[] args)
         {
@@ -71,11 +71,12 @@ namespace Ember.Presentation
         void UpdateTowerSmoke()
         {
             int floor=tower.State.groups.Max(g=>g.floor);
+            towerMaxFloor=Math.Max(towerMaxFloor,floor);
             if(floor!=towerLastFloor){towerLastFloor=floor;Debug.Log("EMBER EXPEDITION FLOOR / "+floor);}
             if(!shotBattle&&tower.State.world.clock>5){shotBattle=true;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"phase2-battle.png"));}
             if(!shotRest&&tower.State.groups.Any(g=>g.phase==Phase.Rest)){shotRest=true;tab=4;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"phase2-groups.png"));}
-            if(!shotEnd&&tower.State.world.phase==Phase.Ended){shotEnd=true;tab=2;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"phase2-end.png"));ExpeditionStore.Save(savePath,tower.State);}
-            if(tower.State.world.run>=2&&tower.State.world.clock>=2){Debug.Log("EMBER PHASE2 PLAYER SMOKE PASSED");Application.Quit(shotBattle&&shotRest&&shotEnd&&towerLastFloor==1?0:5);}
+            if(!shotEnd&&tower.State.world.phase==Phase.Ended){shotEnd=true;towerClear=tower.State.world.outcome==Outcome.TowerClear;tab=2;ScreenCapture.CaptureScreenshot(Path.Combine(artifactPath,"phase2-end.png"));ExpeditionStore.Save(savePath,tower.State);ExpeditionStore.Save(Path.Combine(artifactPath,"phase2-run.json"),tower.State);}
+            if(tower.State.world.run>=2&&tower.State.world.clock>=2){Debug.Log("EMBER PHASE2 PLAYER SMOKE / max floor "+towerMaxFloor+" / clear "+towerClear);Application.Quit(shotBattle&&shotRest&&shotEnd&&towerLastFloor==1&&towerMaxFloor==25&&towerClear?0:5);}
             if(Time.realtimeSinceStartup>600){Debug.LogError("EMBER PHASE2 PLAYER TIMEOUT");Application.Quit(6);}
         }
         void UpdateTowerQA()

@@ -89,7 +89,7 @@ namespace Ember.Core.Phase2
                     foreach(var ally in State.Members(g).Where(v=>v!=a&&v.alive))State.Memory(ally.id).Add(new Knowledge{key="intel:"+next,text=Loc.Token("p2.memory.told",a.name,next),scope=MemoryScope.Run,source=KnowledgeSource.ToldByAgent,informant=a.id,run=State.world.run,confidence=site.reward*.75f,importance=.65f});break;
                 case "Read":
                     a.readBook=true;var entry=State.world.book.LastOrDefault(e=>e.author==a.id);
-                    State.Memory(a.id).Add(new Knowledge{key="book:"+g.floor,text=entry?.text??Loc.Token("event.blank"),scope=MemoryScope.Run,source=KnowledgeSource.BookOfDead,run=State.world.run,confidence=.6f,importance=.7f});break;
+                    State.Memory(a.id).Add(new Knowledge{key="book:"+g.floor,text=entry?.text??Loc.Token("event.blank"),scope=MemoryScope.Run,source=KnowledgeSource.BookOfDead,run=State.world.run,confidence=entry!=null?.6f:0,importance=.7f});break;
                 case "Loot":Adapter.AddItem(a,a.Make(Catalog.items[State.world.Pick(Catalog.items.Length)].id));Adapter.ResolveInventory(a);break;
                 case "Materials":a.materials+=(int)site.reward;break;
             }

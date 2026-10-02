@@ -1,6 +1,6 @@
 param([switch]$Lifecycle,[int]$Width=1600,[int]$Height=900,[switch]$LLM)
 $taskRoot=Split-Path $PSScriptRoot -Parent
-$taskDir=Join-Path $taskRoot ('Artifacts\Phase2\'+$(if($Lifecycle){'lifecycle'}else{"$Width-$Height"}))
+$taskDir=Join-Path $taskRoot ('Artifacts\Phase2\'+$(if($Lifecycle){if($LLM){'lifecycle-llm'}else{'lifecycle'}}else{"$Width-$Height"}))
 New-Item -ItemType Directory -Force -Path $taskDir | Out-Null
 $taskMode=if($Lifecycle){'--phase2-smoke'}else{'--phase2-qa'}
 $taskArgs=@($taskMode,'--showcase','--locale','zh-TW','--artifacts',('"'+$taskDir+'"'),'-screen-width',$Width,'-screen-height',$Height,'-logFile',('"'+(Join-Path $taskDir 'player.log')+'"'))
