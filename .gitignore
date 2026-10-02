@@ -1,0 +1,12 @@
+UnityProject/Library/
+UnityProject/Temp/
+UnityProject/Logs/
+UnityProject/obj/
+UnityProject/UserSettings/
+UnityProject/*.csproj
+UnityProject/*.sln
+Builds/
+Artifacts/*.log
+Artifacts/*.png
+Artifacts/*.json
+*.tmp
