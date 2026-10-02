@@ -44,7 +44,7 @@ namespace Ember.Core
             for(int j=0;j<3;j++) Allocate(a);
             var available=new List<SkillDef>(); foreach(var s in Catalog.skills) if(s.profession==a.profession&&!a.unlocked.Contains(s.id)&&(string.IsNullOrEmpty(s.prerequisite)||a.unlocked.Contains(s.prerequisite))) available.Add(s);
             if(available.Count>0) Unlock(a,available[State.Pick(available.Count)].id);
-            State.Say(a.id,"Level "+a.level+". I chose a new path for my build.","build");
+            State.Say(a.id,Loc.Token("event.level",a.level),"build");
         }
         void Allocate(Agent a)
         {
@@ -78,8 +78,8 @@ namespace Ember.Core
             }
             w.clock=0;w.phaseClock=0;w.phase=Phase.Battle;w.outcome=Outcome.None;w.restartTimer=0;w.floor=1;
             w.boss=new BossState {hp=Catalog.boss.hp,maxHp=Catalog.boss.hp}; w.messages.Clear();
-            w.Say(-1,"RUN "+w.run+" / Four lives enter the Witness Tower.","run");
-            foreach(var a in w.agents) w.Say(a.id,"I choose "+a.profession+". This life will be my own.","build");
+            w.Say(-1,Loc.Token("event.start",w.run),"run");
+            foreach(var a in w.agents) w.Say(a.id,Loc.Token("event.class",Loc.Ref("class",a.profession)),"build");
         }
         public void Step(float dt=StepSeconds)
         {
@@ -124,10 +124,10 @@ namespace Ember.Core
                     foreach(var a in State.agents) if(a.alive)
                     {
                         float radius=d.radius*(b.enraged?1.25f:1);
-                        if(Distance(a.x,a.z,b.targetX,b.targetZ)<radius) Hurt(a,d.damage*(b.enraged?1.3f:1),"rootcrown slam");
-                        else if(b.hits%3==0) Hurt(a,d.damage*.36f,"thorn pulse");
+                        if(Distance(a.x,a.z,b.targetX,b.targetZ)<radius) Hurt(a,d.damage*(b.enraged?1.3f:1),Loc.Token("cause.slam"));
+                        else if(b.hits%3==0) Hurt(a,d.damage*.36f,Loc.Token("cause.thorns"));
                     }
-                    State.Say(-1,b.hits%3==0?"Thorns ripple across the arena.":"The Rootcrown shatters the marked ground.","boss");
+                    State.Say(-1,b.hits%3==0?Loc.Token("event.thorns"):Loc.Token("event.slam"),"boss");
                 }
             }
             else
@@ -145,7 +145,7 @@ namespace Ember.Core
         void Battle(Agent a,float dt)
         {
             var b=State.boss;
-            if(a.intent.kind==ActionKind.GiveUp) {Die(a,"gave up the climb");return;}
+            if(a.intent.kind==ActionKind.GiveUp) {Die(a,Loc.Token("cause.give_up"));return;}
             float radius=Catalog.boss.radius*(b.enraged?1.25f:1);
             if(b.telegraph&&Distance(a.x,a.z,b.targetX,b.targetZ)<radius+.6f)
             {
@@ -193,27 +193,27 @@ namespace Ember.Core
             {
                 var ally=State.agents[target];float amount=Mathf.Min(ally.MaxHp-ally.hp,s.power+a.stats.wis*1.4f);ally.hp+=amount;a.healing+=amount;
                 if(a.id!=ally.id) {ally.Bond(a.id).Help(.04f);a.Bond(ally.id).Help(.01f);}
-                State.Say(a.id,s.name+" → "+ally.name+" +"+(int)amount,"heal");
+                State.Say(a.id,Loc.Token("event.heal",Loc.Ref("skill",s.id),ally.name,(int)amount),"heal");
             }
             else if(s.effect=="Guard") a.guard=Mathf.Max(a.guard,s.power);
             else if(s.effect=="Enchant") a.enchant=12;
             else if(s.effect=="Taunt") {State.boss.targetX=a.x;State.boss.targetZ=a.z;a.guard=.45f;}
-            else {HitBoss(a,(s.power+a.stats.intel*.7f+a.stats.str*.3f)*Proficiency(a,Catalog));State.Say(a.id,s.name,"skill");}
+            else {HitBoss(a,(s.power+a.stats.intel*.7f+a.stats.str*.3f)*Proficiency(a,Catalog));State.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",s.id)),"skill");}
             return true;
         }
         void HitBoss(Agent a,float damage) {float dealt=Mathf.Min(State.boss.hp,damage);State.boss.hp-=dealt;a.damage+=dealt;}
         public void Hurt(Agent a,float amount,string cause) {if(!a.alive)return;a.hp=Mathf.Max(0,a.hp-Damage(amount,a.armor,a.guard));if(a.hp<=0) Die(a,cause);}
         public void Die(Agent a,string cause)
         {
-            if(!a.alive)return;a.hp=0;a.alive=false;a.taskTimer=0;a.task="";a.Remember("I died to "+cause+".");State.Say(a.id,"My path ends here: "+cause+".","death");
-            foreach(var ally in State.agents) if(ally.alive) {var bond=ally.Bond(a.id);bond.fear=Mathf.Clamp01(bond.fear+.2f);ally.Remember(a.name+" died to "+cause+".");}
+            if(!a.alive)return;a.hp=0;a.alive=false;a.taskTimer=0;a.task="";a.Remember(Loc.Token("memory.death",Loc.MigrateLegacy(cause)));State.Say(a.id,Loc.Token("event.death",Loc.MigrateLegacy(cause)),"death");
+            foreach(var ally in State.agents) if(ally.alive) {var bond=ally.Bond(a.id);bond.fear=Mathf.Clamp01(bond.fear+.2f);ally.Remember(Loc.Token("memory.ally_death",a.name,Loc.MigrateLegacy(cause)));}
         }
         public void AddItem(Agent a,Item item) {if(a.inventory.Count>=24)a.materials++;else a.inventory.Add(item);}
         public bool GiveWeapon(Agent from,Agent to,Item item)
         {
             if(from==to||!from.alive||!to.alive||from.escaped||to.escaped||State.phase!=Phase.Rest||!from.inventory.Contains(item)||Catalog.Item(item.id).kind!="Weapon")return false;
             from.inventory.Remove(item);AddItem(to,to.weapon);to.weapon=item;to.Bond(from.id).Help(.12f);from.Bond(to.id).Help(.03f);
-            State.Say(from.id,to.name+", take my "+Catalog.Item(item.id).name+". Its "+item.infusion+" is yours now.","social");return true;
+            State.Say(from.id,Loc.Token("event.gift",to.name,Loc.Ref("item",item.id),string.IsNullOrEmpty(item.infusion)?Loc.Token("ui.none"):Loc.Ref("skill",item.infusion)),"social");return true;
         }
         void Discuss(Agent speaker,Intent next)
         {
@@ -223,24 +223,24 @@ namespace Ember.Core
             {
                 float disagreement=Mathf.Abs(speaker.personality.risk-other.personality.risk)*.05f;
                 bond.resentment=Mathf.Clamp01(bond.resentment+disagreement);bond.rivalry=Mathf.Clamp01(bond.rivalry+disagreement*.5f);
-                State.Say(other.id,speaker.name+", the gate matters more than another cache.","social");
+                State.Say(other.id,Loc.Token("event.hurry",speaker.name),"social");
             }
-            else if(next.kind==ActionKind.Craft)State.Say(speaker.id,other.name+", give me a moment at the forge. This could help us both.","social");
-            else if(next.kind==ActionKind.Read)State.Say(speaker.id,"Did our former selves leave truth, or only fear?","social");
+            else if(next.kind==ActionKind.Craft)State.Say(speaker.id,Loc.Token("event.forge_talk",other.name),"social");
+            else if(next.kind==ActionKind.Read)State.Say(speaker.id,Loc.Token("event.book_talk"),"social");
         }
         void UsePotion(Agent a)
         {
             string id=a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==id);if(item==null)return;
             if(id=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(id).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(id).power);
-            a.inventory.Remove(item);State.Say(a.id,"Drink "+Catalog.Item(id).name,"item");
+            a.inventory.Remove(item);State.Say(a.id,Loc.Token("event.potion",Loc.Ref("item",id)),"item");
         }
         public void EnterRest()
         {
             State.phase=Phase.Rest;State.phaseClock=0;State.boss.telegraph=false;
-            State.Say(-1,"Guardian defeated. The refuge will collapse in 26 seconds.","run");
+            State.Say(-1,Loc.Token("event.victory"),"run");
             foreach(var a in State.agents) if(a.alive)
             {
-                a.kills++;a.Remember("We defeated the Rootcrown.");LevelUp(a);a.materials+=3+State.Pick(3);
+                a.kills++;a.Remember(Loc.Token("memory.victory"));LevelUp(a);a.materials+=3+State.Pick(3);
                 for(int i=0;i<2;i++) AddItem(a,a.Make(Catalog.items[State.Pick(Catalog.items.Length)].id));
                 ResolveInventory(a);a.x=-8;a.z=-3+a.id*2;a.decisionTimer=0;a.intent=new Intent();a.taskTimer=0;
             }
@@ -254,14 +254,14 @@ namespace Ember.Core
                 {
                     float old=Catalog.Item(a.weapon.id).power*a.weapon.quality;
                     float score=d.power*item.quality+(d.weapon==Catalog.Item(Catalog.Class(a.profession).weapon).weapon?3:0);
-                    if(score>old+2) {var prior=a.weapon;a.weapon=item;a.inventory.Remove(item);AddItem(a,prior);State.Say(a.id,"Equip "+d.name+"; a different weapon may be worth the trade.","loot");}
+                    if(score>old+2) {var prior=a.weapon;a.weapon=item;a.inventory.Remove(item);AddItem(a,prior);State.Say(a.id,Loc.Token("event.equip",Loc.Ref("item",d.id)),"loot");}
                 }
                 else if(d.kind=="Armor") {a.armor+=d.power;a.inventory.Remove(item);}
                 else if(d.kind=="Experience") {LevelUp(a);a.inventory.Remove(item);}
                 else if(d.kind=="SkillBook")
                 {
                     if(d.profession==a.profession) {a.skillPoints++;foreach(var s in Catalog.skills) if(Unlock(a,s.id))break;}
-                    else {a.materials+=2;State.Say(a.id,"This codex is not my path. Salvage it for the forge.","loot");}
+                    else {a.materials+=2;State.Say(a.id,Loc.Token("event.salvage"),"loot");}
                     a.inventory.Remove(item);
                 }
             }
@@ -271,12 +271,12 @@ namespace Ember.Core
             var r=Catalog.Recipe(recipe);var s=Catalog.Skill(infusion);
             if(State.phase!=Phase.Rest||!a.alive||a.escaped||a.taskTimer>0||r==null||a.materials<r.materials||Distance(a.x,a.z,-1,2)>1.5f) return false;
             if(!string.IsNullOrEmpty(infusion)&&(s==null||!a.unlocked.Contains(infusion))) return false;
-            a.materials-=r.materials;a.task=recipe+"|"+infusion;a.taskTimer=r.seconds;State.Say(a.id,"Begin forge: "+Catalog.Item(r.item).name+" / "+infusion,"craft");return true;
+            a.materials-=r.materials;a.task=recipe+"|"+infusion;a.taskTimer=r.seconds;State.Say(a.id,Loc.Token("event.craft_start",Loc.Ref("item",r.item),string.IsNullOrEmpty(infusion)?Loc.Token("ui.none"):Loc.Ref("skill",infusion)),"craft");return true;
         }
         void Rest(Agent a,float dt)
         {
             float collapse=-10+Mathf.Max(0,State.phaseClock-RestLimit)*2.3f;
-            if(State.phaseClock>=RestLimit&&a.x<collapse) {Die(a,"the collapsing refuge");return;}
+            if(State.phaseClock>=RestLimit&&a.x<collapse) {Die(a,Loc.Token("cause.collapse"));return;}
             if(a.taskTimer>0)
             {
                 a.taskTimer-=dt;
@@ -287,23 +287,23 @@ namespace Ember.Core
                         var parts=a.task.Split('|');var recipe=Catalog.Recipe(parts[0]);var item=a.Make(recipe.item,recipe.quality+.25f+a.stats.wis*.01f,parts[1]);
                         if(a.taskRecipient>=0&&State.agents[a.taskRecipient].alive&&!State.agents[a.taskRecipient].escaped) {AddItem(a,item);GiveWeapon(a,State.agents[a.taskRecipient],item);}
                         else {AddItem(a,a.weapon);a.weapon=item;}
-                        a.taskRecipient=-1;a.Remember("I forged "+Catalog.Item(item.id).name+" with "+item.infusion+".");State.Say(a.id,"Forged "+Catalog.Item(item.id).name+" · "+item.infusion+" / quality "+item.quality.ToString("F2"),"craft");
+                        a.taskRecipient=-1;a.Remember(Loc.Token("memory.craft",Loc.Ref("item",item.id),string.IsNullOrEmpty(item.infusion)?Loc.Token("ui.none"):Loc.Ref("skill",item.infusion)));State.Say(a.id,Loc.Token("event.craft_done",Loc.Ref("item",item.id),string.IsNullOrEmpty(item.infusion)?Loc.Token("ui.none"):Loc.Ref("skill",item.infusion),item.quality.ToString("F2",System.Globalization.CultureInfo.InvariantCulture)),"craft");
                     }
-                    else if(a.task=="cache") {a.materials+=1+State.Pick(3);AddItem(a,a.Make(Catalog.items[State.Pick(Catalog.items.Length)].id));ResolveInventory(a);State.Say(a.id,"A hidden cache. Was the delay worth it?","loot");}
+                    else if(a.task=="cache") {a.materials+=1+State.Pick(3);AddItem(a,a.Make(Catalog.items[State.Pick(Catalog.items.Length)].id));ResolveInventory(a);State.Say(a.id,Loc.Token("event.cache"),"loot");}
                     a.task="";a.decisionTimer=0;
                 }
                 return;
             }
             switch(a.intent.kind)
             {
-                case ActionKind.Exit: Move(a,10,a.z,dt);if(a.x>=9.5f) {a.escaped=true;State.Say(a.id,"I made it through the gate.","exit");}break;
+                case ActionKind.Exit: Move(a,10,a.z,dt);if(a.x>=9.5f) {a.escaped=true;State.Say(a.id,Loc.Token("event.escape"),"exit");}break;
                 case ActionKind.Rest: Move(a,-4+(a.id%2==0?-.5f:.5f),-2+(a.id<2?-.5f:.5f),dt);if(Distance(a.x,a.z,-4,-2)<1) {a.hp=Mathf.Min(a.MaxHp,a.hp+dt*15);a.mp=Mathf.Min(a.MaxMp,a.mp+dt*12);}break;
                 case ActionKind.Read:
                     Move(a,-4+(a.id%2==0?-.5f:.5f),3+(a.id<2?-.5f:.5f),dt);
                     if(Distance(a.x,a.z,-4,3)<1)
                     {
-                        a.readBook=true;var entries=State.book.FindAll(b=>b.author==a.id);string text=entries.Count>0?entries[entries.Count-1].text:"The pages are blank. We are the first witnesses.";
-                        a.Remember("Read a legacy: "+text);State.Say(a.id,text,"legacy");a.decisionTimer=0;
+                        a.readBook=true;var entries=State.book.FindAll(b=>b.author==a.id);string text=entries.Count>0?entries[entries.Count-1].text:Loc.Token("event.blank");
+                        a.Remember(Loc.Token("memory.read",Loc.MigrateLegacy(text)));State.Say(a.id,text,"legacy");a.decisionTimer=0;
                     }break;
                 case ActionKind.Craft:
                     Move(a,-1+(a.id%2==0?-.5f:.5f),2+(a.id<2?-.5f:.5f),dt);
@@ -327,15 +327,15 @@ namespace Ember.Core
             var record=new RunRecord{run=State.run,floor=outcome==Outcome.TowerClear?25:1,seconds=State.clock,outcome=outcome};
             foreach(var a in State.agents)
             {
-                record.composition.Add(a.name+" / "+a.profession);if(a.alive) record.survivors.Add(a.name);else record.deaths++;
+                record.composition.Add(Loc.Token("ui.agent_class",a.name,Loc.Ref("class",a.profession)));if(a.alive) record.survivors.Add(a.name);else record.deaths++;
                 record.damage+=a.damage;record.healing+=a.healing;record.builds.Add(a.name+": "+a.weapon.id+" ["+a.weapon.infusion+"] / "+string.Join(",",a.equipped));
-                string words=!a.alive?"The tower took me. Watch the marked ground and the falling refuge.":a.personality.greed>.55f?"The forge was worth it. The last cache almost was not.":"Leave time to escape. A companion matters more than a perfect strike.";
-                a.lastWords=words.Substring(0,Math.Min(80,words.Length));State.book.Add(new Epitaph {run=State.run,author=a.id,text=a.lastWords});
-                a.Remember("Run ended: "+outcome);State.Say(a.id,a.lastWords,"legacy");
+                string words=!a.alive?Loc.Token("epitaph.death"):a.personality.greed>.55f?Loc.Token("epitaph.greed"):Loc.Token("epitaph.care");
+                a.lastWords=words;State.book.Add(new Epitaph {run=State.run,author=a.id,text=a.lastWords});
+                a.Remember(Loc.Token("memory.end",Loc.Ref("outcome",outcome)));State.Say(a.id,a.lastWords,"legacy");
             }
             while(State.book.Count>64)State.book.RemoveAt(0);
             State.history.Add(record);if(State.history.Count>100)State.history.RemoveAt(0);
-            State.Say(-1,outcome==Outcome.Wipe?"All four lights faded. A new life begins in 8 seconds.":"Slice complete. These are not yet the gates of floor 25.","run");
+            State.Say(-1,outcome==Outcome.Wipe?Loc.Token("event.wipe"):Loc.Token("event.complete"),"run");
         }
     }
 }

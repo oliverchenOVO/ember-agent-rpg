@@ -17,3 +17,7 @@ Blender 原創面具：blender --background --python Tools/create_mask.py
 smoke 使用 Artifacts 內獨立存檔，不覆蓋一般遊戲存檔。一般存檔位於 LocalLow/WitnessWorks/Ember - The Witness Tower。
 
 詳細實測與限制請見 Artifacts/VALIDATION.md。
+
+遊戲預設繁體中文（zh-TW），右下角語言按鈕可即時切換英文。完整字串盤點見 Docs/LOCALIZATION_INVENTORY.md；語系、舊存檔及字型架構見 Docs/LOCALIZATION.md。
+中文化畫面測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1
+較小視窗測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1 -Width 1280 -Height 720

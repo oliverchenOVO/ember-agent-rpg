@@ -1,0 +1,2 @@
+Scenarios: 22 / resolution 1600x900 / Issues: 0
+Scenarios: 22 / resolution 1280x720 / Issues: 0

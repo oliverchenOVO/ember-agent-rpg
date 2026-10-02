@@ -1,0 +1,681 @@
+{
+  "locale": "en",
+  "entries": [
+    {
+      "key": "ui.brand",
+      "value": "E M B E R"
+    },
+    {
+      "key": "ui.tagline",
+      "value": "THE WITNESS TOWER / Agent RPG"
+    },
+    {
+      "key": "ui.window_title",
+      "value": "EMBER / The Witness Tower"
+    },
+    {
+      "key": "ui.life",
+      "value": "CURRENT LIFE"
+    },
+    {
+      "key": "ui.floor",
+      "value": "FLOOR"
+    },
+    {
+      "key": "ui.time",
+      "value": "RUN TIME"
+    },
+    {
+      "key": "ui.arena",
+      "value": "ROOTCROWN AMPHITHEATRE"
+    },
+    {
+      "key": "ui.refuge",
+      "value": "ASHEN CROSSING"
+    },
+    {
+      "key": "ui.recorded",
+      "value": "LIFE RECORDED"
+    },
+    {
+      "key": "ui.edition",
+      "value": "GUARDIAN TRIAL · AUTONOMOUS ADVENTURE"
+    },
+    {
+      "key": "ui.pause",
+      "value": "PAUSE"
+    },
+    {
+      "key": "ui.resume",
+      "value": "RESUME"
+    },
+    {
+      "key": "ui.save",
+      "value": "SAVE"
+    },
+    {
+      "key": "ui.load",
+      "value": "LOAD"
+    },
+    {
+      "key": "ui.new_life",
+      "value": "NEW LIFE"
+    },
+    {
+      "key": "ui.speed",
+      "value": "{0}×"
+    },
+    {
+      "key": "ui.witnesses",
+      "value": "THE FOUR WITNESSES"
+    },
+    {
+      "key": "ui.controls",
+      "value": "OBSERVATION CONTROLS"
+    },
+    {
+      "key": "ui.controls_help",
+      "value": "SPACE  Pause / resume\n1 · 2 · 3  Playback speed\n← →  Orbit the arena"
+    },
+    {
+      "key": "ui.showcase",
+      "value": "CLASS CHOICE / SHOWCASE"
+    },
+    {
+      "key": "ui.autonomous",
+      "value": "CLASS CHOICE / AUTONOMOUS"
+    },
+    {
+      "key": "ui.next_classes",
+      "value": "Future lives choose classes freely."
+    },
+    {
+      "key": "ui.boss",
+      "value": "THE ROOTCROWN"
+    },
+    {
+      "key": "ui.boss_phase1",
+      "value": "PHASE I / STONE AND THORN"
+    },
+    {
+      "key": "ui.boss_phase2",
+      "value": "PHASE II / THE ROOTS REMEMBER"
+    },
+    {
+      "key": "ui.slam",
+      "value": "GROUND BREAK / {0}s"
+    },
+    {
+      "key": "ui.epilogue",
+      "value": "THE BOOK RECEIVES YOUR STORY"
+    },
+    {
+      "key": "ui.refuge_title",
+      "value": "REFUGE / THE ASHEN CROSSING"
+    },
+    {
+      "key": "ui.restart",
+      "value": "{0} · New life in {1}s"
+    },
+    {
+      "key": "ui.collapse_active",
+      "value": "COLLAPSE ADVANCING / REACH THE EASTERN GATE"
+    },
+    {
+      "key": "ui.collapse_timer",
+      "value": "COLLAPSE IN {0}s / THE GATE IS TO THE EAST"
+    },
+    {
+      "key": "ui.mind",
+      "value": "INSIDE THE MIND"
+    },
+    {
+      "key": "ui.agent_class",
+      "value": "{0} / {1}"
+    },
+    {
+      "key": "ui.traits1",
+      "value": "RISK {0}   CURIOSITY {1}"
+    },
+    {
+      "key": "ui.traits2",
+      "value": "EMPATHY {0}   GREED {1}"
+    },
+    {
+      "key": "ui.intent",
+      "value": "INTENT / {0}"
+    },
+    {
+      "key": "ui.build",
+      "value": "BUILD / LIFE {0}"
+    },
+    {
+      "key": "ui.quality",
+      "value": "QUALITY {0} / INFUSION {1}"
+    },
+    {
+      "key": "ui.stats",
+      "value": "STR {0}  DEX {1}  INT {2}  VIT {3}"
+    },
+    {
+      "key": "ui.skills",
+      "value": "SKILLS / {0}"
+    },
+    {
+      "key": "ui.resources",
+      "value": "MATERIALS {0}  ITEMS {1}  MEMORIES {2}"
+    },
+    {
+      "key": "ui.footer",
+      "value": "AUTONOMOUS LIVES. FINITE MEMORIES. / ONE GUARDIAN, THEN THE DANGEROUS REFUGE."
+    },
+    {
+      "key": "ui.none",
+      "value": "None"
+    },
+    {
+      "key": "ui.safe",
+      "value": "SAFE"
+    },
+    {
+      "key": "ui.level",
+      "value": "LV {0}"
+    },
+    {
+      "key": "ui.dead",
+      "value": "DEAD"
+    },
+    {
+      "key": "ui.escaped",
+      "value": "Escaped"
+    },
+    {
+      "key": "ui.working",
+      "value": "Working {0}s"
+    },
+    {
+      "key": "ui.vitals",
+      "value": "{0} HP / {1} MANA"
+    },
+    {
+      "key": "ui.exploring",
+      "value": "Exploring {0}s"
+    },
+    {
+      "key": "ui.chronicle",
+      "value": "LIVE CHRONICLE"
+    },
+    {
+      "key": "ui.book",
+      "value": "BOOK OF THE DEAD"
+    },
+    {
+      "key": "ui.history",
+      "value": "RUN HISTORY"
+    },
+    {
+      "key": "ui.relationships",
+      "value": "RELATIONSHIPS"
+    },
+    {
+      "key": "ui.observe",
+      "value": "OBSERVE · REMEMBER · REPEAT"
+    },
+    {
+      "key": "ui.tower",
+      "value": "TOWER"
+    },
+    {
+      "key": "ui.book_empty",
+      "value": "No former lives have written here yet. Death will leave a small piece of the story."
+    },
+    {
+      "key": "ui.book_author",
+      "value": "LIFE {0} / {1}"
+    },
+    {
+      "key": "ui.history_empty",
+      "value": "The first life is still unfolding. Slice completion is recorded separately from a full 25-floor clear."
+    },
+    {
+      "key": "ui.history_row",
+      "value": "LIFE {0}   {1}   {2}   SURVIVORS {3}   DAMAGE {4}   HEALING {5}"
+    },
+    {
+      "key": "ui.bond_row",
+      "value": "{0} → {1}   Trust {2}   Friendship {3}   Love {4}   Fear {5}   Resentment {6}"
+    },
+    {
+      "key": "ui.language",
+      "value": "Language / English"
+    },
+    {
+      "key": "ui.dialogue_unknown",
+      "value": "This record cannot be displayed."
+    },
+    {
+      "key": "class.Warrior",
+      "value": "Warrior"
+    },
+    {
+      "key": "class.Archer",
+      "value": "Archer"
+    },
+    {
+      "key": "class.Mage",
+      "value": "Mage"
+    },
+    {
+      "key": "class.Healer",
+      "value": "Healer"
+    },
+    {
+      "key": "action.Attack",
+      "value": "Attack"
+    },
+    {
+      "key": "action.Skill",
+      "value": "Skill"
+    },
+    {
+      "key": "action.Protect",
+      "value": "Protect"
+    },
+    {
+      "key": "action.Rest",
+      "value": "Rest"
+    },
+    {
+      "key": "action.Explore",
+      "value": "Explore"
+    },
+    {
+      "key": "action.Craft",
+      "value": "Craft"
+    },
+    {
+      "key": "action.Read",
+      "value": "Read"
+    },
+    {
+      "key": "action.Exit",
+      "value": "Exit"
+    },
+    {
+      "key": "action.GiveUp",
+      "value": "GiveUp"
+    },
+    {
+      "key": "outcome.None",
+      "value": "None"
+    },
+    {
+      "key": "outcome.Wipe",
+      "value": "Wipe"
+    },
+    {
+      "key": "outcome.SliceComplete",
+      "value": "SliceComplete"
+    },
+    {
+      "key": "outcome.TowerClear",
+      "value": "TowerClear"
+    },
+    {
+      "key": "notice.saved",
+      "value": "Saved locally."
+    },
+    {
+      "key": "notice.loaded",
+      "value": "Restored this life."
+    },
+    {
+      "key": "notice.save_failed",
+      "value": "Save failed. Please try again."
+    },
+    {
+      "key": "notice.load_failed",
+      "value": "Could not load the save. Check that a valid save exists."
+    },
+    {
+      "key": "reason.attack",
+      "value": "Keep pressure on the guardian."
+    },
+    {
+      "key": "reason.protect",
+      "value": "Protect {0}; their survival outweighs my damage."
+    },
+    {
+      "key": "reason.give_up",
+      "value": "The cost of continuing is too high."
+    },
+    {
+      "key": "reason.exit",
+      "value": "Leave before the ruin takes us."
+    },
+    {
+      "key": "reason.rest",
+      "value": "Rest at the sanctuary before moving on."
+    },
+    {
+      "key": "reason.explore",
+      "value": "One more cache could change this run."
+    },
+    {
+      "key": "reason.read",
+      "value": "Read the warnings left by our former selves."
+    },
+    {
+      "key": "reason.craft",
+      "value": "Forge a better weapon and bind a learned skill."
+    },
+    {
+      "key": "reason.heal",
+      "value": "Use {0} to keep a companion alive."
+    },
+    {
+      "key": "reason.skill",
+      "value": "Use {0}; it fits the current opening."
+    },
+    {
+      "key": "event.level",
+      "value": "Level {0}. I chose a new path for my build."
+    },
+    {
+      "key": "event.start",
+      "value": "RUN {0} / Four lives enter the Witness Tower."
+    },
+    {
+      "key": "event.class",
+      "value": "I choose {0}. This life will be my own."
+    },
+    {
+      "key": "event.thorns",
+      "value": "Thorns ripple across the arena."
+    },
+    {
+      "key": "event.slam",
+      "value": "The Rootcrown shatters the marked ground."
+    },
+    {
+      "key": "event.heal",
+      "value": "{0} → {1} +{2}"
+    },
+    {
+      "key": "event.skill",
+      "value": "{0}"
+    },
+    {
+      "key": "event.death",
+      "value": "My path ends here: {0}."
+    },
+    {
+      "key": "event.gift",
+      "value": "{0}, take my {1}. Its {2} is yours now."
+    },
+    {
+      "key": "event.hurry",
+      "value": "{0}, the gate matters more than another cache."
+    },
+    {
+      "key": "event.forge_talk",
+      "value": "{0}, give me a moment at the forge. This could help us both."
+    },
+    {
+      "key": "event.book_talk",
+      "value": "Did our former selves leave truth, or only fear?"
+    },
+    {
+      "key": "event.potion",
+      "value": "Drink {0}"
+    },
+    {
+      "key": "event.victory",
+      "value": "Guardian defeated. The refuge will collapse in 26 seconds."
+    },
+    {
+      "key": "event.equip",
+      "value": "Equip {0}; a different weapon may be worth the trade."
+    },
+    {
+      "key": "event.salvage",
+      "value": "This codex is not my path. Salvage it for the forge."
+    },
+    {
+      "key": "event.craft_start",
+      "value": "Begin forge: {0} / {1}"
+    },
+    {
+      "key": "event.craft_done",
+      "value": "Forged {0} · {1} / quality {2}"
+    },
+    {
+      "key": "event.cache",
+      "value": "A hidden cache. Was the delay worth it?"
+    },
+    {
+      "key": "event.escape",
+      "value": "I made it through the gate."
+    },
+    {
+      "key": "event.blank",
+      "value": "The pages are blank. We are the first witnesses."
+    },
+    {
+      "key": "event.wipe",
+      "value": "All four lights faded. A new life begins in 8 seconds."
+    },
+    {
+      "key": "event.complete",
+      "value": "Slice complete. These are not yet the gates of floor 25."
+    },
+    {
+      "key": "cause.slam",
+      "value": "rootcrown slam"
+    },
+    {
+      "key": "cause.thorns",
+      "value": "thorn pulse"
+    },
+    {
+      "key": "cause.give_up",
+      "value": "gave up the climb"
+    },
+    {
+      "key": "cause.collapse",
+      "value": "the collapsing refuge"
+    },
+    {
+      "key": "cause.unknown",
+      "value": "unknown cause"
+    },
+    {
+      "key": "memory.death",
+      "value": "I died to {0}."
+    },
+    {
+      "key": "memory.ally_death",
+      "value": "{0} died to {1}."
+    },
+    {
+      "key": "memory.victory",
+      "value": "We defeated the Rootcrown."
+    },
+    {
+      "key": "memory.craft",
+      "value": "I forged {0} with {1}."
+    },
+    {
+      "key": "memory.read",
+      "value": "Read a legacy: {0}"
+    },
+    {
+      "key": "memory.end",
+      "value": "Run ended: {0}"
+    },
+    {
+      "key": "epitaph.death",
+      "value": "The tower took me. Watch the marked ground and the falling refuge."
+    },
+    {
+      "key": "epitaph.greed",
+      "value": "The forge was worth it. The last cache almost was not."
+    },
+    {
+      "key": "epitaph.care",
+      "value": "Leave time to escape. A companion matters more than a perfect strike."
+    },
+    {
+      "key": "skill.slash",
+      "value": "Crescent slash"
+    },
+    {
+      "key": "skill.wave",
+      "value": "Sword wave"
+    },
+    {
+      "key": "skill.rage",
+      "value": "Blood rage"
+    },
+    {
+      "key": "skill.guard",
+      "value": "Iron guard"
+    },
+    {
+      "key": "skill.taunt",
+      "value": "Challenge"
+    },
+    {
+      "key": "skill.counter",
+      "value": "Counter"
+    },
+    {
+      "key": "skill.shot",
+      "value": "Piercing shot"
+    },
+    {
+      "key": "skill.poison",
+      "value": "Venom arrow"
+    },
+    {
+      "key": "skill.rain",
+      "value": "Arrow rain"
+    },
+    {
+      "key": "skill.trap",
+      "value": "Snare trap"
+    },
+    {
+      "key": "skill.pierce",
+      "value": "Armor piercer"
+    },
+    {
+      "key": "skill.snipe",
+      "value": "Starfall snipe"
+    },
+    {
+      "key": "skill.fireball",
+      "value": "Ember orb"
+    },
+    {
+      "key": "skill.frost",
+      "value": "Frost spear"
+    },
+    {
+      "key": "skill.meteor",
+      "value": "Meteor"
+    },
+    {
+      "key": "skill.shield",
+      "value": "Arcane shield"
+    },
+    {
+      "key": "skill.enchant",
+      "value": "Flame infusion"
+    },
+    {
+      "key": "skill.lightning",
+      "value": "Lightning"
+    },
+    {
+      "key": "skill.holy",
+      "value": "Holy light"
+    },
+    {
+      "key": "skill.heal",
+      "value": "Mend"
+    },
+    {
+      "key": "skill.groupheal",
+      "value": "Sanctuary"
+    },
+    {
+      "key": "skill.ward",
+      "value": "Divine ward"
+    },
+    {
+      "key": "skill.cleanse",
+      "value": "Purifying light"
+    },
+    {
+      "key": "skill.revive",
+      "value": "Renewal"
+    },
+    {
+      "key": "item.greatsword",
+      "value": "Oathblade"
+    },
+    {
+      "key": "item.bow",
+      "value": "Ash bow"
+    },
+    {
+      "key": "item.staff",
+      "value": "Cinder staff"
+    },
+    {
+      "key": "item.holy_staff",
+      "value": "Pilgrim staff"
+    },
+    {
+      "key": "item.spear",
+      "value": "Wayfarer spear"
+    },
+    {
+      "key": "item.armor",
+      "value": "Runic cuirass"
+    },
+    {
+      "key": "item.hp",
+      "value": "Life draught"
+    },
+    {
+      "key": "item.mp",
+      "value": "Ether draught"
+    },
+    {
+      "key": "item.exp",
+      "value": "Field journal"
+    },
+    {
+      "key": "item.book0",
+      "value": "Sword codex"
+    },
+    {
+      "key": "item.book1",
+      "value": "Hunters codex"
+    },
+    {
+      "key": "item.book2",
+      "value": "Arcane codex"
+    },
+    {
+      "key": "item.book3",
+      "value": "Prayer codex"
+    },
+    {
+      "key": "boss.rootcrown",
+      "value": "THE ROOTCROWN"
+    }
+  ]
+}

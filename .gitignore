@@ -11,3 +11,4 @@ Artifacts/*.png
 Artifacts/*.json
 Artifacts/*.bak
 *.tmp
+Artifacts/Localization/

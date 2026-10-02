@@ -1,0 +1,681 @@
+{
+  "locale": "zh-TW",
+  "entries": [
+    {
+      "key": "ui.brand",
+      "value": "E M B E R"
+    },
+    {
+      "key": "ui.tagline",
+      "value": "見證之塔 / Agent RPG"
+    },
+    {
+      "key": "ui.window_title",
+      "value": "EMBER / 見證之塔"
+    },
+    {
+      "key": "ui.life",
+      "value": "目前輪迴"
+    },
+    {
+      "key": "ui.floor",
+      "value": "樓層"
+    },
+    {
+      "key": "ui.time",
+      "value": "挑戰時間"
+    },
+    {
+      "key": "ui.arena",
+      "value": "根冠競技場"
+    },
+    {
+      "key": "ui.refuge",
+      "value": "灰燼渡口"
+    },
+    {
+      "key": "ui.recorded",
+      "value": "生命已記錄"
+    },
+    {
+      "key": "ui.edition",
+      "value": "守護者試煉 · 自主冒險"
+    },
+    {
+      "key": "ui.pause",
+      "value": "暫停"
+    },
+    {
+      "key": "ui.resume",
+      "value": "繼續"
+    },
+    {
+      "key": "ui.save",
+      "value": "儲存"
+    },
+    {
+      "key": "ui.load",
+      "value": "讀取"
+    },
+    {
+      "key": "ui.new_life",
+      "value": "開始新輪迴"
+    },
+    {
+      "key": "ui.speed",
+      "value": "{0} 倍速"
+    },
+    {
+      "key": "ui.witnesses",
+      "value": "四名見證者"
+    },
+    {
+      "key": "ui.controls",
+      "value": "觀察控制"
+    },
+    {
+      "key": "ui.controls_help",
+      "value": "空白鍵　暫停 / 繼續\n1 · 2 · 3　播放速度\n← →　環繞觀看競技場"
+    },
+    {
+      "key": "ui.showcase",
+      "value": "職業選擇 / 展示"
+    },
+    {
+      "key": "ui.autonomous",
+      "value": "職業選擇 / 自主"
+    },
+    {
+      "key": "ui.next_classes",
+      "value": "未來的輪迴將由 Agent 自由選擇職業。"
+    },
+    {
+      "key": "ui.boss",
+      "value": "根冠之主"
+    },
+    {
+      "key": "ui.boss_phase1",
+      "value": "第一階段 / 岩石與荊棘"
+    },
+    {
+      "key": "ui.boss_phase2",
+      "value": "第二階段 / 根系仍記得"
+    },
+    {
+      "key": "ui.slam",
+      "value": "裂地重擊 / {0} 秒"
+    },
+    {
+      "key": "ui.epilogue",
+      "value": "死者之書收錄了你的故事"
+    },
+    {
+      "key": "ui.refuge_title",
+      "value": "避難層 / 灰燼渡口"
+    },
+    {
+      "key": "ui.restart",
+      "value": "{0} · {1} 秒後開始新輪迴"
+    },
+    {
+      "key": "ui.collapse_active",
+      "value": "坍塌正在逼近 / 趕往東側出口"
+    },
+    {
+      "key": "ui.collapse_timer",
+      "value": "距離坍塌 {0} 秒 / 出口在東側"
+    },
+    {
+      "key": "ui.mind",
+      "value": "內心思緒"
+    },
+    {
+      "key": "ui.agent_class",
+      "value": "{0} / {1}"
+    },
+    {
+      "key": "ui.traits1",
+      "value": "冒險傾向 {0}　好奇心 {1}"
+    },
+    {
+      "key": "ui.traits2",
+      "value": "同理心 {0}　貪欲 {1}"
+    },
+    {
+      "key": "ui.intent",
+      "value": "當前意圖 / {0}"
+    },
+    {
+      "key": "ui.build",
+      "value": "配置 / 第 {0} 輪生命"
+    },
+    {
+      "key": "ui.quality",
+      "value": "品質 {0} / 技能灌注 {1}"
+    },
+    {
+      "key": "ui.stats",
+      "value": "力量 {0}　敏捷 {1}　智力 {2}　體質 {3}"
+    },
+    {
+      "key": "ui.skills",
+      "value": "技能 / {0}"
+    },
+    {
+      "key": "ui.resources",
+      "value": "材料 {0}　物品 {1}　記憶 {2}"
+    },
+    {
+      "key": "ui.footer",
+      "value": "自主生命，有限記憶。 / 擊敗守護者，然後前往危險的避難層。"
+    },
+    {
+      "key": "ui.none",
+      "value": "無"
+    },
+    {
+      "key": "ui.safe",
+      "value": "已逃離"
+    },
+    {
+      "key": "ui.level",
+      "value": "等級 {0}"
+    },
+    {
+      "key": "ui.dead",
+      "value": "死亡"
+    },
+    {
+      "key": "ui.escaped",
+      "value": "已逃離"
+    },
+    {
+      "key": "ui.working",
+      "value": "製作中 · {0} 秒"
+    },
+    {
+      "key": "ui.vitals",
+      "value": "生命 {0} / 魔力 {1}"
+    },
+    {
+      "key": "ui.exploring",
+      "value": "探索中 · {0} 秒"
+    },
+    {
+      "key": "ui.chronicle",
+      "value": "即時紀事"
+    },
+    {
+      "key": "ui.book",
+      "value": "死者之書"
+    },
+    {
+      "key": "ui.history",
+      "value": "挑戰紀錄"
+    },
+    {
+      "key": "ui.relationships",
+      "value": "關係"
+    },
+    {
+      "key": "ui.observe",
+      "value": "觀察 · 記憶 · 再次輪迴"
+    },
+    {
+      "key": "ui.tower",
+      "value": "高塔"
+    },
+    {
+      "key": "ui.book_empty",
+      "value": "前世尚未留下文字。生命結束時，會有一小段故事留在這裡。"
+    },
+    {
+      "key": "ui.book_author",
+      "value": "第 {0} 輪 / {1}"
+    },
+    {
+      "key": "ui.history_empty",
+      "value": "第一段生命仍在繼續。試煉完成與突破 25 層高塔的紀錄會分開保存。"
+    },
+    {
+      "key": "ui.history_row",
+      "value": "第 {0} 輪　{1}　{2}　存活 {3} 人　傷害 {4}　治療 {5}"
+    },
+    {
+      "key": "ui.bond_row",
+      "value": "{0} → {1}　信任 {2}　友情 {3}　愛意 {4}　恐懼 {5}　怨懟 {6}"
+    },
+    {
+      "key": "ui.language",
+      "value": "語言 / 繁體中文"
+    },
+    {
+      "key": "ui.dialogue_unknown",
+      "value": "這段紀錄暫時無法顯示。"
+    },
+    {
+      "key": "class.Warrior",
+      "value": "戰士"
+    },
+    {
+      "key": "class.Archer",
+      "value": "弓箭手"
+    },
+    {
+      "key": "class.Mage",
+      "value": "法師"
+    },
+    {
+      "key": "class.Healer",
+      "value": "補師"
+    },
+    {
+      "key": "action.Attack",
+      "value": "攻擊"
+    },
+    {
+      "key": "action.Skill",
+      "value": "技能"
+    },
+    {
+      "key": "action.Protect",
+      "value": "保護隊友"
+    },
+    {
+      "key": "action.Rest",
+      "value": "休息"
+    },
+    {
+      "key": "action.Explore",
+      "value": "探索"
+    },
+    {
+      "key": "action.Craft",
+      "value": "製作"
+    },
+    {
+      "key": "action.Read",
+      "value": "閱讀"
+    },
+    {
+      "key": "action.Exit",
+      "value": "逃離"
+    },
+    {
+      "key": "action.GiveUp",
+      "value": "放棄挑戰"
+    },
+    {
+      "key": "outcome.None",
+      "value": "進行中"
+    },
+    {
+      "key": "outcome.Wipe",
+      "value": "挑戰失敗"
+    },
+    {
+      "key": "outcome.SliceComplete",
+      "value": "試煉完成"
+    },
+    {
+      "key": "outcome.TowerClear",
+      "value": "高塔通關"
+    },
+    {
+      "key": "notice.saved",
+      "value": "已儲存至本機。"
+    },
+    {
+      "key": "notice.loaded",
+      "value": "已讀取本次輪迴。"
+    },
+    {
+      "key": "notice.save_failed",
+      "value": "儲存失敗，請稍後再試。"
+    },
+    {
+      "key": "notice.load_failed",
+      "value": "無法讀取存檔，請確認已有有效的存檔。"
+    },
+    {
+      "key": "reason.attack",
+      "value": "持續壓制守護者。"
+    },
+    {
+      "key": "reason.protect",
+      "value": "保護 {0}；比起多造成一點傷害，我更希望他活下來。"
+    },
+    {
+      "key": "reason.give_up",
+      "value": "繼續前進的代價太大了。"
+    },
+    {
+      "key": "reason.exit",
+      "value": "趁遺跡還沒吞沒我們，快離開。"
+    },
+    {
+      "key": "reason.rest",
+      "value": "先在聖所休息，再繼續前進。"
+    },
+    {
+      "key": "reason.explore",
+      "value": "再找一處寶藏，也許就能扭轉這次挑戰。"
+    },
+    {
+      "key": "reason.read",
+      "value": "讀讀前世的我們留下了什麼警告。"
+    },
+    {
+      "key": "reason.craft",
+      "value": "打造更好的武器，灌注已學會的技能。"
+    },
+    {
+      "key": "reason.heal",
+      "value": "使用{0}，讓隊友撐下去。"
+    },
+    {
+      "key": "reason.skill",
+      "value": "現在正是施放{0}的好時機。"
+    },
+    {
+      "key": "event.level",
+      "value": "升到 {0} 級。我為自己的配置選了一條新路。"
+    },
+    {
+      "key": "event.start",
+      "value": "第 {0} 輪挑戰 / 四段生命踏入見證之塔。"
+    },
+    {
+      "key": "event.class",
+      "value": "我選擇成為{0}。這一生，由我自己決定。"
+    },
+    {
+      "key": "event.thorns",
+      "value": "荊棘正在競技場中蔓延。"
+    },
+    {
+      "key": "event.slam",
+      "value": "根冠之主擊碎了標記的地面。"
+    },
+    {
+      "key": "event.heal",
+      "value": "{0} → {1}，恢復 {2} 點生命"
+    },
+    {
+      "key": "event.skill",
+      "value": "施放{0}"
+    },
+    {
+      "key": "event.death",
+      "value": "我的旅程到此為止：{0}。"
+    },
+    {
+      "key": "event.gift",
+      "value": "{0}，拿著我打造的{1}。裡面的{2}也交給你了。"
+    },
+    {
+      "key": "event.hurry",
+      "value": "{0}，先到出口，比再找一個寶箱更重要。"
+    },
+    {
+      "key": "event.forge_talk",
+      "value": "{0}，讓我在工坊待一下。這把武器也許能幫上我們。"
+    },
+    {
+      "key": "event.book_talk",
+      "value": "前世的我們留下的，是事實，還是恐懼？"
+    },
+    {
+      "key": "event.potion",
+      "value": "喝下{0}。"
+    },
+    {
+      "key": "event.victory",
+      "value": "守護者已倒下。避難層將在 26 秒後開始坍塌。"
+    },
+    {
+      "key": "event.equip",
+      "value": "換上{0}。試試不同的武器，也許值得。"
+    },
+    {
+      "key": "event.salvage",
+      "value": "這本技能書不適合我，拆成工坊能用的材料吧。"
+    },
+    {
+      "key": "event.craft_start",
+      "value": "開始打造{0} / 灌注{1}"
+    },
+    {
+      "key": "event.craft_done",
+      "value": "完成{0} · 灌注{1} / 品質 {2}"
+    },
+    {
+      "key": "event.cache",
+      "value": "找到隱藏的寶藏了。多花這些時間，值得嗎？"
+    },
+    {
+      "key": "event.escape",
+      "value": "我穿過出口了。"
+    },
+    {
+      "key": "event.blank",
+      "value": "書頁還是空白的。我們是最初的見證者。"
+    },
+    {
+      "key": "event.wipe",
+      "value": "四道光芒都熄滅了。8 秒後，新的輪迴將開始。"
+    },
+    {
+      "key": "event.complete",
+      "value": "試煉完成。真正的第 25 層，仍在前方。"
+    },
+    {
+      "key": "cause.slam",
+      "value": "根冠之主的重擊"
+    },
+    {
+      "key": "cause.thorns",
+      "value": "荊棘衝擊"
+    },
+    {
+      "key": "cause.give_up",
+      "value": "放棄繼續爬塔"
+    },
+    {
+      "key": "cause.collapse",
+      "value": "避難層坍塌"
+    },
+    {
+      "key": "cause.unknown",
+      "value": "未知原因"
+    },
+    {
+      "key": "memory.death",
+      "value": "我死於{0}。"
+    },
+    {
+      "key": "memory.ally_death",
+      "value": "{0} 死於{1}。"
+    },
+    {
+      "key": "memory.victory",
+      "value": "我們擊敗了根冠之主。"
+    },
+    {
+      "key": "memory.craft",
+      "value": "我打造了灌注{1}的{0}。"
+    },
+    {
+      "key": "memory.read",
+      "value": "讀到前世的遺言：{0}"
+    },
+    {
+      "key": "memory.end",
+      "value": "挑戰結束：{0}"
+    },
+    {
+      "key": "epitaph.death",
+      "value": "高塔帶走了我。小心地面的標記，也別讓坍塌的避難層追上你。"
+    },
+    {
+      "key": "epitaph.greed",
+      "value": "花時間打造武器很值得。最後那個寶箱，差點就不值得了。"
+    },
+    {
+      "key": "epitaph.care",
+      "value": "記得留時間逃離。比起完美的一擊，隊友更重要。"
+    },
+    {
+      "key": "skill.slash",
+      "value": "月牙斬"
+    },
+    {
+      "key": "skill.wave",
+      "value": "劍氣斬"
+    },
+    {
+      "key": "skill.rage",
+      "value": "血怒"
+    },
+    {
+      "key": "skill.guard",
+      "value": "鋼鐵守勢"
+    },
+    {
+      "key": "skill.taunt",
+      "value": "挑釁"
+    },
+    {
+      "key": "skill.counter",
+      "value": "反擊"
+    },
+    {
+      "key": "skill.shot",
+      "value": "穿透射擊"
+    },
+    {
+      "key": "skill.poison",
+      "value": "毒箭"
+    },
+    {
+      "key": "skill.rain",
+      "value": "箭雨"
+    },
+    {
+      "key": "skill.trap",
+      "value": "纏足陷阱"
+    },
+    {
+      "key": "skill.pierce",
+      "value": "破甲箭"
+    },
+    {
+      "key": "skill.snipe",
+      "value": "星落狙擊"
+    },
+    {
+      "key": "skill.fireball",
+      "value": "餘燼火球"
+    },
+    {
+      "key": "skill.frost",
+      "value": "寒霜冰槍"
+    },
+    {
+      "key": "skill.meteor",
+      "value": "隕石"
+    },
+    {
+      "key": "skill.shield",
+      "value": "魔力護盾"
+    },
+    {
+      "key": "skill.enchant",
+      "value": "火焰附魔"
+    },
+    {
+      "key": "skill.lightning",
+      "value": "雷擊"
+    },
+    {
+      "key": "skill.holy",
+      "value": "聖光術"
+    },
+    {
+      "key": "skill.heal",
+      "value": "治療術"
+    },
+    {
+      "key": "skill.groupheal",
+      "value": "庇護聖域"
+    },
+    {
+      "key": "skill.ward",
+      "value": "神聖防護"
+    },
+    {
+      "key": "skill.cleanse",
+      "value": "淨化之光"
+    },
+    {
+      "key": "skill.revive",
+      "value": "復甦"
+    },
+    {
+      "key": "item.greatsword",
+      "value": "誓約巨劍"
+    },
+    {
+      "key": "item.bow",
+      "value": "灰燼弓"
+    },
+    {
+      "key": "item.staff",
+      "value": "餘燼法杖"
+    },
+    {
+      "key": "item.holy_staff",
+      "value": "朝聖者法杖"
+    },
+    {
+      "key": "item.spear",
+      "value": "旅人長槍"
+    },
+    {
+      "key": "item.armor",
+      "value": "符文胸甲"
+    },
+    {
+      "key": "item.hp",
+      "value": "生命藥水"
+    },
+    {
+      "key": "item.mp",
+      "value": "魔力藥水"
+    },
+    {
+      "key": "item.exp",
+      "value": "冒險筆記"
+    },
+    {
+      "key": "item.book0",
+      "value": "劍術技能書"
+    },
+    {
+      "key": "item.book1",
+      "value": "獵人技能書"
+    },
+    {
+      "key": "item.book2",
+      "value": "秘法技能書"
+    },
+    {
+      "key": "item.book3",
+      "value": "祈禱技能書"
+    },
+    {
+      "key": "boss.rootcrown",
+      "value": "根冠之主"
+    }
+  ]
+}

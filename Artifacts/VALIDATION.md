@@ -52,3 +52,16 @@ powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual -Collapse
 
 一般遊戲：直接執行 Ember.exe。Unity：開啟 UnityProject，載入 Assets/Scenes/Witness.unity 並 Play。
 Git 使用本機 main 分階段提交，無遠端；未建立外部帳號、付費服務或提交憑證。
+
+## zh-TW 全專案中文化驗證（2026-10-02）
+
+- 已先搜尋整個 Assets、Scene、ProjectSettings 與內容產生工具，建立 Docs/LOCALIZATION_INVENTORY.md；中英字串表各 169 鍵，包含所有現有玩家可見 UI、動態紀錄、Agent 對話、技能/物品名稱、死亡與歷史資訊、系統提示及 Windows 視窗標題。技術識別與存檔 schema 未改名。
+- 中英鍵與格式參數一致、catalog/enum 覆蓋、語系切換、巢狀參數、舊版英文紀錄轉換、token JSON 往返全部通過。結果見 localization-tests.txt。
+- 嵌入 Noto Sans CJK TC Regular，字串表與固定角色名/數字使用的 470 個不同字元全部有字形。TMP 未安裝，現有介面使用 IMGUI；TMP fallback / Auto Size 不適用。
+- Windows Player 重新 Build 成功；原有 242 項核心斷言通過，100 組種子完成並重啟、356 次製作，既有測試未受翻譯影響。
+- 在 1600×900 與 1280×720 各執行 22 個實際渲染情境，共 44 次：戰鬥、Boss 預警與第二階段、避難層、四技能槽、坍塌、空/有資料的死者之書和挑戰紀錄、關係、補師資訊、暫停、倍速、儲存/讀取成功與實際失敗、新輪迴、英文切換、恢復繁中、舊存檔紀錄。兩種解析度皆 Issues: 0，Player 退出碼 0。
+- 每次渲染檢查字形、文字所需高度、按鈕寬度、UI 邊界、未解析 token 與缺鍵。直接檢視代表性截圖，包括繁中戰鬥、四技能槽、死者之書、歷史、關係、英文、1280×720 死者之書、舊英文訊息轉換與儲存失敗提示，未見方框字、裁切、換行或版面擠壓。已修正 Noto 行高造成的舊版 padding/高度不足。
+- 另以一般 zh-TW Player 完整執行戰鬥 → 休息層 → 結局 → 自動第 2 輪，smoke 退出碼 0；battle/refuge/end 截圖及 player-run.json 已更新。無 managed exception，原有退出時 JobTempAlloc 警告仍存在。
+- 自動測試呼叫與按鈕相同的 handler；沒有宣稱完成所有滑鼠/鍵盤操作的人工逐項測試。其餘解析度、平台及長時間渲染仍需另行驗證。未知舊版自由英文文本保留原始資料，繁中顯示替代提示，限制詳見 Docs/LOCALIZATION.md。
+
+完整畫面測試輸出與截圖位於 Artifacts/Localization（不納入 Git），兩種解析度的摘要保存於 localization-layout-tests.txt。

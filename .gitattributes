@@ -1,3 +1,4 @@
 * text=auto
 *.fbx binary
 *.png binary
+*.otf binary
