@@ -1,0 +1,515 @@
+{
+  "classes": [
+    {
+      "profession": 0,
+      "stats": {
+        "str": 10,
+        "dex": 5,
+        "intel": 3,
+        "vit": 10,
+        "wis": 4,
+        "mana": 4,
+        "luck": 3
+      },
+      "starter": "slash",
+      "weapon": "greatsword"
+    },
+    {
+      "profession": 1,
+      "stats": {
+        "str": 5,
+        "dex": 12,
+        "intel": 4,
+        "vit": 6,
+        "wis": 5,
+        "mana": 5,
+        "luck": 5
+      },
+      "starter": "shot",
+      "weapon": "bow"
+    },
+    {
+      "profession": 2,
+      "stats": {
+        "str": 3,
+        "dex": 5,
+        "intel": 12,
+        "vit": 5,
+        "wis": 8,
+        "mana": 10,
+        "luck": 3
+      },
+      "starter": "fireball",
+      "weapon": "staff"
+    },
+    {
+      "profession": 3,
+      "stats": {
+        "str": 4,
+        "dex": 4,
+        "intel": 9,
+        "vit": 7,
+        "wis": 12,
+        "mana": 9,
+        "luck": 3
+      },
+      "starter": "holy",
+      "weapon": "holy_staff"
+    }
+  ],
+  "skills": [
+    {
+      "id": "slash",
+      "name": "Crescent slash",
+      "effect": "Damage",
+      "power": 22,
+      "mana": 4,
+      "cooldown": 2.2,
+      "range": 3,
+      "weapon": "Sword",
+      "prerequisite": "",
+      "profession": 0,
+      "cost": 1
+    },
+    {
+      "id": "wave",
+      "name": "Sword wave",
+      "effect": "Damage",
+      "power": 38,
+      "mana": 10,
+      "cooldown": 6,
+      "range": 8,
+      "weapon": "Sword",
+      "prerequisite": "slash",
+      "profession": 0,
+      "cost": 1
+    },
+    {
+      "id": "rage",
+      "name": "Blood rage",
+      "effect": "Enchant",
+      "power": 18,
+      "mana": 8,
+      "cooldown": 10,
+      "range": 0,
+      "weapon": "",
+      "prerequisite": "wave",
+      "profession": 0,
+      "cost": 1
+    },
+    {
+      "id": "guard",
+      "name": "Iron guard",
+      "effect": "Guard",
+      "power": 0.6,
+      "mana": 4,
+      "cooldown": 5,
+      "range": 0,
+      "weapon": "",
+      "prerequisite": "",
+      "profession": 0,
+      "cost": 1
+    },
+    {
+      "id": "taunt",
+      "name": "Challenge",
+      "effect": "Taunt",
+      "power": 5,
+      "mana": 5,
+      "cooldown": 5,
+      "range": 8,
+      "weapon": "",
+      "prerequisite": "guard",
+      "profession": 0,
+      "cost": 1
+    },
+    {
+      "id": "counter",
+      "name": "Counter",
+      "effect": "Damage",
+      "power": 40,
+      "mana": 10,
+      "cooldown": 7,
+      "range": 3,
+      "weapon": "Sword",
+      "prerequisite": "taunt",
+      "profession": 0,
+      "cost": 1
+    },
+    {
+      "id": "shot",
+      "name": "Piercing shot",
+      "effect": "Damage",
+      "power": 20,
+      "mana": 3,
+      "cooldown": 2.4,
+      "range": 10,
+      "weapon": "Bow",
+      "prerequisite": "",
+      "profession": 1,
+      "cost": 1
+    },
+    {
+      "id": "poison",
+      "name": "Venom arrow",
+      "effect": "Damage",
+      "power": 32,
+      "mana": 8,
+      "cooldown": 5,
+      "range": 10,
+      "weapon": "Bow",
+      "prerequisite": "shot",
+      "profession": 1,
+      "cost": 1
+    },
+    {
+      "id": "rain",
+      "name": "Arrow rain",
+      "effect": "Damage",
+      "power": 52,
+      "mana": 14,
+      "cooldown": 9,
+      "range": 10,
+      "weapon": "Bow",
+      "prerequisite": "poison",
+      "profession": 1,
+      "cost": 1
+    },
+    {
+      "id": "trap",
+      "name": "Snare trap",
+      "effect": "Guard",
+      "power": 0.45,
+      "mana": 4,
+      "cooldown": 6,
+      "range": 0,
+      "weapon": "",
+      "prerequisite": "",
+      "profession": 1,
+      "cost": 1
+    },
+    {
+      "id": "pierce",
+      "name": "Armor piercer",
+      "effect": "Damage",
+      "power": 42,
+      "mana": 10,
+      "cooldown": 6,
+      "range": 12,
+      "weapon": "Bow",
+      "prerequisite": "trap",
+      "profession": 1,
+      "cost": 1
+    },
+    {
+      "id": "snipe",
+      "name": "Starfall snipe",
+      "effect": "Damage",
+      "power": 65,
+      "mana": 18,
+      "cooldown": 12,
+      "range": 14,
+      "weapon": "Bow",
+      "prerequisite": "pierce",
+      "profession": 1,
+      "cost": 1
+    },
+    {
+      "id": "fireball",
+      "name": "Ember orb",
+      "effect": "Damage",
+      "power": 26,
+      "mana": 7,
+      "cooldown": 3,
+      "range": 10,
+      "weapon": "",
+      "prerequisite": "",
+      "profession": 2,
+      "cost": 1
+    },
+    {
+      "id": "frost",
+      "name": "Frost spear",
+      "effect": "Damage",
+      "power": 38,
+      "mana": 10,
+      "cooldown": 5,
+      "range": 11,
+      "weapon": "",
+      "prerequisite": "fireball",
+      "profession": 2,
+      "cost": 1
+    },
+    {
+      "id": "meteor",
+      "name": "Meteor",
+      "effect": "Damage",
+      "power": 70,
+      "mana": 22,
+      "cooldown": 10,
+      "range": 13,
+      "weapon": "",
+      "prerequisite": "frost",
+      "profession": 2,
+      "cost": 1
+    },
+    {
+      "id": "shield",
+      "name": "Arcane shield",
+      "effect": "Guard",
+      "power": 0.55,
+      "mana": 8,
+      "cooldown": 6,
+      "range": 0,
+      "weapon": "",
+      "prerequisite": "",
+      "profession": 2,
+      "cost": 1
+    },
+    {
+      "id": "enchant",
+      "name": "Flame infusion",
+      "effect": "Enchant",
+      "power": 16,
+      "mana": 9,
+      "cooldown": 9,
+      "range": 0,
+      "weapon": "",
+      "prerequisite": "shield",
+      "profession": 2,
+      "cost": 1
+    },
+    {
+      "id": "lightning",
+      "name": "Lightning",
+      "effect": "Damage",
+      "power": 55,
+      "mana": 15,
+      "cooldown": 7,
+      "range": 12,
+      "weapon": "",
+      "prerequisite": "enchant",
+      "profession": 2,
+      "cost": 1
+    },
+    {
+      "id": "holy",
+      "name": "Holy light",
+      "effect": "Damage",
+      "power": 18,
+      "mana": 4,
+      "cooldown": 3,
+      "range": 9,
+      "weapon": "",
+      "prerequisite": "",
+      "profession": 3,
+      "cost": 1
+    },
+    {
+      "id": "heal",
+      "name": "Mend",
+      "effect": "Heal",
+      "power": 50,
+      "mana": 8,
+      "cooldown": 4,
+      "range": 12,
+      "weapon": "",
+      "prerequisite": "holy",
+      "profession": 3,
+      "cost": 1
+    },
+    {
+      "id": "groupheal",
+      "name": "Sanctuary",
+      "effect": "Heal",
+      "power": 80,
+      "mana": 18,
+      "cooldown": 8,
+      "range": 14,
+      "weapon": "",
+      "prerequisite": "heal",
+      "profession": 3,
+      "cost": 1
+    },
+    {
+      "id": "ward",
+      "name": "Divine ward",
+      "effect": "Guard",
+      "power": 0.65,
+      "mana": 7,
+      "cooldown": 6,
+      "range": 0,
+      "weapon": "",
+      "prerequisite": "",
+      "profession": 3,
+      "cost": 1
+    },
+    {
+      "id": "cleanse",
+      "name": "Purifying light",
+      "effect": "Heal",
+      "power": 35,
+      "mana": 6,
+      "cooldown": 5,
+      "range": 12,
+      "weapon": "",
+      "prerequisite": "ward",
+      "profession": 3,
+      "cost": 1
+    },
+    {
+      "id": "revive",
+      "name": "Renewal",
+      "effect": "Heal",
+      "power": 95,
+      "mana": 22,
+      "cooldown": 12,
+      "range": 12,
+      "weapon": "",
+      "prerequisite": "cleanse",
+      "profession": 3,
+      "cost": 1
+    }
+  ],
+  "items": [
+    {
+      "id": "greatsword",
+      "name": "Oathblade",
+      "kind": "Weapon",
+      "weapon": "Greatsword",
+      "power": 12,
+      "skill": "",
+      "profession": 0
+    },
+    {
+      "id": "bow",
+      "name": "Ash bow",
+      "kind": "Weapon",
+      "weapon": "Bow",
+      "power": 10,
+      "skill": "",
+      "profession": 1
+    },
+    {
+      "id": "staff",
+      "name": "Cinder staff",
+      "kind": "Weapon",
+      "weapon": "Staff",
+      "power": 8,
+      "skill": "",
+      "profession": 2
+    },
+    {
+      "id": "holy_staff",
+      "name": "Pilgrim staff",
+      "kind": "Weapon",
+      "weapon": "Staff",
+      "power": 7,
+      "skill": "",
+      "profession": 3
+    },
+    {
+      "id": "spear",
+      "name": "Wayfarer spear",
+      "kind": "Weapon",
+      "weapon": "Neutral",
+      "power": 11,
+      "skill": "",
+      "profession": 0
+    },
+    {
+      "id": "armor",
+      "name": "Runic cuirass",
+      "kind": "Armor",
+      "power": 3
+    },
+    {
+      "id": "hp",
+      "name": "Life draught",
+      "kind": "Potion",
+      "power": 60
+    },
+    {
+      "id": "mp",
+      "name": "Ether draught",
+      "kind": "Potion",
+      "power": 50
+    },
+    {
+      "id": "exp",
+      "name": "Field journal",
+      "kind": "Experience",
+      "power": 1
+    },
+    {
+      "id": "book0",
+      "name": "Sword codex",
+      "kind": "SkillBook",
+      "profession": 0
+    },
+    {
+      "id": "book1",
+      "name": "Hunters codex",
+      "kind": "SkillBook",
+      "profession": 1
+    },
+    {
+      "id": "book2",
+      "name": "Arcane codex",
+      "kind": "SkillBook",
+      "profession": 2
+    },
+    {
+      "id": "book3",
+      "name": "Prayer codex",
+      "kind": "SkillBook",
+      "profession": 3
+    }
+  ],
+  "recipes": [
+    {
+      "id": "forge0",
+      "item": "greatsword",
+      "materials": 3,
+      "seconds": 4,
+      "quality": 1.2
+    },
+    {
+      "id": "forge1",
+      "item": "bow",
+      "materials": 3,
+      "seconds": 4,
+      "quality": 1.2
+    },
+    {
+      "id": "forge2",
+      "item": "staff",
+      "materials": 3,
+      "seconds": 4,
+      "quality": 1.2
+    },
+    {
+      "id": "forge3",
+      "item": "holy_staff",
+      "materials": 3,
+      "seconds": 4,
+      "quality": 1.2
+    },
+    {
+      "id": "forge4",
+      "item": "spear",
+      "materials": 3,
+      "seconds": 4,
+      "quality": 1.2
+    }
+  ],
+  "boss": {
+    "id": "rootcrown",
+    "name": "THE ROOTCROWN",
+    "hp": 1300,
+    "damage": 33,
+    "interval": 3.6,
+    "windup": 1.2,
+    "radius": 3.2
+  }
+}
