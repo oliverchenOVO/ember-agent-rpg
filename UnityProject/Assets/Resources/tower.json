@@ -1,0 +1,2160 @@
+{
+  "version": 2,
+  "floors": [
+    {
+      "floor": 1,
+      "id": "floor_01",
+      "nameKey": "p2.floor.1",
+      "theme": "forest",
+      "bossId": "rootcrown",
+      "difficultyTier": 1,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "guardian"
+      ],
+      "intelTags": [
+        "slam",
+        "element_weakness"
+      ],
+      "music": "forest_music_placeholder",
+      "ambience": "forest_ambience_placeholder",
+      "lighting": "forest_light",
+      "vfx": "forest_vfx",
+      "placeholder": false
+    },
+    {
+      "floor": 2,
+      "id": "floor_02",
+      "nameKey": "p2.floor.2",
+      "theme": "forest",
+      "bossId": "thornweaver",
+      "difficultyTier": 1,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "caster"
+      ],
+      "intelTags": [
+        "bolt",
+        "element_weakness"
+      ],
+      "music": "forest_music_placeholder",
+      "ambience": "forest_ambience_placeholder",
+      "lighting": "forest_light",
+      "vfx": "forest_vfx",
+      "placeholder": false
+    },
+    {
+      "floor": 3,
+      "id": "floor_03",
+      "nameKey": "p2.floor.3",
+      "theme": "forest",
+      "bossId": "moonfang",
+      "difficultyTier": 1,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "charger"
+      ],
+      "intelTags": [
+        "charge",
+        "element_weakness"
+      ],
+      "music": "forest_music_placeholder",
+      "ambience": "forest_ambience_placeholder",
+      "lighting": "forest_light",
+      "vfx": "forest_vfx",
+      "placeholder": false
+    },
+    {
+      "floor": 4,
+      "id": "floor_04",
+      "nameKey": "p2.floor.4",
+      "theme": "forest",
+      "bossId": "mirecoil",
+      "difficultyTier": 1,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "summoner"
+      ],
+      "intelTags": [
+        "summon",
+        "element_weakness"
+      ],
+      "music": "forest_music_placeholder",
+      "ambience": "forest_ambience_placeholder",
+      "lighting": "forest_light",
+      "vfx": "forest_vfx",
+      "placeholder": false
+    },
+    {
+      "floor": 5,
+      "id": "floor_05",
+      "nameKey": "p2.floor.5",
+      "theme": "forest",
+      "bossId": "heartwood",
+      "difficultyTier": 1,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "FallingEmbers",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "environment"
+      ],
+      "intelTags": [
+        "storm",
+        "element_weakness"
+      ],
+      "music": "forest_music_placeholder",
+      "ambience": "forest_ambience_placeholder",
+      "lighting": "forest_light",
+      "vfx": "forest_vfx",
+      "placeholder": false
+    },
+    {
+      "floor": 6,
+      "id": "floor_06",
+      "nameKey": "p2.floor.6",
+      "theme": "ice",
+      "bossId": "frostplate",
+      "difficultyTier": 2,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "guardian"
+      ],
+      "intelTags": [
+        "slam",
+        "element_weakness"
+      ],
+      "music": "ice_music_placeholder",
+      "ambience": "ice_ambience_placeholder",
+      "lighting": "ice_light",
+      "vfx": "ice_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 7,
+      "id": "floor_07",
+      "nameKey": "p2.floor.7",
+      "theme": "ice",
+      "bossId": "snowmirror",
+      "difficultyTier": 2,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "caster"
+      ],
+      "intelTags": [
+        "bolt",
+        "element_weakness"
+      ],
+      "music": "ice_music_placeholder",
+      "ambience": "ice_ambience_placeholder",
+      "lighting": "ice_light",
+      "vfx": "ice_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 8,
+      "id": "floor_08",
+      "nameKey": "p2.floor.8",
+      "theme": "ice",
+      "bossId": "tidewhale",
+      "difficultyTier": 2,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "charger"
+      ],
+      "intelTags": [
+        "charge",
+        "element_weakness"
+      ],
+      "music": "ice_music_placeholder",
+      "ambience": "ice_ambience_placeholder",
+      "lighting": "ice_light",
+      "vfx": "ice_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 9,
+      "id": "floor_09",
+      "nameKey": "p2.floor.9",
+      "theme": "ice",
+      "bossId": "zeroform",
+      "difficultyTier": 2,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "summoner"
+      ],
+      "intelTags": [
+        "summon",
+        "element_weakness"
+      ],
+      "music": "ice_music_placeholder",
+      "ambience": "ice_ambience_placeholder",
+      "lighting": "ice_light",
+      "vfx": "ice_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 10,
+      "id": "floor_10",
+      "nameKey": "p2.floor.10",
+      "theme": "ice",
+      "bossId": "whitewing",
+      "difficultyTier": 2,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "FallingEmbers",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "environment"
+      ],
+      "intelTags": [
+        "storm",
+        "element_weakness"
+      ],
+      "music": "ice_music_placeholder",
+      "ambience": "ice_ambience_placeholder",
+      "lighting": "ice_light",
+      "vfx": "ice_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 11,
+      "id": "floor_11",
+      "nameKey": "p2.floor.11",
+      "theme": "castle",
+      "bossId": "headless",
+      "difficultyTier": 3,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "guardian"
+      ],
+      "intelTags": [
+        "slam",
+        "element_weakness"
+      ],
+      "music": "castle_music_placeholder",
+      "ambience": "castle_ambience_placeholder",
+      "lighting": "castle_light",
+      "vfx": "castle_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 12,
+      "id": "floor_12",
+      "nameKey": "p2.floor.12",
+      "theme": "castle",
+      "bossId": "grimoire",
+      "difficultyTier": 3,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "caster"
+      ],
+      "intelTags": [
+        "bolt",
+        "element_weakness"
+      ],
+      "music": "castle_music_placeholder",
+      "ambience": "castle_ambience_placeholder",
+      "lighting": "castle_light",
+      "vfx": "castle_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 13,
+      "id": "floor_13",
+      "nameKey": "p2.floor.13",
+      "theme": "castle",
+      "bossId": "clockwork",
+      "difficultyTier": 3,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "charger"
+      ],
+      "intelTags": [
+        "charge",
+        "element_weakness"
+      ],
+      "music": "castle_music_placeholder",
+      "ambience": "castle_ambience_placeholder",
+      "lighting": "castle_light",
+      "vfx": "castle_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 14,
+      "id": "floor_14",
+      "nameKey": "p2.floor.14",
+      "theme": "castle",
+      "bossId": "falsesaint",
+      "difficultyTier": 3,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "summoner"
+      ],
+      "intelTags": [
+        "summon",
+        "element_weakness"
+      ],
+      "music": "castle_music_placeholder",
+      "ambience": "castle_ambience_placeholder",
+      "lighting": "castle_light",
+      "vfx": "castle_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 15,
+      "id": "floor_15",
+      "nameKey": "p2.floor.15",
+      "theme": "castle",
+      "bossId": "starfall",
+      "difficultyTier": 3,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "FallingEmbers",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "environment"
+      ],
+      "intelTags": [
+        "storm",
+        "element_weakness"
+      ],
+      "music": "castle_music_placeholder",
+      "ambience": "castle_ambience_placeholder",
+      "lighting": "castle_light",
+      "vfx": "castle_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 16,
+      "id": "floor_16",
+      "nameKey": "p2.floor.16",
+      "theme": "abyss",
+      "bossId": "lavabeast",
+      "difficultyTier": 4,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "guardian"
+      ],
+      "intelTags": [
+        "slam",
+        "element_weakness"
+      ],
+      "music": "abyss_music_placeholder",
+      "ambience": "abyss_ambience_placeholder",
+      "lighting": "abyss_light",
+      "vfx": "abyss_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 17,
+      "id": "floor_17",
+      "nameKey": "p2.floor.17",
+      "theme": "abyss",
+      "bossId": "riftfiend",
+      "difficultyTier": 4,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "caster"
+      ],
+      "intelTags": [
+        "bolt",
+        "element_weakness"
+      ],
+      "music": "abyss_music_placeholder",
+      "ambience": "abyss_ambience_placeholder",
+      "lighting": "abyss_light",
+      "vfx": "abyss_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 18,
+      "id": "floor_18",
+      "nameKey": "p2.floor.18",
+      "theme": "abyss",
+      "bossId": "chimera",
+      "difficultyTier": 4,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "charger"
+      ],
+      "intelTags": [
+        "charge",
+        "element_weakness"
+      ],
+      "music": "abyss_music_placeholder",
+      "ambience": "abyss_ambience_placeholder",
+      "lighting": "abyss_light",
+      "vfx": "abyss_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 19,
+      "id": "floor_19",
+      "nameKey": "p2.floor.19",
+      "theme": "abyss",
+      "bossId": "souleater",
+      "difficultyTier": 4,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "summoner"
+      ],
+      "intelTags": [
+        "summon",
+        "element_weakness"
+      ],
+      "music": "abyss_music_placeholder",
+      "ambience": "abyss_ambience_placeholder",
+      "lighting": "abyss_light",
+      "vfx": "abyss_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 20,
+      "id": "floor_20",
+      "nameKey": "p2.floor.20",
+      "theme": "abyss",
+      "bossId": "hellgate",
+      "difficultyTier": 4,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "FallingEmbers",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "environment"
+      ],
+      "intelTags": [
+        "storm",
+        "element_weakness"
+      ],
+      "music": "abyss_music_placeholder",
+      "ambience": "abyss_ambience_placeholder",
+      "lighting": "abyss_light",
+      "vfx": "abyss_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 21,
+      "id": "floor_21",
+      "nameKey": "p2.floor.21",
+      "theme": "ashforest",
+      "bossId": "ashheart",
+      "difficultyTier": 5,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "guardian"
+      ],
+      "intelTags": [
+        "slam",
+        "element_weakness"
+      ],
+      "music": "ashforest_music_placeholder",
+      "ambience": "ashforest_ambience_placeholder",
+      "lighting": "ashforest_light",
+      "vfx": "ashforest_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 22,
+      "id": "floor_22",
+      "nameKey": "p2.floor.22",
+      "theme": "eternalice",
+      "bossId": "stilldragon",
+      "difficultyTier": 5,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "caster"
+      ],
+      "intelTags": [
+        "bolt",
+        "element_weakness"
+      ],
+      "music": "eternalice_music_placeholder",
+      "ambience": "eternalice_ambience_placeholder",
+      "lighting": "eternalice_light",
+      "vfx": "eternalice_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 23,
+      "id": "floor_23",
+      "nameKey": "p2.floor.23",
+      "theme": "voidcastle",
+      "bossId": "voidking",
+      "difficultyTier": 5,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "charger"
+      ],
+      "intelTags": [
+        "charge",
+        "element_weakness"
+      ],
+      "music": "voidcastle_music_placeholder",
+      "ambience": "voidcastle_ambience_placeholder",
+      "lighting": "voidcastle_light",
+      "vfx": "voidcastle_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 24,
+      "id": "floor_24",
+      "nameKey": "p2.floor.24",
+      "theme": "endabyss",
+      "bossId": "endchimera",
+      "difficultyTier": 5,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "TelegraphedGround",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "summoner"
+      ],
+      "intelTags": [
+        "summon",
+        "element_weakness"
+      ],
+      "music": "endabyss_music_placeholder",
+      "ambience": "endabyss_ambience_placeholder",
+      "lighting": "endabyss_light",
+      "vfx": "endabyss_vfx",
+      "placeholder": true
+    },
+    {
+      "floor": 25,
+      "id": "floor_25",
+      "nameKey": "p2.floor.25",
+      "theme": "final",
+      "bossId": "witness",
+      "difficultyTier": 5,
+      "arenaRules": [
+        "BoundedArena",
+        "IndependentInstance"
+      ],
+      "hazard": "FallingEmbers",
+      "lootTables": [
+        "shared"
+      ],
+      "restPool": [
+        "crossing"
+      ],
+      "threatTags": [
+        "environment"
+      ],
+      "intelTags": [
+        "storm",
+        "element_weakness"
+      ],
+      "music": "final_music_placeholder",
+      "ambience": "final_ambience_placeholder",
+      "lighting": "final_light",
+      "vfx": "final_vfx",
+      "placeholder": true
+    }
+  ],
+  "bosses": [
+    {
+      "id": "rootcrown",
+      "nameKey": "p2.boss.rootcrown",
+      "archetype": "guardian",
+      "hp": 468,
+      "armor": 1.12,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": false
+    },
+    {
+      "id": "thornweaver",
+      "nameKey": "p2.boss.thornweaver",
+      "archetype": "caster",
+      "hp": 506,
+      "armor": 1.24,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": false
+    },
+    {
+      "id": "moonfang",
+      "nameKey": "p2.boss.moonfang",
+      "archetype": "charger",
+      "hp": 544,
+      "armor": 1.3599999999999999,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": false
+    },
+    {
+      "id": "mirecoil",
+      "nameKey": "p2.boss.mirecoil",
+      "archetype": "summoner",
+      "hp": 582,
+      "armor": 1.48,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": false
+    },
+    {
+      "id": "heartwood",
+      "nameKey": "p2.boss.heartwood",
+      "archetype": "environment",
+      "hp": 620,
+      "armor": 1.6,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "FinalPulse",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "storm",
+            "survival"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 75,
+          "requiredDamage": 0.2,
+          "abilities": [
+            "storm",
+            "survival",
+            "storm"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": false
+    },
+    {
+      "id": "frostplate",
+      "nameKey": "p2.boss.frostplate",
+      "archetype": "guardian",
+      "hp": 658,
+      "armor": 1.72,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "snowmirror",
+      "nameKey": "p2.boss.snowmirror",
+      "archetype": "caster",
+      "hp": 696,
+      "armor": 1.8399999999999999,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "tidewhale",
+      "nameKey": "p2.boss.tidewhale",
+      "archetype": "charger",
+      "hp": 734,
+      "armor": 1.96,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "zeroform",
+      "nameKey": "p2.boss.zeroform",
+      "archetype": "summoner",
+      "hp": 772,
+      "armor": 2.08,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "whitewing",
+      "nameKey": "p2.boss.whitewing",
+      "archetype": "environment",
+      "hp": 810,
+      "armor": 2.2,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "FinalPulse",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "storm",
+            "survival"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 75,
+          "requiredDamage": 0.2,
+          "abilities": [
+            "storm",
+            "survival",
+            "storm"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "headless",
+      "nameKey": "p2.boss.headless",
+      "archetype": "guardian",
+      "hp": 848,
+      "armor": 2.32,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "grimoire",
+      "nameKey": "p2.boss.grimoire",
+      "archetype": "caster",
+      "hp": 886,
+      "armor": 2.44,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "clockwork",
+      "nameKey": "p2.boss.clockwork",
+      "archetype": "charger",
+      "hp": 924,
+      "armor": 2.56,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "falsesaint",
+      "nameKey": "p2.boss.falsesaint",
+      "archetype": "summoner",
+      "hp": 962,
+      "armor": 2.6799999999999997,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "starfall",
+      "nameKey": "p2.boss.starfall",
+      "archetype": "environment",
+      "hp": 1000,
+      "armor": 2.8,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "FinalPulse",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "storm",
+            "survival"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 75,
+          "requiredDamage": 0.2,
+          "abilities": [
+            "storm",
+            "survival",
+            "storm"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "lavabeast",
+      "nameKey": "p2.boss.lavabeast",
+      "archetype": "guardian",
+      "hp": 1038,
+      "armor": 2.92,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "riftfiend",
+      "nameKey": "p2.boss.riftfiend",
+      "archetype": "caster",
+      "hp": 1076,
+      "armor": 3.04,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "chimera",
+      "nameKey": "p2.boss.chimera",
+      "archetype": "charger",
+      "hp": 1114,
+      "armor": 3.16,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "souleater",
+      "nameKey": "p2.boss.souleater",
+      "archetype": "summoner",
+      "hp": 1152,
+      "armor": 3.28,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "hellgate",
+      "nameKey": "p2.boss.hellgate",
+      "archetype": "environment",
+      "hp": 1190,
+      "armor": 3.4,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "FinalPulse",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "storm",
+            "survival"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 75,
+          "requiredDamage": 0.2,
+          "abilities": [
+            "storm",
+            "survival",
+            "storm"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "ashheart",
+      "nameKey": "p2.boss.ashheart",
+      "archetype": "guardian",
+      "hp": 1228,
+      "armor": 3.52,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "slam"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "stilldragon",
+      "nameKey": "p2.boss.stilldragon",
+      "archetype": "caster",
+      "hp": 1266,
+      "armor": 3.6399999999999997,
+      "weaknessElement": "Fire",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "bolt",
+            "shield"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "voidking",
+      "nameKey": "p2.boss.voidking",
+      "archetype": "charger",
+      "hp": 1304,
+      "armor": 3.76,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "charge"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "endchimera",
+      "nameKey": "p2.boss.endchimera",
+      "archetype": "summoner",
+      "hp": 1342,
+      "armor": 3.88,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "None",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "summon",
+            "drain"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    },
+    {
+      "id": "witness",
+      "nameKey": "p2.boss.witness",
+      "archetype": "environment",
+      "hp": 1380,
+      "armor": 4.0,
+      "weaknessElement": "Ice",
+      "resistElement": "Dark",
+      "deathMechanic": "FinalPulse",
+      "phases": [
+        {
+          "nameKey": "p2.phase.opening",
+          "hpBelow": 1,
+          "afterSeconds": 0,
+          "enrageAfter": 100,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "storm",
+            "survival"
+          ],
+          "resistance": 0.1,
+          "weakness": 0.25
+        },
+        {
+          "nameKey": "p2.phase.intense",
+          "hpBelow": 0.5,
+          "afterSeconds": 55,
+          "enrageAfter": 85,
+          "dpsDeadline": 75,
+          "requiredDamage": 0.2,
+          "abilities": [
+            "storm",
+            "survival",
+            "doom"
+          ],
+          "resistance": 0.15,
+          "weakness": 0.35
+        }
+      ],
+      "placeholder": true
+    }
+  ],
+  "abilities": [
+    {
+      "id": "slam",
+      "nameKey": "p2.ability.slam",
+      "mechanic": 0,
+      "damage": 22,
+      "interval": 4,
+      "windup": 1.4,
+      "radius": 3,
+      "status": "",
+      "element": "Physical",
+      "target": 0,
+      "duration": 4,
+      "interruptible": false,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "bolt",
+      "nameKey": "p2.ability.bolt",
+      "mechanic": 1,
+      "damage": 16,
+      "interval": 3,
+      "windup": 1,
+      "radius": 1.8,
+      "status": "Slow",
+      "element": "Ice",
+      "target": 2,
+      "duration": 4,
+      "interruptible": true,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "charge",
+      "nameKey": "p2.ability.charge",
+      "mechanic": 2,
+      "damage": 26,
+      "interval": 4,
+      "windup": 1.8,
+      "radius": 1.6,
+      "status": "Stun",
+      "element": "Physical",
+      "target": 2,
+      "duration": 4,
+      "interruptible": false,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "summon",
+      "nameKey": "p2.ability.summon",
+      "mechanic": 3,
+      "damage": 8,
+      "interval": 6,
+      "windup": 1.8,
+      "radius": 2,
+      "status": "",
+      "element": "Dark",
+      "target": 0,
+      "duration": 4,
+      "interruptible": true,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "storm",
+      "nameKey": "p2.ability.storm",
+      "mechanic": 4,
+      "damage": 14,
+      "interval": 5,
+      "windup": 2,
+      "radius": 4,
+      "status": "Burn",
+      "element": "Fire",
+      "target": 0,
+      "duration": 4,
+      "interruptible": false,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "drain",
+      "nameKey": "p2.ability.drain",
+      "mechanic": 5,
+      "damage": 12,
+      "interval": 5,
+      "windup": 1.5,
+      "radius": 3,
+      "status": "Weaken",
+      "element": "Dark",
+      "target": 1,
+      "duration": 4,
+      "interruptible": true,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "shield",
+      "nameKey": "p2.ability.shield",
+      "mechanic": 6,
+      "damage": 0,
+      "interval": 8,
+      "windup": 1.8,
+      "radius": 2,
+      "status": "",
+      "element": "Ice",
+      "target": 3,
+      "duration": 4,
+      "interruptible": true,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "survival",
+      "nameKey": "p2.ability.survival",
+      "mechanic": 7,
+      "damage": 9,
+      "interval": 5,
+      "windup": 1.5,
+      "radius": 4,
+      "status": "Slow",
+      "element": "Ice",
+      "target": 0,
+      "duration": 4,
+      "interruptible": false,
+      "interruptWindow": 0.7
+    },
+    {
+      "id": "doom",
+      "nameKey": "p2.ability.doom",
+      "mechanic": 8,
+      "damage": 22,
+      "interval": 7,
+      "windup": 2,
+      "radius": 2,
+      "status": "Doom",
+      "element": "Dark",
+      "target": 1,
+      "duration": 4,
+      "interruptible": true,
+      "interruptWindow": 0.7
+    }
+  ],
+  "loot": [
+    {
+      "id": "shared",
+      "items": [
+        "greatsword",
+        "bow",
+        "staff",
+        "holy_staff",
+        "spear",
+        "armor",
+        "hp",
+        "mp",
+        "exp",
+        "book0",
+        "book1",
+        "book2",
+        "book3"
+      ],
+      "rolls": 2,
+      "materials": 3
+    }
+  ],
+  "rests": [
+    {
+      "id": "crossing",
+      "collapseAfter": 26,
+      "collapseSpeed": 2.3,
+      "sites": [
+        {
+          "id": "bed",
+          "nameKey": "p2.site.bed",
+          "effect": "Heal",
+          "x": -7,
+          "z": -3,
+          "seconds": 3,
+          "risk": 0,
+          "reward": 40,
+          "materialCost": 0
+        },
+        {
+          "id": "forge",
+          "nameKey": "p2.site.forge",
+          "effect": "Craft",
+          "x": -3,
+          "z": -3,
+          "seconds": 4,
+          "risk": 0,
+          "reward": 1.5,
+          "materialCost": 3
+        },
+        {
+          "id": "church",
+          "nameKey": "p2.site.church",
+          "effect": "Bless",
+          "x": 1,
+          "z": -3,
+          "seconds": 3,
+          "risk": 0.05,
+          "reward": 0.35,
+          "materialCost": 1
+        },
+        {
+          "id": "clinic",
+          "nameKey": "p2.site.clinic",
+          "effect": "Cleanse",
+          "x": -7,
+          "z": 0,
+          "seconds": 3,
+          "risk": 0,
+          "reward": 55,
+          "materialCost": 1
+        },
+        {
+          "id": "library",
+          "nameKey": "p2.site.library",
+          "effect": "Intel",
+          "x": -3,
+          "z": 0,
+          "seconds": 3,
+          "risk": 0.02,
+          "reward": 0.8,
+          "materialCost": 0
+        },
+        {
+          "id": "corpse",
+          "nameKey": "p2.site.corpse",
+          "effect": "Loot",
+          "x": 1,
+          "z": 0,
+          "seconds": 3,
+          "risk": 0.3,
+          "reward": 2,
+          "materialCost": 0
+        },
+        {
+          "id": "cache",
+          "nameKey": "p2.site.cache",
+          "effect": "Loot",
+          "x": -7,
+          "z": 3,
+          "seconds": 3,
+          "risk": 0.15,
+          "reward": 2,
+          "materialCost": 0
+        },
+        {
+          "id": "resource",
+          "nameKey": "p2.site.resource",
+          "effect": "Materials",
+          "x": -3,
+          "z": 3,
+          "seconds": 5,
+          "risk": 0.45,
+          "reward": 5,
+          "materialCost": 0
+        },
+        {
+          "id": "book",
+          "nameKey": "p2.site.book",
+          "effect": "Read",
+          "x": 1,
+          "z": 3,
+          "seconds": 3,
+          "risk": 0,
+          "reward": 0.6,
+          "materialCost": 0
+        }
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "id": "forest",
+      "r": 0.13,
+      "g": 0.3,
+      "b": 0.24,
+      "fog": 0.023,
+      "lighting": "forest_light",
+      "vfx": "forest_vfx",
+      "music": "forest_music_placeholder",
+      "ambience": "forest_ambience_placeholder"
+    },
+    {
+      "id": "ice",
+      "r": 0.2,
+      "g": 0.4,
+      "b": 0.55,
+      "fog": 0.023,
+      "lighting": "ice_light",
+      "vfx": "ice_vfx",
+      "music": "ice_music_placeholder",
+      "ambience": "ice_ambience_placeholder"
+    },
+    {
+      "id": "castle",
+      "r": 0.25,
+      "g": 0.2,
+      "b": 0.4,
+      "fog": 0.023,
+      "lighting": "castle_light",
+      "vfx": "castle_vfx",
+      "music": "castle_music_placeholder",
+      "ambience": "castle_ambience_placeholder"
+    },
+    {
+      "id": "abyss",
+      "r": 0.38,
+      "g": 0.14,
+      "b": 0.12,
+      "fog": 0.023,
+      "lighting": "abyss_light",
+      "vfx": "abyss_vfx",
+      "music": "abyss_music_placeholder",
+      "ambience": "abyss_ambience_placeholder"
+    },
+    {
+      "id": "ashforest",
+      "r": 0.35,
+      "g": 0.2,
+      "b": 0.1,
+      "fog": 0.023,
+      "lighting": "ashforest_light",
+      "vfx": "ashforest_vfx",
+      "music": "ashforest_music_placeholder",
+      "ambience": "ashforest_ambience_placeholder"
+    },
+    {
+      "id": "eternalice",
+      "r": 0.16,
+      "g": 0.25,
+      "b": 0.5,
+      "fog": 0.023,
+      "lighting": "eternalice_light",
+      "vfx": "eternalice_vfx",
+      "music": "eternalice_music_placeholder",
+      "ambience": "eternalice_ambience_placeholder"
+    },
+    {
+      "id": "voidcastle",
+      "r": 0.2,
+      "g": 0.08,
+      "b": 0.3,
+      "fog": 0.023,
+      "lighting": "voidcastle_light",
+      "vfx": "voidcastle_vfx",
+      "music": "voidcastle_music_placeholder",
+      "ambience": "voidcastle_ambience_placeholder"
+    },
+    {
+      "id": "endabyss",
+      "r": 0.28,
+      "g": 0.03,
+      "b": 0.09,
+      "fog": 0.023,
+      "lighting": "endabyss_light",
+      "vfx": "endabyss_vfx",
+      "music": "endabyss_music_placeholder",
+      "ambience": "endabyss_ambience_placeholder"
+    },
+    {
+      "id": "final",
+      "r": 0.55,
+      "g": 0.57,
+      "b": 0.55,
+      "fog": 0.023,
+      "lighting": "final_light",
+      "vfx": "final_vfx",
+      "music": "final_music_placeholder",
+      "ambience": "final_ambience_placeholder"
+    }
+  ]
+}
