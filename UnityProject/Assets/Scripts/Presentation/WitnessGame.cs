@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Ember.Core;
+using Ember.Core.Phase2;
 using UnityEngine;
 
 namespace Ember.Presentation
@@ -24,9 +25,11 @@ namespace Ember.Presentation
             Application.targetFrameRate=60; var c=JsonUtility.FromJson<Catalog>(Resources.Load<TextAsset>("catalog").text);
             smoke=Array.IndexOf(args,"--smoke")>=0;collapseSmoke=Array.IndexOf(args,"--collapse-smoke")>=0;qaEnabled=Array.IndexOf(args,"--localization-smoke")>=0;
             simulation=new Simulation(c,1729,smoke||Array.IndexOf(args,"--showcase")>=0);view=new WorldView();view.RebuildCharacters(simulation.State,c);lastRun=1;
+            if(!smoke&&!collapseSmoke&&!qaEnabled&&Array.IndexOf(args,"--vertical-slice")<0)StartExpedition(c,args);
             savePath=Path.Combine(Application.persistentDataPath,"witness-save.json");
+            if(tower!=null)savePath=Path.Combine(Application.persistentDataPath,"ember-expedition-save.json");
             int index=Array.IndexOf(args,"--artifacts");artifactPath=index>=0&&index+1<args.Length?args[index+1]:Application.persistentDataPath;
-            if(smoke||collapseSmoke||qaEnabled){Directory.CreateDirectory(artifactPath);speed=2;savePath=Path.Combine(artifactPath,"smoke-save.json");}
+            if(smoke||collapseSmoke||qaEnabled||towerSmoke||towerQA){Directory.CreateDirectory(artifactPath);speed=towerSmoke?16:2;savePath=Path.Combine(artifactPath,tower!=null?"phase2-save.json":"smoke-save.json");}
             if(collapseSmoke)
             {
                 simulation.EnterRest();simulation.State.phaseClock=27;
@@ -36,6 +39,7 @@ namespace Ember.Presentation
             Debug.Log("EMBER PLAYER START / save "+savePath);
             Invoke(nameof(LocalizeWindowTitle),.3f);
             if(qaEnabled){paused=true;qaNext=Time.realtimeSinceStartup+.5f;}
+            if(towerQA){paused=true;qaEnabled=true;qaNext=Time.realtimeSinceStartup+.5f;}
         }
         AudioClip Tone(float frequency,float duration)
         {
@@ -45,14 +49,16 @@ namespace Ember.Presentation
         void Update()
         {
             if(simulation==null)return;
-            if(qaEnabled)UpdateLocalizationQA();
+            if(towerQA)UpdateTowerQA();else if(qaEnabled)UpdateLocalizationQA();
+            if(Input.GetKeyDown(KeyCode.F8))reasonerDebug=!reasonerDebug;
             if(Input.GetKeyDown(KeyCode.Space))paused=!paused;
             if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;
             if(!paused)
             {
                 accumulator+=Mathf.Min(Time.unscaledDeltaTime,.25f)*speed;
-                while(accumulator>=Simulation.StepSeconds){simulation.Step();accumulator-=Simulation.StepSeconds;}
+                while(accumulator>=Simulation.StepSeconds){if(tower!=null)tower.Step();else simulation.Step();accumulator-=Simulation.StepSeconds;}
             }
+            if(tower!=null){simulation.Restore(tower.Observe(selected));view.SetExpedition(tower.Data,tower.State.GroupOf(selected));}
             var w=simulation.State;
             string signature="";foreach(var agent in w.agents)signature+=agent.weapon.id+agent.weapon.infusion+";";
             if(signature!=weaponSignature){weaponSignature=signature;view.RebuildCharacters(w,simulation.Catalog);}
@@ -60,6 +66,7 @@ namespace Ember.Presentation
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
             view.Update(w,Time.unscaledDeltaTime,orbit);noticeTimer-=Time.unscaledDeltaTime;
+            if(towerSmoke)UpdateTowerSmoke();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
             {
                 var msg=w.messages[w.messages.Count-1];lastSound=msg;if(msg.category=="skill")audioSource.PlayOneShot(strike);if(msg.category=="heal")audioSource.PlayOneShot(heal);
@@ -78,10 +85,10 @@ namespace Ember.Presentation
                 if(Time.realtimeSinceStartup>3){Debug.Log("EMBER COLLAPSE PRESENTATION CHECK COMPLETE");Application.Quit(0);}
             }
         }
-        void TrySave(){try{SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
+        void TrySave(){try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LocalizeWindowTitle(){PlayerWindow.LocalizeTitle();}
         void RefreshLanguage(){title=null;LocalizeWindowTitle();}
-        void OnDestroy(){Loc.Changed-=RefreshLanguage;}
+        void OnDestroy(){Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();}
         void Notice(string text){notice=text;noticeTimer=5;}
         void Styles()
         {
@@ -110,9 +117,9 @@ namespace Ember.Presentation
             Box(0,0,1600,86,new Color(.035f,.065f,.08f,.96f));Box(0,85,1600,1,new Color(.25f,.36f,.36f,.6f));
             Text(30,17,215,43,Loc.T("ui.brand"),title);Text(32,57,260,20,Loc.T("ui.tagline"),small);
             Text(337,21,120,24,Loc.T("ui.life"),subtitle);Text(338,42,120,42,w.run.ToString("D3"),number);
-            Text(490,21,120,24,Loc.T("ui.floor"),subtitle);Text(491,42,120,42,"01 / 25",number);
+            Text(490,21,120,24,Loc.T("ui.floor"),subtitle);Text(491,42,120,42,w.floor.ToString("00")+" / 25",number);
             Text(636,21,120,24,Loc.T("ui.time"),subtitle);Text(637,42,120,42,TimeText(w.clock),number);
-            Text(800,24,230,25,w.phase==Phase.Battle?Loc.T("ui.arena"):w.phase==Phase.Rest?Loc.T("ui.refuge"):Loc.T("ui.recorded"),label);
+            Text(800,24,230,25,tower!=null?Loc.T(tower.Data.Floor(w.floor).nameKey):w.phase==Phase.Battle?Loc.T("ui.arena"):w.phase==Phase.Rest?Loc.T("ui.refuge"):Loc.T("ui.recorded"),label);
             Text(800,48,350,24,Loc.T("ui.edition"),small);
             if(Button(1160,29,67,paused?Loc.T("ui.resume"):Loc.T("ui.pause")))TogglePause();
             if(Button(1234,29,67,Loc.T("ui.speed",speed.ToString("0"))))CycleSpeed();
@@ -127,14 +134,13 @@ namespace Ember.Presentation
             for(int i=0;i<4;i++) AgentCard(w.agents[i],i,1300,157+i*113);
             Text(1302,624,245,22,Loc.T("ui.controls"),subtitle);
             Text(1302,653,245,70,Loc.T("ui.controls_help"),small);
-            Text(1302,730,245,30,w.run==1&&w.showcase?Loc.T("ui.showcase"):Loc.T("ui.autonomous"),small);
-            Text(1302,771,245,44,Loc.T("ui.next_classes"),small);
+            if(tower!=null)DrawGroupSidebar();else {Text(1302,730,245,30,w.run==1&&w.showcase?Loc.T("ui.showcase"):Loc.T("ui.autonomous"),small);Text(1302,771,245,44,Loc.T("ui.next_classes"),small);}
             if(w.phase==Phase.Battle)
             {
-                Box(425,110,590,78,new Color(.035f,.062f,.075f,.85f));Text(448,122,360,24,Loc.T("ui.boss"),subtitle);
+                Box(425,110,590,78,new Color(.035f,.062f,.075f,.85f));Text(448,122,360,24,tower!=null?Loc.T(tower.Data.Boss(tower.State.GroupOf(selected).boss.definition).nameKey):Loc.T("ui.boss"),subtitle);
                 Text(843,122,160,24,Loc.T("ui.agent_class",(int)w.boss.hp,(int)w.boss.maxHp),small);Bar(448,155,542,w.boss.hp/w.boss.maxHp,amber,6);
-                Text(448,164,530,24,w.boss.enraged?Loc.T("ui.boss_phase2"):Loc.T("ui.boss_phase1"),small);
-                if(w.boss.telegraph) {Box(545,208,355,40,new Color(.3f,.09f,.05f,.86f));Text(563,218,320,24,Loc.T("ui.slam",w.boss.windup.ToString("F1")),subtitle);}
+                Text(448,164,530,24,tower!=null?BossStatus():w.boss.enraged?Loc.T("ui.boss_phase2"):Loc.T("ui.boss_phase1"),small);
+                if(w.boss.telegraph) {Box(545,208,355,40,new Color(.3f,.09f,.05f,.86f));Text(563,218,320,24,tower!=null?Loc.T(tower.Data.Ability(tower.State.GroupOf(selected).boss.ability).nameKey):Loc.T("ui.slam",w.boss.windup.ToString("F1")),subtitle);}
             }
             else
             {
@@ -146,7 +152,7 @@ namespace Ember.Presentation
             var usedPlates=new System.Collections.Generic.List<Rect>();
             foreach(var agent in w.agents)
             {
-                if(agent.escaped)continue;var p=view.Screen(agent);if(p.z<0)continue;
+                if(agent.escaped||(tower!=null&&!tower.State.GroupOf(selected).members.Contains(agent.id)))continue;var p=view.Screen(agent);if(p.z<0)continue;
                 float x=(p.x-ox)/scale,y=(Screen.height-p.y-oy)/scale;
                 if(x>300&&x<1250&&y>200&&y<650)
                 {
@@ -155,7 +161,7 @@ namespace Ember.Presentation
                 }
             }
             Box(28,107,294,272,new Color(.035f,.062f,.075f,.89f));Text(47,124,258,22,Loc.T("ui.mind"),subtitle);
-            Text(47,153,235,30,Loc.T("ui.agent_class",a.name,Loc.Profession(a.profession)),label);Text(47,188,252,75,Loc.Render(a.intent.reason),label);
+            Text(47,153,235,30,Loc.T("ui.agent_class",a.name,Loc.Profession(a.profession)),label);Text(47,188,252,75,tower!=null?Loc.T("p2.goal",Loc.T("p2.goal."+tower.State.Plan(selected).decision.intent)):Loc.Render(a.intent.reason),label);
             Text(47,273,258,22,Loc.T("ui.traits1",Mathf.RoundToInt(a.personality.risk*100),Mathf.RoundToInt(a.personality.curiosity*100)),small);
             Text(47,301,258,22,Loc.T("ui.traits2",Mathf.RoundToInt(a.personality.empathy*100),Mathf.RoundToInt(a.personality.greed*100)),small);
             Text(47,326,258,32,Loc.T("ui.intent",Loc.Action(a.intent.kind)),subtitle);
@@ -166,7 +172,7 @@ namespace Ember.Presentation
             Text(47,552,258,50,Loc.T("ui.skills",string.Join(" / ",a.equipped.ConvertAll(Loc.Skill))),small);
             Text(47,609,258,22,Loc.T("ui.resources",a.materials,a.inventory.Count,a.memory.Count),small);
             Bottom(w);
-            Text(32,861,1230,29,Loc.T("ui.footer"),small);
+            Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);
             if(Button(1350,843,222,Loc.T("ui.language"))){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");PlayerPrefs.SetString("locale",Loc.Locale);PlayerPrefs.Save();}
             if(noticeTimer>0){Box(450,830,750,33,new Color(.08f,.16f,.17f,.95f));Text(467,836,715,25,Loc.Render(notice),label);}
         }
@@ -175,7 +181,7 @@ namespace Ember.Presentation
             bool active=selected==i;Box(x,y,254,104,active?new Color(.105f,.17f,.19f):new Color(.065f,.105f,.12f));Box(x,y,3,104,view.colors[i]);
             if(GUI.Button(new Rect(x,y,254,101),GUIContent.none,GUIStyle.none))selected=i;
             Text(x+15,y+10,163,24,a.name,label);Text(x+181,y+11,62,20,a.alive?(a.escaped?Loc.T("ui.safe"):Loc.T("ui.level",a.level)):Loc.T("ui.dead"),small);
-            Text(x+15,y+34,220,20,Loc.T("ui.agent_class",Loc.Profession(a.profession),a.escaped?Loc.T("ui.escaped"):a.taskTimer>0?Loc.T(a.task=="cache"?"ui.exploring":"ui.working",a.taskTimer.ToString("F1")):Loc.Action(a.intent.kind)),small);
+            Text(x+15,y+34,220,20,tower!=null?Loc.T("p2.membership",tower.State.GroupOf(i).id,tower.State.GroupOf(i).floor):Loc.T("ui.agent_class",Loc.Profession(a.profession),a.escaped?Loc.T("ui.escaped"):a.taskTimer>0?Loc.T(a.task=="cache"?"ui.exploring":"ui.working",a.taskTimer.ToString("F1")):Loc.Action(a.intent.kind)),small);
             Bar(x+15,y+61,220,a.hp/a.MaxHp,a.alive?view.colors[i]:muted,5);Bar(x+15,y+72,220,a.mp/a.MaxMp,new Color(.33f,.56f,.75f),3);
             Text(x+15,y+80,220,22,Loc.T("ui.vitals",(int)a.hp,(int)a.mp),small);
         }
@@ -184,7 +190,8 @@ namespace Ember.Presentation
             Box(28,659,1229,182,new Color(.035f,.062f,.075f,.95f));
             string[] tabs={Loc.T("ui.chronicle"),Loc.T("ui.book"),Loc.T("ui.history"),Loc.T("ui.relationships")};
             for(int i=0;i<4;i++) {if(Button(44+i*183,674,173,(tab==i?"• ":"")+tabs[i]))tab=i;}
-            Text(980,680,260,20,Loc.T("ui.observe"),small);
+            if(tower!=null){if(Button(776,674,173,(tab==4?"• ":"")+Loc.T("p2.groups")))tab=4;if(Button(959,674,173,(tab==5?"• ":"")+Loc.T("p2.details")))tab=5;}else Text(980,680,260,20,Loc.T("ui.observe"),small);
+            if(tower!=null&&tab>=4){DrawExpeditionDetail();return;}
             if(tab==0)
             {
                 int start=Mathf.Max(0,w.messages.Count-4);

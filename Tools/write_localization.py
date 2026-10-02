@@ -95,6 +95,9 @@ for s,zh in zip(catalog['skills'],skill_zh,strict=True):add('skill.'+s['id'],s['
 for i,zh in zip(catalog['items'],item_zh,strict=True):add('item.'+i['id'],i['name'],zh)
 add('boss.'+catalog['boss']['id'],catalog['boss']['name'],'根冠之主')
 
+from phase2_strings import entries as phase2_entries
+for key,(en,zh) in phase2_entries.items():add(key,en,zh)
+
 if __name__=='__main__':
     import sys
     # Inventory comes first. --inventory never modifies game assets.

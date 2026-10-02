@@ -7,7 +7,7 @@ namespace Ember.Core.Phase2
     {
         public void NextFloor(GroupState g)
         {
-            if(g.terminal)return;
+            if(g.terminal||g.phase!=Phase.Rest||g.boss.visible.hp>0||State.Members(g).Any(a=>a.alive&&!a.escaped))return;
             if(g.floor==25)
             {
                 g.completed=true;g.terminal=true;g.phase=Phase.Ended;
@@ -32,8 +32,16 @@ namespace Ember.Core.Phase2
             if(danger||hazard)
             {
                 float tx=danger?b.visible.targetX:b.hazardX,tz=danger?b.visible.targetZ:b.hazardZ;
-                float dx=a.x-tx,dz=a.z-tz;if(Mathf.Abs(dx)+Mathf.Abs(dz)<.1f){dx=a.id%2==0?1:-1;dz=-.7f;}float len=Mathf.Sqrt(dx*dx+dz*dz);
-                Move(a,Mathf.Clamp(tx+dx/len*(radius+2),-9,9),Mathf.Clamp(tz+dz/len*(radius+2),-7.5f,7.5f),dt,speed);a.intent.kind=ActionKind.Protect;return;
+                // Search reachable safe directions; clamping an outward vector at the arena wall can trap an Agent forever.
+                Vector2 best=new Vector2(a.x,a.z);float bestScore=float.NegativeInfinity;
+                for(int i=0;i<16;i++)
+                {
+                    float angle=i*Mathf.PI/8;float x=Mathf.Clamp(tx+Mathf.Cos(angle)*(radius+2),-9,9),z=Mathf.Clamp(tz+Mathf.Sin(angle)*(radius+2),-7.5f,7.5f);
+                    float clearance=Simulation.Distance(x,z,tx,tz);float score=(clearance>radius+.7f?100:clearance*5)-Simulation.Distance(a.x,a.z,x,z)-Simulation.Distance(x,z,b.x,b.z)*3;
+                    if(b.hazardLeft>0&&Simulation.Distance(x,z,b.hazardX,b.hazardZ)<3.5f)score-=100;
+                    if(score>bestScore){bestScore=score;best=new Vector2(x,z);}
+                }
+                Move(a,best.x,best.y,dt,speed);a.intent.kind=ActionKind.Protect;return;
             }
             // Tactical evaluation is local only; LLM never runs here or receives a Transform.
             a.decisionTimer-=dt;
@@ -48,6 +56,7 @@ namespace Ember.Core.Phase2
                 }
             }
             if(a.intent.kind==ActionKind.GiveUp){a.intent.kind=ActionKind.Attack;}
+            if(a.intent.kind==ActionKind.Protect&&plan.decision.intent=="Fight")a.intent.kind=ActionKind.Attack;
             if(a.intent.kind==ActionKind.Protect)
             {
                 var ally=State.Members(g).FirstOrDefault(v=>v.id==a.intent.target&&v.alive);
@@ -66,7 +75,7 @@ namespace Ember.Core.Phase2
                 if(Simulation.Distance(a.x,a.z,b.x,b.z)>range)Move(a,b.x,b.z,dt,speed);
                 else if(a.attackTimer==0)
                 {
-                    float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?a.stats.intel:a.stats.str;
+                    float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
                     b.Hit(Data,a,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog),a.enchant>0?"Fire":"Physical",false);
                     a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
                 }
@@ -95,7 +104,7 @@ namespace Ember.Core.Phase2
             else
             {
                 string element=id=="fireball"||id=="meteor"?"Fire":id=="frost"?"Ice":id=="holy"?"Light":"Physical";
-                g.boss.Hit(Data,a,(s.power+a.stats.intel*.7f+a.stats.str*.3f)*Simulation.Proficiency(a,Catalog),element,true);
+                g.boss.Hit(Data,a,(s.power+(a.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.7f+a.stats.str*.3f)*Simulation.Proficiency(a,Catalog),element,true);
                 State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),"skill");
             }
             return true;

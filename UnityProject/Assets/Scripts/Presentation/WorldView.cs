@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ember.Presentation
 {
-    public sealed class WorldView
+    public sealed partial class WorldView
     {
         public Camera camera; public Color[] colors={new Color(.95f,.6f,.22f),new Color(.35f,.85f,.72f),new Color(.57f,.55f,1),new Color(.92f,.76f,.52f)};
         Transform world, arena, refuge, boss, crown, warning, shock, collapseFront, collapseVoid;
@@ -175,17 +175,18 @@ namespace Ember.Presentation
                 float lift=w.boss.telegraph?Mathf.Clamp01(1-w.boss.windup/1.2f)*-95:Mathf.Sin(t*1.7f)*8;
                 for(int i=0;i<arms.Count;i++)arms[i].localRotation=Quaternion.Euler(lift,0,(i==0?1:-1)*5);
                 crown.localRotation=Quaternion.Euler(0,Mathf.Sin(t)*4,0);
-                warning.gameObject.SetActive(w.boss.telegraph);warning.position=new Vector3(w.boss.targetX,.06f,w.boss.targetZ);warning.localScale=Vector3.one*(w.boss.enraged?1.25f:1);
+                warning.gameObject.SetActive(w.boss.telegraph);warning.position=new Vector3(w.boss.targetX,.06f,w.boss.targetZ);warning.localScale=Vector3.one*(observedGroup!=null?observedRadius/3.2f:w.boss.enraged?1.25f:1);
                 shock.gameObject.SetActive(!w.boss.telegraph&&w.boss.timer>2.9f);shock.position=warning.position;shock.localScale=Vector3.one*(1+(3.6f-w.boss.timer)*2);
             }
             for(int i=0;i<4;i++)
             {
-                var a=w.agents[i];bodies[i].gameObject.SetActive(!a.escaped);
+                var a=w.agents[i];bodies[i].gameObject.SetActive(!a.escaped&&(observedGroup==null||observedGroup.members.Contains(i)));
                 bodies[i].position=new Vector3(a.x,a.alive?.05f*Mathf.Sin(t*3+i):.1f,a.z);
                 bodies[i].rotation=a.alive?Quaternion.Euler(0,battle?Mathf.Atan2(-a.x,1-a.z)*Mathf.Rad2Deg:90,0):Quaternion.Euler(0,0,85);
                 auras[i].gameObject.SetActive(a.alive);auras[i].localScale=Vector3.one*(1+.06f*Mathf.Sin(t*2+i));
-                if(battle&&a.damage>previousDamage[i]) AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(0,2,1),robes[i]);
-                if(battle&&a.healing>previousHealing[i])
+                bool present=observedGroup==null||observedGroup.members.Contains(i);
+                if(battle&&present&&a.damage>previousDamage[i]) AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(observedGroup?.boss.x??0,2,observedGroup?.boss.z??1),robes[i]);
+                if(battle&&present&&a.healing>previousHealing[i])
                 {
                     var target=a.intent.target>=0?w.agents[a.intent.target]:a;AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(target.x,1.4f,target.z),glow);
                 }

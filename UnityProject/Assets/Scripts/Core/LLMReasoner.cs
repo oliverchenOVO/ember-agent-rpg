@@ -17,6 +17,7 @@ namespace Ember.Core.Phase2
     {
         public string schema="ember.high-decision.v1"; public int maxOutputTokens=256;
         public AgentDecisionContext context;
+        public string[] allowedIntents;
         public string instructions="Return only HighDecision JSON. intent must be an allowed Goal; proposedAction must be an allowed site ID. No commands, transforms, animation or code. reasoningTags <=8; confidence/riskLevel 0..1.";
     }
     public interface IReasonerTransport { Task<string> SendAsync(string request,CancellationToken cancellation); }
@@ -34,8 +35,8 @@ namespace Ember.Core.Phase2
             {
                 if(!string.IsNullOrEmpty(key))message.Headers.Authorization=new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",key);
                 message.Content=new StringContent(request,Encoding.UTF8,"application/json");
-                using(var response=await client.SendAsync(message,HttpCompletionOption.ResponseContentRead,cancellation))
-                {response.EnsureSuccessStatusCode();string text=await response.Content.ReadAsStringAsync();if(text.Length>16384)throw new InvalidOperationException("Response too large");return text;}
+                using(var response=await client.SendAsync(message,HttpCompletionOption.ResponseContentRead,cancellation).ConfigureAwait(false))
+                {response.EnsureSuccessStatusCode();string text=await response.Content.ReadAsStringAsync().ConfigureAwait(false);if(text.Length>16384)throw new InvalidOperationException("Response too large");return text;}
             }
         }
         public void Dispose()=>client.Dispose();
@@ -44,16 +45,18 @@ namespace Ember.Core.Phase2
     {
         readonly IReasonerTransport transport;readonly RuleBasedReasoner fallback=new RuleBasedReasoner();
         readonly object gate=new object();readonly Stopwatch clock=Stopwatch.StartNew();double nextRequest;
-        public int timeoutMs=1800,maxRetries=1,maxRequests=64,requestTokenBudget=2048,runTokenBudget=16384;public double minimumIntervalSeconds=2;
+        public int timeoutMs=1800,maxRetries=1,maxRequests=64,requestTokenBudget=8192,runTokenBudget=65536;public double minimumIntervalSeconds=2;
         public int requests,tokensReserved; public readonly List<ReasonerRecord> records=new List<ReasonerRecord>();
         public LLMReasoner(IReasonerTransport transport){this.transport=transport;}
+        public List<ReasonerRecord> Snapshot(){lock(gate)return new List<ReasonerRecord>(records);}
+        public void ResetBudget(){lock(gate){requests=0;tokensReserved=0;nextRequest=0;}}
         void Record(AgentDecisionContext c,int attempt,string status,string request,HighDecision decision)
         {
             lock(gate){records.Add(new ReasonerRecord{agent=c.agent,run=c.run,revision=c.revision,attempt=attempt,status=status,contextJson=request,decisionJson=JsonUtility.ToJson(decision)});if(records.Count>128)records.RemoveAt(0);}
         }
         public async Task<HighDecision> DecideAsync(AgentDecisionContext c,CancellationToken cancellation)
         {
-            string request=JsonUtility.ToJson(new LLMRequest{context=c});
+            string request=JsonUtility.ToJson(new LLMRequest{context=c,allowedIntents=c.phase==Phase.Battle?new[]{"Fight","Support","Rescue"}:new[]{"Support","Recover","Forge","Intel","ReadBook","Loot","Exit","Rescue","LeaveParty","Rejoin"}});
             // Conservative reservation includes input and bounded output; gateway must enforce its own tokenizer too.
             int reserve=Encoding.UTF8.GetByteCount(request)+256;
             for(int attempt=0;attempt<=maxRetries;attempt++)
@@ -68,7 +71,7 @@ namespace Ember.Core.Phase2
                     try
                     {
                         var pending=transport.SendAsync(request,linked.Token);var timeout=Task.Delay(timeoutMs,cancellation);
-                        if(await Task.WhenAny(pending,timeout)!=pending)
+                        if(await Task.WhenAny(pending,timeout).ConfigureAwait(false)!=pending)
                         {
                             linked.Cancel();failure="timeout";
                             // Observe a late fault without ever blocking the simulation or accepting a late response.
@@ -76,10 +79,11 @@ namespace Ember.Core.Phase2
                         }
                         else
                         {
-                            string raw=await pending;
+                            string raw=await pending.ConfigureAwait(false);
                             if(raw==null||raw.Length>16384||!raw.TrimStart().StartsWith("{"))throw new InvalidOperationException("Invalid JSON");
-                            var decision=JsonUtility.FromJson<HighDecision>(raw);
-                            if(!raw.Contains("\"intent\"")||!raw.Contains("\"confidence\"")||!raw.Contains("\"riskLevel\"")||!raw.Contains("\"reasoningTags\"")||!AgentDecisionContext.Validate(decision,c))throw new InvalidOperationException("Schema violation");
+                            var decision=new HighDecision{intent=null,targetGoal=null,proposedAction=null,dialogueIntent=null,reasoningTags=null,riskLevel=float.NaN,confidence=float.NaN};
+                            JsonUtility.FromJsonOverwrite(raw,decision);
+                            if(!AgentDecisionContext.Validate(decision,c))throw new InvalidOperationException("Schema violation");
                             decision.provider="llm";Record(c,attempt,"accepted",request,decision);return decision;
                         }
                     }
@@ -89,6 +93,8 @@ namespace Ember.Core.Phase2
                     if(attempt==maxRetries||cancellation.IsCancellationRequested)return local;
                 }
                 // Retry remains bounded and obeys the same rate limiter.
+                if(attempt<maxRetries&&minimumIntervalSeconds>0)
+                {try{await Task.Delay((int)(minimumIntervalSeconds*1000),cancellation).ConfigureAwait(false);}catch(OperationCanceledException){return fallback.Decide(c);}}
             }
             return fallback.Decide(c);
         }

@@ -13,13 +13,13 @@ namespace Ember.Presentation
         readonly string[] qaCases={"battle","telegraph","enraged","refuge","four_skills","collapse","book_empty","history_empty","book","history","relationships","healer","pause","speed","saved","loaded","load_failed","save_failed","new_life","english","zh_restored","legacy"};
         void TogglePause(){paused=!paused;}
         void CycleSpeed(){speed=speed==1?2:speed==2?4:1;}
-        void SaveGame(){try{SaveStore.Save(savePath,simulation.State);Notice(Loc.Token("notice.saved"));}catch(Exception e){if(!qaEnabled)Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
+        void SaveGame(){try{if(tower!=null)Ember.Core.Phase2.ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);Notice(Loc.Token("notice.saved"));}catch(Exception e){if(!qaEnabled)Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LoadGame()
         {
-            try{simulation.Restore(SaveStore.Load(savePath));lastRun=simulation.State.run;lastOutcome=(int)simulation.State.outcome;view.RebuildCharacters(simulation.State,simulation.Catalog);accumulator=0;Notice(Loc.Token("notice.loaded"));}
+            try{if(tower!=null)LoadExpedition();else simulation.Restore(SaveStore.Load(savePath));lastRun=simulation.State.run;lastOutcome=(int)simulation.State.outcome;view.RebuildCharacters(simulation.State,simulation.Catalog);accumulator=0;Notice(Loc.Token("notice.loaded"));}
             catch(Exception e){if(!qaEnabled)Debug.LogException(e);Notice(Loc.Token("notice.load_failed"));}
         }
-        void NewLife(){simulation.Finish(Outcome.Wipe);simulation.State.run++;simulation.Begin();}
+        void NewLife(){if(tower!=null){tower.Finish(Outcome.Wipe);tower.NewLife();simulation.Restore(tower.Observe(selected));}else {simulation.Finish(Outcome.Wipe);simulation.State.run++;simulation.Begin();}}
         void CheckLayout(Rect rect,string text,GUIStyle style,bool isButton)
         {
             float required=style.CalcHeight(new GUIContent(text),rect.width);

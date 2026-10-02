@@ -50,13 +50,13 @@ namespace Ember.Core.Phase2
             }
             if(State.groups.All(g=>g.terminal))Finish(State.completedAgents.Count>0?Outcome.TowerClear:Outcome.Wipe);
             w.floor=State.groups.Max(g=>g.floor);
-            if(reasoner is LLMReasoner llm){lock(llm.records){State.replay=new List<ReasonerRecord>(llm.records);}}
+            if(reasoner is LLMReasoner llm)State.replay=llm.Snapshot();
         }
         public AgentDecisionContext Context(Agent a,GroupState g)
         {
             var members=State.Members(g).Where(v=>v.alive&&!v.escaped).ToList();float attachment=members.Where(v=>v.id!=a.id).Select(v=>a.Bond(v.id)?.Attachment??0).DefaultIfEmpty(.1f).Average();
-            var memory=State.Memory(a.id);var r=Data.Rest(g.restId);
-            return new AgentDecisionContext{run=State.world.run,agent=a.id,group=g.id,floor=g.floor,revision=State.Plan(a.id).revision,phase=g.phase,hp=a.hp/a.MaxHp,mp=a.mp/a.MaxMp,remaining=r.collapseAfter-g.phaseClock,escapeSeconds=(10-a.x)/Simulation.MoveSpeed,taskSeconds=State.Plan(a.id).workLeft,materials=a.materials,inventoryCount=a.inventory.Count,inventoryValue=a.weapon.quality,readBook=a.readBook,canForge=a.materials>=3&&!State.Plan(a.id).visited.Contains("forge"),personality=a.personality,profile=State.Profile(a.id),attachment=attachment,fear=a.bonds.Select(b=>b.fear).DefaultIfEmpty(0).Average(),bossHealth=g.boss.visible.hp/g.boss.visible.maxHp,intel=memory.entries.Where(e=>e.key.StartsWith("intel:")).Select(e=>e.key).ToArray(),memorySources=memory.entries.Take(8).Select(e=>e.source.ToString()).ToArray(),relationshipReasons=memory.salient.Take(4).Select(e=>e.kind.ToString()).ToArray(),allowedSites=r.sites.Select(s=>s.id).ToArray(),livingMembers=members.Select(v=>v.id).ToArray(),canRejoin=RejoinCandidate(g)!=null};
+            var memory=State.Memory(a.id);var r=Data.Rest(g.restId);var knowledge=memory.entries.Where(e=>e.key=="intel:"+g.floor).FirstOrDefault();
+            return new AgentDecisionContext{run=State.world.run,agent=a.id,group=g.id,floor=g.floor,revision=State.Plan(a.id).revision,phase=g.phase,hp=a.hp/a.MaxHp,mp=a.mp/a.MaxMp,x=a.x,z=a.z,restOptions=r.sites,remaining=r.collapseAfter-g.phaseClock,escapeSeconds=(10-a.x)/Simulation.MoveSpeed,taskSeconds=State.Plan(a.id).workLeft,materials=a.materials,inventoryCount=a.inventory.Count,inventoryValue=a.weapon.quality,readBook=a.readBook,canForge=a.materials>=3&&!State.Plan(a.id).visited.Contains("forge"),personality=a.personality,profile=State.Profile(a.id),attachment=attachment,fear=a.bonds.Select(b=>b.fear).DefaultIfEmpty(0).Average(),bossHealth=g.boss.visible.hp/g.boss.visible.maxHp,intelConfidence=knowledge?.confidence??0,knowledge=memory.entries.OrderByDescending(e=>e.importance).Take(8).ToArray(),relationshipEvidence=memory.salient.Take(4).ToArray(),intel=memory.entries.Where(e=>e.key=="intel:"+g.floor).Select(e=>e.key).ToArray(),memorySources=memory.entries.Take(8).Select(e=>e.source.ToString()).ToArray(),relationshipReasons=memory.salient.Take(4).Select(e=>e.kind.ToString()).ToArray(),allowedSites=r.sites.Where(s=>s.id=="bed"?State.Plan(a.id).visited.Count(v=>v==s.id)<2:!State.Plan(a.id).visited.Contains(s.id)).Select(s=>s.id).ToArray(),livingMembers=members.Select(v=>v.id).ToArray(),canRejoin=RejoinCandidate(g)!=null};
         }
         void Decide(Agent a,GroupState g,AgentPlan p)
         {
@@ -64,10 +64,11 @@ namespace Ember.Core.Phase2
             {
                 if(task.task.IsCompleted)
                 {
-                    if(!task.task.IsFaulted&&!task.task.IsCanceled&&task.generation==State.generation&&task.run==State.world.run&&task.revision==p.revision&&task.context.group==g.id&&task.context.phase==g.phase&&AgentDecisionContext.Validate(task.task.Result,Context(a,g)))ApplyDecision(a,g,p,task.task.Result);
+                    if(!task.task.IsFaulted&&!task.task.IsCanceled&&task.generation==State.generation&&task.run==State.world.run&&task.revision==p.revision&&task.context.group==g.id&&task.context.phase==g.phase&&AgentDecisionContext.Validate(task.task.Result,Context(a,g)))
+                    {ApplyDecision(a,g,p,task.task.Result);pending.Remove(a.id);p.nextDecision=State.world.clock+1.5f;return;}
                     pending.Remove(a.id);
                 }
-                else {p.nextDecision=State.world.clock+.2f;return;}
+                else {ApplyDecision(a,g,p,local.Decide(Context(a,g)));p.nextDecision=State.world.clock+.5f;return;}
             }
             p.revision++;var c=Context(a,g);c.revision=p.revision;var fallback=local.Decide(c);ApplyDecision(a,g,p,fallback);
             if(reasoner!=local)
@@ -82,6 +83,7 @@ namespace Ember.Core.Phase2
         {
             if(p.decision.intent!=d.intent){State.world.Say(a.id,Loc.Token("p2.event.goal",Loc.Token("p2.goal."+d.intent)),"decision");}
             p.decision=d;
+            State.Memory(a.id).Add(new Knowledge{key="current_goal",text=Loc.Token("p2.goal."+d.intent),scope=MemoryScope.Working,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=d.confidence,importance=.2f,emotionalWeight=d.riskLevel});
             if(d.intent=="LeaveParty"&&g.phase==Phase.Rest&&p.workLeft<=0&&!p.visited.Contains("split"))
             {p.visited.Add("split");Split(g.id,new[]{a.id});}
             else if(d.intent=="Rejoin"){var other=RejoinCandidate(g);if(other!=null)Rejoin(g.id,other.id);}
@@ -112,7 +114,7 @@ namespace Ember.Core.Phase2
             if(!a.alive)return;a.alive=false;a.hp=0;a.taskTimer=0;a.task="";State.Plan(a.id).workLeft=0;
             State.world.Say(a.id,Loc.Token("event.death",cause),"death");a.lastWords=Loc.Token("epitaph.death");WriteBook(a);
             State.Memory(a.id).Add(new Knowledge{key="death",text=cause,scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=1,emotionalWeight=1});
-            foreach(var other in State.world.agents.Where(v=>v.alive))Relate(other,a,RelationshipEventKind.Death);
+            foreach(var other in State.Members(State.GroupOf(a.id)).Where(v=>v.alive))Relate(other,a,RelationshipEventKind.Death);
         }
         void WriteBook(Agent a){State.world.book.Add(new Epitaph{run=State.world.run,author=a.id,text=a.lastWords});while(State.world.book.Count>64)State.world.book.RemoveAt(0);}
         public void Finish(Outcome outcome)
@@ -134,7 +136,7 @@ namespace Ember.Core.Phase2
             var seed=new Simulation(Catalog,old.rng,false);seed.Restore(old);old.run++;seed.Begin();
             State=ExpeditionStore.Migrate(seed.State,Catalog,Data);State.generation=previous.generation+1;State.profiles=previous.profiles;
             foreach(var a in State.world.agents)State.memories[a.id]=previous.Memory(a.id).NextLife(previous.world.outcome==Outcome.TowerClear&&previous.completedAgents.Contains(a.id)&&previous.world.agents[a.id].alive);
-            CancelPending();
+            CancelPending();if(reasoner is LLMReasoner llm)llm.ResetBudget();
         }
         public World Observe(int agent)
         {

@@ -9,6 +9,13 @@ namespace Ember.Core.Phase2
     {
         Simulation adapter;
         Simulation Adapter {get{if(adapter==null)adapter=new Simulation(Catalog,1);adapter.Restore(State.world);return adapter;}}
+        public bool TransferItem(Agent owner,Agent recipient,Item item)
+        {
+            var g=State.GroupOf(owner.id);
+            if(owner==recipient||!owner.alive||!recipient.alive||owner.escaped||recipient.escaped||State.GroupOf(recipient.id)!=g||g.phase!=Phase.Rest||!owner.inventory.Contains(item))return false;
+            owner.inventory.Remove(item);item.uid=++recipient.uidCounter;Adapter.AddItem(recipient,item);Adapter.ResolveInventory(recipient);
+            Relate(recipient,owner,RelationshipEventKind.Conversation,1.2f);State.world.Say(owner.id,Loc.Token("event.gift",recipient.name,Loc.Ref("item",item.id),string.IsNullOrEmpty(item.infusion)?Loc.Token("ui.none"):Loc.Ref("skill",item.infusion)),"social");return true;
+        }
         public void EnterRest(GroupState g)
         {
             g.phase=Phase.Rest;g.phaseClock=0;g.boss.visible.telegraph=false;State.floorsCleared++;
@@ -20,7 +27,7 @@ namespace Ember.Core.Phase2
                 for(int j=0;j<3;j++)a.stats.Add(RuleBasedReasoner.SelectAttribute(a,State.Profile(a.id)),1);
                 string skill=RuleBasedReasoner.SelectSkill(a,Catalog,State.Profile(a.id));if(skill!=null)Adapter.Unlock(a,skill);
                 // Keep only four active skills, choosing a strategy rather than growing slots.
-                if(a.unlocked.Count>4){var choice=a.unlocked.Select(id=>Catalog.Skill(id)).OrderByDescending(s=>s.effect=="Heal"?a.personality.empathy*80:s.power+(s.effect=="Guard"?State.Profile(a.id).caution*40:0)).Take(4).Select(s=>s.id);a.equipped=choice.ToList();}
+                if(a.unlocked.Count>4){var choice=a.unlocked.Select(id=>Catalog.Skill(id)).OrderByDescending(s=>s.effect=="Heal"?a.personality.empathy*80:s.power+(s.effect=="Guard"?State.Profile(a.id).caution*40:0)).Take(4).Select(s=>s.id).ToList();var attack=a.unlocked.FirstOrDefault(id=>Catalog.Skill(id).effect=="Damage");if(attack!=null&&!choice.Any(id=>Catalog.Skill(id).effect=="Damage")){choice[3]=attack;}a.equipped=choice;}
                 foreach(string tableId in f.lootTables)
                 {
                     var table=Array.Find(Data.loot,l=>l.id==tableId);a.materials+=table.materials;
@@ -56,7 +63,7 @@ namespace Ember.Core.Phase2
             if(p.decision.intent=="Recover"&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
             if(p.decision.intent=="Support")site="church";
             var station=Array.Find(rest.sites,s=>s.id==site);
-            if(station==null||p.visited.Contains(site)||a.materials<station.materialCost){p.decision.intent="Exit";return;}
+            if(station==null||(site=="bed"?p.visited.Count(v=>v==site)>=2:p.visited.Contains(site))||a.materials<station.materialCost){p.decision.intent="Exit";return;}
             a.intent.kind=station.effect=="Craft"?ActionKind.Craft:station.effect=="Read"||station.effect=="Intel"?ActionKind.Read:station.effect=="Heal"||station.effect=="Cleanse"?ActionKind.Rest:ActionKind.Explore;
             Move(a,station.x+(a.id%2==0?-.35f:.35f),station.z,dt);
             if(Simulation.Distance(a.x,a.z,station.x,station.z)<1)
@@ -71,8 +78,8 @@ namespace Ember.Core.Phase2
             if(site==null)return;
             switch(site.effect)
             {
-                case "Heal":a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward);a.mp=Mathf.Min(a.MaxMp,a.mp+35);break;
-                case "Cleanse":g.boss.statuses.RemoveAll(s=>s.agent==a.id);a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward);break;
+                case "Heal":a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.35f);a.mp=Mathf.Min(a.MaxMp,a.mp+35);break;
+                case "Cleanse":g.boss.statuses.RemoveAll(s=>s.agent==a.id);a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.3f);break;
                 case "Bless":a.guard=Mathf.Max(a.guard,site.reward);break;
                 case "Craft":
                     var recipe=Catalog.Recipe("forge"+(int)a.profession);var item=a.Make(recipe.item,recipe.quality+.25f+a.stats.wis*.01f,a.equipped.FirstOrDefault()??"");

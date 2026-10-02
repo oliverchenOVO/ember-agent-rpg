@@ -12,3 +12,5 @@ Artifacts/*.json
 Artifacts/*.bak
 *.tmp
 Artifacts/Localization/
+Artifacts/Phase2/
+__pycache__/

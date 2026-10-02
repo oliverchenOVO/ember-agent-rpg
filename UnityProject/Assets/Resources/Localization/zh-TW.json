@@ -676,6 +676,582 @@
     {
       "key": "boss.rootcrown",
       "value": "根冠之主"
+    },
+    {
+      "key": "p2.groups",
+      "value": "遠征分隊"
+    },
+    {
+      "key": "p2.group_row",
+      "value": "第 {0} 隊 · {1} 樓 · {2}"
+    },
+    {
+      "key": "p2.goal",
+      "value": "目前目標：{0}"
+    },
+    {
+      "key": "p2.membership",
+      "value": "第 {0} 隊 / {1} 樓"
+    },
+    {
+      "key": "p2.intel",
+      "value": "Boss 情報：{0}"
+    },
+    {
+      "key": "p2.intel_unknown",
+      "value": "尚未研究"
+    },
+    {
+      "key": "p2.memory",
+      "value": "{0}：{1}"
+    },
+    {
+      "key": "p2.details",
+      "value": "Agent 觀察"
+    },
+    {
+      "key": "p2.split_status",
+      "value": "{0} 支分隊 · {1} 次分隊 · {2} 次會合"
+    },
+    {
+      "key": "p2.debug",
+      "value": "推理除錯"
+    },
+    {
+      "key": "p2.provider",
+      "value": "推理來源：{0} · 決策 {1}"
+    },
+    {
+      "key": "p2.rule",
+      "value": "本機規則"
+    },
+    {
+      "key": "p2.fallback",
+      "value": "本機備援"
+    },
+    {
+      "key": "p2.llm",
+      "value": "LLM"
+    },
+    {
+      "key": "p2.boss_state",
+      "value": "{0} / 召喚物 {1} / 打斷 {2}"
+    },
+    {
+      "key": "p2.status",
+      "value": "狀態：{0}"
+    },
+    {
+      "key": "p2.none",
+      "value": "無"
+    },
+    {
+      "key": "p2.group_battle",
+      "value": "戰鬥中"
+    },
+    {
+      "key": "p2.group_rest",
+      "value": "休息探索"
+    },
+    {
+      "key": "p2.group_travel",
+      "value": "前往下一層"
+    },
+    {
+      "key": "p2.group_complete",
+      "value": "已完成"
+    },
+    {
+      "key": "p2.group_dead",
+      "value": "已全滅"
+    },
+    {
+      "key": "p2.observation",
+      "value": "選擇見證者，即可觀看所屬分隊。"
+    },
+    {
+      "key": "p2.footer",
+      "value": "自主生命，二十五層見證。"
+    },
+    {
+      "key": "p2.event.split",
+      "value": "第 {0} 隊分裂，第 {1} 隊將獨自前進。"
+    },
+    {
+      "key": "p2.event.rejoin",
+      "value": "第 {0} 隊與同伴再次會合。"
+    },
+    {
+      "key": "p2.event.goal",
+      "value": "我目前的目標是{0}。"
+    },
+    {
+      "key": "p2.event.victory",
+      "value": "我們擊敗了{0}，第 {1} 隊進入避難層。"
+    },
+    {
+      "key": "p2.event.phase",
+      "value": "{0}：{1}。"
+    },
+    {
+      "key": "p2.event.telegraph",
+      "value": "{0}正在準備{1}。"
+    },
+    {
+      "key": "p2.event.floor",
+      "value": "第 {0} 隊進入 {1} 樓：{2}。"
+    },
+    {
+      "key": "p2.event.work",
+      "value": "我準備在{0}花些時間。"
+    },
+    {
+      "key": "p2.event.work_done",
+      "value": "我完成了{0}的工作。"
+    },
+    {
+      "key": "p2.event.clear",
+      "value": "二十五層的旅程，已被見證。"
+    },
+    {
+      "key": "p2.event.group_clear",
+      "value": "第 {0} 隊抵達了塔頂。"
+    },
+    {
+      "key": "p2.cause.status",
+      "value": "{0}"
+    },
+    {
+      "key": "p2.cause.ability",
+      "value": "{0}"
+    },
+    {
+      "key": "p2.cause.adds",
+      "value": "召喚生物"
+    },
+    {
+      "key": "p2.cause.hazard",
+      "value": "競技場危險區域"
+    },
+    {
+      "key": "p2.cause.final_pulse",
+      "value": "臨終衝擊"
+    },
+    {
+      "key": "p2.cause.resource",
+      "value": "危險資源室"
+    },
+    {
+      "key": "p2.memory.victory",
+      "value": "我活著通過了第 {0} 層。"
+    },
+    {
+      "key": "p2.memory.intel",
+      "value": "我研究了第 {0} 層的威脅。"
+    },
+    {
+      "key": "p2.memory.told",
+      "value": "{0} 告訴我第 {1} 層的情報。"
+    },
+    {
+      "key": "p2.memory.clear",
+      "value": "這是我的親身記憶：我抵達了塔頂。"
+    },
+    {
+      "key": "p2.phase.opening",
+      "value": "第一階段"
+    },
+    {
+      "key": "p2.phase.intense",
+      "value": "第二階段 / 狂暴"
+    },
+    {
+      "key": "p2.goal.Fight",
+      "value": "擊敗守護者"
+    },
+    {
+      "key": "p2.goal.Support",
+      "value": "支援隊友"
+    },
+    {
+      "key": "p2.goal.Recover",
+      "value": "恢復體力"
+    },
+    {
+      "key": "p2.goal.Forge",
+      "value": "改善配置"
+    },
+    {
+      "key": "p2.goal.Intel",
+      "value": "研究下一層的 Boss"
+    },
+    {
+      "key": "p2.goal.ReadBook",
+      "value": "閱讀死者之書"
+    },
+    {
+      "key": "p2.goal.Loot",
+      "value": "搜尋資源"
+    },
+    {
+      "key": "p2.goal.Exit",
+      "value": "在坍塌前撤離"
+    },
+    {
+      "key": "p2.goal.Rescue",
+      "value": "救援同伴"
+    },
+    {
+      "key": "p2.goal.LeaveParty",
+      "value": "離隊獨自前進"
+    },
+    {
+      "key": "p2.goal.Rejoin",
+      "value": "與同伴會合"
+    },
+    {
+      "key": "p2.ability.slam",
+      "value": "裂地重擊"
+    },
+    {
+      "key": "p2.ability.bolt",
+      "value": "寒霜連射"
+    },
+    {
+      "key": "p2.ability.charge",
+      "value": "月牙衝鋒"
+    },
+    {
+      "key": "p2.ability.summon",
+      "value": "召喚遺忘者"
+    },
+    {
+      "key": "p2.ability.storm",
+      "value": "餘燼風暴"
+    },
+    {
+      "key": "p2.ability.drain",
+      "value": "靈魂汲取"
+    },
+    {
+      "key": "p2.ability.shield",
+      "value": "鏡面護盾"
+    },
+    {
+      "key": "p2.ability.survival",
+      "value": "冰封試煉"
+    },
+    {
+      "key": "p2.ability.doom",
+      "value": "終末見證"
+    },
+    {
+      "key": "p2.site.bed",
+      "value": "床鋪"
+    },
+    {
+      "key": "p2.site.forge",
+      "value": "鍛造台"
+    },
+    {
+      "key": "p2.site.church",
+      "value": "教堂"
+    },
+    {
+      "key": "p2.site.clinic",
+      "value": "醫療站"
+    },
+    {
+      "key": "p2.site.library",
+      "value": "圖書館"
+    },
+    {
+      "key": "p2.site.corpse",
+      "value": "冒險者遺骸"
+    },
+    {
+      "key": "p2.site.cache",
+      "value": "隱藏寶箱"
+    },
+    {
+      "key": "p2.site.resource",
+      "value": "危險資源室"
+    },
+    {
+      "key": "p2.site.book",
+      "value": "死者之書"
+    },
+    {
+      "key": "p2.status.Burn",
+      "value": "燃燒"
+    },
+    {
+      "key": "p2.status.Slow",
+      "value": "緩速"
+    },
+    {
+      "key": "p2.status.Stun",
+      "value": "暈眩"
+    },
+    {
+      "key": "p2.status.Weaken",
+      "value": "虛弱"
+    },
+    {
+      "key": "p2.status.Doom",
+      "value": "死亡倒數"
+    },
+    {
+      "key": "p2.source.OwnExperience",
+      "value": "親身經歷"
+    },
+    {
+      "key": "p2.source.BookOfDead",
+      "value": "死者之書記載"
+    },
+    {
+      "key": "p2.source.ToldByAgent",
+      "value": "同伴轉述"
+    },
+    {
+      "key": "p2.relationship.Healed",
+      "value": "{0} 治療了我。"
+    },
+    {
+      "key": "p2.relationship.Rescued",
+      "value": "{0} 保護了我。"
+    },
+    {
+      "key": "p2.relationship.Abandoned",
+      "value": "{0} 把我留在身後。"
+    },
+    {
+      "key": "p2.relationship.LootStolen",
+      "value": "{0} 拿走了我的戰利品。"
+    },
+    {
+      "key": "p2.relationship.TacticSuccess",
+      "value": "我與 {0} 的戰術成功了。"
+    },
+    {
+      "key": "p2.relationship.TacticFailure",
+      "value": "我與 {0} 的戰術失敗了。"
+    },
+    {
+      "key": "p2.relationship.Conversation",
+      "value": "我與 {0} 交談過。"
+    },
+    {
+      "key": "p2.relationship.Death",
+      "value": "我目睹了 {0} 的死亡。"
+    },
+    {
+      "key": "p2.relationship.RiskyRescue",
+      "value": "{0} 冒著生命危險救了我。"
+    },
+    {
+      "key": "p2.relationship.Rejoined",
+      "value": "我再次遇見了 {0}。"
+    },
+    {
+      "key": "p2.boss.rootcrown",
+      "value": "根冠之主"
+    },
+    {
+      "key": "p2.floor.1",
+      "value": "根冠之主之境"
+    },
+    {
+      "key": "p2.boss.thornweaver",
+      "value": "荊棘蛛后"
+    },
+    {
+      "key": "p2.floor.2",
+      "value": "荊棘蛛后之境"
+    },
+    {
+      "key": "p2.boss.moonfang",
+      "value": "蝕月狼"
+    },
+    {
+      "key": "p2.floor.3",
+      "value": "蝕月狼之境"
+    },
+    {
+      "key": "p2.boss.mirecoil",
+      "value": "毒沼蛇"
+    },
+    {
+      "key": "p2.floor.4",
+      "value": "毒沼蛇之境"
+    },
+    {
+      "key": "p2.boss.heartwood",
+      "value": "千年樹心"
+    },
+    {
+      "key": "p2.floor.5",
+      "value": "千年樹心之境"
+    },
+    {
+      "key": "p2.boss.frostplate",
+      "value": "霜甲巨人"
+    },
+    {
+      "key": "p2.floor.6",
+      "value": "霜甲巨人之境"
+    },
+    {
+      "key": "p2.boss.snowmirror",
+      "value": "鏡雪妖"
+    },
+    {
+      "key": "p2.floor.7",
+      "value": "鏡雪妖之境"
+    },
+    {
+      "key": "p2.boss.tidewhale",
+      "value": "凍潮鯨"
+    },
+    {
+      "key": "p2.floor.8",
+      "value": "凍潮鯨之境"
+    },
+    {
+      "key": "p2.boss.zeroform",
+      "value": "零度構裝"
+    },
+    {
+      "key": "p2.floor.9",
+      "value": "零度構裝之境"
+    },
+    {
+      "key": "p2.boss.whitewing",
+      "value": "白龍"
+    },
+    {
+      "key": "p2.floor.10",
+      "value": "白龍之境"
+    },
+    {
+      "key": "p2.boss.headless",
+      "value": "無首騎士"
+    },
+    {
+      "key": "p2.floor.11",
+      "value": "無首騎士之境"
+    },
+    {
+      "key": "p2.boss.grimoire",
+      "value": "亡書師"
+    },
+    {
+      "key": "p2.floor.12",
+      "value": "亡書師之境"
+    },
+    {
+      "key": "p2.boss.clockwork",
+      "value": "鐘樓機械"
+    },
+    {
+      "key": "p2.floor.13",
+      "value": "鐘樓機械之境"
+    },
+    {
+      "key": "p2.boss.falsesaint",
+      "value": "偽聖祭司"
+    },
+    {
+      "key": "p2.floor.14",
+      "value": "偽聖祭司之境"
+    },
+    {
+      "key": "p2.boss.starfall",
+      "value": "墜星君王"
+    },
+    {
+      "key": "p2.floor.15",
+      "value": "墜星君王之境"
+    },
+    {
+      "key": "p2.boss.lavabeast",
+      "value": "熔岩獸"
+    },
+    {
+      "key": "p2.floor.16",
+      "value": "熔岩獸之境"
+    },
+    {
+      "key": "p2.boss.riftfiend",
+      "value": "裂地魔"
+    },
+    {
+      "key": "p2.floor.17",
+      "value": "裂地魔之境"
+    },
+    {
+      "key": "p2.boss.chimera",
+      "value": "奇美拉"
+    },
+    {
+      "key": "p2.floor.18",
+      "value": "奇美拉之境"
+    },
+    {
+      "key": "p2.boss.souleater",
+      "value": "吞魂者"
+    },
+    {
+      "key": "p2.floor.19",
+      "value": "吞魂者之境"
+    },
+    {
+      "key": "p2.boss.hellgate",
+      "value": "地獄門"
+    },
+    {
+      "key": "p2.floor.20",
+      "value": "地獄門之境"
+    },
+    {
+      "key": "p2.boss.ashheart",
+      "value": "灰燼樹心"
+    },
+    {
+      "key": "p2.floor.21",
+      "value": "灰燼樹心之境"
+    },
+    {
+      "key": "p2.boss.stilldragon",
+      "value": "靜止之龍"
+    },
+    {
+      "key": "p2.floor.22",
+      "value": "靜止之龍之境"
+    },
+    {
+      "key": "p2.boss.voidking",
+      "value": "失墜君王"
+    },
+    {
+      "key": "p2.floor.23",
+      "value": "失墜君王之境"
+    },
+    {
+      "key": "p2.boss.endchimera",
+      "value": "終末奇美拉"
+    },
+    {
+      "key": "p2.floor.24",
+      "value": "終末奇美拉之境"
+    },
+    {
+      "key": "p2.boss.witness",
+      "value": "記錄者"
+    },
+    {
+      "key": "p2.floor.25",
+      "value": "記錄者之境"
     }
   ]
 }

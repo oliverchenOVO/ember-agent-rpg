@@ -676,6 +676,582 @@
     {
       "key": "boss.rootcrown",
       "value": "THE ROOTCROWN"
+    },
+    {
+      "key": "p2.groups",
+      "value": "Expeditions"
+    },
+    {
+      "key": "p2.group_row",
+      "value": "Group {0} · F{1} · {2}"
+    },
+    {
+      "key": "p2.goal",
+      "value": "Goal: {0}"
+    },
+    {
+      "key": "p2.membership",
+      "value": "Group {0} / F{1}"
+    },
+    {
+      "key": "p2.intel",
+      "value": "Boss intel: {0}"
+    },
+    {
+      "key": "p2.intel_unknown",
+      "value": "Not studied yet"
+    },
+    {
+      "key": "p2.memory",
+      "value": "{0}: {1}"
+    },
+    {
+      "key": "p2.details",
+      "value": "Agent insight"
+    },
+    {
+      "key": "p2.split_status",
+      "value": "{0} groups · {1} splits · {2} reunions"
+    },
+    {
+      "key": "p2.debug",
+      "value": "Reasoner debug"
+    },
+    {
+      "key": "p2.provider",
+      "value": "Provider: {0} · revision {1}"
+    },
+    {
+      "key": "p2.rule",
+      "value": "Local rules"
+    },
+    {
+      "key": "p2.fallback",
+      "value": "Local fallback"
+    },
+    {
+      "key": "p2.llm",
+      "value": "LLM"
+    },
+    {
+      "key": "p2.boss_state",
+      "value": "{0} / Adds {1} / Interrupts {2}"
+    },
+    {
+      "key": "p2.status",
+      "value": "Status: {0}"
+    },
+    {
+      "key": "p2.none",
+      "value": "None"
+    },
+    {
+      "key": "p2.group_battle",
+      "value": "Combat"
+    },
+    {
+      "key": "p2.group_rest",
+      "value": "Refuge"
+    },
+    {
+      "key": "p2.group_travel",
+      "value": "Travelling"
+    },
+    {
+      "key": "p2.group_complete",
+      "value": "Completed"
+    },
+    {
+      "key": "p2.group_dead",
+      "value": "Fallen"
+    },
+    {
+      "key": "p2.observation",
+      "value": "Observe a witness to follow their group."
+    },
+    {
+      "key": "p2.footer",
+      "value": "AUTONOMOUS LIVES. TWENTY-FIVE FLOORS."
+    },
+    {
+      "key": "p2.event.split",
+      "value": "Group {0} splits; group {1} continues independently."
+    },
+    {
+      "key": "p2.event.rejoin",
+      "value": "Group {0} meets its companions again."
+    },
+    {
+      "key": "p2.event.goal",
+      "value": "My current goal is {0}."
+    },
+    {
+      "key": "p2.event.victory",
+      "value": "We defeated {0}. Group {1} enters the refuge."
+    },
+    {
+      "key": "p2.event.phase",
+      "value": "{0}: {1}."
+    },
+    {
+      "key": "p2.event.telegraph",
+      "value": "{0} prepares {1}."
+    },
+    {
+      "key": "p2.event.floor",
+      "value": "Group {0} enters F{1}: {2}."
+    },
+    {
+      "key": "p2.event.work",
+      "value": "I will spend time at {0}."
+    },
+    {
+      "key": "p2.event.work_done",
+      "value": "I finished at {0}."
+    },
+    {
+      "key": "p2.event.clear",
+      "value": "The twenty-five floors have been witnessed."
+    },
+    {
+      "key": "p2.event.group_clear",
+      "value": "Group {0} reached the tower summit."
+    },
+    {
+      "key": "p2.cause.status",
+      "value": "{0}"
+    },
+    {
+      "key": "p2.cause.ability",
+      "value": "{0}"
+    },
+    {
+      "key": "p2.cause.adds",
+      "value": "summoned creatures"
+    },
+    {
+      "key": "p2.cause.hazard",
+      "value": "arena hazard"
+    },
+    {
+      "key": "p2.cause.final_pulse",
+      "value": "the final pulse"
+    },
+    {
+      "key": "p2.cause.resource",
+      "value": "a dangerous resource room"
+    },
+    {
+      "key": "p2.memory.victory",
+      "value": "I survived floor {0}."
+    },
+    {
+      "key": "p2.memory.intel",
+      "value": "I studied the threats on floor {0}."
+    },
+    {
+      "key": "p2.memory.told",
+      "value": "{0} told me about floor {1}."
+    },
+    {
+      "key": "p2.memory.clear",
+      "value": "I reached the summit in my own life."
+    },
+    {
+      "key": "p2.phase.opening",
+      "value": "First phase"
+    },
+    {
+      "key": "p2.phase.intense",
+      "value": "Second phase / Enraged"
+    },
+    {
+      "key": "p2.goal.Fight",
+      "value": "defeat the guardian"
+    },
+    {
+      "key": "p2.goal.Support",
+      "value": "support my group"
+    },
+    {
+      "key": "p2.goal.Recover",
+      "value": "recover strength"
+    },
+    {
+      "key": "p2.goal.Forge",
+      "value": "improve my build"
+    },
+    {
+      "key": "p2.goal.Intel",
+      "value": "learn the next boss"
+    },
+    {
+      "key": "p2.goal.ReadBook",
+      "value": "read the Book of the Dead"
+    },
+    {
+      "key": "p2.goal.Loot",
+      "value": "search for resources"
+    },
+    {
+      "key": "p2.goal.Exit",
+      "value": "leave before collapse"
+    },
+    {
+      "key": "p2.goal.Rescue",
+      "value": "rescue a companion"
+    },
+    {
+      "key": "p2.goal.LeaveParty",
+      "value": "continue independently"
+    },
+    {
+      "key": "p2.goal.Rejoin",
+      "value": "meet my companions"
+    },
+    {
+      "key": "p2.ability.slam",
+      "value": "Ground break"
+    },
+    {
+      "key": "p2.ability.bolt",
+      "value": "Frost volley"
+    },
+    {
+      "key": "p2.ability.charge",
+      "value": "Moonfang charge"
+    },
+    {
+      "key": "p2.ability.summon",
+      "value": "Call the forgotten"
+    },
+    {
+      "key": "p2.ability.storm",
+      "value": "Ember storm"
+    },
+    {
+      "key": "p2.ability.drain",
+      "value": "Soul siphon"
+    },
+    {
+      "key": "p2.ability.shield",
+      "value": "Mirror ward"
+    },
+    {
+      "key": "p2.ability.survival",
+      "value": "Frozen sanctuary"
+    },
+    {
+      "key": "p2.ability.doom",
+      "value": "Witness of doom"
+    },
+    {
+      "key": "p2.site.bed",
+      "value": "bed"
+    },
+    {
+      "key": "p2.site.forge",
+      "value": "forge"
+    },
+    {
+      "key": "p2.site.church",
+      "value": "church"
+    },
+    {
+      "key": "p2.site.clinic",
+      "value": "clinic"
+    },
+    {
+      "key": "p2.site.library",
+      "value": "library"
+    },
+    {
+      "key": "p2.site.corpse",
+      "value": "fallen adventurer"
+    },
+    {
+      "key": "p2.site.cache",
+      "value": "hidden cache"
+    },
+    {
+      "key": "p2.site.resource",
+      "value": "dangerous resource room"
+    },
+    {
+      "key": "p2.site.book",
+      "value": "Book of the Dead"
+    },
+    {
+      "key": "p2.status.Burn",
+      "value": "Burn"
+    },
+    {
+      "key": "p2.status.Slow",
+      "value": "Slow"
+    },
+    {
+      "key": "p2.status.Stun",
+      "value": "Stun"
+    },
+    {
+      "key": "p2.status.Weaken",
+      "value": "Weaken"
+    },
+    {
+      "key": "p2.status.Doom",
+      "value": "Doom"
+    },
+    {
+      "key": "p2.source.OwnExperience",
+      "value": "My own experience"
+    },
+    {
+      "key": "p2.source.BookOfDead",
+      "value": "Written in the Book of the Dead"
+    },
+    {
+      "key": "p2.source.ToldByAgent",
+      "value": "Told by a companion"
+    },
+    {
+      "key": "p2.relationship.Healed",
+      "value": "{0} healed me."
+    },
+    {
+      "key": "p2.relationship.Rescued",
+      "value": "{0} protected me."
+    },
+    {
+      "key": "p2.relationship.Abandoned",
+      "value": "{0} left me behind."
+    },
+    {
+      "key": "p2.relationship.LootStolen",
+      "value": "{0} took my loot."
+    },
+    {
+      "key": "p2.relationship.TacticSuccess",
+      "value": "Our strategy with {0} succeeded."
+    },
+    {
+      "key": "p2.relationship.TacticFailure",
+      "value": "Our strategy with {0} failed."
+    },
+    {
+      "key": "p2.relationship.Conversation",
+      "value": "I talked with {0}."
+    },
+    {
+      "key": "p2.relationship.Death",
+      "value": "I witnessed {0} die."
+    },
+    {
+      "key": "p2.relationship.RiskyRescue",
+      "value": "{0} risked their life to save me."
+    },
+    {
+      "key": "p2.relationship.Rejoined",
+      "value": "I met {0} again."
+    },
+    {
+      "key": "p2.boss.rootcrown",
+      "value": "Rootcrown"
+    },
+    {
+      "key": "p2.floor.1",
+      "value": "Rootcrown sanctuary"
+    },
+    {
+      "key": "p2.boss.thornweaver",
+      "value": "Thornweaver"
+    },
+    {
+      "key": "p2.floor.2",
+      "value": "Thornweaver sanctuary"
+    },
+    {
+      "key": "p2.boss.moonfang",
+      "value": "Moonfang"
+    },
+    {
+      "key": "p2.floor.3",
+      "value": "Moonfang sanctuary"
+    },
+    {
+      "key": "p2.boss.mirecoil",
+      "value": "Mirecoil"
+    },
+    {
+      "key": "p2.floor.4",
+      "value": "Mirecoil sanctuary"
+    },
+    {
+      "key": "p2.boss.heartwood",
+      "value": "Heartwood"
+    },
+    {
+      "key": "p2.floor.5",
+      "value": "Heartwood sanctuary"
+    },
+    {
+      "key": "p2.boss.frostplate",
+      "value": "Frostplate"
+    },
+    {
+      "key": "p2.floor.6",
+      "value": "Frostplate sanctuary"
+    },
+    {
+      "key": "p2.boss.snowmirror",
+      "value": "Snowmirror"
+    },
+    {
+      "key": "p2.floor.7",
+      "value": "Snowmirror sanctuary"
+    },
+    {
+      "key": "p2.boss.tidewhale",
+      "value": "Tidewhale"
+    },
+    {
+      "key": "p2.floor.8",
+      "value": "Tidewhale sanctuary"
+    },
+    {
+      "key": "p2.boss.zeroform",
+      "value": "Zeroform"
+    },
+    {
+      "key": "p2.floor.9",
+      "value": "Zeroform sanctuary"
+    },
+    {
+      "key": "p2.boss.whitewing",
+      "value": "Whitewing"
+    },
+    {
+      "key": "p2.floor.10",
+      "value": "Whitewing sanctuary"
+    },
+    {
+      "key": "p2.boss.headless",
+      "value": "Headless"
+    },
+    {
+      "key": "p2.floor.11",
+      "value": "Headless sanctuary"
+    },
+    {
+      "key": "p2.boss.grimoire",
+      "value": "Grimoire"
+    },
+    {
+      "key": "p2.floor.12",
+      "value": "Grimoire sanctuary"
+    },
+    {
+      "key": "p2.boss.clockwork",
+      "value": "Clockwork"
+    },
+    {
+      "key": "p2.floor.13",
+      "value": "Clockwork sanctuary"
+    },
+    {
+      "key": "p2.boss.falsesaint",
+      "value": "FalseSaint"
+    },
+    {
+      "key": "p2.floor.14",
+      "value": "FalseSaint sanctuary"
+    },
+    {
+      "key": "p2.boss.starfall",
+      "value": "Starfall"
+    },
+    {
+      "key": "p2.floor.15",
+      "value": "Starfall sanctuary"
+    },
+    {
+      "key": "p2.boss.lavabeast",
+      "value": "Lavabeast"
+    },
+    {
+      "key": "p2.floor.16",
+      "value": "Lavabeast sanctuary"
+    },
+    {
+      "key": "p2.boss.riftfiend",
+      "value": "Riftfiend"
+    },
+    {
+      "key": "p2.floor.17",
+      "value": "Riftfiend sanctuary"
+    },
+    {
+      "key": "p2.boss.chimera",
+      "value": "Chimera"
+    },
+    {
+      "key": "p2.floor.18",
+      "value": "Chimera sanctuary"
+    },
+    {
+      "key": "p2.boss.souleater",
+      "value": "Souleater"
+    },
+    {
+      "key": "p2.floor.19",
+      "value": "Souleater sanctuary"
+    },
+    {
+      "key": "p2.boss.hellgate",
+      "value": "Hellgate"
+    },
+    {
+      "key": "p2.floor.20",
+      "value": "Hellgate sanctuary"
+    },
+    {
+      "key": "p2.boss.ashheart",
+      "value": "Ashheart"
+    },
+    {
+      "key": "p2.floor.21",
+      "value": "Ashheart sanctuary"
+    },
+    {
+      "key": "p2.boss.stilldragon",
+      "value": "Stilldragon"
+    },
+    {
+      "key": "p2.floor.22",
+      "value": "Stilldragon sanctuary"
+    },
+    {
+      "key": "p2.boss.voidking",
+      "value": "Voidking"
+    },
+    {
+      "key": "p2.floor.23",
+      "value": "Voidking sanctuary"
+    },
+    {
+      "key": "p2.boss.endchimera",
+      "value": "Endchimera"
+    },
+    {
+      "key": "p2.floor.24",
+      "value": "Endchimera sanctuary"
+    },
+    {
+      "key": "p2.boss.witness",
+      "value": "Witness"
+    },
+    {
+      "key": "p2.floor.25",
+      "value": "Witness sanctuary"
     }
   ]
 }
