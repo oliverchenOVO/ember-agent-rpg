@@ -15,9 +15,10 @@ def summarize(label):
         sample=[r for r in rows if start<=float(r['elapsed'])<end]
         if not sample:continue
         result={'from_seconds':start,'to_seconds':end,'samples':len(sample),'last_elapsed':float(sample[-1]['elapsed'])}
-        for key in ['frame_ms','cpu_ns','gpu_ns','gc_alloc','gc_used','gc_reserved','total_used','draw_calls','batches','managed_heap','objects','meshes','materials','particles','audio_sources','ai_ms','save_ms','telemetry_ms']:
-            values=sorted(float(r[key]) for r in sample if r.get(key) not in (None,'NA',''))
-            if values:result[key]={'mean':statistics.mean(values),'p95':values[math.ceil(len(values)*.95)-1],'max':max(values),'first':float(sample[0][key]),'last':float(sample[-1][key])}
+        for key in ['frame_ms','cpu_ns','gpu_ns','gpu_timing_ms','gc_alloc','gc_used','gc_reserved','total_used','draw_calls','batches','managed_heap','objects','meshes','materials','particles','audio_sources','ai_ms','save_ms','telemetry_ms']:
+            ordered=[float(r[key]) for r in sample if r.get(key) not in (None,'NA','')]
+            values=sorted(ordered)
+            if values:result[key]={'mean':statistics.mean(values),'p95':values[math.ceil(len(values)*.95)-1],'max':max(values),'first':ordered[0],'last':ordered[-1]}
             else:result[key]=None
         results.append(result)
     out=ROOT/'Artifacts'/('phase3-'+label+'-performance.json');out.write_text(json.dumps(results,indent=2),encoding='utf-8')

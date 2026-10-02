@@ -36,3 +36,5 @@ powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual
 ```
 
 中文化 Player 測試使用 `--localization-smoke`，截圖及獨立存檔位於 `Artifacts/Localization/<解析度>`。每次 22 個情境涵蓋主要介面、空資料、四技能槽、死亡/坍塌、存讀檔成功與失敗、英文切換與舊記錄。它使用 UI 相同的操作 handler，並在實際渲染時檢查高度、按鈕文字寬度、視窗邊界、字形與缺鍵；這是自動操作及畫面檢查，並非人工逐一點擊所有按鈕。結果與限制見 `Artifacts/VALIDATION.md`。
+
+2026-10-03 F 槽最後 Release：兩語系各 399 鍵、685 字形檢查通過；兩解析度中文化 44 情境與 Theme B 40 情境的自動測量均為 0 issues。然而人工檢視在英文切換的頂列，以及一張繁中 9F 角色列截圖，發現數字或前導字元未完整渲染。切回繁中截圖正常。這是尚未解決的像素呈現問題，自動 `HasCharacter` / 邊界檢查無法涵蓋；不能宣稱 84 張畫面全部無缺字。動態字型 atlas / IMGUI 是待查方向，尚未證實根因。本輪維持凍結 Runtime，證據與限制見 `Artifacts/phase3-visual-review.txt`。

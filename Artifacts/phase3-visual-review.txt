@@ -1,0 +1,9 @@
+Manual review of relocated final Release screenshots (2026-10-03).
+Automatic layout checks: Theme B 20 scenarios x 2 resolutions, localization 22 x 2, Issues=0.
+This checks measured text bounds, glyph availability and missing localization keys; it does not prove every pixel is rendered correctly.
+Reviewed: foundry8 1600x900, infusion_sword / foundry_refuge / foundry_english / foundry9 1280x720, localization english / zh_restored 1280x720.
+Foundry refuge and restored zh-TW show complete header values and readable TC glyphs.
+FAIL / unresolved visual issue: English language-switch captures have missing header values and displaced/substituted text. Foundry9 TC capture also loses leading characters in HP/name rows. Automatic checks did not detect these pixel-level defects.
+Possible dynamic font atlas/IMGUI rendering issue is a hypothesis only; no root cause proven or Runtime fix applied in this validation round.
+Evidence: Artifacts/Phase3/qa-1280-720/foundry_english.png, foundry9.png; Artifacts/Localization/1280-720/english.png and zh_restored.png.
+Do not describe all 84 UI scenarios as visually defect-free merely because automatic Issues=0.

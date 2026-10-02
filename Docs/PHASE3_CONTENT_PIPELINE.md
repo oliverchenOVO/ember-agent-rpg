@@ -30,7 +30,7 @@ JSONL 提供逐筆記錄，分析工具另外產生 raw encounter CSV、逐層 C
 python Tools/write_phase2_content.py
 python Tools/write_localization.py
 # 原基線需使用 Tools/Fixtures/phase2-tower.json 與原基線引擎版本；不要以新技能冒充舊基線。
-python Tools/analyze_telemetry.py partial-final
+python Tools/analyze_telemetry.py final
 powershell -ExecutionPolicy Bypass -File Tools/build.ps1
 powershell -ExecutionPolicy Bypass -File Tools/phase3_playtest.ps1
 powershell -ExecutionPolicy Bypass -File Tools/phase3_playtest.ps1 -Width 1280 -Height 720
@@ -44,4 +44,8 @@ Editor batch 方法：`Phase3Validation.Unit`、`Phase3Validation.Full`（原回
 
 JobTempAlloc 對照用 `--native-diag camera-particles` 與 `camera-particles-cleanup`；後者停止/清空粒子、銷毀並等待兩秒再退出。正式退出流程先停止粒子、釋放自建資產，再等待一秒，包含一般關閉視窗。詳細原生隔離結果與限制見 PERFORMANCE.md。
 
-本次收尾固定分析 seed 1–1200，未完成 5000 組全量、編成比較與最後 Release 重驗。上列命令供未來明確授權後使用，本輪沒有再啟動。
+搬移後使用 `Phase3Validation.ResumeFinal` 接續完整 checkpoint，不從 seed 1 重跑。`resume-plan.json` 記錄下一個 seed 與已保存結局計數；續跑前逐行檢查 seed 連續性與結局一致性，每完成一個 seed 就 flush JSONL 並寫入 checkpoint。中斷時尚未完整提交的 seed 必須排除後再接續；原始中斷檔另行保留。provenance 與 SHA-256 見 `Artifacts/phase3-resume-provenance.txt`。
+
+續跑 summary 的 `ticksExecutedThisInvocation` 只計本次程序執行的 ticks，`retainedSeeds` 是沿用數量；不能將它當成全部 5000 組總 ticks。編成比較使用相同 seeds 1–50，直到至少一隊離開 10F、全滅或達到上限；`cleared_10F` 指抵達 11F，與逐層 CSV 的「擊敗 Boss」分母及終點不同。Mixed 首輪固定展示四職，後續自主選職；單職控制組只覆寫初始職業與起始裝備，其他決策仍自主。
+
+搬移後 Release 使用 `ProjectBuilder.BuildRelocated` 重跑 242 切片、104 Phase 3 斷言與語系/字型驗證，再建置。先前相同 Runtime 的 87 Phase 2 斷言與 1000 組安全回歸沿用已保存證據，未重跑完成的種子。實際完成狀態以 PHASE3_VALIDATION.md 與完成 marker 為準。
