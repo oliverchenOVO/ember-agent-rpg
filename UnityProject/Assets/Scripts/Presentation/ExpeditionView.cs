@@ -7,6 +7,7 @@ namespace Ember.Presentation
     public sealed partial class WorldView
     {
         GroupState observedGroup;float observedRadius=3.2f;Transform variant,environmentProps,hazard,phaseRing;Transform[] adds;string visualArchetype="",visualTheme="";float previousBossHp,impactUntil;int visualPhase=-1;
+        readonly System.Collections.Generic.Dictionary<string,Transform> variantCache=new System.Collections.Generic.Dictionary<string,Transform>();
         public void SetExpedition(TowerContent data,GroupState group)
         {
             observedGroup=group;observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
@@ -27,7 +28,10 @@ namespace Ember.Presentation
             }
             if(visualArchetype!=definition.archetype)
             {
-                visualArchetype=definition.archetype;if(variant!=null)Object.Destroy(variant.gameObject);
+                visualArchetype=definition.archetype;if(variant!=null)variant.gameObject.SetActive(false);
+                if(variantCache.TryGetValue(visualArchetype,out var cached)){variant=cached;variant.gameObject.SetActive(true);}
+                else
+                {
                 variant=new GameObject("Boss archetype / "+visualArchetype).transform;variant.SetParent(arena,false);
                 if(visualArchetype=="caster")
                 {Part("Caster mantle",PrimitiveType.Capsule,variant,new Vector3(0,2,0),new Vector3(1.3f,2,.8f),stone);Part("Focus orb",PrimitiveType.Sphere,variant,new Vector3(0,4.3f,0),Vector3.one*.9f,glow);Ring("Orbiting focus",variant,new Vector3(0,2.8f,0),2,.08f,brass);}
@@ -37,6 +41,8 @@ namespace Ember.Presentation
                 {Part("Summoning altar",PrimitiveType.Cylinder,variant,new Vector3(0,1,0),new Vector3(3,1,3),dark);for(int i=0;i<3;i++)Part("Soul vessel",PrimitiveType.Sphere,variant,new Vector3(i-1,2.7f,.4f),Vector3.one*.7f,red);Ring("Summoning seal",variant,new Vector3(0,.1f,0),2.5f,.12f,glow);}
                 else if(visualArchetype=="environment")
                 {Part("World heart",PrimitiveType.Sphere,variant,new Vector3(0,2.7f,0),Vector3.one*2,glow);for(int i=0;i<4;i++)Part("Orbit fragment",PrimitiveType.Cube,variant,new Vector3(Mathf.Cos(i*Mathf.PI/2)*2.3f,2,Mathf.Sin(i*Mathf.PI/2)*2.3f),Vector3.one*.7f,stone,new Vector3(25,i*45,35));}
+                variantCache.Add(visualArchetype,variant);
+                }
                 previousBossHp=group.boss.visible.hp;visualPhase=-1;
             }
             if(hazard==null)
@@ -52,6 +58,15 @@ namespace Ember.Presentation
             hazard.gameObject.SetActive(group.boss.hazardLeft>0);hazard.localPosition=new Vector3(group.boss.hazardX,.09f,group.boss.hazardZ);
             if(group.boss.visible.hp<previousBossHp)impactUntil=Time.time+.25f;previousBossHp=group.boss.visible.hp;
             phaseRing.gameObject.SetActive(Time.time<impactUntil||visualPhase!=group.boss.phase);phaseRing.localPosition=new Vector3(group.boss.x,.15f,group.boss.z);visualPhase=group.boss.phase;
+            if(f.theme=="astral_foundry")SetFoundry(data,group);
+            else
+            {
+                baseArchitecture.gameObject.SetActive(true);baseRestArchitecture.gameObject.SetActive(true);
+                if(activeFoundry!=null)activeFoundry.gameObject.SetActive(false);if(activeMachine!=null)activeMachine.gameObject.SetActive(false);if(foundryRest!=null)foundryRest.gameObject.SetActive(false);
+                activeFoundry=null;activeMachine=null;
+                if(whiteHot==null)whiteHot=Mat(new Color(1,.85f,.55f),.4f,.7f,1.2f);
+                ShowCombatCues(group);
+            }
         }
     }
 }
