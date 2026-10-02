@@ -25,6 +25,7 @@ namespace Ember.Core.Phase2
         public List<AgentPlan> plans=new List<AgentPlan>();public List<AgentMemory> memories=new List<AgentMemory>();
         public List<RelationshipEvent> relationships=new List<RelationshipEvent>();public List<ReasonerRecord> replay=new List<ReasonerRecord>();
         public List<int> completedAgents=new List<int>();public int splits,rejoins,floorsCleared;
+        public List<FloorTelemetry> telemetry=new List<FloorTelemetry>();
         public GroupState GroupOf(int agent)=>groups.Find(g=>g.members.Contains(agent));
         public AgentMemory Memory(int agent)=>memories.Find(m=>m.agent==agent);
         public AgentPlan Plan(int agent)=>plans.Find(p=>p.agent==agent);

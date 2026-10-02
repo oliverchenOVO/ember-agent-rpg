@@ -76,12 +76,12 @@ namespace Ember.Core.Phase2
                 else if(a.attackTimer==0)
                 {
                     float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
-                    b.Hit(Data,a,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog),a.enchant>0?"Fire":"Physical",false);
+                    Measure(a,"damage",b.Hit(Data,a,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog),a.enchant>0?"Fire":"Physical",false));
                     a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
                 }
             }
             string potion=a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);
-            if(item!=null){if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
+            if(item!=null){Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
         }
         public bool Cast(Agent a,GroupState g,string id,int target=-1,bool weapon=false)
         {
@@ -90,12 +90,12 @@ namespace Ember.Core.Phase2
             if(s.effect=="Heal"&&ally==null)return false;
             float tx=s.effect=="Heal"?ally.x:g.boss.x,tz=s.effect=="Heal"?ally.z:g.boss.z;
             if(s.range>0&&Simulation.Distance(a.x,a.z,tx,tz)>s.range)return false;
-            a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
+            Measure(a,"skill",1,id);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
             if(id=="cleanse"){g.boss.statuses.RemoveAll(st=>st.agent==a.id);}
             else if(s.effect=="Heal")
             {
                 var targets=id=="groupheal"?State.Members(g).Where(v=>v.alive&&!v.escaped):new[]{ally};
-                foreach(var receiver in targets){float amount=Mathf.Min(receiver.MaxHp-receiver.hp,s.power+a.stats.wis*1.4f);receiver.hp+=amount;a.healing+=amount;if(receiver!=a&&amount>0)Relate(receiver,a,RelationshipEventKind.Healed,Mathf.Min(1,amount/40));}
+                foreach(var receiver in targets){float amount=Mathf.Min(receiver.MaxHp-receiver.hp,s.power+a.stats.wis*1.4f);receiver.hp+=amount;a.healing+=amount;Measure(a,"heal",amount);if(receiver!=a&&amount>0)Relate(receiver,a,RelationshipEventKind.Healed,Mathf.Min(1,amount/40));}
                 State.world.Say(a.id,Loc.Token("event.heal",Loc.Ref("skill",id),ally.name,(int)s.power),"heal");
             }
             else if(s.effect=="Guard")a.guard=Mathf.Max(a.guard,s.power);
@@ -104,7 +104,7 @@ namespace Ember.Core.Phase2
             else
             {
                 string element=id=="fireball"||id=="meteor"?"Fire":id=="frost"?"Ice":id=="holy"?"Light":"Physical";
-                g.boss.Hit(Data,a,(s.power+(a.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.7f+a.stats.str*.3f)*Simulation.Proficiency(a,Catalog),element,true);
+                Measure(a,"damage",g.boss.Hit(Data,a,(s.power+(a.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.7f+a.stats.str*.3f)*Simulation.Proficiency(a,Catalog),element,true));
                 State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),"skill");
             }
             return true;

@@ -31,6 +31,7 @@ namespace Ember.Core.Phase2
             foreach(var g in State.groups.ToArray())
             {
                 if(g.terminal||!State.groups.Contains(g))continue;
+                if(g.phase==Phase.Battle)Telemetry(g);
                 var members=State.Members(g).ToList();if(members.All(a=>!a.alive)){g.terminal=true;g.phase=Phase.Ended;continue;}
                 if(g.travelLeft>0){g.travelLeft=Mathf.Max(0,g.travelLeft-dt);if(g.travelLeft==0)NextFloor(g);continue;}
                 g.phaseClock+=dt;
@@ -94,6 +95,7 @@ namespace Ember.Core.Phase2
             if(g==null||g.terminal||g.phase!=Phase.Rest||g.travelLeft>0||ids.Count==0||ids.Count>=g.members.Count||ids.Any(id=>!g.members.Contains(id)||!State.world.agents[id].alive||State.Plan(id).workLeft>0)||State.groups.Count>=4)return null;
             var newGroup=JsonUtility.FromJson<GroupState>(JsonUtility.ToJson(g));newGroup.id=State.nextGroup++;newGroup.members=ids;newGroup.strategy="independent";newGroup.claimedLoot=new List<string>();
             foreach(var id in ids){g.members.Remove(id);State.Plan(id).nextDecision=State.world.clock+1.5f;foreach(var abandoned in State.Members(g).Where(a=>a.alive))Relate(abandoned,State.world.agents[id],RelationshipEventKind.Abandoned);}
+            var row=Telemetry(g);if(row!=null)row.splits++;
             State.groups.Add(newGroup);State.splits++;State.world.Say(-1,Loc.Token("p2.event.split",g.id,newGroup.id),"party");return newGroup;
         }
         GroupState RejoinCandidate(GroupState g)=>State.groups.Find(o=>o!=g&&!o.terminal&&!g.terminal&&o.floor==g.floor&&o.phase==Phase.Rest&&g.phase==Phase.Rest&&o.travelLeft==0&&g.travelLeft==0&&State.Members(o).Concat(State.Members(g)).All(a=>!a.escaped&&State.Plan(a.id).workLeft<=0));
@@ -102,16 +104,17 @@ namespace Ember.Core.Phase2
             var a=State.groups.Find(g=>g.id==first);var b=State.groups.Find(g=>g.id==second);
             if(a==null||b==null||a==b||a.floor!=b.floor||a.terminal||b.terminal||a.phase!=Phase.Rest||b.phase!=Phase.Rest||a.travelLeft>0||b.travelLeft>0||State.Members(a).Concat(State.Members(b)).Any(v=>v.escaped||State.Plan(v.id).workLeft>0))return false;
             foreach(var id in b.members)foreach(var existing in State.Members(a))if(existing.alive&&State.world.agents[id].alive)Relate(existing,State.world.agents[id],RelationshipEventKind.Rejoined);
+            var row=Telemetry(a);if(row!=null)row.rejoins++;
             a.members.AddRange(b.members);a.phaseClock=Mathf.Max(a.phaseClock,b.phaseClock);State.groups.Remove(b);State.rejoins++;State.world.Say(-1,Loc.Token("p2.event.rejoin",a.id),"party");return true;
         }
         void Relate(Agent observer,Agent other,RelationshipEventKind kind,float magnitude=1)=>RelationshipSystem.Apply(observer,other,State.Memory(observer.id),State.relationships,kind,State.world.run,State.world.clock,magnitude);
         public void Hurt(Agent a,float raw,string cause)
         {
-            if(!a.alive||a.escaped)return;a.hp=Mathf.Max(0,a.hp-Simulation.Damage(raw,a.armor,a.guard));if(a.hp<=0)Die(a,cause);
+            if(!a.alive||a.escaped)return;float amount=Mathf.Min(a.hp,Simulation.Damage(raw,a.armor,a.guard));Measure(a,"hurt",amount);a.hp=Mathf.Max(0,a.hp-amount);if(a.hp<=0)Die(a,cause);
         }
         public void Die(Agent a,string cause)
         {
-            if(!a.alive)return;a.alive=false;a.hp=0;a.taskTimer=0;a.task="";State.Plan(a.id).workLeft=0;
+            if(!a.alive)return;Measure(a,"death",1,cause);a.alive=false;a.hp=0;a.taskTimer=0;a.task="";State.Plan(a.id).workLeft=0;
             State.world.Say(a.id,Loc.Token("event.death",cause),"death");a.lastWords=Loc.Token("epitaph.death");WriteBook(a);
             State.Memory(a.id).Add(new Knowledge{key="death",text=cause,scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=1,emotionalWeight=1});
             foreach(var other in State.Members(State.GroupOf(a.id)).Where(v=>v.alive))Relate(other,a,RelationshipEventKind.Death);
@@ -119,7 +122,7 @@ namespace Ember.Core.Phase2
         void WriteBook(Agent a){State.world.book.Add(new Epitaph{run=State.world.run,author=a.id,text=a.lastWords});while(State.world.book.Count>64)State.world.book.RemoveAt(0);}
         public void Finish(Outcome outcome)
         {
-            var w=State.world;if(w.phase==Phase.Ended)return;w.phase=Phase.Ended;w.outcome=outcome;w.restartTimer=0;
+            var w=State.world;if(w.phase==Phase.Ended)return;foreach(var g in State.groups)CloseTelemetry(g,false);foreach(var row in State.telemetry)row.finalResult=outcome.ToString();w.phase=Phase.Ended;w.outcome=outcome;w.restartTimer=0;
             var r=new RunRecord{run=w.run,floor=State.groups.Max(g=>g.floor),seconds=w.clock,outcome=outcome};
             foreach(var a in w.agents)
             {

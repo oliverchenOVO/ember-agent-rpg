@@ -18,6 +18,7 @@ namespace Ember.Core.Phase2
         }
         public void EnterRest(GroupState g)
         {
+            CloseTelemetry(g,true);
             g.phase=Phase.Rest;g.phaseClock=0;g.boss.visible.telegraph=false;State.floorsCleared++;
             var f=Data.Floor(g.floor);g.restId=f.restPool[State.world.Pick(f.restPool.Length)];
             State.world.Say(-1,Loc.Token("p2.event.victory",Loc.Token(Data.Boss(g.boss.definition).nameKey),g.id),"run");
@@ -31,7 +32,7 @@ namespace Ember.Core.Phase2
                 foreach(string tableId in f.lootTables)
                 {
                     var table=Array.Find(Data.loot,l=>l.id==tableId);a.materials+=table.materials;
-                    for(int i=0;i<table.rolls;i++){var item=a.Make(table.items[State.world.Pick(table.items.Length)]);Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);}
+                    for(int i=0;i<table.rolls;i++){var item=a.Make(table.items[State.world.Pick(table.items.Length)]);Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);Measure(a,"loot");}
                 }
                 while(g.claimedLoot.Count>32)g.claimedLoot.RemoveAt(0);Adapter.ResolveInventory(a);
                 a.x=-8;a.z=-3+a.id*2;a.escaped=false;a.readBook=false;a.intent=new Intent();a.taskTimer=0;a.task="";
@@ -75,7 +76,7 @@ namespace Ember.Core.Phase2
         }
         public void CompleteSite(Agent a,GroupState g,RestSite site)
         {
-            if(site==null)return;
+            if(site==null)return;Measure(a,"rest");if(site.effect=="Craft")Measure(a,"craft");
             switch(site.effect)
             {
                 case "Heal":a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.35f);a.mp=Mathf.Min(a.MaxMp,a.mp+35);break;

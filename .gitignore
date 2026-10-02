@@ -14,3 +14,4 @@ Artifacts/*.bak
 Artifacts/Localization/
 Artifacts/Phase2/
 __pycache__/
+Artifacts/Phase3/
