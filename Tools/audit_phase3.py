@@ -42,12 +42,20 @@ def audit_profile():
     log = (folder / 'player.log').read_text(encoding='utf-8-sig')
     exceptions = re.findall(r'^.*(?:Exception:|NullReferenceException|MissingReferenceException).*$', log, re.MULTILINE)
     report.append(f'Managed exception lines found by log scan: {len(exceptions)}. See original log for full diagnostics.')
+    rejected = [r for r in rows if int(r['objects']) < 100 or int(r['draw_calls']) <= 1]
+    report.append('Excluded row elapsed values (not all startup/cleanup): ' + ', '.join(r['elapsed'] for r in rejected))
+    leaks = [json.loads(line.split('##utp:', 1)[1]) for line in log.splitlines() if line.startswith('##utp:') and 'MemoryLeaks' in line]
+    for leak in leaks:
+        report.append('Engine exit MemoryLeaks diagnostic (not attributed to project code): ' + json.dumps(leak, ensure_ascii=False))
     (ROOT / 'Artifacts/phase3-profile-audit.txt').write_text('\n'.join(report) + '\n', encoding='utf-8')
     warnings = list(re.finditer(r'^.*JobTempAlloc.*$', log, re.MULTILINE))
+    observed = json.loads((folder / 'runtime-warning-observation.json').read_text(encoding='utf-8-sig'))
     native = [f'Full 120-minute Player log JobTempAlloc warnings={len(warnings)}.',
-              'At least 5 were observed while Player PID 48832 was still rendering (before normal exit).',
-              'Log does not timestamp each warning. Any additional warnings cannot be precisely assigned to runtime vs shutdown from these lines alone.',
+              f'At least {observed["warningsBeforeCompletion"]} were observed while Player PID {observed["pid"]} was still rendering, before complete marker, at {observed["observedAt"]}.',
+              f'Lifespan warnings={log.count("JobTempAlloc has allocations")}; remaining-allocation cleanup warnings={log.count("remaining Allocations on the JobTempAlloc")}.',
+              'Remaining-allocation messages are in the PlayerConnection cleanup block. The log does not timestamp each individual warning; exact wall-clock timing is unavailable.',
               'UnityPlayer native addresses are available; full engine symbols and exact allocation caller are unavailable. Particle shutdown isolation does not prove this runtime cause.']
+    native += ['Engine exit diagnostic: ' + json.dumps(leak, ensure_ascii=False) for leak in leaks]
     lines = log.splitlines()
     for i, line in enumerate(lines):
         if 'JobTempAlloc' in line:

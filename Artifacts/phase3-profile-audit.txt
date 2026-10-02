@@ -1,0 +1,10 @@
+120-minute profile evidence: elapsed=7200.005; rows=6975; runs=60; maintenance=119
+Raw rows=6975; rendered workload rows=6939; excluded=36
+Valid elapsed first=1.095, last=7199.260; maximum valid-sample gap=22.170s
+30/60/90-minute checkpoint files present. Counter filtering is not pixel-level screenshot validation.
+1–30min: 1655 valid samples; objects max=830, meshes max=56, materials max=41
+30–60min: 1746 valid samples; objects max=802, meshes max=56, materials max=41
+60–120min: 3479 valid samples; objects max=830, meshes max=56, materials max=41
+Managed exception lines found by log scan: 0. See original log for full diagnostics.
+Excluded row elapsed values (not all startup/cleanup): 0.095, 600.383, 704.440, 740.286, 761.621, 1053.500, 2152.527, 2257.824, 2800.230, 2992.483, 3472.545, 3519.237, 3570.074, 3582.573, 3816.308, 3817.311, 3942.751, 4266.211, 4269.238, 4469.569, 4536.679, 4567.989, 4598.996, 4677.121, 4679.169, 4894.769, 4906.622, 5209.338, 5774.574, 5911.443, 5919.563, 5924.658, 5937.214, 5938.269, 5943.521, 6565.971
+Engine exit MemoryLeaks diagnostic (not attributed to project code): {"type": "MemoryLeaks", "version": 2, "phase": "Immediate", "time": 1790974974446, "processId": 48832, "allocatedMemory": 150443, "memoryLabels": [{"Default": 136}, {"NewDelete": 624}, {"Thread": 15296}, {"Manager": 14934}, {"VFX": -104}, {"GfxDevice": 2112}, {"GfxThread": 23040}, {"Serialization": 520}, {"JobScheduler": 81368}, {"String": 336}, {"DynamicArray": 16}, {"HashMap": 9728}, {"Utility": 40}, {"PoolAlloc": 96}, {"VR": 1864}, {"Video": 144}, {"Subsystems": 96}, {"Gui": 77}, {"CoreBusinessMetrics": 120}]}
