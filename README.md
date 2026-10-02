@@ -6,6 +6,14 @@
 
 用 Unity Hub 開啟 UnityProject，開啟 Assets/Scenes/Witness.unity，按 Play。
 Windows 成品：Builds/Windows/Ember.exe。空白鍵暫停，1/2/3 切換速度，方向鍵環繞鏡頭。
-HUD 可查看角色、遺書、歷史与存讀檔。預設四職業展示；Autonomous composition 可允許任何職業組合。
+HUD 可查看角色、遺書、歷史与存讀檔。預設自主選職；Ember.exe --showcase 可在首輪展示四種職業。
+
+重新建置：powershell -ExecutionPolicy Bypass -File Tools/build.ps1
+只跑測試：powershell -ExecutionPolicy Bypass -File Tools/build.ps1 -TestsOnly
+實際畫面驗證：powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual
+坍塌畫面情境：powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual -Collapse
+Blender 原創面具：blender --background --python Tools/create_mask.py
+
+smoke 使用 Artifacts 內獨立存檔，不覆蓋一般遊戲存檔。一般存檔位於 LocalLow/WitnessWorks/Ember - The Witness Tower。
 
 詳細實測與限制請見 Artifacts/VALIDATION.md。

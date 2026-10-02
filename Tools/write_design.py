@@ -35,7 +35,7 @@ JsonUtility schema v1 存檔含 RNG 狀態、角色、關係、技能、庫存�
 'AGENT_ARCHITECTURE': '''# Agent 架構
 IBrain.Decide(WorldState, AgentState, Catalog) -> Intent。合法動作由引擎驗證，Brain 不直接修改世界。
 人格包含 risk、greed、curiosity、empathy、loyalty、aggression；Goals 以 intent 與理由呈現。
-選職業為加權抽樣，允許重複與奇怪加點；切片預設首輪四職業展示，可開啟完全自主組成。
+選職業為加權抽樣，允許重複與奇怪加點；正式啟動自主選職，--showcase / smoke 測試首輪展示四職業。
 戰鬥效用：對低血盟友治療/保護、威脅與存活、Mana 保留、傷害、個性、關係、預警迫近。
 移動執行器依 intent 接近、遠離預警/目標，冷卻到期才施法；避免 LLM 每幀控制。
 休息效用：血量與資源需要、探索渴望、製作收益、剩餘時間与離出口距離共同評分。
@@ -144,7 +144,15 @@ for name, body in docs.items():
 
 用 Unity Hub 開啟 UnityProject，開啟 Assets/Scenes/Witness.unity，按 Play。
 Windows 成品：Builds/Windows/Ember.exe。空白鍵暫停，1/2/3 切換速度，方向鍵環繞鏡頭。
-HUD 可查看角色、遺書、歷史与存讀檔。預設四職業展示；Autonomous composition 可允許任何職業組合。
+HUD 可查看角色、遺書、歷史与存讀檔。預設自主選職；Ember.exe --showcase 可在首輪展示四種職業。
+
+重新建置：powershell -ExecutionPolicy Bypass -File Tools/build.ps1
+只跑測試：powershell -ExecutionPolicy Bypass -File Tools/build.ps1 -TestsOnly
+實際畫面驗證：powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual
+坍塌畫面情境：powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual -Collapse
+Blender 原創面具：blender --background --python Tools/create_mask.py
+
+smoke 使用 Artifacts 內獨立存檔，不覆蓋一般遊戲存檔。一般存檔位於 LocalLow/WitnessWorks/Ember - The Witness Tower。
 
 詳細實測與限制請見 Artifacts/VALIDATION.md。
 ''', encoding='utf-8')

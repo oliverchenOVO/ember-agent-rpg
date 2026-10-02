@@ -10,7 +10,7 @@ namespace Ember.Core
         public World State {get; private set;}
         public Catalog Catalog {get; private set;}
         readonly IBrain brain;
-        public Simulation(Catalog catalog,uint seed=1729,bool showcase=true,IBrain brain=null)
+        public Simulation(Catalog catalog,uint seed=1729,bool showcase=false,IBrain brain=null)
         {
             Catalog=catalog; this.brain=brain??new UtilityBrain(); State=new World {rng=seed==0?1729:seed,showcase=showcase}; Begin();
         }
@@ -297,16 +297,16 @@ namespace Ember.Core
             switch(a.intent.kind)
             {
                 case ActionKind.Exit: Move(a,10,a.z,dt);if(a.x>=9.5f) {a.escaped=true;State.Say(a.id,"I made it through the gate.","exit");}break;
-                case ActionKind.Rest: Move(a,-4,-2,dt);if(Distance(a.x,a.z,-4,-2)<1) {a.hp=Mathf.Min(a.MaxHp,a.hp+dt*15);a.mp=Mathf.Min(a.MaxMp,a.mp+dt*12);}break;
+                case ActionKind.Rest: Move(a,-4+(a.id%2==0?-.5f:.5f),-2+(a.id<2?-.5f:.5f),dt);if(Distance(a.x,a.z,-4,-2)<1) {a.hp=Mathf.Min(a.MaxHp,a.hp+dt*15);a.mp=Mathf.Min(a.MaxMp,a.mp+dt*12);}break;
                 case ActionKind.Read:
-                    Move(a,-4,3,dt);
+                    Move(a,-4+(a.id%2==0?-.5f:.5f),3+(a.id<2?-.5f:.5f),dt);
                     if(Distance(a.x,a.z,-4,3)<1)
                     {
                         a.readBook=true;var entries=State.book.FindAll(b=>b.author==a.id);string text=entries.Count>0?entries[entries.Count-1].text:"The pages are blank. We are the first witnesses.";
                         a.Remember("Read a legacy: "+text);State.Say(a.id,text,"legacy");a.decisionTimer=0;
                     }break;
                 case ActionKind.Craft:
-                    Move(a,-1,2,dt);
+                    Move(a,-1+(a.id%2==0?-.5f:.5f),2+(a.id<2?-.5f:.5f),dt);
                     if(Distance(a.x,a.z,-1,2)<1)
                     {
                         string recipe="forge"+(int)a.profession;string infusion=a.unlocked[State.Pick(a.unlocked.Count)];int recipient=-1;

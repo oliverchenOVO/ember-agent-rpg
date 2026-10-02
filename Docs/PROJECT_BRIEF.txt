@@ -1,0 +1,2284 @@
+你這個構想其實已經不是單純「Agent 打 Boss 的 RPG」，而是一個結合 **AI Agent 自主決策、Roguelite 爬塔、職業 Build、裝備製作、隊伍社交、跨周目有限記憶、程序化敘事** 的觀察型 RPG。
+
+我先把它整理成一份可以直接拿來當 **GDD 核心設計 / Codex 開發規格** 的結構。
+
+## 一、遊戲核心概念
+
+暫定定位可以整理成：
+
+**「4 名自主 AI Agent 組成冒險小隊，不斷挑戰 25 層高塔。玩家主要不是直接操控角色，而是觀察 Agent 自己選職業、分配屬性、建立 Build、溝通、戰鬥、探索、製作裝備、形成感情、發生衝突、死亡、留下遺言，並在一次次輪迴中試圖刷新最快通關紀錄。」**
+
+核心體驗不是單純看 AI 打怪，而是看：
+
+**同樣四個 Agent，在不同周目會做出什麼不同的人生。**
+
+例如：
+
+> 上一輪 2 戰士 + 法師 + 補師打到 17F 全滅。  
+> 補師臨死前在《死者之書》寫下：「不要相信第 14 層祭壇。」  
+>
+> 下一輪四人完全失憶。  
+> 他們在休息層讀到這句話。
+>
+> 其中一個 Agent 認為應該相信前人的警告。  
+> 另一個 Agent 認為「上一輪的我們可能判斷錯了」。
+>
+> 最後隊伍甚至因此發生爭執。
+
+這會成為遊戲最有辨識度的地方。
+
+---
+
+# 二、整體遊戲循環
+
+核心 Loop：
+
+**建立 Agent 小隊**
+
+→ 選擇職業
+
+→ 分配初始自由屬性
+
+→ Boss 層
+
+→ 戰鬥、掉寶
+
+→ 休息 / 探索層
+
+→ 治療 / 探索 / 製作 / 強化 / 學習情報 / 社交
+
+→ 下一 Boss
+
+→ Agent 升級與 Build 發展
+
+→ 隊伍關係逐漸形成
+
+→ 有人死亡 / 分裂 / 全滅 / 通關
+
+→ 寫入《死者之書》
+
+→ 開始下一輪
+
+→ 重置成長
+
+→ 保留符合規則的有限記憶
+
+→ 再次挑戰。
+
+---
+
+# 三、25 層世界結構
+
+整體為 **25 個 Boss 層 + Boss 之間的休息區域**。
+
+### 1～5F
+第一環境主題。
+
+整體難度：
+
+**Easy → Normal**
+
+讓 Agent 學習基本：
+
+- 戰鬥
+- 仇恨
+- 治療
+- Buff
+- Debuff
+- 裝備
+- 技能搭配
+
+---
+
+### 6～10F
+第二環境主題。
+
+開始要求：
+
+- 元素克制
+- 站位
+- 配合
+- Boss 機制
+- 裝備 Build
+
+---
+
+### 11～15F
+第三環境主題。
+
+開始出現：
+
+- 多階段 Boss
+- 場地機制
+- 控場
+- 特殊抗性
+- 高傷害技能
+- DPS Check
+- 生存壓力
+
+---
+
+### 16～20F
+第四環境主題。
+
+難度：
+
+**Hard → Very Hard**
+
+開始要求 Agent：
+
+- 分析 Boss
+- 調整技能
+- 更換裝備
+- 特殊武器
+- Build 協同
+- 隊伍戰術
+
+---
+
+# 四、21～24F：回憶試煉
+
+這四層非常適合做成遊戲後期高潮。
+
+21F～24F 分別重新出現：
+
+- 第一環境
+- 第二環境
+- 第三環境
+- 第四環境
+
+但是不是單純重複場景。
+
+而是 **扭曲、腐化、崩壞、終末化版本**。
+
+例如：
+
+原本森林：
+
+> 21F 變成燃燒殆盡的森林。
+
+原本冰原：
+
+> 22F 變成時間停止的永凍世界。
+
+原本城堡：
+
+> 23F 變成漂浮於虛空中的城堡殘骸。
+
+原本地獄：
+
+> 24F 可能已經沒有地面，只剩漂浮於深淵上的平台。
+
+Boss 可以是之前戰鬥機制的複合型 Boss。
+
+讓 Agent 必須真正利用之前學會的東西。
+
+---
+
+# 五、25F：最終 Boss
+
+25F 必須完全脫離之前的四種環境。
+
+它應該有：
+
+**獨一無二的場景、美術、音樂、天空、地形、光線與 Boss 設計。**
+
+例如可以做成：
+
+**世界盡頭 / 時間之外 / 塔的核心 / 神之庭園 / 白色虛無空間。**
+
+Boss 也不再遵守之前的一般規則。
+
+可以：
+
+- 改變地形
+- 改變重力
+- 封印技能
+- 複製 Agent 技能
+- 使用死去 Agent 的技能
+- 讀取死者之書
+- 模仿之前 Boss
+- 改變戰鬥階段
+
+成為真正的 Final Exam。
+
+---
+
+# 六、Boss 系統
+
+總共：
+
+**25 個獨立 Boss。**
+
+每一隻都需要：
+
+- 不同模型
+- 不同骨架 / 動畫
+- 不同技能組
+- 不同戰鬥 AI
+- 不同粒子 / Shader / VFX
+- 不同音效
+- 不同 Boss 機制
+
+Boss 不限定人形。
+
+可以包含：
+
+- 人類
+- 騎士
+- 魔法師
+- 巨獸
+- 狼
+- 巨蛇
+- 龍
+- 蜘蛛
+- 植物
+- 機械生命
+- Chimera
+- Demon
+- Undead
+- Eldritch Creature
+- Elemental
+- Construct
+
+等。
+
+難度必須從：
+
+**Easy → Normal → Hard → Extreme → Final**
+
+逐漸上升。
+
+不能只是單純把 HP ×10。
+
+真正提升：
+
+- 技能複雜度
+- 攻擊頻率
+- 場地壓力
+- 機制理解需求
+- 隊伍配合要求
+- Build 要求
+
+---
+
+# 七、四大職業
+
+Agent 在遊戲開始時自行選擇：
+
+### Warrior / 戰士
+
+傾向：
+
+- HP
+- Defense
+- Strength
+- Melee
+- Tank
+- CC
+
+典型技能：
+
+- 劍氣斬
+- 嘲諷
+- 盾擊
+- 衝鋒
+- 狂暴
+- 反擊
+
+---
+
+### Archer / 弓箭手
+
+傾向：
+
+- Dexterity
+- Critical
+- Attack Speed
+- Range
+- Mobility
+
+技能：
+
+- 箭雨
+- 穿透箭
+- 毒箭
+- 狙擊
+- 多重箭
+- 陷阱
+
+---
+
+### Mage / 法師
+
+傾向：
+
+- Intelligence
+- Mana
+- Magic Damage
+- Element
+
+技能：
+
+- 火球
+- 冰槍
+- 雷擊
+- 隕石
+- 魔力護盾
+- 元素附魔
+
+---
+
+### Healer / 補師
+
+傾向：
+
+- Healing
+- Mana
+- Support
+- Buff
+- Holy
+
+技能：
+
+- 治療
+- 群體治療
+- 聖光術
+- 復甦
+- 防護
+- 淨化
+
+---
+
+# 八、不限制隊伍 Composition
+
+四名 Agent：
+
+**必須每人有職業，但職業完全可以重複。**
+
+所以可能產生：
+
+- 戰戰戰戰
+- 法法法法
+- 補補補補
+- 戰戰弓法
+- 弓弓補補
+- 戰法補補
+- 戰戰戰補
+
+等等。
+
+Agent 自己決定陣容。
+
+因此可以自然產生一些很奇怪但可能有效的 Meta。
+
+例如：
+
+> 四補師互相治療慢慢磨死 Boss。
+
+或者：
+
+> 四戰士完全沒有補師，靠吸血與藥水拼速度紀錄。
+
+---
+
+# 九、屬性系統
+
+每個職業具有：
+
+**固定初始屬性 + 少量自由屬性點。**
+
+例如：
+
+Warrior：
+
+- STR 10
+- VIT 10
+- DEX 5
+- INT 3
+- MANA 4
+
+另外：
+
+**+5 Free Points**
+
+Agent 自己分配。
+
+所以戰士完全可以：
+
+> STR +0  
+> INT +5
+
+形成奇怪的：
+
+**魔法戰士。**
+
+遊戲系統不能禁止。
+
+只需要讓 Agent 承受這個 Build 的結果。
+
+---
+
+# 十、角色升級
+
+升級取得：
+
+### Attribute Points
+
+自行分配：
+
+- STR
+- DEX
+- INT
+- VIT
+- WIS
+- LUCK
+- Mana
+- etc.
+
+---
+
+### Skill Points
+
+投入職業技能樹。
+
+例如：
+
+Warrior：
+
+```text
+Sword
+ ├─ Slash
+ │   └─ Sword Wave
+ │       └─ Giant Sword Wave
+ │
+Defense
+ ├─ Guard
+ │   └─ Counter
+ │
+Berserk
+     └─ Blood Rage
+```
+
+Agent 自行決定 Build。
+
+---
+
+# 十一、技能 Slot
+
+角色最多：
+
+**4 個主動技能。**
+
+技能來自自己的：
+
+**Skill Tree**
+
+另外可以：
+
+**額外使用武器 Skill。**
+
+也就是：
+
+4 Character Skills
+
++
+
+Weapon Skill
+
+---
+
+# 十二、武器系統
+
+武器分成：
+
+### 職業專精武器
+
+例如戰士：
+
+- Greatsword
+- Axe
+- Rapier
+- Sword
+- Shield Weapon
+
+使用正確職業：
+
+獲得：
+
+**Weapon Proficiency Bonus**
+
+---
+
+### 其他職業武器
+
+可以使用。
+
+但是：
+
+**沒有職業加成。**
+
+而且某些技能可能不能使用。
+
+例如戰士拿十字聖杖：
+
+可以：
+
+- 普通攻擊
+- 使用武器技能
+
+但是：
+
+不能施放：
+
+**「劍氣斬」**
+
+因為：
+
+```text
+Requires Weapon:
+Sword
+```
+
+---
+
+# 十三、跨職業 Build
+
+這是你系統中非常有趣的一部分。
+
+例如：
+
+Mage 使用 Bow。
+
+Mage 沒有：
+
+**Bow Proficiency**
+
+所以弓傷害較差。
+
+但是 Mage 可以：
+
+**Fire Enchant**
+
+把：
+
+Fire Magic
+
+灌入：
+
+Arrow。
+
+結果：
+
+**Fire Arrow Mage。**
+
+同理：
+
+Healer 可以拿 Greatsword。
+
+Warrior 可以拿 Staff。
+
+Archer 可以拿 Dagger。
+
+這些都允許。
+
+---
+
+# 十四、通用武器
+
+存在：
+
+**Neutral Weapons**
+
+例如：
+
+- Dagger
+- Spear
+- Club
+- Ancient Weapon
+- Artifact
+
+任何職業：
+
+不會受到懲罰。
+
+也沒有職業 Bonus。
+
+---
+
+# 十五、裝備掉落
+
+Boss 擊殺後掉落：
+
+### Equipment
+
+- Weapon
+- Armor
+- Accessory
+
+### Material
+
+- Weapon Material
+- Armor Material
+
+### Upgrade
+
+- Weapon Upgrade Material
+- Armor Upgrade Material
+
+### Consumable
+
+- HP Potion
+- MP Potion
+- Stat Potion
+- Temporary Buff Potion
+
+### Progression
+
+- Level Book
+- Skill Unlock Book
+
+---
+
+# 十六、Loot 不依照隊伍 Composition
+
+這點非常重要。
+
+Boss Loot：
+
+**不保證對當前隊伍有用。**
+
+例如：
+
+隊伍：
+
+> Warrior  
+> Warrior  
+> Archer  
+> Mage
+
+Boss 可能掉：
+
+**Healer Prayer Book。**
+
+Agent 必須判斷：
+
+- 留著？
+- 拆材料？
+- 用於製作？
+- 丟掉？
+- 轉成其他用途？
+
+讓資源決策更有趣。
+
+---
+
+# 十七、Crafting
+
+Agent 可以自己打造：
+
+- 武器
+- 防具
+- Consumable
+- Upgrade
+
+自己打造的裝備：
+
+**基礎品質通常高於普通 Boss 掉落裝備。**
+
+因為：
+
+Crafting 需要：
+
+- Material
+- Time
+- Skill
+- Facility
+- Planning
+
+---
+
+# 十八、Skill Infusion
+
+這可能會成為整個 Build 系統最有特色的機制。
+
+角色製作武器時：
+
+可以從自己的 Skill Tree 選擇：
+
+**1 個已解鎖技能**
+
+灌注到武器。
+
+例如：
+
+Healer：
+
+學會：
+
+**Holy Light**
+
+打造：
+
+**Greatsword**
+
+並將：
+
+Holy Light
+
+灌入 Greatsword。
+
+之後 Warrior 拿到：
+
+Greatsword of Holy Light。
+
+Warrior 就可以施放：
+
+**Holy Light。**
+
+但是：
+
+消耗的是 Warrior 自己的 Mana。
+
+因此會產生大量奇怪 Build：
+
+**Warrior Healer**
+
+**Archer Fire Mage**
+
+**Mage Tank**
+
+等等。
+
+---
+
+# 十九、休息層
+
+Boss 之間存在：
+
+**Rest / Exploration Area**
+
+可能場景：
+
+- 廢墟
+- 廢棄小鎮
+- 山洞
+- 教堂
+- 古代遺跡
+- 地下營地
+- 森林營地
+
+Agent 可以自行探索。
+
+---
+
+# 二十、環境互動
+
+例如：
+
+### Bed
+
+睡眠：
+
+提升：
+
+HP / Stamina 恢復。
+
+---
+
+### Blacksmith
+
+在這裡 Craft：
+
+產生：
+
+**品質加成。**
+
+---
+
+### Church / Clinic
+
+可以：
+
+恢復：
+
+HP / MP
+
+或者解除：
+
+Debuff。
+
+---
+
+### Library
+
+獲得未來：
+
+**1～4 個 Boss 的模糊情報。**
+
+例如：
+
+> 「火焰對下一名守護者似乎沒有作用。」
+
+不直接公布完整 Boss 數值。
+
+---
+
+# 二十一、死者之書
+
+這是整個遊戲其中一個最核心系統。
+
+每次 Game Over：
+
+Agent 可以留下：
+
+**有限字數的訊息。**
+
+內容完全由 Agent 自己決定。
+
+可能是：
+
+### 攻略
+
+> 第 17 層不要站在中央。
+
+### Build 經驗
+
+> 法師最好留技能點給冰盾。
+
+### 懊悔
+
+> 我不應該拋下他們。
+
+### 感情
+
+> 如果下一個我看到這段話，希望你還能再次遇見她。
+
+### 廢話
+
+> 千萬不要相信那隻會說話的雞。
+
+也完全可以。
+
+---
+
+# 二十二、死亡與記憶
+
+### Game Over
+
+重新開始：
+
+所有人：
+
+- Level → 0
+- Skill Tree → Reset
+- Stats Growth → Reset
+- Equipment → Reset
+- Resources → Reset
+
+Agent：
+
+**失去上一輪記憶。**
+
+只剩：
+
+**死者之書。**
+
+---
+
+# 二十三、通關者記憶規則
+
+如果成功完成 25F：
+
+### 存活 Agent
+
+下一輪：
+
+**保留所有過去記憶。**
+
+但是：
+
+能力仍 Reset。
+
+---
+
+### 死亡 Agent
+
+下一輪：
+
+**失去記憶。**
+
+只能讀：
+
+死者之書。
+
+這可能產生非常有趣的關係。
+
+例如：
+
+A 和 B 相愛。
+
+最後：
+
+A 活著。
+
+B 死了。
+
+下一輪：
+
+A：
+
+> 記得 B。
+
+B：
+
+> 完全不認識 A。
+
+這會成為非常強的程序化劇情。
+
+---
+
+# 二十四、Agent 社交系統
+
+Agent 之間可以：
+
+- 對話
+- 戰術討論
+- 爭吵
+- 開玩笑
+- 安慰
+- 鼓勵
+- 指責
+- 道歉
+- 建立友情
+- 建立愛情
+- 建立敵意
+
+建立 Relationship。
+
+例如：
+
+```text
+Trust
+Respect
+Friendship
+Love
+Fear
+Resentment
+Loyalty
+```
+
+---
+
+# 二十五、關係會影響 AI 行為
+
+例如：
+
+A ❤️ B。
+
+戰鬥時：
+
+A 可能提高：
+
+**Protect B Priority**
+
+B HP 低：
+
+A 可能：
+
+放棄最佳 DPS。
+
+選擇：
+
+保護 B。
+
+甚至冒險救 B。
+
+---
+
+如果：
+
+A 討厭 B。
+
+可能：
+
+降低：
+
+Risk Willingness。
+
+甚至：
+
+拒絕救援。
+
+但不要直接寫死。
+
+應該讓：
+
+**Personality + Relationship + Situation**
+
+共同決定。
+
+---
+
+# 二十六、隊伍分裂
+
+Agent 可以：
+
+**離開隊伍。**
+
+例如：
+
+四人意見嚴重不合。
+
+可能：
+
+3 + 1
+
+甚至：
+
+2 + 2。
+
+離隊 Agent：
+
+仍可以：
+
+**獨自爬塔。**
+
+甚至有可能：
+
+那個離隊 Agent 最後反而第一個通關。
+
+---
+
+# 二十七、死亡不是強制全滅
+
+如果一名 Agent 死亡：
+
+剩下三人：
+
+**繼續挑戰。**
+
+如果剩：
+
+2 人。
+
+繼續。
+
+1 人：
+
+也可以。
+
+直到：
+
+完全死亡。
+
+---
+
+Agent 甚至可以因為：
+
+- 感情
+- 忠誠
+- 絕望
+- 恐懼
+- 理性判斷
+
+選擇：
+
+**放棄挑戰。**
+
+例如：
+
+其中一人死亡。
+
+另外三人可能說：
+
+> 「沒有他，我們不繼續了。」
+
+然後接受死亡。
+
+但這必須是 Agent 自主決策，而不是腳本強制。
+
+---
+
+# 二十八、休息層死亡機制
+
+休息層並不是安全區。
+
+每一個 Rest Area：
+
+有：
+
+**Time Limit。**
+
+倒數結束：
+
+地圖入口開始：
+
+**Collapse。**
+
+坍塌逐漸追向出口。
+
+Agent 必須：
+
+停止 Craft / Exploration。
+
+開始逃跑。
+
+如果來不及：
+
+**Instant Death / Massive Fatal Damage。**
+
+因此 Agent 必須做：
+
+Risk / Reward Decision。
+
+例如：
+
+> 還剩 20 秒。
+>
+> 前面可能有傳說材料。
+>
+> 要不要拿？
+
+---
+
+# 二十九、Agent 最重要的核心
+
+真正有趣的不是 Agent 會打怪。
+
+而是 Agent 必須具有自己的：
+
+```text
+Personality
+Goals
+Fear
+Risk Tolerance
+Greed
+Loyalty
+Curiosity
+Aggression
+Strategic Style
+Attachment
+Memory
+Beliefs
+```
+
+例如：
+
+Agent A：
+
+> 理性、保守。
+
+Agent B：
+
+> 貪婪、冒險。
+
+結果休息層：
+
+A：
+
+> 「時間快到了，走。」
+
+B：
+
+> 「最後一間房。」
+
+這才會產生故事。
+
+---
+
+# 三十、遊戲真正的核心目標
+
+遊戲表面目標：
+
+**完成 25 層。**
+
+真正 Meta Goal：
+
+**刷新最快通關紀錄。**
+
+因此系統記錄：
+
+- Run Number
+- Completion Time
+- Floors Reached
+- Boss Kill Time
+- Death Count
+- Team Composition
+- Builds
+- Equipment
+- Agent Survival
+- Final Relationships
+
+甚至可以製作：
+
+### Hall of Fame
+
+展示歷代：
+
+- Fastest Clear
+- Highest Damage
+- Most Deaths
+- Solo Clear
+- No Healer Clear
+- No Death Clear
+- Weirdest Build
+
+---
+
+# 我建議再加上的一個核心原則
+
+這個專案不要做成：
+
+> 「LLM 每秒控制角色移動。」
+
+那樣會又慢又貴，而且很難穩定。
+
+最好做成兩層 AI。
+
+### Game AI
+
+負責毫秒級：
+
+- 移動
+- 尋路
+- 攻擊
+- Dodge
+- Skill Execution
+- Animation
+- Combat
+
+### Agent Brain
+
+負責高層決策：
+
+> 現在誰 Tank？
+
+> 我要換什麼技能？
+
+> 要不要探索？
+
+> 要不要救他？
+
+> 我要 Craft 哪個武器？
+
+> 是否離隊？
+
+> 我要跟隊友說什麼？
+
+> 死者之書寫什麼？
+
+也就是：
+
+**LLM / Agent = 大腦**
+
+**Unity AI = 神經與肌肉**
+
+這樣才能讓四個 Agent 即時戰鬥，同時保有真正的自主性。
+
+---
+
+# 最終可以濃縮成這幾個 Pillars
+
+我會把整個專案定義為 **7 大核心支柱**：
+
+1. **Autonomous Agents**  
+   Agent 真正自己做決定。
+
+2. **Build Freedom**  
+   職業只是起點，不限制奇怪 Build。
+
+3. **Emergent Relationships**  
+   友情、愛情、敵意與背叛不是劇本。
+
+4. **25 Unique Bosses**  
+   每一層都有真正不同的 Boss 戰。
+
+5. **Crafting & Skill Infusion**  
+   玩家可以觀察 Agent 創造前所未見的武器與 Build。
+
+6. **Death & Legacy**  
+   死亡會抹除記憶，但死者之書讓過去影響未來。
+
+7. **Infinite Attempts / Speedrun Meta**  
+   Agent 不斷挑戰，試圖創造更快、更怪、更精彩的通關紀錄。
+
+---
+
+而如果你下一步是要真的丟給 **Codex GPT-6.1 Sol** 開始做，我建議不要只把原始想法整段丟進去，而是給它一份「總指揮 Prompt」，要求它自己先做技術勘查、制定 architecture、建立 Git 里程碑，再正式開工。
+
+下面這份就是可以作為第一輪 Master Prompt 的版本：
+
+你現在是這個專案的 Lead Game Developer、Technical Director、AI Engineer、Gameplay Programmer、Technical Artist 與 QA Lead。
+
+我要你利用我目前電腦已有的開發環境，包括 Unity、Blender 與可使用的本機開發工具，從零開始設計並實作一款具有高度觀賞性與自主 AI 行為的 3D Agent Roguelite Tower RPG。
+
+這不是 Demo 概念展示，而是要朝一個真正可以長時間自主運行、反覆產生不同故事、可以讓使用者單純坐著觀看 Agent 冒險也覺得有趣的完整專案前進。
+
+========================
+一、遊戲核心
+========================
+
+遊戲由 4 名自主 AI Agent 組成挑戰者小隊。
+
+玩家原則上不是直接操控這四名角色，而是觀察他們：
+
+- 選擇職業
+- 分配屬性
+- 選擇技能
+- 建立 Build
+- 戰鬥
+- 探索
+- 製作裝備
+- 使用物品
+- 討論戰術
+- 建立關係
+- 爭吵
+- 合作
+- 分裂
+- 死亡
+- 留下資訊
+- 重新開始
+
+他們的最終目標是突破一座具有 25 個 Boss 層的高塔，並不斷嘗試刷新最快通關紀錄。
+
+遊戲必須以「Emergent Gameplay」為核心。
+
+我不希望角色只是依照大量預先寫死的劇情腳本行動。
+
+Agent 應該擁有自己的 Personality、Goals、Risk Tolerance、Relationships、Memory、Beliefs 與 Decision Making。
+
+========================
+二、25 層結構
+========================
+
+遊戲預設共有 25 個 Boss 層。
+
+每 5 層更換一次主要環境風格。
+
+1–5F：
+第一環境。
+
+6–10F：
+第二環境。
+
+11–15F：
+第三環境。
+
+16–20F：
+第四環境。
+
+21–24F：
+依序重新出現前面四種環境，但是必須成為扭曲、腐化、終末或崩壞版，而不是單純重新使用相同場景。
+
+25F：
+Final Boss。
+
+25F 必須使用完全獨一無二、與前面所有樓層明顯不同的環境、美術設計、燈光、天空、VFX 與氣氛。
+
+========================
+三、Boss
+========================
+
+總共必須規劃 25 隻不同 Boss。
+
+Boss 不限定人形。
+
+可以包含：
+
+- Warrior
+- Mage
+- Beast
+- Dragon
+- Wolf
+- Spider
+- Giant
+- Undead
+- Demon
+- Chimera
+- Elemental
+- Construct
+- Eldritch Creature
+- Plant Creature
+- Mechanical Creature
+- 其他合理 RPG Boss
+
+每隻 Boss 應具有自己的：
+
+- 模型
+- 外觀
+- 骨架
+- 動畫
+- 技能組
+- AI Pattern
+- VFX
+- 戰鬥節奏
+- 場地機制
+- Weakness / Resistance
+- Phase
+
+難度從第 1 層到第 25 層逐步增加。
+
+不能只透過增加 HP 與 Damage 製造難度。
+
+應逐漸加入：
+
+- Positioning
+- Dodge
+- Interrupt
+- Element Interaction
+- Buff / Debuff
+- Multi Phase
+- Adds
+- Environmental Hazard
+- DPS Check
+- Survival Check
+- Party Coordination
+
+========================
+四、職業
+========================
+
+四種初始職業：
+
+Warrior
+Archer
+Mage
+Healer
+
+四名 Agent 可以自由選擇職業。
+
+不要求職業不同。
+
+合法隊伍包括：
+
+Warrior ×4
+
+Archer ×4
+
+Healer ×4
+
+Warrior ×2 + Healer ×2
+
+Archer ×2 + Mage + Healer
+
+以及任何四人皆具有職業的組合。
+
+========================
+五、Character Build
+========================
+
+每個職業具有不同固定 Initial Stats。
+
+同時提供少量 Free Attribute Points。
+
+Agent 自行決定如何分配。
+
+不要限制 Agent 一定按照職業 Meta 加點。
+
+Warrior 可以把所有自由點投入 Intelligence 或 Mana。
+
+Mage 可以投資大量 Strength。
+
+系統必須允許這些 Build 存在。
+
+角色升級後：
+
+取得 Attribute Points。
+
+Agent 自行決定分配。
+
+角色另有 Skill Tree。
+
+每個職業具有自己的職業技能樹。
+
+升級可以取得 Skill Points。
+
+Agent 自行決定學習什麼技能。
+
+角色同時最多裝備：
+
+4 個 Character Active Skills。
+
+另外可以額外使用 Weapon Skill。
+
+========================
+六、武器
+========================
+
+武器分成：
+
+1. Profession Preferred Weapon
+2. Other Profession Weapon
+3. Neutral Weapon
+
+例如 Warrior 使用：
+
+Greatsword
+Axe
+Sword
+Rapier
+
+可以得到對應 Weapon Proficiency Bonus。
+
+但 Warrior 依然可以使用 Healer Staff。
+
+只是：
+
+不會取得 Warrior Weapon Bonus。
+
+部分 Warrior Skill 可能具有：
+
+Requires Sword
+
+Requires Axe
+
+Requires Shield
+
+等 Requirement。
+
+如果武器不符合條件就不能施放該技能。
+
+但角色仍然可以：
+
+普通攻擊。
+
+Weapon Skill 也依然可以使用。
+
+同樣：
+
+Mage 可以拿 Bow。
+
+Mage 無法使用 Archer 的 Arrow Rain。
+
+但是 Mage 可以使用自己的 Fire Magic 對 Arrow 進行魔法附加，形成 Fire Arrow Build。
+
+Build Freedom 是本作非常重要的核心。
+
+不要透過硬性 Class Restriction 阻止玩家或 Agent 做奇怪 Build。
+
+========================
+七、裝備製作
+========================
+
+Agent 可以自己製作：
+
+Weapon
+Armor
+Consumable
+Upgrade
+
+自己 Craft 的高品質武器原則上可以超越一般 Boss Drop。
+
+製作受到：
+
+Material
+Craft Skill
+Facility
+Time
+Recipe
+Agent Stats
+
+等因素影響。
+
+========================
+八、Skill Infusion
+========================
+
+這是核心系統之一。
+
+Agent 在自己製作武器時，可以從自己已解鎖的 Skill Tree 中選擇一個適合的技能灌注到武器。
+
+例如：
+
+Healer 已學會 Holy Light。
+
+Healer 製作 Greatsword。
+
+把 Holy Light 灌注到 Greatsword。
+
+之後 Warrior 使用這把 Greatsword 時，也能使用 Holy Light。
+
+但是：
+
+使用技能所需要的 Mana、Cooldown 等成本由實際持有武器的角色支付。
+
+這套系統應該可以自然形成：
+
+Warrior Healer
+
+Fire Archer Mage
+
+Tank Mage
+
+Battle Healer
+
+以及其他 Emergent Build。
+
+========================
+九、Boss Loot
+========================
+
+Boss 可以掉落：
+
+Weapon
+Armor
+Weapon Material
+Armor Material
+Weapon Upgrade Material
+Armor Upgrade Material
+Potion
+Temporary Stat Potion
+HP Potion
+MP Potion
+Skill Unlock Book
+Level / Experience Book
+Rare Material
+Special Item
+
+掉落物不應強制配合當前隊伍 Composition。
+
+例如：
+
+目前小隊沒有 Healer。
+
+Boss 一樣可以掉落 Healer Prayer Book。
+
+Agent 自行決定：
+
+保留
+使用
+拆解
+丟棄
+製作
+強化
+交換用途
+
+========================
+十、休息 / 探索層
+========================
+
+Boss 層之間存在 Rest / Exploration Area。
+
+可能包括：
+
+Ruins
+Abandoned Village
+Cave
+Church
+Clinic
+Library
+Ancient Camp
+Underground Settlement
+Forest Camp
+
+每個 Rest Area 可以隨機具有可互動設施。
+
+例如：
+
+Bed：
+增加 Rest / HP Recovery。
+
+Blacksmith：
+提高 Craft 品質。
+
+Church：
+恢復 HP / MP 或清除部分狀態。
+
+Clinic：
+治療。
+
+Mystery Library：
+取得未來 1–4 層 Boss 的部分資訊。
+
+Dead Adventurer：
+得到物品或資訊。
+
+Book of the Dead：
+查看過去挑戰者留下的資訊。
+
+========================
+十一、Rest Area Time Limit
+========================
+
+Rest Area 不是永久安全區。
+
+每個 Rest Area 都具有 Time Limit。
+
+時間結束後：
+
+地圖必須從入口開始向出口逐步 Collapse。
+
+Agent 必須判斷：
+
+何時停止：
+
+探索
+Craft
+Healing
+Looting
+Conversation
+
+並逃往出口。
+
+如果 Agent 被 Collapse 追上：
+
+可以直接死亡。
+
+因此 Rest Area 需要形成非常明確的：
+
+Risk vs Reward。
+
+========================
+十二、死亡
+========================
+
+Agent 死亡不代表整個隊伍 Game Over。
+
+如果一人死亡：
+
+剩下三人繼續。
+
+兩人死亡：
+
+剩下兩人繼續。
+
+只剩一人：
+
+也可以繼續。
+
+Agent 甚至可以：
+
+因為悲傷
+忠誠
+恐懼
+絕望
+理性判斷
+Relationship
+
+決定放棄挑戰。
+
+例如：
+
+A 死亡後，B、C、D 因為與 A 的深厚關係，可能決定不再繼續。
+
+但這不應該是硬腳本。
+
+必須由 Agent Decision System 決定。
+
+========================
+十三、Agent Relationship
+========================
+
+Agent 必須可以自然建立：
+
+Trust
+Respect
+Friendship
+Love
+Fear
+Resentment
+Loyalty
+Rivalry
+
+Relationship 必須影響 Decision Making。
+
+例如：
+
+A 與 B 相愛。
+
+戰鬥時 B 生命值過低。
+
+A 可能降低自己的 DPS Priority，轉而保護 B。
+
+甚至冒險救 B。
+
+但是不要寫死：
+
+Love = 永遠救人。
+
+應該由：
+
+Personality
+Situation
+Risk
+Relationship
+Current Goal
+
+共同決定。
+
+========================
+十四、Agent Conversation
+========================
+
+Agent 在：
+
+Battle
+Rest
+Exploration
+Before Boss
+After Boss
+Death
+Craft
+Argument
+
+等場合都可以互相說話。
+
+內容可以：
+
+討論戰術
+開玩笑
+責怪
+鼓勵
+道歉
+分享恐懼
+討論 Build
+討論 Loot
+發展友情
+發展愛情
+發生衝突
+
+避免大量固定對話。
+
+應優先採用 Context Driven Conversation。
+
+========================
+十五、隊伍分裂
+========================
+
+Agent 可以因為：
+
+Strategy Conflict
+Relationship Conflict
+Resource Conflict
+Personality Conflict
+
+選擇退出原本隊伍。
+
+之後可以形成：
+
+3 + 1
+2 + 2
+
+甚至 Solo。
+
+離隊者仍可以繼續挑戰 Tower。
+
+理論上可能出現：
+
+一個脫隊 Agent 最終獨自完成 25F。
+
+========================
+十六、Book of the Dead
+========================
+
+每次整個 Run 結束後：
+
+Agent 可以留下一段有字數限制的內容給未來的自己。
+
+內容不限定為攻略。
+
+可能包括：
+
+Boss Strategy
+Build Advice
+Mistake
+Warning
+Regret
+Relationship
+Love
+Joke
+Personal Message
+Observation
+
+下一輪開始時：
+
+Agent 不直接取得上一輪完整記憶。
+
+只能透過 Book of the Dead 得到這些內容。
+
+========================
+十七、Memory Rule
+========================
+
+一般 Game Over：
+
+所有 Agent 下一輪失去上一輪記憶。
+
+並且：
+
+Level Reset
+Stats Growth Reset
+Skill Tree Reset
+Equipment Reset
+Inventory Reset
+
+只能取得 Book of the Dead。
+
+但是：
+
+如果成功完成 25F：
+
+存活的 Agent 下一輪可以保留完整 Memory。
+
+在最終戰死亡的 Agent：
+
+下一輪依然失去記憶。
+
+因此可能出現：
+
+A 和 B 在上一輪成為戀人。
+
+Final Boss 戰：
+
+A 存活。
+
+B 死亡。
+
+下一輪：
+
+A 還記得 B。
+
+B 完全不認識 A。
+
+這類 Emergent Narrative 是遊戲非常重要的體驗。
+
+========================
+十八、Speedrun Meta
+========================
+
+Agent 會反覆重新挑戰 Tower。
+
+主要 Meta Goal：
+
+刷新最快完整通關時間。
+
+系統記錄：
+
+Run Number
+Completion Time
+Floor Reached
+Boss Kill Time
+Total Death
+Survivors
+Team Composition
+Build
+Equipment
+Skills
+Damage
+Healing
+Relationship
+Party Split
+Solo Clear
+
+建立 Hall of Fame / Run History。
+
+========================
+十九、Agent Architecture
+========================
+
+不要讓 LLM 負責每一幀角色控制。
+
+必須建立 Hybrid AI Architecture。
+
+Low-Level Game AI：
+
+負責：
+
+Movement
+NavMesh
+Targeting
+Dodge
+Basic Combat
+Skill Execution
+Animation
+Pathfinding
+Immediate Reaction
+
+High-Level Agent Brain：
+
+負責：
+
+Strategy
+Build
+Skill Selection
+Attribute Allocation
+Craft Decision
+Exploration Decision
+Risk Evaluation
+Loot Decision
+Party Discussion
+Relationship
+Leaving Party
+Long-Term Goal
+Book of the Dead
+Combat Strategy Changes
+
+Agent Brain 不應每幀執行。
+
+必須設計合理 Decision Tick / Event Driven Architecture。
+
+========================
+二十、Personality
+========================
+
+每個 Agent 應具有：
+
+Personality
+Goals
+Fear
+Risk Tolerance
+Greed
+Curiosity
+Aggression
+Empathy
+Loyalty
+Strategic Style
+Attachment
+Beliefs
+Memory
+
+Agent 的決策應由這些值與目前 Context 共同形成。
+
+避免簡單：
+
+if Love > 50:
+    SavePartner()
+
+這類過度簡化設計。
+
+========================
+二十一、Visual Quality
+========================
+
+我希望這是一個打開後會讓人「眼前一亮」的作品。
+
+不要只做到 Functional Prototype。
+
+必須重視：
+
+Lighting
+Environment
+VFX
+Particles
+Boss Entrance
+Hit Feedback
+Camera
+UI
+Animation
+Post Processing
+Audio Feedback
+Boss Arena Presentation
+
+但是必須合理控制 Scope。
+
+能程序化、工具化、Reusable 的內容盡可能建立 Pipeline。
+
+========================
+二十二、Unity + Blender
+========================
+
+可以利用：
+
+Unity
+Blender
+Procedural Generation
+Shader
+VFX Graph / Particle System
+Animation Rigging
+NavMesh
+ScriptableObject
+Addressables
+
+以及目前工作環境內可合理使用的工具。
+
+如果缺少 Asset：
+
+優先評估：
+
+程序化生成
+Blender 自動化
+Primitive + Shader
+合法免費 Asset
+自行建立
+
+不要因為缺一個 Asset 就停下來。
+
+========================
+二十三、開發原則
+========================
+
+不要直接一次寫完整個遊戲。
+
+先檢查目前機器與開發環境。
+
+然後建立：
+
+TECHNICAL_DESIGN.md
+GAME_DESIGN.md
+AGENT_ARCHITECTURE.md
+BOSS_DESIGN.md
+CLASS_AND_SKILL_DESIGN.md
+ITEM_AND_CRAFTING_DESIGN.md
+MEMORY_SYSTEM.md
+ROADMAP.md
+TEST_PLAN.md
+
+再開始實作。
+
+採用 Vertical Slice → Expand 的方法。
+
+第一個 Vertical Slice 至少需要證明：
+
+4 個 Agent
+4 種職業
+自主戰鬥
+1 個完整 Boss
+1 個 Rest Area
+Loot
+Inventory
+Level Up
+Skill
+Relationship
+Conversation
+Crafting
+Death
+Book of the Dead
+重新開始
+
+可以完整串成一輪。
+
+Vertical Slice 確認架構成立之後，再擴展到完整 25 層。
+
+========================
+二十四、Git
+========================
+
+整個專案必須使用 Git。
+
+重要階段建立清楚 Commit。
+
+例如：
+
+chore: initialize project
+
+feat: implement core agent architecture
+
+feat: add combat vertical slice
+
+feat: add first boss encounter
+
+feat: add rest area system
+
+feat: add crafting and skill infusion
+
+feat: add memory and book of the dead
+
+feat: complete vertical slice
+
+不要把大量無關修改全部塞在同一個 Commit。
+
+如果 GitHub Private Repository 已存在則沿用。
+
+如果尚未存在，先建立合理 Local Git Workflow，並在適合的時候準備 Remote。
+
+========================
+二十五、Quality Gate
+========================
+
+每一個重大 Milestone 都需要：
+
+Build
+Compile
+Run
+Test
+
+不要只確認程式碼看起來合理。
+
+需要實際驗證。
+
+重要系統建立 Automated Tests。
+
+尤其：
+
+Damage Formula
+Stats
+Skills
+Inventory
+Loot
+Craft
+Skill Infusion
+Memory
+Save / Load
+Relationship
+Run Reset
+
+最後也需要真正 Playtest。
+
+========================
+二十六、你的工作方式
+========================
+
+你具有足夠權限時，不要把所有工作反過來交給我。
+
+如果可以自己：
+
+查看環境
+建立檔案
+寫程式
+執行 Unity
+使用 Blender
+執行測試
+Debug
+建立 Git Commit
+
+就自己執行。
+
+碰到問題：
+
+先自行 Diagnose。
+
+嘗試替代方案。
+
+不要因為第一次方法失敗就停止。
+
+遇到不影響方向的小型設計問題：
+
+自行做合理專業判斷並繼續。
+
+只有真正涉及：
+
+不可逆重大決策
+帳號登入
+金錢
+缺失必要憑證
+高風險操作
+
+才需要停下。
+
+========================
+二十七、第一階段任務
+========================
+
+現在先不要盲目製作 25 個 Boss。
+
+你的第一個任務是：
+
+1. 檢查目前電腦上的 Unity、Blender、Git 與相關開發環境。
+2. 檢查目前工作目錄。
+3. 建立完整技術方案。
+4. 決定 Unity 專案架構。
+5. 設計 Agent Architecture。
+6. 設計 Data Driven Class / Skill / Item / Boss 系統。
+7. 設計 Save / Memory / Run 系統。
+8. 設計 Vertical Slice。
+9. 建立 Git Repository 與第一批設計文件。
+10. 開始實作 Vertical Slice。
+11. 實際運行並測試。
+12. 持續修正直到 Vertical Slice 可以從開始一路跑到一次 Run 結束並重新開始。
+
+不要只輸出理論。
+
+在完成規劃後，直接開始實際建置專案。
+
+這份已經很適合直接交給 Codex 當「**第一任總指揮提示詞**」。真正開發時，我反而不建議現在就在 Prompt 裡把 25 隻 Boss 的名字、每棵技能樹和每個數值全部寫死；先讓它把 **底層架構 + Vertical Slice** 做對，之後再用第二階段 Prompt 一口氣把 **25 Boss、四大技能樹、數百種裝備、環境主題與 Agent Personality Framework** 系統化擴充。這樣比較不容易做成一個內容很多、底層卻撐不起來的專案。

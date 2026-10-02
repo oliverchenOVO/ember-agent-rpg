@@ -9,4 +9,5 @@ Builds/
 Artifacts/*.log
 Artifacts/*.png
 Artifacts/*.json
+Artifacts/*.bak
 *.tmp
