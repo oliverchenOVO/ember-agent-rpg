@@ -72,8 +72,10 @@ Git 使用本機 main 分階段提交，無遠端；未建立外部帳號、付�
 
 中英字串表各 313 鍵，595 個不同字元有字形。Phase 2 與原切片在 1600×900、1280×720 共 94 次實際渲染檢查，issues 0。完整測試摘要保存於 phase2-tests.txt、phase2-layout-tests.txt 與 localization-tests.txt。後二十層內容與音畫仍有佔位，商業 LLM provider 及長時間渲染尚未驗證；原有 JobTempAlloc 退出警告仍存在。
 
-## Phase 3（2026-10-03）
+## Phase 3 收尾（2026-10-03）
 
-收尾驗證、難度數據與已完成/待補項目統一記錄於 [Phase 3 驗證](../Docs/PHASE3_VALIDATION.md)。最後版本的 60/120 分鐘渲染長測尚未完成；不以中間版本 31.4 分鐘資料宣稱通過。
+F 槽最後 Release 已建置；433 個累積斷言通過（本輪重跑 242 切片、104 P3、語系與字型，87 P2 與相同 Runtime 的 1000-seed 安全回歸沿用）。完整 5000 seeds：2690 通關、2310 全滅、0 未終止；五編成各 50 組已完成。保留 prefix 逐位元稽核與凍結 Runtime 雜湊通過，沒有從 seed 1 重跑。
 
-Phase 3 本輪以 seed 1–1200 封存：611 通關、589 全滅；既有 329 + 新增 104 斷言通過。5000 全量、最後版本 60/120 分鐘 soak、最後 Release 全套重驗尚未完成；已取消所有排隊後續測試，保留正常前進的既有 process 與原始資料。
+120 分鐘真實渲染完成，不等於無警告通過：log 共 8 次 JobTempAlloc，退出前至少 6 次；共享 16x 壓力負載仍有 frame/CPU 尖峰。兩語系各 399 鍵、685 字形，40 Theme B + 44 localization 情境自動 issues 0；人工卻發現語系切換及一張繁中角色列字元缺漏，尚未解決。Windows 25F / 結算 / 下一輪與原切片 lifecycle smoke 通過。
+
+10F 條件通關 72.2% 低於目標，後十五層仍佔位。不能宣稱 Phase 3 所有完成條件通過。詳見 [最終驗證](../Docs/PHASE3_VALIDATION.md)、[效能與警告](../Docs/PERFORMANCE.md)、[難度與編成](../Docs/DIFFICULTY_CURVE.md)。先前 1200 組與短程 profile 保留為歷史，原始 JSONL / logs / screenshots 不納入 Git、須隨專案保留。本輪收尾後停止，不啟動 Phase 4 或另一輪長測。

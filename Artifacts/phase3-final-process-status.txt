@@ -1,0 +1,5 @@
+Final relocated validation process snapshot: 2026-10-03T05:23:59.7636599+08:00
+Final seeds: Seeds=5000; clears=2690; wipes=2310; nonterminal=0; ticksExecutedThisInvocation=51581915; retainedSeeds=2201
+Render profile: elapsed=7200.005; rows=6975; runs=60; maintenance=119
+Queued compositions and final telemetry analysis marker: present
+Remaining Unity/Ember/follow-up processes: 0

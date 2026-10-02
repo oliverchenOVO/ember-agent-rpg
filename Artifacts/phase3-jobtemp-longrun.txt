@@ -8,24 +8,24 @@ Engine exit diagnostic: {"type": "MemoryLeaks", "version": 2, "phase": "Immediat
 Warning at original log line 54:
 Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak
 Allocation of 48 bytes at 30535230 in block 2 (frameIndex=11, lifetime=4, age=3, state=OK)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 02 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00  ................
@@ -35,24 +35,24 @@ Internal: JobTempAlloc has allocations that are more than the maximum lifespan o
 Warning at original log line 78:
 Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak
 Allocation of 48 bytes at 308e8460 in block 3 (frameIndex=0, lifetime=4, age=3, state=OK)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 ff ff ff ff 08 00 00 00 17 00 00 00 18 00 00 00  ................
@@ -62,24 +62,24 @@ Internal: JobTempAlloc has allocations that are more than the maximum lifespan o
 Warning at original log line 102:
 Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak
 Allocation of 48 bytes at 3037f050 in block 0 (frameIndex=6, lifetime=4, age=3, state=OK)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 73 6f b9 c4 ed e6 0e 42 00 00 00 00 00 80 00 80  so.....B........
@@ -89,24 +89,24 @@ Internal: JobTempAlloc has allocations that are more than the maximum lifespan o
 Warning at original log line 126:
 Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak
 Allocation of 48 bytes at 30a07830 in block 5 (frameIndex=12, lifetime=4, age=3, state=OK)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 ff ff ff ff 00 00 00 00 ff 00 38 00 81 00 00 00  ..........8.....
@@ -116,24 +116,24 @@ Internal: JobTempAlloc has allocations that are more than the maximum lifespan o
 Warning at original log line 150:
 Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak
 Allocation of 48 bytes at 30ced7f0 in block 6 (frameIndex=14, lifetime=4, age=3, state=OK)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 60 fa 82 00 00 00  ..........`.....
 d0 07 00 00 00 00 00 80 00 00 00 00 01 00 c1 bc  ................
@@ -143,24 +143,24 @@ Internal: JobTempAlloc has allocations that are more than the maximum lifespan o
 Warning at original log line 174:
 Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak
 Allocation of 48 bytes at 311f7f00 in block 7 (frameIndex=2, lifetime=4, age=0, state=OK)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 eb db ea bc 93 37 aa 3d  .............7.=
 93 37 aa 3d 93 37 aa 3d 00 00 00 00 00 00 00 00  .7.=.7.=........
@@ -170,24 +170,24 @@ c0 0c 00 00 41 ef 03 00 00 00 00 00 fb 7f 00 00  ....A...........
 Warning at original log line 203:
 PlayerConnection::CleanupInternal: There are remaining Allocations on the JobTempAlloc. This is a leak, and will impact performance
 Allocation of 48 bytes at 3037f050 in block 0 (frameIndex=6, lifetime=4, age=5, state=EXPIRED)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 73 6f b9 c4 ed e6 0e 42 00 00 00 00 00 80 00 80  so.....B........
@@ -197,24 +197,24 @@ Allocation of 48 bytes at 30535230 in block 1 (frameIndex=11, lifetime=4, age=0,
 Warning at original log line 342:
 Internal: There are remaining Allocations on the JobTempAlloc. This is a leak, and will impact performance
 Allocation of 48 bytes at 3037f050 in block 0 (frameIndex=6, lifetime=4, age=6, state=EXPIRED)
-0x00007ffb6c70a7ad (UnityPlayer) 
-0x00007ffb6c70a93c (UnityPlayer) 
+0x00007ffb6c70a7ad (UnityPlayer)
+0x00007ffb6c70a93c (UnityPlayer)
 0x00007ffb6ca56226 (UnityPlayer) UnityMain
 0x00007ffb6d8daa53 (UnityPlayer) UnityMain
-0x00007ffb6bcf73c2 (UnityPlayer) 
-0x00007ffb6bcbeded (UnityPlayer) 
-0x00007ffb6bcc59d3 (UnityPlayer) 
-0x00007ffb6bd14156 (UnityPlayer) 
-0x00007ffb6c2bb96f (UnityPlayer) 
-0x00007ffb6c2b7ba2 (UnityPlayer) 
-0x00007ffb6c2998b8 (UnityPlayer) 
-0x00007ffb6c299974 (UnityPlayer) 
-0x00007ffb6c29fe7a (UnityPlayer) 
-0x00007ffb6c865741 (UnityPlayer) 
-0x00007ffb6c86469d (UnityPlayer) 
-0x00007ffb6c869319 (UnityPlayer) 
+0x00007ffb6bcf73c2 (UnityPlayer)
+0x00007ffb6bcbeded (UnityPlayer)
+0x00007ffb6bcc59d3 (UnityPlayer)
+0x00007ffb6bd14156 (UnityPlayer)
+0x00007ffb6c2bb96f (UnityPlayer)
+0x00007ffb6c2b7ba2 (UnityPlayer)
+0x00007ffb6c2998b8 (UnityPlayer)
+0x00007ffb6c299974 (UnityPlayer)
+0x00007ffb6c29fe7a (UnityPlayer)
+0x00007ffb6c865741 (UnityPlayer)
+0x00007ffb6c86469d (UnityPlayer)
+0x00007ffb6c869319 (UnityPlayer)
 0x00007ffb6c86a0ab (UnityPlayer) UnityMain
-0x00007ff7cecc11f2 (Ember) 
+0x00007ff7cecc11f2 (Ember)
 0x00007ffd080dcd87 (KERNEL32) BaseThreadInitThunk
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 73 6f b9 c4 ed e6 0e 42 00 00 00 00 00 80 00 80  so.....B........

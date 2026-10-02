@@ -1,6 +1,6 @@
 # 專案搬移
 
-尚未指定目的地。本輪收尾時既有 Unity batch process 仍正常執行；後續 runner 已取消。先讓既有 process 結束，或明確授權終止，再搬移，避免寫入原始資料期間搬移。
+新工作目錄已改為 `F:\CodeX開發小東東\Agent RPG`。Git 歷史、Runtime 資產雜湊與原始驗證資料已核對；搬移時舊 batch process 中斷於 seed 1950，保留前 1949 組完整資料並續跑，未從 seed 1 重啟。下列清單保留作為未來搬移流程。
 
 ## 必須保留
 
@@ -20,3 +20,7 @@
 ## 路徑與設定
 
 Tools 以 `$PSScriptRoot` / `__file__` 推導專案根目錄，多數命令不依賴目前絕對路徑。Unity Editor 預設位於 `D:\unity\6000.2.0f1\Editor\Unity.exe`，必要時傳入 `Tools/build.ps1 -Unity`。Windows 存檔仍在 `%USERPROFILE%\AppData\LocalLow\WitnessWorks\Ember - The Witness Tower`，搬移專案不會搬移玩家存檔；可另外備份該資料夾。Codex 工作目錄與 Unity Hub 的專案清單要指向新位置。
+
+## 本次目的地驗證
+
+F 槽 Release Build、25F Player lifecycle、原切片 smoke、雙語字型/自動版面檢查與完整資料續跑已完成。已保存最終分析與 120 分鐘 profile；人工 UI 缺漏及原生警告仍待修，見 PHASE3_VALIDATION.md。所有測試程序正常結束後才提交最終文件；未自動刪除任何原位置資料或快取。

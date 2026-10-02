@@ -1,16 +1,28 @@
 # Phase 3 效能與原生配置診斷
 
-測試平台：Windows、Unity 6000.2.0f1、Direct3D 12、NVIDIA RTX 3070 Ti Laptop GPU（8 GB VRAM）。這裡僅報告已保存的實測資料，不把規劃時長當成測試時長。
+2026-10-03，在 F 槽完成 **120 分鐘實際渲染壓力測試**。Windows / Unity 6000.2.0f1 / D3D12 / RTX 3070 Ti Laptop（8 GB）。Development Player 使用凍結 Runtime，16 倍速、分鐘存讀檔、輪替觀察、五分鐘死亡/坍塌；同機同時執行 headless seed runner，前段也有 Release 建置/畫面 QA。這不是單獨的一倍速效能基準，數字不能直接當作正常遊玩幀率。
 
-## 實際時長與數據
+## 完整量測
 
-`Artifacts/Phase3/soak-120m` 的名稱是原先目標，實際有渲染資料約 **31.4 分鐘**。這是最後微調之前的 Development Build。1–30 分鐘 1 Hz 取樣的 frame p95 12.12 ms、CPU p95 8.48 ms、GPU p95 1.54 ms；場景物件最多 801、Mesh 55、材質 42、音源 3。Used Memory 855.3 → 1056.4 MiB，30 分鐘後短窗口 1054.4 → 1053.4 MiB。原生用量暖機後增加，尚不能從這個時長證明完全沒有緩慢洩漏。
+complete marker：`elapsed=7200.005; rows=6975; runs=60; maintenance=119`。session 起始時間、30/60/90 分鐘存檔、frames.csv 及 Player log 保存於 `Artifacts/Phase3/soak-relocated-120m`。原始資料不納入 Git，搬移時必須保留。有效渲染最後秒數、排除列數及完成標記見 `Artifacts/phase3-soak-relocated-120m-performance.md`；統計工具只接受物件≥100、draw calls>1 的取樣，排除暖機前 60 秒。counter 偶爾為 0/NA 不等於已證實黑畫面，共排除 36 筆無工作負載/無效 counter 列，不全是啟動或清理；最大有效取樣間隔 22.17 秒，不能宣稱逐幀連續無缺畫面。另保存 coverage 稽核。
 
-最後版本 `soak-frozen-120m` 實際約 **296.4 秒**，31.4 分鐘資料不能冒充最後版本長測。暖機後 frame p95 6.07 ms、CPU p95 5.28 ms、GPU p95 1.45 ms；物件最多 802、Mesh 56、材質 42、音源 3。退出清理後物件降至 3 的一筆，連同啟動資料排除。Player log 顯示正常關閉流程，不能把該筆當成場景運作期間的空畫面。
+| 實際窗口 | 取樣數 | Frame p95 ms | CPU p95 ms | GPU counter p95 ms | GPU FrameTiming p95 ms | GC 平均 bytes/取樣幀 | Used Memory 首→末 MiB |
+|---|---:|---:|---:|---:|---:|---:|---|
+| 1–30 分 | 1655 | 139.31 | 86.98 | 3.00 | 3.22 | 120878 | 986.9→1057.3 |
+| 30–60 分 | 1746 | 60.59 | 17.68 | 5.39 | 5.53 | 102663 | 1058.4→1055.9 |
+| 60–120 分 | 3479 | 42.41 | 19.74 | 4.09 | 4.64 | 91621 | 1057.3→1065.5 |
 
-**60 / 120 分鐘驗證尚未完成。** 使用者要求結束本輪並準備搬移專案，磁碟空間不足，因此沒有再次啟動長測。
+1 Hz 百分位描述取樣幀，不是所有幀。CPU counter 與 GPU FrameTiming 的擷取點不同，不能逐列相減推算瓶頸。NA 是無法取得，沒有改寫成 0；GPU counter 的 0 仍是原始 counter 值，另列 FrameTiming 作參照。ai_ms 包含整段 tick loop，save_ms/telemetry_ms 保留最近一次維護成本，不是每一幀都執行存檔。更完整均值、最大值與資源/IO 數據保存在 JSON 摘要。
 
-完整表見 `Artifacts/phase3-soak-120m-performance.md` 與 `Artifacts/phase3-soak-frozen-120m-performance.md`。窗口標籤代表取樣區間；是否達到完整時長須看 last rendered elapsed 與 complete 欄位。1 Hz 百分位不是逐幀 percentile。GC mean 約 63–73 KB / sampled frame，IMGUI 與診斷 CSV/資源枚舉仍有配置；不是零 GC 宣告。ai_ms 包含整段 simulation tick loop，save_ms / telemetry_ms 保留最近一次維護成本，不是每幀持續成本。無法取得的 counter 為 NA。
+資源物件有上限，但 GC 仍持續配置；Used Memory 是引擎總 used counter，不全是 native、也不是 OS Working Set。暖機之後約 1 GiB 的平台不能證明零慢速洩漏。CPU/frame p95 尖峰尚未達到穩定低延遲目標；後續需要固定場景、同速、獨立負載與 allocation call stack，比較才可宣稱優化比例。
+
+![完整渲染資料](Images/phase3-performance.png)
+
+## 執行期間警告仍未解決
+
+本次完整 log 共 **8 次 JobTempAlloc 警告**，退出前已確定至少 6 次。native allocation diagnostic 輸出包含 48-byte allocation 與 UnityPlayer 位址，但未取得引擎完整符號/精確配置呼叫點。原始 stack 及退出前後觀察保存於 `Artifacts/phase3-jobtemp-longrun.txt`。退出清理另有 remaining-allocation 警告，引擎 MemoryLeaks 診斷 allocatedMemory=150443 bytes；未歸因到專案的精確呼叫點。log 缺少逐警告 wall-clock timestamp；frameIndex/age 不能用來推定警告發生在第幾分鐘。
+
+下面的最小 ParticleSystem 對照只證實可重現的退出路徑與 workaround，**不能解釋所有長測 runtime 警告或宣稱全部解決**。未升級 Unity，也未擅自移除所有粒子。完整長測執行完成，不等於原生配置驗證無警告通過。
 
 ## 已採取的措施
 
@@ -27,10 +39,9 @@
 
 這足以將可重現路徑縮至 **Unity ParticleSystem 退出生命週期**，不是證明取得引擎內部精確配置呼叫點。[Unity UUM-113839](https://issuetracker.unity3d.com/issues/memory-leak-warnings-are-thrown-when-creating-a-particle-system-gameobject-2) 記錄 6000.2.0f1 的 ParticleSystem 洩漏警告，6000.2.6f1 修正，與隔離結果一致。未升級 Unity，也沒有聲稱修正封閉引擎本體；本專案提供明確清理 workaround，後續應升級並重跑對照與長測。舊診斷版本關閉仍有警告，文件保留失敗紀錄。
 
-## 搬移後待補
 
-最後版本的 30 / 60 / 120 分鐘完整渲染長測、JobTempAlloc runtime 與退出檢查、逐幀 GC call stack、單機不與 Editor 回歸競爭的獨立 CPU/GPU 比較。先重跑既有命令，避免以 headless 模擬取代 rendering profile。
+## 歷史診斷與後續
 
-## 短程修改前參考
+中間 Build `soak-120m` 實際約 31.4 分鐘，最後 Runtime 的先前短測 `soak-frozen-120m` 約 296 秒；這些原始 log/CSV 和摘要保留，沒有冒充完整時長。修改前 `before-pooling` 約 179 秒，情境不同，不能用 CPU 差值宣稱優化比例。舊 OnGUI 清理後 Camera 例外保留於歷史 log；退出流程後續以停止更新、清理、延後離開改善。
 
-`before-pooling` 有 179 秒有效渲染；暖機後 frame p95 6.07 ms、CPU 3.41 ms、GPU 0.82 ms、GC 約 50.6 KB / sampled frame。它的樓層/情境與最後版本不同，不能用兩者 CPU 差值宣稱優化比例。退出曾有 OnGUI 對已清理 Camera 的例外，後續以停用遊戲更新再清理的退出流程處理；原始失敗 log 保留。後續應建立固定樓層、固定鏡頭與相同硬體負載的比較。
+優先處理 runtime JobTempAlloc、UI 動態字型像素缺漏及尖峰；評估 Unity 已修正 patch 後再以相同 workload 對照。逐幀 GC stack、獨立單機 CPU/GPU benchmark 和正式美術音畫成本仍待驗證。本輪到此收尾，不啟動新的長測。

@@ -1,0 +1,10 @@
+Relocated final Release Player evidence / 2026-10-03
+Automatic measured layout checks; manual pixel defects documented separately in phase3-visual-review.txt.
+Artifacts/Phase3/qa-1600-900/layout-results.txt: Phase2 scenarios: 20 / 1600x900 / issues: 0
+Artifacts/Phase3/qa-1280-720/layout-results.txt: Phase2 scenarios: 20 / 1280x720 / issues: 0
+Artifacts/Localization/1600-900/layout-results.txt: Scenarios: 22 / resolution 1600x900 / Issues: 0
+Artifacts/Localization/1280-720/layout-results.txt: Scenarios: 22 / resolution 1280x720 / Issues: 0
+The inherited Phase2 scenarios header in Theme B outputs names the shared harness; the actual 20 fixtures are foundry6-10, phase2/3, lane/cross/annulus, infusion, refuge/death/intel/save/load/split/English.
+EMBER PHASE2 PLAYER SMOKE / max floor 25 / clear True
+EMBER PLAYER SMOKE PASSED / run ended and restarted
+Both lifecycle runners exited 0. Theme B short-run logs: 0 JobTempAlloc, 0 Exception lines. This does not override eight JobTempAlloc messages in the full two-hour Development stress log.

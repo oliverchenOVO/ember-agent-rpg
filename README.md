@@ -28,3 +28,5 @@ Phase 3 TestsOnly 包含既有回歸、新增斷言與 5000 seeds。Development 
 遊戲預設繁體中文（zh-TW），右下角語言按鈕可即時切換英文。完整字串盤點見 Docs/LOCALIZATION_INVENTORY.md；語系、舊存檔及字型架構見 Docs/LOCALIZATION.md。
 中文化畫面測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1
 較小視窗測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1 -Width 1280 -Height 720
+
+Phase 3 最後收尾（2026-10-03）：已在 F 槽完成 Release、5000 組種子與 120 分鐘實際渲染；編成比較與數據報告已保存。原生警告、UI 像素字元缺漏、壓力負載尖峰與 10F 難度仍有待修項，不宣稱所有完成條件通過。詳見 Docs/PHASE3_VALIDATION.md。

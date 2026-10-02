@@ -60,7 +60,7 @@ def audit_profile():
     for i, line in enumerate(lines):
         if 'JobTempAlloc' in line:
             native.extend(['', f'Warning at original log line {i+1}:'] + lines[i:i+25])
-    (ROOT / 'Artifacts/phase3-jobtemp-longrun.txt').write_text('\n'.join(native) + '\n', encoding='utf-8')
+    (ROOT / 'Artifacts/phase3-jobtemp-longrun.txt').write_text('\n'.join(line.rstrip() for line in native).rstrip() + '\n', encoding='utf-8')
     print('\n'.join(report))
 
 def main():

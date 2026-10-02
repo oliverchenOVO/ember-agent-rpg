@@ -1,0 +1,1 @@
+Seeds=5000; clears=2690; wipes=2310; nonterminal=0; ticksExecutedThisInvocation=51581915; retainedSeeds=2201

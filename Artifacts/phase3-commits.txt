@@ -1,17 +1,22 @@
-88af6d6 docs: define phase 3 content direction
-628a11f feat: add simulation telemetry
-349301c feat: add floors 6 through 10 content
-c2511d9 feat: add theme b boss encounters
-74f04e4 feat: add theme b environment framework
-3876ef7 feat: deepen combat skill effects
-4633010 feat: expand skill infusion feedback
-1c0e166 feat: expand audio event system
-9b2445e balance: tune floors 1 through 10
-224eed4 fix: resolve jobtempalloc lifecycle
-e9f33d5 feat: improve spectator presentation
-7c97ee6 perf: instrument long running sessions
-cd32b41 fix: validate revival and preserve spatial skill effects
-3f441e3 feat: render bounded control zones and enable frame timing
-8550b6a test: add phase 3 regression coverage
-e55154b perf: report measured sessions and exclude shutdown samples
+Phase 3 commits after e6c1393 (Phase 2 baseline). Final closeout documentation commit is identified by git log -1.
+9881572 perf: record completed two-hour render stress and native warning evidence
+3ce6baa test: audit resumed telemetry and report rendering evidence limits
+108b000 test: resume completed seed prefixes without retaining encounter graphs
+2b083f9 docs: finalize phase 3 report from preserved 1200-seed snapshot
 efe9ad2 docs: prepare phase 3 evidence and project relocation
+e55154b perf: report measured sessions and exclude shutdown samples
+8550b6a test: add phase 3 regression coverage
+3f441e3 feat: render bounded control zones and enable frame timing
+cd32b41 fix: validate revival and preserve spatial skill effects
+7c97ee6 perf: instrument long running sessions
+e9f33d5 feat: improve spectator presentation
+224eed4 fix: resolve jobtempalloc lifecycle
+9b2445e balance: tune floors 1 through 10
+1c0e166 feat: expand audio event system
+4633010 feat: expand skill infusion feedback
+3876ef7 feat: deepen combat skill effects
+74f04e4 feat: add theme b environment framework
+c2511d9 feat: add theme b boss encounters
+349301c feat: add floors 6 through 10 content
+628a11f feat: add simulation telemetry
+88af6d6 docs: define phase 3 content direction

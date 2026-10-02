@@ -1,0 +1,6 @@
+composition,seeds,cleared_10F,wipes,nonterminal,mean_sim_seconds,mean_living
+Warrior,50,2,48,0,559.84,0.06
+Archer,50,1,49,0,502.97,0.02
+Mage,50,0,50,0,607.54,0.00
+Healer,50,50,0,0,584.00,4.00
+Mixed,50,50,0,0,521.04,3.98

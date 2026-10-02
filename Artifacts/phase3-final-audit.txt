@@ -1,0 +1,6 @@
+Final telemetry audit
+Unique seeds: 5000; unique encounters: 99991
+Outcomes: {'TowerClear': 2690, 'Wipe': 2310}; summary matches; no duplicate encounter identities.
+Retained seeds 1–1949: exact raw bytes match final-interrupted.jsonl; rows=38780; SHA256=9f62b8d3c16ee4c0ad19852500c9dcea5b0652ca3a6749182aaf714138a1812b
+Retained seeds 1–2201: exact raw bytes match final-before-streamed-resume.jsonl; rows=43749; SHA256=045fb704dc1b8797c3d5e2a260a6057ea728a20044d9bb6ede65f5418861888c
+Frozen Runtime manifest: 36 files, 0 differences.
