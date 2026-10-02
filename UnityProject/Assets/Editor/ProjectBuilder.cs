@@ -14,6 +14,7 @@ namespace Ember.Editor
         public static void Build()
         {
             Phase2Validation.RunAll();
+            Phase3Validation.Unit();
             BuildPlayer(false);
         }
         public static void BuildDevelopment(){BuildPlayer(true);}
