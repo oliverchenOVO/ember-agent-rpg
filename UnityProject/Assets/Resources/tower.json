@@ -159,20 +159,20 @@
     {
       "floor": 6,
       "id": "floor_06",
-      "nameKey": "p2.floor.6",
-      "theme": "ice",
+      "nameKey": "p3.floor.6",
+      "theme": "astral_foundry",
       "bossId": "frostplate",
       "difficultyTier": 2,
       "arenaRules": [
         "BoundedArena",
         "IndependentInstance"
       ],
-      "hazard": "TelegraphedGround",
+      "hazard": "FurnaceLane",
       "lootTables": [
-        "shared"
+        "foundry_6"
       ],
       "restPool": [
-        "crossing"
+        "foundry_service"
       ],
       "threatTags": [
         "guardian"
@@ -181,29 +181,46 @@
         "slam",
         "element_weakness"
       ],
-      "music": "ice_music_placeholder",
-      "ambience": "ice_ambience_placeholder",
-      "lighting": "ice_light",
-      "vfx": "ice_vfx",
-      "placeholder": true
+      "music": "foundry_pulse",
+      "ambience": "foundry_machine",
+      "lighting": "foundry_cold_rim",
+      "vfx": "foundry_circuit",
+      "placeholder": false,
+      "arenaLayout": "loading",
+      "introKey": "p3.intro.stoker",
+      "deathKey": "p3.death.stoker",
+      "intelKey": "p3.intel.stoker",
+      "lootIdentity": "Scorch",
+      "difficulty": {
+        "effectiveHp": 1674.0,
+        "incomingDamage": 36.0,
+        "attackFrequency": 0.23931623931623927,
+        "aoePressure": 0.3,
+        "positioningPressure": 0.3,
+        "reactionWindow": 1,
+        "mechanicComplexity": 2,
+        "resourceAttrition": 0.28,
+        "buildDependency": 0.2,
+        "coordinationDependency": 0.2
+      }
     },
     {
       "floor": 7,
       "id": "floor_07",
-      "nameKey": "p2.floor.7",
-      "theme": "ice",
+      "nameKey": "p3.floor.7",
+      "theme": "astral_foundry",
       "bossId": "snowmirror",
       "difficultyTier": 2,
       "arenaRules": [
         "BoundedArena",
         "IndependentInstance"
       ],
-      "hazard": "TelegraphedGround",
+      "hazard": "RailSweep",
       "lootTables": [
-        "shared"
+        "foundry_7"
       ],
       "restPool": [
-        "crossing"
+        "foundry_service"
       ],
       "threatTags": [
         "caster"
@@ -212,29 +229,46 @@
         "bolt",
         "element_weakness"
       ],
-      "music": "ice_music_placeholder",
-      "ambience": "ice_ambience_placeholder",
-      "lighting": "ice_light",
-      "vfx": "ice_vfx",
-      "placeholder": true
+      "music": "foundry_pulse",
+      "ambience": "foundry_machine",
+      "lighting": "foundry_cold_rim",
+      "vfx": "foundry_circuit",
+      "placeholder": false,
+      "arenaLayout": "rails",
+      "introKey": "p3.intro.railjudge",
+      "deathKey": "p3.death.railjudge",
+      "intelKey": "p3.intel.railjudge",
+      "lootIdentity": "Mobility",
+      "difficulty": {
+        "effectiveHp": 1920.0,
+        "incomingDamage": 44.666666666666664,
+        "attackFrequency": 0.2794117647058824,
+        "aoePressure": 0.45,
+        "positioningPressure": 0.7,
+        "reactionWindow": 1.65,
+        "mechanicComplexity": 2,
+        "resourceAttrition": 0.32,
+        "buildDependency": 0.3,
+        "coordinationDependency": 0.4
+      }
     },
     {
       "floor": 8,
       "id": "floor_08",
-      "nameKey": "p2.floor.8",
-      "theme": "ice",
+      "nameKey": "p3.floor.8",
+      "theme": "astral_foundry",
       "bossId": "tidewhale",
       "difficultyTier": 2,
       "arenaRules": [
         "BoundedArena",
         "IndependentInstance"
       ],
-      "hazard": "TelegraphedGround",
+      "hazard": "CrystalAdds",
       "lootTables": [
-        "shared"
+        "foundry_8"
       ],
       "restPool": [
-        "crossing"
+        "foundry_service"
       ],
       "threatTags": [
         "charger"
@@ -243,29 +277,46 @@
         "charge",
         "element_weakness"
       ],
-      "music": "ice_music_placeholder",
-      "ambience": "ice_ambience_placeholder",
-      "lighting": "ice_light",
-      "vfx": "ice_vfx",
-      "placeholder": true
+      "music": "foundry_pulse",
+      "ambience": "foundry_machine",
+      "lighting": "foundry_cold_rim",
+      "vfx": "foundry_circuit",
+      "placeholder": false,
+      "arenaLayout": "hatchery",
+      "introKey": "p3.intro.weavemother",
+      "deathKey": "p3.death.weavemother",
+      "intelKey": "p3.intel.weavemother",
+      "lootIdentity": "Recovery",
+      "difficulty": {
+        "effectiveHp": 2244.0,
+        "incomingDamage": 12.0,
+        "attackFrequency": 0.20161616161616164,
+        "aoePressure": 0.35,
+        "positioningPressure": 0.45,
+        "reactionWindow": 1.6,
+        "mechanicComplexity": 3,
+        "resourceAttrition": 0.42,
+        "buildDependency": 0.6,
+        "coordinationDependency": 0.7
+      }
     },
     {
       "floor": 9,
       "id": "floor_09",
-      "nameKey": "p2.floor.9",
-      "theme": "ice",
+      "nameKey": "p3.floor.9",
+      "theme": "astral_foundry",
       "bossId": "zeroform",
       "difficultyTier": 2,
       "arenaRules": [
         "BoundedArena",
         "IndependentInstance"
       ],
-      "hazard": "TelegraphedGround",
+      "hazard": "Resonance",
       "lootTables": [
-        "shared"
+        "foundry_9"
       ],
       "restPool": [
-        "crossing"
+        "foundry_service"
       ],
       "threatTags": [
         "summoner"
@@ -274,29 +325,46 @@
         "summon",
         "element_weakness"
       ],
-      "music": "ice_music_placeholder",
-      "ambience": "ice_ambience_placeholder",
-      "lighting": "ice_light",
-      "vfx": "ice_vfx",
-      "placeholder": true
+      "music": "foundry_pulse",
+      "ambience": "foundry_machine",
+      "lighting": "foundry_cold_rim",
+      "vfx": "foundry_circuit",
+      "placeholder": false,
+      "arenaLayout": "pressure",
+      "introKey": "p3.intro.metronome",
+      "deathKey": "p3.death.metronome",
+      "intelKey": "p3.intel.metronome",
+      "lootIdentity": "Break",
+      "difficulty": {
+        "effectiveHp": 2376.0,
+        "incomingDamage": 38.0,
+        "attackFrequency": 0.3667701863354037,
+        "aoePressure": 0.65,
+        "positioningPressure": 0.8,
+        "reactionWindow": 1.35,
+        "mechanicComplexity": 3,
+        "resourceAttrition": 0.5,
+        "buildDependency": 0.55,
+        "coordinationDependency": 0.55
+      }
     },
     {
       "floor": 10,
       "id": "floor_10",
-      "nameKey": "p2.floor.10",
-      "theme": "ice",
+      "nameKey": "p3.floor.10",
+      "theme": "astral_foundry",
       "bossId": "whitewing",
       "difficultyTier": 2,
       "arenaRules": [
         "BoundedArena",
         "IndependentInstance"
       ],
-      "hazard": "FallingEmbers",
+      "hazard": "Resonance",
       "lootTables": [
-        "shared"
+        "foundry_10"
       ],
       "restPool": [
-        "crossing"
+        "foundry_service"
       ],
       "threatTags": [
         "environment"
@@ -305,11 +373,28 @@
         "storm",
         "element_weakness"
       ],
-      "music": "ice_music_placeholder",
-      "ambience": "ice_ambience_placeholder",
-      "lighting": "ice_light",
-      "vfx": "ice_vfx",
-      "placeholder": true
+      "music": "foundry_pulse",
+      "ambience": "foundry_machine",
+      "lighting": "foundry_cold_rim",
+      "vfx": "foundry_circuit",
+      "placeholder": false,
+      "arenaLayout": "armillary",
+      "introKey": "p3.intro.armillary",
+      "deathKey": "p3.death.armillary",
+      "intelKey": "p3.intel.armillary",
+      "lootIdentity": "Astral",
+      "difficulty": {
+        "effectiveHp": 3290.0,
+        "incomingDamage": 29.714285714285715,
+        "attackFrequency": 0.27018626645955834,
+        "aoePressure": 0.8,
+        "positioningPressure": 0.85,
+        "reactionWindow": 1.35,
+        "mechanicComplexity": 7,
+        "resourceAttrition": 0.6,
+        "buildDependency": 0.7,
+        "coordinationDependency": 0.8
+      }
     },
     {
       "floor": 11,
@@ -982,205 +1067,238 @@
     },
     {
       "id": "frostplate",
-      "nameKey": "p2.boss.frostplate",
-      "archetype": "guardian",
-      "hp": 658,
-      "armor": 1.72,
-      "weaknessElement": "Fire",
+      "nameKey": "p3.boss.stoker",
+      "archetype": "stoker",
+      "hp": 1350,
+      "armor": 3,
+      "weaknessElement": "Ice",
       "resistElement": "Dark",
       "deathMechanic": "None",
       "phases": [
         {
-          "nameKey": "p2.phase.opening",
+          "nameKey": "p3.phase.1",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 110,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "slam"
+            "furnace_lane"
           ],
-          "resistance": 0.1,
-          "weakness": 0.25
+          "resistance": 0.12,
+          "weakness": 0.3
         },
         {
-          "nameKey": "p2.phase.intense",
-          "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "nameKey": "p3.phase.2",
+          "hpBelow": 0.62,
+          "afterSeconds": 42,
+          "enrageAfter": 110,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "slam"
+            "furnace_lane",
+            "bolt"
           ],
-          "resistance": 0.15,
-          "weakness": 0.35
+          "resistance": 0.12,
+          "weakness": 0.3
         }
       ],
-      "placeholder": true
+      "placeholder": false,
+      "presentation": "stoker",
+      "movement": "",
+      "ambientPressure": 0.28
     },
     {
       "id": "snowmirror",
-      "nameKey": "p2.boss.snowmirror",
-      "archetype": "caster",
-      "hp": 696,
-      "armor": 1.8399999999999999,
+      "nameKey": "p3.boss.railjudge",
+      "archetype": "railjudge",
+      "hp": 1500,
+      "armor": 3.5,
       "weaknessElement": "Fire",
       "resistElement": "Dark",
       "deathMechanic": "None",
       "phases": [
         {
-          "nameKey": "p2.phase.opening",
+          "nameKey": "p3.phase.1",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 118,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "bolt",
-            "shield"
+            "rail_sweep"
           ],
-          "resistance": 0.1,
-          "weakness": 0.25
+          "resistance": 0.12,
+          "weakness": 0.3
         },
         {
-          "nameKey": "p2.phase.intense",
-          "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "nameKey": "p3.phase.2",
+          "hpBelow": 0.62,
+          "afterSeconds": 42,
+          "enrageAfter": 118,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "bolt",
-            "shield"
+            "rail_cross",
+            "rail_sweep"
           ],
-          "resistance": 0.15,
-          "weakness": 0.35
+          "resistance": 0.12,
+          "weakness": 0.3
         }
       ],
-      "placeholder": true
+      "placeholder": false,
+      "presentation": "railjudge",
+      "movement": "Rail",
+      "ambientPressure": 0.32
     },
     {
       "id": "tidewhale",
-      "nameKey": "p2.boss.tidewhale",
-      "archetype": "charger",
-      "hp": 734,
-      "armor": 1.96,
-      "weaknessElement": "Ice",
+      "nameKey": "p3.boss.weavemother",
+      "archetype": "weavemother",
+      "hp": 1700,
+      "armor": 4,
+      "weaknessElement": "Fire",
       "resistElement": "Dark",
       "deathMechanic": "None",
       "phases": [
         {
-          "nameKey": "p2.phase.opening",
+          "nameKey": "p3.phase.1",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 126,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "charge"
+            "hatch",
+            "extract"
           ],
-          "resistance": 0.1,
-          "weakness": 0.25
+          "resistance": 0.12,
+          "weakness": 0.3
         },
         {
-          "nameKey": "p2.phase.intense",
-          "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "nameKey": "p3.phase.2",
+          "hpBelow": 0.62,
+          "afterSeconds": 42,
+          "enrageAfter": 126,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "charge"
+            "hatch",
+            "extract",
+            "core_shield"
           ],
-          "resistance": 0.15,
-          "weakness": 0.35
+          "resistance": 0.12,
+          "weakness": 0.3
         }
       ],
-      "placeholder": true
+      "placeholder": false,
+      "presentation": "weavemother",
+      "movement": "",
+      "ambientPressure": 0.42
     },
     {
       "id": "zeroform",
-      "nameKey": "p2.boss.zeroform",
-      "archetype": "summoner",
-      "hp": 772,
-      "armor": 2.08,
+      "nameKey": "p3.boss.metronome",
+      "archetype": "metronome",
+      "hp": 1800,
+      "armor": 4,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
       "deathMechanic": "None",
       "phases": [
         {
-          "nameKey": "p2.phase.opening",
+          "nameKey": "p3.phase.1",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 134,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "summon",
-            "drain"
+            "clock_line",
+            "pulse_ring"
           ],
-          "resistance": 0.1,
-          "weakness": 0.25
+          "resistance": 0.12,
+          "weakness": 0.3
         },
         {
-          "nameKey": "p2.phase.intense",
-          "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
+          "nameKey": "p3.phase.2",
+          "hpBelow": 0.62,
+          "afterSeconds": 42,
+          "enrageAfter": 134,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "summon",
-            "drain"
+            "clock_line",
+            "rail_cross",
+            "pulse_ring"
           ],
-          "resistance": 0.15,
-          "weakness": 0.35
+          "resistance": 0.12,
+          "weakness": 0.3
         }
       ],
-      "placeholder": true
+      "placeholder": false,
+      "presentation": "metronome",
+      "movement": "Pendulum",
+      "ambientPressure": 0.5
     },
     {
       "id": "whitewing",
-      "nameKey": "p2.boss.whitewing",
-      "archetype": "environment",
-      "hp": 810,
-      "armor": 2.2,
+      "nameKey": "p3.boss.armillary",
+      "archetype": "armillary",
+      "hp": 2350,
+      "armor": 5,
       "weaknessElement": "Ice",
       "resistElement": "Dark",
-      "deathMechanic": "FinalPulse",
+      "deathMechanic": "None",
       "phases": [
         {
-          "nameKey": "p2.phase.opening",
+          "nameKey": "p3.phase.1",
           "hpBelow": 1,
           "afterSeconds": 0,
-          "enrageAfter": 100,
+          "enrageAfter": 142,
           "dpsDeadline": 0,
           "requiredDamage": 0,
           "abilities": [
-            "storm",
-            "survival"
+            "furnace_lane"
           ],
-          "resistance": 0.1,
-          "weakness": 0.25
+          "resistance": 0.12,
+          "weakness": 0.3
         },
         {
-          "nameKey": "p2.phase.intense",
-          "hpBelow": 0.5,
-          "afterSeconds": 55,
-          "enrageAfter": 85,
-          "dpsDeadline": 75,
-          "requiredDamage": 0.2,
+          "nameKey": "p3.phase.2",
+          "hpBelow": 0.62,
+          "afterSeconds": 42,
+          "enrageAfter": 142,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
           "abilities": [
-            "storm",
-            "survival",
-            "storm"
+            "hatch",
+            "core_shield",
+            "extract"
           ],
-          "resistance": 0.15,
-          "weakness": 0.35
+          "resistance": 0.12,
+          "weakness": 0.3
+        },
+        {
+          "nameKey": "p3.phase.3",
+          "hpBelow": 0.28,
+          "afterSeconds": 84,
+          "enrageAfter": 142,
+          "dpsDeadline": 0,
+          "requiredDamage": 0,
+          "abilities": [
+            "pulse_ring",
+            "core_cross",
+            "clock_line"
+          ],
+          "resistance": 0.12,
+          "weakness": 0.3
         }
       ],
-      "placeholder": true
+      "placeholder": false,
+      "presentation": "armillary",
+      "movement": "",
+      "ambientPressure": 0.6
     },
     {
       "id": "headless",
@@ -1924,6 +2042,186 @@
       "duration": 4,
       "interruptible": true,
       "interruptWindow": 0.7
+    },
+    {
+      "id": "furnace_lane",
+      "nameKey": "p3.ability.furnace_lane",
+      "mechanic": 0,
+      "target": 0,
+      "damage": 46,
+      "interval": 5.2,
+      "windup": 2.3,
+      "radius": 1.8,
+      "shape": 1,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 0,
+      "resourceDrain": 0,
+      "status": "Burn",
+      "element": "Fire",
+      "duration": 5,
+      "interruptible": false,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "rail_sweep",
+      "nameKey": "p3.ability.rail_sweep",
+      "mechanic": 2,
+      "target": 2,
+      "damage": 48,
+      "interval": 3.4,
+      "windup": 1.65,
+      "radius": 1.2,
+      "shape": 1,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 2.5,
+      "resourceDrain": 0,
+      "status": "Slow",
+      "element": "Physical",
+      "duration": 5,
+      "interruptible": false,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "rail_cross",
+      "nameKey": "p3.ability.rail_cross",
+      "mechanic": 0,
+      "target": 2,
+      "damage": 38,
+      "interval": 4,
+      "windup": 1.85,
+      "radius": 1,
+      "shape": 2,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 2,
+      "resourceDrain": 0,
+      "status": "",
+      "element": "Physical",
+      "duration": 5,
+      "interruptible": false,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "hatch",
+      "nameKey": "p3.ability.hatch",
+      "mechanic": 3,
+      "target": 0,
+      "damage": 0,
+      "interval": 5.5,
+      "windup": 1.6,
+      "radius": 2,
+      "shape": 0,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 0,
+      "resourceDrain": 0,
+      "status": "",
+      "element": "Dark",
+      "duration": 5,
+      "interruptible": true,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "extract",
+      "nameKey": "p3.ability.extract",
+      "mechanic": 5,
+      "target": 0,
+      "damage": 30,
+      "interval": 4.5,
+      "windup": 1.8,
+      "radius": 2,
+      "shape": 0,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 0,
+      "resourceDrain": 16,
+      "status": "Weaken",
+      "element": "Dark",
+      "duration": 5,
+      "interruptible": true,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "pulse_ring",
+      "nameKey": "p3.ability.pulse_ring",
+      "mechanic": 0,
+      "target": 0,
+      "damage": 40,
+      "interval": 2.8,
+      "windup": 1.55,
+      "radius": 7.5,
+      "shape": 3,
+      "length": 18,
+      "innerRadius": 3.3,
+      "push": 0,
+      "resourceDrain": 0,
+      "status": "",
+      "element": "Arcane",
+      "duration": 5,
+      "interruptible": false,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "clock_line",
+      "nameKey": "p3.ability.clock_line",
+      "mechanic": 1,
+      "target": 0,
+      "damage": 36,
+      "interval": 2.3,
+      "windup": 1.35,
+      "radius": 1.1,
+      "shape": 1,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 0,
+      "resourceDrain": 0,
+      "status": "Slow",
+      "element": "Arcane",
+      "duration": 5,
+      "interruptible": true,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "core_shield",
+      "nameKey": "p3.ability.core_shield",
+      "mechanic": 6,
+      "target": 0,
+      "damage": 0,
+      "interval": 5,
+      "windup": 1.8,
+      "radius": 2,
+      "shape": 0,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 0,
+      "resourceDrain": 0,
+      "status": "",
+      "element": "Ice",
+      "duration": 5,
+      "interruptible": true,
+      "interruptWindow": 0.9
+    },
+    {
+      "id": "core_cross",
+      "nameKey": "p3.ability.core_cross",
+      "mechanic": 0,
+      "target": 0,
+      "damage": 56,
+      "interval": 3.3,
+      "windup": 1.8,
+      "radius": 1.4,
+      "shape": 2,
+      "length": 18,
+      "innerRadius": 0,
+      "push": 2.5,
+      "resourceDrain": 6,
+      "status": "Burn",
+      "element": "Fire",
+      "duration": 5,
+      "interruptible": true,
+      "interruptWindow": 0.9
     }
   ],
   "loot": [
@@ -1946,12 +2244,188 @@
       ],
       "rolls": 2,
       "materials": 3
+    },
+    {
+      "id": "foundry_6",
+      "items": [
+        "greatsword",
+        "bow",
+        "staff",
+        "holy_staff",
+        "hp",
+        "mp"
+      ],
+      "rolls": 2,
+      "materials": 3,
+      "affix": "Scorch"
+    },
+    {
+      "id": "foundry_7",
+      "items": [
+        "greatsword",
+        "bow",
+        "staff",
+        "holy_staff",
+        "hp",
+        "mp"
+      ],
+      "rolls": 2,
+      "materials": 3,
+      "affix": "Mobility"
+    },
+    {
+      "id": "foundry_8",
+      "items": [
+        "greatsword",
+        "bow",
+        "staff",
+        "holy_staff",
+        "hp",
+        "mp"
+      ],
+      "rolls": 2,
+      "materials": 3,
+      "affix": "Recovery"
+    },
+    {
+      "id": "foundry_9",
+      "items": [
+        "greatsword",
+        "bow",
+        "staff",
+        "holy_staff",
+        "hp",
+        "mp"
+      ],
+      "rolls": 2,
+      "materials": 3,
+      "affix": "Break"
+    },
+    {
+      "id": "foundry_10",
+      "items": [
+        "greatsword",
+        "bow",
+        "staff",
+        "holy_staff",
+        "hp",
+        "mp"
+      ],
+      "rolls": 2,
+      "materials": 3,
+      "affix": "Astral"
     }
   ],
   "rests": [
     {
       "id": "crossing",
       "collapseAfter": 26,
+      "collapseSpeed": 2.3,
+      "sites": [
+        {
+          "id": "bed",
+          "nameKey": "p2.site.bed",
+          "effect": "Heal",
+          "x": -7,
+          "z": -3,
+          "seconds": 3,
+          "risk": 0,
+          "reward": 40,
+          "materialCost": 0
+        },
+        {
+          "id": "forge",
+          "nameKey": "p2.site.forge",
+          "effect": "Craft",
+          "x": -3,
+          "z": -3,
+          "seconds": 4,
+          "risk": 0,
+          "reward": 1.5,
+          "materialCost": 3
+        },
+        {
+          "id": "church",
+          "nameKey": "p2.site.church",
+          "effect": "Bless",
+          "x": 1,
+          "z": -3,
+          "seconds": 3,
+          "risk": 0.05,
+          "reward": 0.35,
+          "materialCost": 1
+        },
+        {
+          "id": "clinic",
+          "nameKey": "p2.site.clinic",
+          "effect": "Cleanse",
+          "x": -7,
+          "z": 0,
+          "seconds": 3,
+          "risk": 0,
+          "reward": 55,
+          "materialCost": 1
+        },
+        {
+          "id": "library",
+          "nameKey": "p2.site.library",
+          "effect": "Intel",
+          "x": -3,
+          "z": 0,
+          "seconds": 3,
+          "risk": 0.02,
+          "reward": 0.8,
+          "materialCost": 0
+        },
+        {
+          "id": "corpse",
+          "nameKey": "p2.site.corpse",
+          "effect": "Loot",
+          "x": 1,
+          "z": 0,
+          "seconds": 3,
+          "risk": 0.3,
+          "reward": 2,
+          "materialCost": 0
+        },
+        {
+          "id": "cache",
+          "nameKey": "p2.site.cache",
+          "effect": "Loot",
+          "x": -7,
+          "z": 3,
+          "seconds": 3,
+          "risk": 0.15,
+          "reward": 2,
+          "materialCost": 0
+        },
+        {
+          "id": "resource",
+          "nameKey": "p2.site.resource",
+          "effect": "Materials",
+          "x": -3,
+          "z": 3,
+          "seconds": 5,
+          "risk": 0.45,
+          "reward": 5,
+          "materialCost": 0
+        },
+        {
+          "id": "book",
+          "nameKey": "p2.site.book",
+          "effect": "Read",
+          "x": 1,
+          "z": 3,
+          "seconds": 3,
+          "risk": 0,
+          "reward": 0.6,
+          "materialCost": 0
+        }
+      ]
+    },
+    {
+      "id": "foundry_service",
+      "collapseAfter": 29,
       "collapseSpeed": 2.3,
       "sites": [
         {
@@ -2155,6 +2629,17 @@
       "vfx": "final_vfx",
       "music": "final_music_placeholder",
       "ambience": "final_ambience_placeholder"
+    },
+    {
+      "id": "astral_foundry",
+      "r": 0.14,
+      "g": 0.25,
+      "b": 0.34,
+      "fog": 0.015,
+      "lighting": "foundry_cold_rim",
+      "vfx": "foundry_circuit",
+      "music": "foundry_pulse",
+      "ambience": "foundry_machine"
     }
   ]
 }

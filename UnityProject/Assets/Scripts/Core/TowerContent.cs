@@ -6,17 +6,22 @@ namespace Ember.Core.Phase2
 {
     public enum Mechanic { Slam, Projectile, Charge, Summon, Storm, Drain, Shield, Survival, Doom }
     public enum TargetRule { Random, LowestHealth, Farthest, HighestDamage }
+    public enum CueShape { Circle, Lane, Cross, Annulus }
     [Serializable] public class FloorDefinition
     {
         public int floor, difficultyTier; public string id, nameKey, theme, bossId, hazard, music, ambience, lighting, vfx;
         public string[] arenaRules, lootTables, restPool, threatTags, intelTags;
         public bool placeholder;
+        public string arenaLayout,introKey,deathKey,intelKey,lootIdentity;
+        public DifficultyVector difficulty;
     }
+    [Serializable] public class DifficultyVector { public float effectiveHp,incomingDamage,attackFrequency,aoePressure,positioningPressure,reactionWindow,mechanicComplexity,resourceAttrition,buildDependency,coordinationDependency; }
     [Serializable] public class AbilityDefinition
     {
         public string id, nameKey, element, status; public Mechanic mechanic; public TargetRule target;
         public float damage, interval, windup, radius, duration, interruptWindow;
         public bool interruptible;
+        public CueShape shape;public float length=16,innerRadius,push,resourceDrain;
     }
     [Serializable] public class PhaseDefinition
     {
@@ -27,8 +32,9 @@ namespace Ember.Core.Phase2
     {
         public string id, nameKey, archetype, weaknessElement, resistElement, deathMechanic;
         public float hp, armor; public PhaseDefinition[] phases; public bool placeholder;
+        public string movement="",presentation="";public float ambientPressure;
     }
-    [Serializable] public class LootTable { public string id; public string[] items; public int rolls, materials; }
+    [Serializable] public class LootTable { public string id,affix; public string[] items; public int rolls, materials; }
     [Serializable] public class RestSite { public string id, nameKey, effect; public float x,z,seconds,risk,reward; public int materialCost; }
     [Serializable] public class RestDefinition { public string id; public float collapseAfter, collapseSpeed; public RestSite[] sites; }
     [Serializable] public class EnvironmentProfile { public string id; public float r,g,b, fog; public string lighting,vfx,music,ambience; }

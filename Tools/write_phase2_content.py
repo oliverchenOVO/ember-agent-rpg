@@ -34,5 +34,7 @@ data=dict(version=2,floors=floors,bosses=bosses,abilities=abilities,loot=[dict(i
 catalog=json.loads((ROOT/'UnityProject/Assets/Resources/catalog.json').read_text(encoding='utf-8'))
 ids={x['id'] for x in catalog['items']}
 data['loot'][0]['items']=[x['id'] for x in catalog['items']]
+from phase3_content import apply
+apply(data)
 (ROOT/'UnityProject/Assets/Resources/tower.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print('Authored 25 floors, 25 definitions, 5 executable archetypes, 9 rest sites')

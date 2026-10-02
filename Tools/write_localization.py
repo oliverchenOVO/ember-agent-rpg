@@ -97,6 +97,8 @@ add('boss.'+catalog['boss']['id'],catalog['boss']['name'],'根冠之主')
 
 from phase2_strings import entries as phase2_entries
 for key,(en,zh) in phase2_entries.items():add(key,en,zh)
+from phase3_strings import entries as phase3_entries
+for key,(en,zh) in phase3_entries.items():add(key,en,zh)
 
 if __name__=='__main__':
     import sys

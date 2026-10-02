@@ -1,6 +1,6 @@
 # 玩家可見文字盤點 / zh-TW 字串表
 
-共 313 個語意鍵。英文與繁中各一份；保留全部技術識別字。
+共 398 個語意鍵。英文與繁中各一份；保留全部技術識別字。
 
 搜尋範圍：Assets 全部 C#、JSON、Unity Scene、ProjectSettings，以及會再產生內容的 Tools/write_catalog.py。
 可見來源：WitnessGame UI 與列舉顯示、PlayerWindow 視窗標題、UtilityBrain 意圖、Simulation 系統/對話/遺言、catalog 技能與物品名、舊存檔。
@@ -322,3 +322,88 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 | `p2.floor.24` | Endchimera sanctuary | 終末奇美拉之境 |
 | `p2.boss.witness` | Witness | 記錄者 |
 | `p2.floor.25` | Witness sanctuary | 記錄者之境 |
+| `p3.floor.6` | Foundry threshold | 星鑄工坊入口 |
+| `p3.floor.7` | Rail tribunal | 雙軌審判台 |
+| `p3.floor.8` | Crystal hatchery | 星晶孵化工位 |
+| `p3.floor.9` | Pressure chamber | 失序加壓平台 |
+| `p3.floor.10` | Armillary crucible | 天球鑄心熔爐 |
+| `p3.boss.stoker` | The Ember Stoker | 餘燼司爐 |
+| `p3.intel.stoker` | Step aside from the furnace lanes. | 側移避開爐道，冷卻時再接近。 |
+| `p3.intro.stoker` | The Ember Stoker awakens. The assembly begins. | 餘燼司爐甦醒，失落的鑄造程序再度啟動。 |
+| `p3.death.stoker` | The Ember Stoker falls silent. | 餘燼司爐的星光逐漸熄滅。 |
+| `p3.boss.railjudge` | The Rail Judge | 軌道裁決者 |
+| `p3.intel.railjudge` | Move across the tracks, not along them. | 橫越軌道，別沿著掃掠方向奔跑。 |
+| `p3.intro.railjudge` | The Rail Judge awakens. The assembly begins. | 軌道裁決者甦醒，失落的鑄造程序再度啟動。 |
+| `p3.death.railjudge` | The Rail Judge falls silent. | 軌道裁決者的星光逐漸熄滅。 |
+| `p3.boss.weavemother` | The Crystal Weavemother | 星晶織母 |
+| `p3.intel.weavemother` | Clear hatchlings and interrupt extraction. | 先清除晶偶，再打斷抽取。 |
+| `p3.intro.weavemother` | The Crystal Weavemother awakens. The assembly begins. | 星晶織母甦醒，失落的鑄造程序再度啟動。 |
+| `p3.death.weavemother` | The Crystal Weavemother falls silent. | 星晶織母的星光逐漸熄滅。 |
+| `p3.boss.metronome` | The Broken Metronome | 失序節拍器 |
+| `p3.intel.metronome` | The ring leaves a safe inner pocket. | 共振環中央有安全區，留意接續的直線。 |
+| `p3.intro.metronome` | The Broken Metronome awakens. The assembly begins. | 失序節拍器甦醒，失落的鑄造程序再度啟動。 |
+| `p3.death.metronome` | The Broken Metronome falls silent. | 失序節拍器的星光逐漸熄滅。 |
+| `p3.boss.armillary` | The Armillary Heart | 天球鑄心 |
+| `p3.intel.armillary` | Watch phase openings and conserve recovery. | 善用階段空檔，保留恢復資源。 |
+| `p3.intro.armillary` | The Armillary Heart awakens. The assembly begins. | 天球鑄心甦醒，失落的鑄造程序再度啟動。 |
+| `p3.death.armillary` | The Armillary Heart falls silent. | 天球鑄心的星光逐漸熄滅。 |
+| `p3.ability.furnace_lane` | Furnace lane | 熔爐灼道 |
+| `p3.ability.rail_sweep` | Rail sweep | 軌道掃掠 |
+| `p3.ability.rail_cross` | Crosscut | 十字裁切 |
+| `p3.ability.hatch` | Crystal hatch | 晶偶孵化 |
+| `p3.ability.extract` | Ether extraction | 法力抽取 |
+| `p3.ability.pulse_ring` | Resonance ring | 共振環 |
+| `p3.ability.clock_line` | Pendulum strike | 鐘擺射線 |
+| `p3.ability.core_shield` | Core insulation | 晶核隔熱 |
+| `p3.ability.core_cross` | Astral cross | 星鑄十字 |
+| `p3.phase.1` | Ignition | 第一階段／點火 |
+| `p3.phase.2` | Overload | 第二階段／過載 |
+| `p3.phase.3` | Stellar collapse | 第三階段／星核崩解 |
+| `p3.cause.pressure` | foundry heat pressure | 工坊熱壓 |
+| `p3.cue` | {0} · {1:0.0}s | {0} · {1:0.0} 秒 |
+| `p3.intel` | Boss intel: {0} | Boss 情報：{0} |
+| `p3.infusion` | Infusion: {0} · {1} MP · {2:0.0}s cooldown | 灌注：{0} · 法力 {1} · 冷卻 {2:0.0} 秒 |
+| `p3.affix` | {0} · {1} | {0} · {1} |
+| `p3.affix.Scorch` | Scorch mark | 灼印 |
+| `p3.affix.Mobility` | Rail bearings | 軌行 |
+| `p3.affix.Recovery` | Ether condenser | 凝能 |
+| `p3.affix.Break` | Fracture teeth | 破甲 |
+| `p3.affix.Astral` | Astral core | 星核 |
+| `p3.affix.Custom` | Calibrated | 校準 |
+| `p3.status.Poison` | Poison | 中毒 |
+| `p3.status.Vulnerable` | Vulnerable | 易傷 |
+| `p3.status.Root` | Rooted | 定身 |
+| `p3.status.Shield` | Shield | 護盾 |
+| `p3.status.Regen` | Regeneration | 持續恢復 |
+| `p3.status.Counter` | Counter ready | 反擊待命 |
+| `p3.status.Haste` | Haste | 迅捷 |
+| `p3.status.Enchant` | Fire enchant | 火焰附魔 |
+| `p3.status.Zone` | Control zone | 控場區 |
+| `p3.status.Summon` | Echo summon | 召喚殘影 |
+| `p3.skill.slash` | Cleave and interrupt | 斬擊並打斷 |
+| `p3.skill.wave` | Ranged break and vulnerability | 遠距破甲並施加易傷 |
+| `p3.skill.rage` | Damage boost with regeneration | 強化傷害並持續恢復 |
+| `p3.skill.guard` | Absorb damage | 吸收傷害 |
+| `p3.skill.taunt` | Draw attention and protect allies | 吸引攻擊，保護隊友 |
+| `p3.skill.counter` | Retaliate after a guarded hit | 格擋受擊後反擊 |
+| `p3.skill.shot` | Precision projectile | 精準射擊 |
+| `p3.skill.poison` | Damage over time | 持續毒傷 |
+| `p3.skill.rain` | Clear multiple summons | 清除多個召喚物 |
+| `p3.skill.trap` | Root and interrupt in a zone | 區域定身並打斷 |
+| `p3.skill.pierce` | Expose armor weakness | 揭露護甲弱點 |
+| `p3.skill.snipe` | Long-range burst with recovery delay | 遠距爆發，需較長恢復 |
+| `p3.skill.fireball` | Fire damage and burning | 火焰傷害並灼燒 |
+| `p3.skill.frost` | Slow and control | 緩速控場 |
+| `p3.skill.meteor` | Area burst and lingering zone | 範圍爆發與持續區域 |
+| `p3.skill.shield` | Barrier protection | 屏障保護 |
+| `p3.skill.enchant` | Weapon-dependent fire strike | 依武器呈現火焰攻擊 |
+| `p3.skill.lightning` | Chain through summons | 連鎖清除召喚物 |
+| `p3.skill.holy` | Light damage and allied recovery | 光傷並恢復隊友 |
+| `p3.skill.heal` | Focused heal and regeneration | 單體治療與持續恢復 |
+| `p3.skill.groupheal` | Group heal and protection | 群體治療與保護 |
+| `p3.skill.ward` | Group barrier | 團隊屏障 |
+| `p3.skill.cleanse` | Remove harmful effects | 解除負面狀態 |
+| `p3.skill.revive` | One revival per life | 每輪生命可復活一次 |
+| `p3.effects` | Effect: {0} | 效果：{0} |
+| `p3.camera` | Spectator camera · arrows override | 觀察鏡頭 · 方向鍵手動接管 |
+| `p3.profiling` | Profiling {0} min · run {1} | 效能紀錄 {0} 分鐘 · 第 {1} 輪 |

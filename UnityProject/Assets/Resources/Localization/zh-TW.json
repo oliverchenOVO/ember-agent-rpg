@@ -1252,6 +1252,346 @@
     {
       "key": "p2.floor.25",
       "value": "記錄者之境"
+    },
+    {
+      "key": "p3.floor.6",
+      "value": "星鑄工坊入口"
+    },
+    {
+      "key": "p3.floor.7",
+      "value": "雙軌審判台"
+    },
+    {
+      "key": "p3.floor.8",
+      "value": "星晶孵化工位"
+    },
+    {
+      "key": "p3.floor.9",
+      "value": "失序加壓平台"
+    },
+    {
+      "key": "p3.floor.10",
+      "value": "天球鑄心熔爐"
+    },
+    {
+      "key": "p3.boss.stoker",
+      "value": "餘燼司爐"
+    },
+    {
+      "key": "p3.intel.stoker",
+      "value": "側移避開爐道，冷卻時再接近。"
+    },
+    {
+      "key": "p3.intro.stoker",
+      "value": "餘燼司爐甦醒，失落的鑄造程序再度啟動。"
+    },
+    {
+      "key": "p3.death.stoker",
+      "value": "餘燼司爐的星光逐漸熄滅。"
+    },
+    {
+      "key": "p3.boss.railjudge",
+      "value": "軌道裁決者"
+    },
+    {
+      "key": "p3.intel.railjudge",
+      "value": "橫越軌道，別沿著掃掠方向奔跑。"
+    },
+    {
+      "key": "p3.intro.railjudge",
+      "value": "軌道裁決者甦醒，失落的鑄造程序再度啟動。"
+    },
+    {
+      "key": "p3.death.railjudge",
+      "value": "軌道裁決者的星光逐漸熄滅。"
+    },
+    {
+      "key": "p3.boss.weavemother",
+      "value": "星晶織母"
+    },
+    {
+      "key": "p3.intel.weavemother",
+      "value": "先清除晶偶，再打斷抽取。"
+    },
+    {
+      "key": "p3.intro.weavemother",
+      "value": "星晶織母甦醒，失落的鑄造程序再度啟動。"
+    },
+    {
+      "key": "p3.death.weavemother",
+      "value": "星晶織母的星光逐漸熄滅。"
+    },
+    {
+      "key": "p3.boss.metronome",
+      "value": "失序節拍器"
+    },
+    {
+      "key": "p3.intel.metronome",
+      "value": "共振環中央有安全區，留意接續的直線。"
+    },
+    {
+      "key": "p3.intro.metronome",
+      "value": "失序節拍器甦醒，失落的鑄造程序再度啟動。"
+    },
+    {
+      "key": "p3.death.metronome",
+      "value": "失序節拍器的星光逐漸熄滅。"
+    },
+    {
+      "key": "p3.boss.armillary",
+      "value": "天球鑄心"
+    },
+    {
+      "key": "p3.intel.armillary",
+      "value": "善用階段空檔，保留恢復資源。"
+    },
+    {
+      "key": "p3.intro.armillary",
+      "value": "天球鑄心甦醒，失落的鑄造程序再度啟動。"
+    },
+    {
+      "key": "p3.death.armillary",
+      "value": "天球鑄心的星光逐漸熄滅。"
+    },
+    {
+      "key": "p3.ability.furnace_lane",
+      "value": "熔爐灼道"
+    },
+    {
+      "key": "p3.ability.rail_sweep",
+      "value": "軌道掃掠"
+    },
+    {
+      "key": "p3.ability.rail_cross",
+      "value": "十字裁切"
+    },
+    {
+      "key": "p3.ability.hatch",
+      "value": "晶偶孵化"
+    },
+    {
+      "key": "p3.ability.extract",
+      "value": "法力抽取"
+    },
+    {
+      "key": "p3.ability.pulse_ring",
+      "value": "共振環"
+    },
+    {
+      "key": "p3.ability.clock_line",
+      "value": "鐘擺射線"
+    },
+    {
+      "key": "p3.ability.core_shield",
+      "value": "晶核隔熱"
+    },
+    {
+      "key": "p3.ability.core_cross",
+      "value": "星鑄十字"
+    },
+    {
+      "key": "p3.phase.1",
+      "value": "第一階段／點火"
+    },
+    {
+      "key": "p3.phase.2",
+      "value": "第二階段／過載"
+    },
+    {
+      "key": "p3.phase.3",
+      "value": "第三階段／星核崩解"
+    },
+    {
+      "key": "p3.cause.pressure",
+      "value": "工坊熱壓"
+    },
+    {
+      "key": "p3.cue",
+      "value": "{0} · {1:0.0} 秒"
+    },
+    {
+      "key": "p3.intel",
+      "value": "Boss 情報：{0}"
+    },
+    {
+      "key": "p3.infusion",
+      "value": "灌注：{0} · 法力 {1} · 冷卻 {2:0.0} 秒"
+    },
+    {
+      "key": "p3.affix",
+      "value": "{0} · {1}"
+    },
+    {
+      "key": "p3.affix.Scorch",
+      "value": "灼印"
+    },
+    {
+      "key": "p3.affix.Mobility",
+      "value": "軌行"
+    },
+    {
+      "key": "p3.affix.Recovery",
+      "value": "凝能"
+    },
+    {
+      "key": "p3.affix.Break",
+      "value": "破甲"
+    },
+    {
+      "key": "p3.affix.Astral",
+      "value": "星核"
+    },
+    {
+      "key": "p3.affix.Custom",
+      "value": "校準"
+    },
+    {
+      "key": "p3.status.Poison",
+      "value": "中毒"
+    },
+    {
+      "key": "p3.status.Vulnerable",
+      "value": "易傷"
+    },
+    {
+      "key": "p3.status.Root",
+      "value": "定身"
+    },
+    {
+      "key": "p3.status.Shield",
+      "value": "護盾"
+    },
+    {
+      "key": "p3.status.Regen",
+      "value": "持續恢復"
+    },
+    {
+      "key": "p3.status.Counter",
+      "value": "反擊待命"
+    },
+    {
+      "key": "p3.status.Haste",
+      "value": "迅捷"
+    },
+    {
+      "key": "p3.status.Enchant",
+      "value": "火焰附魔"
+    },
+    {
+      "key": "p3.status.Zone",
+      "value": "控場區"
+    },
+    {
+      "key": "p3.status.Summon",
+      "value": "召喚殘影"
+    },
+    {
+      "key": "p3.skill.slash",
+      "value": "斬擊並打斷"
+    },
+    {
+      "key": "p3.skill.wave",
+      "value": "遠距破甲並施加易傷"
+    },
+    {
+      "key": "p3.skill.rage",
+      "value": "強化傷害並持續恢復"
+    },
+    {
+      "key": "p3.skill.guard",
+      "value": "吸收傷害"
+    },
+    {
+      "key": "p3.skill.taunt",
+      "value": "吸引攻擊，保護隊友"
+    },
+    {
+      "key": "p3.skill.counter",
+      "value": "格擋受擊後反擊"
+    },
+    {
+      "key": "p3.skill.shot",
+      "value": "精準射擊"
+    },
+    {
+      "key": "p3.skill.poison",
+      "value": "持續毒傷"
+    },
+    {
+      "key": "p3.skill.rain",
+      "value": "清除多個召喚物"
+    },
+    {
+      "key": "p3.skill.trap",
+      "value": "區域定身並打斷"
+    },
+    {
+      "key": "p3.skill.pierce",
+      "value": "揭露護甲弱點"
+    },
+    {
+      "key": "p3.skill.snipe",
+      "value": "遠距爆發，需較長恢復"
+    },
+    {
+      "key": "p3.skill.fireball",
+      "value": "火焰傷害並灼燒"
+    },
+    {
+      "key": "p3.skill.frost",
+      "value": "緩速控場"
+    },
+    {
+      "key": "p3.skill.meteor",
+      "value": "範圍爆發與持續區域"
+    },
+    {
+      "key": "p3.skill.shield",
+      "value": "屏障保護"
+    },
+    {
+      "key": "p3.skill.enchant",
+      "value": "依武器呈現火焰攻擊"
+    },
+    {
+      "key": "p3.skill.lightning",
+      "value": "連鎖清除召喚物"
+    },
+    {
+      "key": "p3.skill.holy",
+      "value": "光傷並恢復隊友"
+    },
+    {
+      "key": "p3.skill.heal",
+      "value": "單體治療與持續恢復"
+    },
+    {
+      "key": "p3.skill.groupheal",
+      "value": "群體治療與保護"
+    },
+    {
+      "key": "p3.skill.ward",
+      "value": "團隊屏障"
+    },
+    {
+      "key": "p3.skill.cleanse",
+      "value": "解除負面狀態"
+    },
+    {
+      "key": "p3.skill.revive",
+      "value": "每輪生命可復活一次"
+    },
+    {
+      "key": "p3.effects",
+      "value": "效果：{0}"
+    },
+    {
+      "key": "p3.camera",
+      "value": "觀察鏡頭 · 方向鍵手動接管"
+    },
+    {
+      "key": "p3.profiling",
+      "value": "效能紀錄 {0} 分鐘 · 第 {1} 輪"
     }
   ]
 }

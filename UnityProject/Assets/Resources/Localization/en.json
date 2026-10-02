@@ -1252,6 +1252,346 @@
     {
       "key": "p2.floor.25",
       "value": "Witness sanctuary"
+    },
+    {
+      "key": "p3.floor.6",
+      "value": "Foundry threshold"
+    },
+    {
+      "key": "p3.floor.7",
+      "value": "Rail tribunal"
+    },
+    {
+      "key": "p3.floor.8",
+      "value": "Crystal hatchery"
+    },
+    {
+      "key": "p3.floor.9",
+      "value": "Pressure chamber"
+    },
+    {
+      "key": "p3.floor.10",
+      "value": "Armillary crucible"
+    },
+    {
+      "key": "p3.boss.stoker",
+      "value": "The Ember Stoker"
+    },
+    {
+      "key": "p3.intel.stoker",
+      "value": "Step aside from the furnace lanes."
+    },
+    {
+      "key": "p3.intro.stoker",
+      "value": "The Ember Stoker awakens. The assembly begins."
+    },
+    {
+      "key": "p3.death.stoker",
+      "value": "The Ember Stoker falls silent."
+    },
+    {
+      "key": "p3.boss.railjudge",
+      "value": "The Rail Judge"
+    },
+    {
+      "key": "p3.intel.railjudge",
+      "value": "Move across the tracks, not along them."
+    },
+    {
+      "key": "p3.intro.railjudge",
+      "value": "The Rail Judge awakens. The assembly begins."
+    },
+    {
+      "key": "p3.death.railjudge",
+      "value": "The Rail Judge falls silent."
+    },
+    {
+      "key": "p3.boss.weavemother",
+      "value": "The Crystal Weavemother"
+    },
+    {
+      "key": "p3.intel.weavemother",
+      "value": "Clear hatchlings and interrupt extraction."
+    },
+    {
+      "key": "p3.intro.weavemother",
+      "value": "The Crystal Weavemother awakens. The assembly begins."
+    },
+    {
+      "key": "p3.death.weavemother",
+      "value": "The Crystal Weavemother falls silent."
+    },
+    {
+      "key": "p3.boss.metronome",
+      "value": "The Broken Metronome"
+    },
+    {
+      "key": "p3.intel.metronome",
+      "value": "The ring leaves a safe inner pocket."
+    },
+    {
+      "key": "p3.intro.metronome",
+      "value": "The Broken Metronome awakens. The assembly begins."
+    },
+    {
+      "key": "p3.death.metronome",
+      "value": "The Broken Metronome falls silent."
+    },
+    {
+      "key": "p3.boss.armillary",
+      "value": "The Armillary Heart"
+    },
+    {
+      "key": "p3.intel.armillary",
+      "value": "Watch phase openings and conserve recovery."
+    },
+    {
+      "key": "p3.intro.armillary",
+      "value": "The Armillary Heart awakens. The assembly begins."
+    },
+    {
+      "key": "p3.death.armillary",
+      "value": "The Armillary Heart falls silent."
+    },
+    {
+      "key": "p3.ability.furnace_lane",
+      "value": "Furnace lane"
+    },
+    {
+      "key": "p3.ability.rail_sweep",
+      "value": "Rail sweep"
+    },
+    {
+      "key": "p3.ability.rail_cross",
+      "value": "Crosscut"
+    },
+    {
+      "key": "p3.ability.hatch",
+      "value": "Crystal hatch"
+    },
+    {
+      "key": "p3.ability.extract",
+      "value": "Ether extraction"
+    },
+    {
+      "key": "p3.ability.pulse_ring",
+      "value": "Resonance ring"
+    },
+    {
+      "key": "p3.ability.clock_line",
+      "value": "Pendulum strike"
+    },
+    {
+      "key": "p3.ability.core_shield",
+      "value": "Core insulation"
+    },
+    {
+      "key": "p3.ability.core_cross",
+      "value": "Astral cross"
+    },
+    {
+      "key": "p3.phase.1",
+      "value": "Ignition"
+    },
+    {
+      "key": "p3.phase.2",
+      "value": "Overload"
+    },
+    {
+      "key": "p3.phase.3",
+      "value": "Stellar collapse"
+    },
+    {
+      "key": "p3.cause.pressure",
+      "value": "foundry heat pressure"
+    },
+    {
+      "key": "p3.cue",
+      "value": "{0} · {1:0.0}s"
+    },
+    {
+      "key": "p3.intel",
+      "value": "Boss intel: {0}"
+    },
+    {
+      "key": "p3.infusion",
+      "value": "Infusion: {0} · {1} MP · {2:0.0}s cooldown"
+    },
+    {
+      "key": "p3.affix",
+      "value": "{0} · {1}"
+    },
+    {
+      "key": "p3.affix.Scorch",
+      "value": "Scorch mark"
+    },
+    {
+      "key": "p3.affix.Mobility",
+      "value": "Rail bearings"
+    },
+    {
+      "key": "p3.affix.Recovery",
+      "value": "Ether condenser"
+    },
+    {
+      "key": "p3.affix.Break",
+      "value": "Fracture teeth"
+    },
+    {
+      "key": "p3.affix.Astral",
+      "value": "Astral core"
+    },
+    {
+      "key": "p3.affix.Custom",
+      "value": "Calibrated"
+    },
+    {
+      "key": "p3.status.Poison",
+      "value": "Poison"
+    },
+    {
+      "key": "p3.status.Vulnerable",
+      "value": "Vulnerable"
+    },
+    {
+      "key": "p3.status.Root",
+      "value": "Rooted"
+    },
+    {
+      "key": "p3.status.Shield",
+      "value": "Shield"
+    },
+    {
+      "key": "p3.status.Regen",
+      "value": "Regeneration"
+    },
+    {
+      "key": "p3.status.Counter",
+      "value": "Counter ready"
+    },
+    {
+      "key": "p3.status.Haste",
+      "value": "Haste"
+    },
+    {
+      "key": "p3.status.Enchant",
+      "value": "Fire enchant"
+    },
+    {
+      "key": "p3.status.Zone",
+      "value": "Control zone"
+    },
+    {
+      "key": "p3.status.Summon",
+      "value": "Echo summon"
+    },
+    {
+      "key": "p3.skill.slash",
+      "value": "Cleave and interrupt"
+    },
+    {
+      "key": "p3.skill.wave",
+      "value": "Ranged break and vulnerability"
+    },
+    {
+      "key": "p3.skill.rage",
+      "value": "Damage boost with regeneration"
+    },
+    {
+      "key": "p3.skill.guard",
+      "value": "Absorb damage"
+    },
+    {
+      "key": "p3.skill.taunt",
+      "value": "Draw attention and protect allies"
+    },
+    {
+      "key": "p3.skill.counter",
+      "value": "Retaliate after a guarded hit"
+    },
+    {
+      "key": "p3.skill.shot",
+      "value": "Precision projectile"
+    },
+    {
+      "key": "p3.skill.poison",
+      "value": "Damage over time"
+    },
+    {
+      "key": "p3.skill.rain",
+      "value": "Clear multiple summons"
+    },
+    {
+      "key": "p3.skill.trap",
+      "value": "Root and interrupt in a zone"
+    },
+    {
+      "key": "p3.skill.pierce",
+      "value": "Expose armor weakness"
+    },
+    {
+      "key": "p3.skill.snipe",
+      "value": "Long-range burst with recovery delay"
+    },
+    {
+      "key": "p3.skill.fireball",
+      "value": "Fire damage and burning"
+    },
+    {
+      "key": "p3.skill.frost",
+      "value": "Slow and control"
+    },
+    {
+      "key": "p3.skill.meteor",
+      "value": "Area burst and lingering zone"
+    },
+    {
+      "key": "p3.skill.shield",
+      "value": "Barrier protection"
+    },
+    {
+      "key": "p3.skill.enchant",
+      "value": "Weapon-dependent fire strike"
+    },
+    {
+      "key": "p3.skill.lightning",
+      "value": "Chain through summons"
+    },
+    {
+      "key": "p3.skill.holy",
+      "value": "Light damage and allied recovery"
+    },
+    {
+      "key": "p3.skill.heal",
+      "value": "Focused heal and regeneration"
+    },
+    {
+      "key": "p3.skill.groupheal",
+      "value": "Group heal and protection"
+    },
+    {
+      "key": "p3.skill.ward",
+      "value": "Group barrier"
+    },
+    {
+      "key": "p3.skill.cleanse",
+      "value": "Remove harmful effects"
+    },
+    {
+      "key": "p3.skill.revive",
+      "value": "One revival per life"
+    },
+    {
+      "key": "p3.effects",
+      "value": "Effect: {0}"
+    },
+    {
+      "key": "p3.camera",
+      "value": "Spectator camera · arrows override"
+    },
+    {
+      "key": "p3.profiling",
+      "value": "Profiling {0} min · run {1}"
     }
   ]
 }
