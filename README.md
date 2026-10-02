@@ -1,7 +1,7 @@
 # EMBER — The Witness Tower
 四名自主 Agent 的 3D Roguelite 觀察型 RPG，Unity 6000.2.0f1。
 
-目前預設執行 Phase 2：資料驅動的 25 層流程、五種 Boss 戰鬥 archetype、分隊獨立爬塔、來源記憶與 optional LLM gateway。其他 Boss 專屬內容、音樂及完整美術仍採 placeholder，並非 25 套最終內容。
+目前預設執行 Phase 3：25 層流程、原五種 Boss 與 6–10F「廢棄星鑄工坊」五個專屬 Boss、分隊爬塔、來源記憶及可選 LLM gateway。技能效果、跨職業灌注、觀察鏡頭、聲音事件與難度 telemetry 已深化；11–25F 仍有佔位內容，並非 25 套最終製作。
 設計與內容 authoring 文件在 Docs；執行與測試命令在 Tools。架構審查見 Docs/PHASE2_ARCHITECTURE.md；內容與 LLM 設定見 Docs/PHASE2_CONTENT_PIPELINE.md。
 
 用 Unity Hub 開啟 UnityProject，開啟 Assets/Scenes/Witness.unity，按 Play。
@@ -20,6 +20,10 @@ smoke 使用 Artifacts 內獨立存檔，不覆蓋一般遊戲存檔。一般存
 Phase 2 實測與限制請見 Docs/PHASE2_VALIDATION.md；第一階段紀錄保留於 Artifacts/VALIDATION.md。
 Phase 2 畫面檢查：powershell -ExecutionPolicy Bypass -File Tools/phase2_playtest.ps1
 Phase 2 完整實際輪迴：powershell -ExecutionPolicy Bypass -File Tools/phase2_playtest.ps1 -Lifecycle
+
+Phase 3 設計：Docs/THEME_B_DESIGN.md；難度：Docs/DIFFICULTY_CURVE.md；內容與重現：Docs/PHASE3_CONTENT_PIPELINE.md；驗證：Docs/PHASE3_VALIDATION.md；效能：Docs/PERFORMANCE.md。
+Phase 3 畫面：powershell -ExecutionPolicy Bypass -File Tools/phase3_playtest.ps1
+Phase 3 TestsOnly 包含既有回歸、新增斷言與 5000 seeds。Development Build 及長程 profiling 指令見內容指南。
 
 遊戲預設繁體中文（zh-TW），右下角語言按鈕可即時切換英文。完整字串盤點見 Docs/LOCALIZATION_INVENTORY.md；語系、舊存檔及字型架構見 Docs/LOCALIZATION.md。
 中文化畫面測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1

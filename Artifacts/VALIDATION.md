@@ -71,3 +71,7 @@ Git 使用本機 main 分階段提交，無遠端；未建立外部帳號、付�
 本文件上方保留第一階段歷史結果。最新 Phase 2 詳細結果見 [PHASE2_VALIDATION.md](../Docs/PHASE2_VALIDATION.md)：原 242 項與新增 87 項斷言全數通過，1000 個自然種子全部完成 25 層，六類失敗統計皆 0，離隊 24708 次、會合 21715 次。Windows Build 實際通關並啟動下一輪；另以 loopback LLM gateway 驗證非法/延遲回覆不阻斷完整輪迴，原切片 smoke 同樣通過。
 
 中英字串表各 313 鍵，595 個不同字元有字形。Phase 2 與原切片在 1600×900、1280×720 共 94 次實際渲染檢查，issues 0。完整測試摘要保存於 phase2-tests.txt、phase2-layout-tests.txt 與 localization-tests.txt。後二十層內容與音畫仍有佔位，商業 LLM provider 及長時間渲染尚未驗證；原有 JobTempAlloc 退出警告仍存在。
+
+## Phase 3（2026-10-03）
+
+收尾驗證、難度數據與已完成/待補項目統一記錄於 [Phase 3 驗證](../Docs/PHASE3_VALIDATION.md)。最後版本的 60/120 分鐘渲染長測尚未完成；不以中間版本 31.4 分鐘資料宣稱通過。

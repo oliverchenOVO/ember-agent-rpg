@@ -4,15 +4,15 @@
 
 ## 字串表與新增文案
 
-`UnityProject/Assets/Resources/Localization/zh-TW.json` 與 `en.json` 是獨立的執行期字串表，Phase 2 共 313 個語意鍵（原切片 169 鍵全部保留）。`Core/Localization.cs` 的 `Loc.T` 讀取字串表、格式化參數及處理缺鍵；缺鍵會記入 `MissingKeys`，並回退至英文表。UI 不自行保存翻譯內容。
+`UnityProject/Assets/Resources/Localization/zh-TW.json` 與 `en.json` 是獨立的執行期字串表，Phase 3 共 399 個語意鍵（Phase 2 的 313 鍵全部保留）（原切片 169 鍵全部保留）。`Core/Localization.cs` 的 `Loc.T` 讀取字串表、格式化參數及處理缺鍵；缺鍵會記入 `MissingKeys`，並回退至英文表。UI 不自行保存翻譯內容。
 
-`Tools/write_localization.py` 集中維護中英對照，匯入 Phase 2 的 `Tools/phase2_strings.py`，產生兩份表及 `Docs/LOCALIZATION_INVENTORY.md`。新增文案時增加穩定的語意鍵，再執行此工具；新增技能或物品也要補入對照，不要改動 catalog ID。盤點清單列出完整英文來源、中文與語意鍵，包含視窗標題、HUD、提示、按鈕、職業、行動、結局、技能、物品、Boss、休息層、Agent 意圖與對話、戰鬥紀錄、記憶和遺言，以及分隊、記憶來源與推理除錯文案。
+`Tools/write_localization.py` 集中維護中英對照，匯入 `Tools/phase2_strings.py` 與 `Tools/phase3_strings.py`，產生兩份表及 `Docs/LOCALIZATION_INVENTORY.md`。新增文案時增加穩定的語意鍵，再執行此工具；新增技能或物品也要補入對照，不要改動 catalog ID。盤點清單列出完整英文來源、中文與語意鍵，包含視窗標題、HUD、提示、按鈕、職業、行動、結局、技能、物品、Boss、休息層、Agent 意圖與對話、戰鬥紀錄、記憶和遺言，以及分隊、記憶來源與推理除錯文案。
 
 當場顯示使用 `Loc.T("ui.save")`；要儲存的訊息使用 `Loc.Token("event.…", arguments)`，顯示時才呼叫 `Loc.Render`。參數可用 `Loc.Ref("skill", id)` 等巢狀 token，避免切換語系後句子中的技能名稱仍停留在舊語系。類別、enum、資料欄位、檔名及資源 ID 維持原有識別字。
 
 ## 舊存檔
 
-存檔 schema 仍為 1，token 寫入原有文字欄位；遊戲產品識別與原有存檔位置不變。原版英文模板、技能/物品名稱與 ID、職業及結局，在顯示時透過精確對照與參數化模板轉換，包含歷史紀錄與遺言。未知的舊版自由英文內容無法可靠自動翻譯，繁中介面會顯示集中定義的中文替代提示，原始存檔文字仍保留；切換英文可讀取原文。原有中文與允許的角色名維持可讀。
+遠征存檔 schema 為 2，原切片存檔 schema 為 1，token 寫入原有文字欄位；遊戲產品識別與原有存檔位置不變。原版英文模板、技能/物品名稱與 ID、職業及結局，在顯示時透過精確對照與參數化模板轉換，包含歷史紀錄與遺言。未知的舊版自由英文內容無法可靠自動翻譯，繁中介面會顯示集中定義的中文替代提示，原始存檔文字仍保留；切換英文可讀取原文。原有中文與允許的角色名維持可讀。
 
 ## 字型與排版
 
