@@ -11,6 +11,7 @@ namespace Ember.Presentation
         readonly Dictionary<int,Transform> foundries=new Dictionary<int,Transform>();readonly Dictionary<string,Transform> machines=new Dictionary<string,Transform>();
         Transform laneCue,crossCue,annulusCue,innerCue,castRing,feedbackRing;float phaseUntil,deathUntil,introUntil;int machinePhase=-1,machineGroup=-1;string machineId="";
         Material violet,whiteHot;int lastSkillSerial;readonly Transform[] weaponFx=new Transform[4];
+        readonly Transform[] controlZones=new Transform[8];
         void Beam(string name,Transform parent,Vector3 from,Vector3 to,float thickness,Material mat)
         {
             var part=Part(name,PrimitiveType.Cube,parent,(from+to)*.5f,new Vector3(thickness,(to-from).magnitude,thickness),mat);part.rotation=Quaternion.FromToRotation(Vector3.up,to-from);
@@ -123,6 +124,9 @@ namespace Ember.Presentation
                 annulusCue=Ring("Outer resonance",arena,Vector3.zero,1,.05f,red);innerCue=Ring("Safe inner boundary",arena,Vector3.zero,1,.05f,glow);castRing=Ring("Interruptible cast",arena,Vector3.zero,2,.07f,glow);feedbackRing=Ring("Boss feedback",arena,Vector3.zero,2.8f,.14f,brass);
             }
             bool active=g.phase==Phase.Battle;
+            int zoneIndex=0;foreach(var effect in b.effects)if(effect.kind=="Zone"&&effect.radius>0&&zoneIndex<controlZones.Length)
+            {if(controlZones[zoneIndex]==null)controlZones[zoneIndex]=Ring("Skill control zone",arena,Vector3.zero,3,.06f,violet);var zone=controlZones[zoneIndex++];zone.gameObject.SetActive(active);zone.localPosition=new Vector3(effect.x,.1f,effect.z);zone.localScale=Vector3.one*(effect.radius/3);}
+            for(int i=zoneIndex;i<controlZones.Length;i++)if(controlZones[i]!=null)controlZones[i].gameObject.SetActive(false);
             laneCue.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.shape==CueShape.Lane);crossCue.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.shape==CueShape.Cross);annulusCue.gameObject.SetActive(active&&b.visible.telegraph&&b.cue.shape==CueShape.Annulus);innerCue.gameObject.SetActive(annulusCue.gameObject.activeSelf);
             laneCue.localPosition=new Vector3(b.cue.x,.07f,b.cue.z);laneCue.localScale=new Vector3(b.cue.length,.045f,b.cue.radius*2);laneCue.localRotation=Quaternion.Euler(0,-b.cue.angle*Mathf.Rad2Deg,0);
             crossCue.localPosition=new Vector3(b.cue.x,.07f,b.cue.z);crossCue.localRotation=laneCue.localRotation;crossCue.localScale=Vector3.one;crossCue.GetChild(0).localScale=new Vector3(b.cue.length,.04f,b.cue.radius*2);crossCue.GetChild(1).localScale=new Vector3(b.cue.radius*2,.04f,b.cue.length);
