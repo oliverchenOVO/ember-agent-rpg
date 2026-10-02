@@ -1,0 +1,4 @@
+Phase2 scenarios: 25 / 1600x900 / issues: 0
+Phase2 scenarios: 25 / 1280x720 / issues: 0
+Scenarios: 22 / resolution 1600x900 / Issues: 0
+Scenarios: 22 / resolution 1280x720 / Issues: 0

@@ -1,5 +1,5 @@
 """Loopback-only optional gateway test: valid response, malformed response, timeout."""
-import json,time,threading
+import json,time,threading,sys
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -17,4 +17,12 @@ class Handler(BaseHTTPRequestHandler):
   raw=(b'{invalid' if number%3==2 else json.dumps(response).encode())
   try:self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw)
   except (BrokenPipeError,ConnectionResetError):pass
-if __name__=='__main__':ThreadingHTTPServer(('127.0.0.1',8766),Handler).serve_forever()
+class Server(ThreadingHTTPServer):
+ def handle_error(self,request,client_address):
+  # Client cancellation is expected in the timeout fixture; retain unexpected error traces.
+  if not isinstance(sys.exc_info()[1],OSError):super().handle_error(request,client_address)
+if __name__=='__main__':
+ server=Server(('127.0.0.1',8766),Handler)
+ try:server.serve_forever()
+ except KeyboardInterrupt:pass
+ finally:server.server_close()

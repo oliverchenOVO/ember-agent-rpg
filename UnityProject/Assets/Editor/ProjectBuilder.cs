@@ -13,7 +13,7 @@ namespace Ember.Editor
         [MenuItem("Ember/Build and validate vertical slice")]
         public static void Build()
         {
-            LocalizationValidation.Run();Validation.Run();
+            Phase2Validation.RunAll();
             Directory.CreateDirectory("Assets/Scenes");var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             new GameObject("Witness / runtime bootstrap").AddComponent<WitnessGame>();EditorSceneManager.SaveScene(scene,"Assets/Scenes/Witness.unity");
             PlayerSettings.companyName="WitnessWorks";PlayerSettings.productName="Ember - The Witness Tower";

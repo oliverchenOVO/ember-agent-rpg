@@ -48,6 +48,11 @@ namespace Ember.Editor
             foreach(Profession cls in Enum.GetValues(typeof(Profession)))Require(chinese.ContainsKey("class."+cls),"class missing");
             foreach(ActionKind action in Enum.GetValues(typeof(ActionKind)))Require(chinese.ContainsKey("action."+action),"action missing");
             foreach(Outcome outcome in Enum.GetValues(typeof(Outcome)))Require(chinese.ContainsKey("outcome."+outcome),"outcome missing");
+            var tower=Ember.Core.Phase2.TowerContent.Load();
+            foreach(var f in tower.floors)Require(chinese.ContainsKey(f.nameKey),"floor name missing");
+            foreach(var b in tower.bosses){Require(chinese.ContainsKey(b.nameKey),"boss name missing");foreach(var phase in b.phases)Require(chinese.ContainsKey(phase.nameKey),"phase name missing");}
+            foreach(var ability in tower.abilities)Require(chinese.ContainsKey(ability.nameKey),"ability name missing");
+            foreach(var rest in tower.rests)foreach(var site in rest.sites)Require(chinese.ContainsKey(site.nameKey),"rest site name missing");
             Require(Loc.MissingKeys.Count==0,"unresolved string keys");
             // The current project uses IMGUI. Enforce the actual state instead of claiming nonexistent TMP fallback coverage.
             bool tmp=Type.GetType("TMPro.TMP_Text, Unity.TextMeshPro")!=null;
