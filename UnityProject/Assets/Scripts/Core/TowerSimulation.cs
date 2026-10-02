@@ -14,6 +14,7 @@ namespace Ember.Core.Phase2
         CancellationTokenSource cancellation=new CancellationTokenSource();
         sealed class Pending {public int generation,run,revision;public AgentDecisionContext context;public Task<HighDecision> task;}
         readonly Dictionary<int,Pending> pending=new Dictionary<int,Pending>();
+        readonly World projection=new World();
         public TowerSimulation(Catalog catalog,TowerContent data,uint seed=1729,bool showcase=false,IAgentReasoner reasoner=null)
         {
             Catalog=catalog;Data=data;Data.Validate(catalog);this.reasoner=reasoner??local;
@@ -35,12 +36,12 @@ namespace Ember.Core.Phase2
                 var members=State.Members(g).ToList();if(members.All(a=>!a.alive)){g.terminal=true;g.phase=Phase.Ended;continue;}
                 if(g.travelLeft>0){g.travelLeft=Mathf.Max(0,g.travelLeft-dt);if(g.travelLeft==0)NextFloor(g);continue;}
                 g.phaseClock+=dt;
-                if(g.phase==Phase.Battle)g.boss.Tick(Data,members,w,dt,Hurt);
+                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.Tick(Data,members,w,dt,Hurt);}
                 foreach(var a in members)
                 {
                     if(!a.alive||a.escaped||State.GroupOf(a.id)!=g)continue;
                     a.attackTimer=Mathf.Max(0,a.attackTimer-dt);a.guard=Mathf.Max(0,a.guard-dt*.04f);a.enchant=Mathf.Max(0,a.enchant-dt);
-                    a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(1.4f+a.stats.wis*.05f));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
+                    a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+(a.weapon.affix=="Recovery"?.6f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
                     var plan=State.Plan(a.id);if(plan.nextDecision<=w.clock&&plan.workLeft<=0)Decide(a,g,plan);
                     if(!State.groups.Contains(g)||State.GroupOf(a.id)!=g)continue;
                     if(g.phase==Phase.Battle)ExecuteCombat(a,g,dt);else ExecuteRest(a,g,dt);
@@ -110,7 +111,10 @@ namespace Ember.Core.Phase2
         void Relate(Agent observer,Agent other,RelationshipEventKind kind,float magnitude=1)=>RelationshipSystem.Apply(observer,other,State.Memory(observer.id),State.relationships,kind,State.world.run,State.world.clock,magnitude);
         public void Hurt(Agent a,float raw,string cause)
         {
-            if(!a.alive||a.escaped)return;float amount=Mathf.Min(a.hp,Simulation.Damage(raw,a.armor,a.guard));Measure(a,"hurt",amount);a.hp=Mathf.Max(0,a.hp-amount);if(a.hp<=0)Die(a,cause);
+            if(!a.alive||a.escaped)return;var g=State.GroupOf(a.id);float amount=raw<1?Mathf.Max(0,raw)*100/(100+Mathf.Max(0,a.armor)*8)*(1-Mathf.Clamp(a.guard,0,.8f)):Simulation.Damage(raw,a.armor,a.guard);
+            var barrier=Effect(g.boss,a.id,"Shield");if(barrier!=null){float absorbed=Mathf.Min(barrier.power,amount);barrier.power-=absorbed;amount-=absorbed;}
+            var counter=Effect(g.boss,a.id,"Counter");if(counter!=null&&raw>3){Deal(a,g,counter.power,"Physical",true);g.boss.effects.Remove(counter);}
+            amount=Mathf.Min(a.hp,amount);Measure(a,"hurt",amount);a.hp=Mathf.Max(0,a.hp-amount);if(a.hp<=0)Die(a,cause);
         }
         public void Die(Agent a,string cause)
         {
@@ -144,7 +148,7 @@ namespace Ember.Core.Phase2
         public World Observe(int agent)
         {
             var g=State.GroupOf(agent);var w=State.world;
-            return new World{run=w.run,rng=w.rng,floor=g.floor,clock=w.clock,phase=w.phase==Phase.Ended?Phase.Ended:g.phase,phaseClock=g.phaseClock,outcome=w.outcome,restartTimer=w.restartTimer,agents=w.agents,boss=g.boss.visible,messages=w.messages,book=w.book,history=w.history,showcase=w.showcase};
+            projection.run=w.run;projection.rng=w.rng;projection.floor=g.floor;projection.clock=w.clock;projection.phase=w.phase==Phase.Ended?Phase.Ended:g.phase;projection.phaseClock=g.phaseClock;projection.outcome=w.outcome;projection.restartTimer=w.restartTimer;projection.agents=w.agents;projection.boss=g.boss.visible;projection.messages=w.messages;projection.book=w.book;projection.history=w.history;projection.showcase=w.showcase;return projection;
         }
     }
 }

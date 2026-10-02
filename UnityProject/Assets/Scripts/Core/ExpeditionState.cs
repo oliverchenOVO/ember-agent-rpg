@@ -26,6 +26,7 @@ namespace Ember.Core.Phase2
         public List<RelationshipEvent> relationships=new List<RelationshipEvent>();public List<ReasonerRecord> replay=new List<ReasonerRecord>();
         public List<int> completedAgents=new List<int>();public int splits,rejoins,floorsCleared;
         public List<FloorTelemetry> telemetry=new List<FloorTelemetry>();
+        public List<int> revivedAgents=new List<int>();
         public GroupState GroupOf(int agent)=>groups.Find(g=>g.members.Contains(agent));
         public AgentMemory Memory(int agent)=>memories.Find(m=>m.agent==agent);
         public AgentPlan Plan(int agent)=>plans.Find(p=>p.agent==agent);
@@ -47,6 +48,8 @@ namespace Ember.Core.Phase2
         {
             var s=JsonUtility.FromJson<ExpeditionState>(json);if(s==null||s.schemaVersion!=2||s.world==null)throw new InvalidDataException("Not an expedition save");
             SaveStore.Parse(JsonUtility.ToJson(s.world));
+            if(s.telemetry==null)s.telemetry=new List<FloorTelemetry>();if(s.revivedAgents==null)s.revivedAgents=new List<int>();
+            if(s.telemetry.Count>200||s.revivedAgents.Any(id=>id<0||id>3)||s.revivedAgents.Distinct().Count()!=s.revivedAgents.Count)throw new InvalidDataException("Invalid phase 3 state");
             bool Finite(float v)=>!float.IsNaN(v)&&!float.IsInfinity(v);
             if(s.groups==null||s.groups.Count<1||s.groups.Count>4||s.groups.Select(g=>g.id).Distinct().Count()!=s.groups.Count||s.groups.SelectMany(g=>g.members).OrderBy(x=>x).SequenceEqual(new[]{0,1,2,3})==false)throw new InvalidDataException("Invalid group ownership");
             if(s.profiles==null||s.plans==null||s.memories==null||s.relationships==null||s.replay==null||s.completedAgents==null||s.completedAgents.Distinct().Count()!=s.completedAgents.Count||s.completedAgents.Any(id=>id<0||id>3))throw new InvalidDataException("Invalid cognition state");

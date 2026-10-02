@@ -26,19 +26,21 @@ namespace Ember.Core.Phase2
         void ExecuteCombat(Agent a,GroupState g,float dt)
         {
             var b=g.boss;var plan=State.Plan(a.id);float radius=b.Radius(Data);
-            bool danger=b.visible.telegraph&&Simulation.Distance(a.x,a.z,b.visible.targetX,b.visible.targetZ)<radius+.6f;
+            bool danger=b.visible.telegraph&&(b.cue.radius>0?b.cue.Contains(a.x,a.z,.6f):Simulation.Distance(a.x,a.z,b.visible.targetX,b.visible.targetZ)<radius+.6f);
             bool hazard=b.hazardLeft>0&&Simulation.Distance(a.x,a.z,b.hazardX,b.hazardZ)<3.4f;
-            float speed=b.MovementMultiplier(a.id);
+            float speed=b.MovementMultiplier(a.id)*(Effect(b,a.id,"Haste")!=null?1.3f:1)*(a.weapon.affix=="Mobility"?1.12f:1);
             if(danger||hazard)
             {
                 float tx=danger?b.visible.targetX:b.hazardX,tz=danger?b.visible.targetZ:b.hazardZ;
                 // Search reachable safe directions; clamping an outward vector at the arena wall can trap an Agent forever.
                 Vector2 best=new Vector2(a.x,a.z);float bestScore=float.NegativeInfinity;
-                for(int i=0;i<16;i++)
+                for(int i=0;i<32;i++)
                 {
                     float angle=i*Mathf.PI/8;float x=Mathf.Clamp(tx+Mathf.Cos(angle)*(radius+2),-9,9),z=Mathf.Clamp(tz+Mathf.Sin(angle)*(radius+2),-7.5f,7.5f);
                     float clearance=Simulation.Distance(x,z,tx,tz);float score=(clearance>radius+.7f?100:clearance*5)-Simulation.Distance(a.x,a.z,x,z)-Simulation.Distance(x,z,b.x,b.z)*3;
                     if(b.hazardLeft>0&&Simulation.Distance(x,z,b.hazardX,b.hazardZ)<3.5f)score-=100;
+                    if(i>=16&&b.cue.shape==CueShape.Annulus){x=Mathf.Clamp(tx+Mathf.Cos(angle)*Mathf.Max(0,b.cue.innerRadius-1),-9,9);z=Mathf.Clamp(tz+Mathf.Sin(angle)*Mathf.Max(0,b.cue.innerRadius-1),-7.5f,7.5f);score=100-Simulation.Distance(a.x,a.z,x,z)-Simulation.Distance(x,z,b.x,b.z)*3;}
+                    if(b.cue.radius>0&&b.cue.Contains(x,z,.8f))score-=300;
                     if(score>bestScore){bestScore=score;best=new Vector2(x,z);}
                 }
                 Move(a,best.x,best.y,dt,speed);a.intent.kind=ActionKind.Protect;return;
@@ -49,6 +51,13 @@ namespace Ember.Core.Phase2
             {
                 var tacticalWorld=new World{agents=State.Members(g).ToList(),phase=Phase.Battle,boss=b.visible};
                 a.intent=tactical.Decide(tacticalWorld,a,Catalog);a.decisionTimer=.6f;
+                foreach(var id in a.equipped)
+                {
+                    if(!CanUseSkill(a,id,false))continue;
+                    if(id=="revive"){var dead=State.Members(g).FirstOrDefault(v=>!v.alive&&!State.revivedAgents.Contains(v.id));if(dead!=null){a.intent=new Intent{kind=ActionKind.Skill,skill=id,target=dead.id};break;}}
+                    if(id=="cleanse"){var afflicted=State.Members(g).FirstOrDefault(v=>v.alive&&b.statuses.Any(e=>e.agent==v.id));if(afflicted!=null){a.intent=new Intent{kind=ActionKind.Skill,skill=id,target=afflicted.id};break;}}
+                }
+                if(!string.IsNullOrEmpty(a.weapon.infusion)&&CanUseSkill(a,a.weapon.infusion,true)&&a.intent.kind==ActionKind.Attack)a.intent=new Intent{kind=ActionKind.Skill,skill=a.weapon.infusion,target=a.id};
                 if(plan.decision.intent=="Support"||plan.decision.intent=="Rescue")
                 {
                     var ally=State.Members(g).Where(v=>v.alive&&!v.escaped).OrderBy(v=>v.hp/v.MaxHp).FirstOrDefault();
@@ -64,7 +73,7 @@ namespace Ember.Core.Phase2
             }
             if(a.intent.kind==ActionKind.Skill)
             {
-                var s=Catalog.Skill(a.intent.skill);var ally=s.effect=="Heal"?State.Members(g).FirstOrDefault(v=>v.id==a.intent.target&&v.alive):null;
+                var s=Catalog.Skill(a.intent.skill);var ally=s.effect=="Heal"?State.Members(g).FirstOrDefault(v=>v.id==a.intent.target&&(v.alive||s.id=="revive")):null;
                 float tx=ally?.x??b.x,tz=ally?.z??b.z;
                 if(s.range>0&&Simulation.Distance(a.x,a.z,tx,tz)>s.range)Move(a,tx,tz,dt,speed);
                 else Cast(a,g,s.id,a.intent.target,a.weapon.infusion==s.id);
@@ -76,7 +85,8 @@ namespace Ember.Core.Phase2
                 else if(a.attackTimer==0)
                 {
                     float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
-                    Measure(a,"damage",b.Hit(Data,a,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog),a.enchant>0?"Fire":"Physical",false));
+                    Deal(a,g,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog)*(a.weapon.affix=="Astral"?1.1f:1),a.enchant>0?"Fire":"Physical",a.weapon.affix=="Break");
+                    if(a.weapon.affix=="Scorch")ApplyEffect(b,-1,a.id,"Burn",3,3,"Fire");
                     a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
                 }
             }
@@ -85,12 +95,14 @@ namespace Ember.Core.Phase2
         }
         public bool Cast(Agent a,GroupState g,string id,int target=-1,bool weapon=false)
         {
-            if(State.GroupOf(a.id)!=g||g.phase!=Phase.Battle||!Simulation.CanCast(a,Catalog,id,weapon))return false;
-            var s=Catalog.Skill(id);var ally=State.Members(g).FirstOrDefault(v=>v.id==target&&v.alive&&!v.escaped);
+            if(State.GroupOf(a.id)!=g||g.phase!=Phase.Battle||!CanUseSkill(a,id,weapon))return false;
+            var s=Catalog.Skill(id);var ally=State.Members(g).FirstOrDefault(v=>v.id==target&&(v.alive||id=="revive")&&!v.escaped);
             if(s.effect=="Heal"&&ally==null)return false;
             float tx=s.effect=="Heal"?ally.x:g.boss.x,tz=s.effect=="Heal"?ally.z:g.boss.z;
             if(s.range>0&&Simulation.Distance(a.x,a.z,tx,tz)>s.range)return false;
             Measure(a,"skill",1,id);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
+            SkillFeedback(a,g,s,target,weapon);
+            if(SpecialSkill(a,g,s,ally)){State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),s.effect=="Heal"?"heal":"skill");return true;}
             if(id=="cleanse"){g.boss.statuses.RemoveAll(st=>st.agent==a.id);}
             else if(s.effect=="Heal")
             {
