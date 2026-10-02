@@ -23,7 +23,8 @@ namespace Ember.Core.Phase2
         }
         public void Restore(ExpeditionState state){CancelPending();State=state;State.generation++;}
         void CancelPending(){cancellation.Cancel();cancellation.Dispose();cancellation=new CancellationTokenSource();pending.Clear();}
-        public void Dispose(){CancelPending();cancellation.Dispose();}
+        bool disposed;
+        public void Dispose(){if(disposed)return;disposed=true;CancelPending();cancellation.Dispose();}
         public void Step(float dt=Simulation.StepSeconds)
         {
             var w=State.world;
@@ -62,6 +63,7 @@ namespace Ember.Core.Phase2
         }
         void Decide(Agent a,GroupState g,AgentPlan p)
         {
+            using var decisionSample=new Unity.Profiling.ProfilerMarker("Ember.HighDecision").Auto();
             if(pending.TryGetValue(a.id,out var task))
             {
                 if(task.task.IsCompleted)

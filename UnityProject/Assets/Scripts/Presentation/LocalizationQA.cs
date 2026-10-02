@@ -43,7 +43,7 @@ namespace Ember.Presentation
             }
             qaScenario=qaCases[qaStage];SetupLocalizationScenario(qaScenario);qaNext=Time.realtimeSinceStartup+.6f;
         }
-        void ExitLocalizationQA(){Application.Quit(qaIssues.Count==0?0:4);}
+        void ExitLocalizationQA(){RequestQuit(qaIssues.Count==0?0:4);}
         void SetupLocalizationScenario(string scenario)
         {
             simulation=new Simulation(simulation.Catalog,1729,true);selected=0;tab=0;paused=true;noticeTimer=0;notice="";speed=1;

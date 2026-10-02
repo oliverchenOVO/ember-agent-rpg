@@ -19,6 +19,7 @@ namespace Ember.Presentation
         {
             var args=Environment.GetCommandLineArgs();int localeIndex=Array.IndexOf(args,"--locale");
             int probe=Array.IndexOf(args,"--native-diag");if(probe>=0){gameObject.AddComponent<NativeAllocationProbe>().mode=args[probe+1];enabled=false;return;}
+            Application.wantsToQuit+=CloseWindow;
             Loc.SetLocale(localeIndex>=0&&localeIndex+1<args.Length?args[localeIndex+1]:PlayerPrefs.GetString("locale","zh-TW"));
             uiFont=Resources.Load<Font>("Fonts/NotoSansCJKtc-Regular");
             if(uiFont==null)throw new InvalidOperationException("Missing embedded CJK font");
@@ -95,7 +96,7 @@ namespace Ember.Presentation
         void TrySave(){try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LocalizeWindowTitle(){PlayerWindow.LocalizeTitle();}
         void RefreshLanguage(){title=null;LocalizeWindowTitle();}
-        void OnDestroy(){Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
+        void OnDestroy(){Application.wantsToQuit-=CloseWindow;Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
         void Notice(string text){notice=text;noticeTimer=5;}
         void Styles()
         {
