@@ -18,6 +18,7 @@ namespace Ember.Editor
             BuildPlayer(false);
         }
         public static void BuildDevelopment(){BuildPlayer(true);}
+        public static void BuildRelocated(){Validation.Run();Phase3Validation.Unit();LocalizationValidation.Run();BuildPlayer(false);}
         public static void BuildReleaseDiagnostics(){BuildPlayer(false);}
         static void BuildPlayer(bool development)
         {

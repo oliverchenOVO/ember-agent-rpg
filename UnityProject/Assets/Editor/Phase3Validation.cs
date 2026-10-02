@@ -12,6 +12,31 @@ namespace Ember.Editor
         public static void Baseline(){Seeds("baseline",1000);}
         public static void Tune(){Unit();Seeds("tune",100);}
         public static void Full(){Phase2Validation.RunAll();Unit();Seeds("final",5000);}
+        [Serializable] sealed class SeedResumePlan { public int firstSeed,priorClears,priorWipes,priorErrors; }
+        [Serializable] sealed class SeedOutcome { public uint seed; public string finalResult; }
+        static SeedResumePlan ValidateResumePrefix()
+        {
+            var plan=JsonUtility.FromJson<SeedResumePlan>(File.ReadAllText(Path.GetFullPath("../Artifacts/Phase3/resume-plan.json")));
+            if(plan.firstSeed<1||plan.firstSeed>5001||plan.priorClears+plan.priorWipes+plan.priorErrors!=plan.firstSeed-1)throw new Exception("Invalid resume plan");
+            var prior=new System.Collections.Generic.Dictionary<uint,string>();uint previous=0;
+            foreach(var line in File.ReadLines(Path.GetFullPath("../Artifacts/Phase3/final.jsonl")))
+            {
+                var row=JsonUtility.FromJson<SeedOutcome>(line);
+                if(row.seed==0||row.seed>=(uint)plan.firstSeed||row.seed<previous||row.seed>previous+1)throw new Exception("Resume prefix is not contiguous");
+                if(prior.TryGetValue(row.seed,out var outcome)&&outcome!=row.finalResult)throw new Exception("Inconsistent seed outcome");
+                prior[row.seed]=row.finalResult;previous=row.seed;
+            }
+            if(prior.Count!=plan.firstSeed-1||prior.Values.Count(value=>value=="TowerClear")!=plan.priorClears||prior.Values.Count(value=>value=="Wipe")!=plan.priorWipes)throw new Exception("Resume outcomes differ");
+            return plan;
+        }
+        public static void ResumeFinal()
+        {
+            Unit();var plan=ValidateResumePrefix();
+            // Keep historical encounter graphs off the live Mono GC root set during new simulations.
+            GC.Collect();
+            Debug.Log("PHASE3 RESUME / retained "+(plan.firstSeed-1)+" seeds");
+            Seeds("final",5000,plan.firstSeed,plan.priorClears,plan.priorWipes,plan.priorErrors,true);
+        }
         public static void Compositions()
         {
             var c=JsonUtility.FromJson<Catalog>(Resources.Load<TextAsset>("catalog").text);var data=TowerContent.Load();string root=Path.GetFullPath("../Artifacts/Phase3");Directory.CreateDirectory(root);
@@ -76,14 +101,14 @@ namespace Ember.Editor
             }
             File.WriteAllText(Path.GetFullPath("../Artifacts/phase3-tests.txt"),"Phase3 assertions: "+checks+"\n");Debug.Log("EMBER PHASE3 UNIT PASSED / "+checks);
         }
-        public static void Seeds(string label,int count)
+        public static void Seeds(string label,int count,int firstSeed=1,int priorClears=0,int priorWipes=0,int priorErrors=0,bool append=false)
         {
             var c=JsonUtility.FromJson<Catalog>(Resources.Load<TextAsset>("catalog").text);var data=TowerContent.Load();
             string root=Path.GetFullPath("../Artifacts/Phase3");Directory.CreateDirectory(root);
-            int clears=0,wipes=0,errors=0;long ticks=0;
-            using(var writer=new StreamWriter(Path.Combine(root,label+".jsonl")))
+            int clears=priorClears,wipes=priorWipes,errors=priorErrors;long ticks=0;
+            using(var writer=new StreamWriter(Path.Combine(root,label+".jsonl"),append))
             {
-                for(uint seed=1;seed<=count;seed++)
+                for(uint seed=(uint)firstSeed;seed<=count;seed++)
                 {
                     using(var s=new TowerSimulation(c,data,seed,false){TelemetryEnabled=true,TelemetrySeed=seed})
                     {
@@ -91,10 +116,11 @@ namespace Ember.Editor
                         if(s.State.world.phase!=Phase.Ended){errors++;File.WriteAllText(Path.Combine(root,label+"-nonterminal-"+seed+".json"),JsonUtility.ToJson(s.State,true));}else if(s.State.world.outcome==Outcome.TowerClear)clears++;else wipes++;
                         foreach(var row in s.State.telemetry)writer.WriteLine(JsonUtility.ToJson(row));
                     }
+                    writer.Flush();File.WriteAllText(Path.Combine(root,label+"-checkpoint.txt"),seed.ToString());
                     if(seed%100==0)Debug.Log("PHASE3 TELEMETRY / "+label+" / "+seed);
                 }
             }
-            File.WriteAllText(Path.Combine(root,label+"-summary.txt"),$"Seeds={count}; clears={clears}; wipes={wipes}; nonterminal={errors}; ticks={ticks}\n");
+            File.WriteAllText(Path.Combine(root,label+"-summary.txt"),$"Seeds={count}; clears={clears}; wipes={wipes}; nonterminal={errors}; ticksExecutedThisInvocation={ticks}; retainedSeeds={firstSeed-1}\n");
             if(errors>0)throw new Exception("Nonterminal telemetry seeds");
         }
     }

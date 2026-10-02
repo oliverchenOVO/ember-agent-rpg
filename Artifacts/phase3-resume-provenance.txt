@@ -1,0 +1,5 @@
+Original interrupted JSONL SHA256: 4fc707a4471f033e7056115c360cc3a702204b8bd7b4ea30e7bc4d32e2ab8155
+Preserved complete seeds 1-1949, rows=38780, clears=1036, wipes=913.
+Incomplete seed 1950 is rerun; no seed 1-1949 is rerun. Raw interrupted file preserved.
+
+2026-10-02T19:25:13.873711+00:00: runner prefix validation changed to stream only seed/outcome metadata. Preserved checkpoint=2201; next=2202. Full raw backup SHA256=045fb704dc1b8797c3d5e2a260a6057ea728a20044d9bb6ede65f5418861888c. Game Runtime unchanged.
