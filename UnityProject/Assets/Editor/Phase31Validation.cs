@@ -16,9 +16,10 @@ namespace Ember.Editor
         [Serializable] public class RunConfig { public string label="baseline100",composition="Natural";public StabilizationRules rules=new StabilizationRules();public int firstSeed=1,count=100,floorLimit=25,maxTicks=50000,maxWallSeconds=900; }
         [Serializable] public class Manifest { public string runtimeHash,configHash,simulationVersion,balanceVersion,startedUtc;public RunConfig config; }
         [Serializable] public class SeedResult { public uint seed;public string result;public int ticks,floor,living;public float seconds;public FloorTelemetry[] encounters; }
-        static readonly string root=Path.GetFullPath("../Artifacts/Phase31");
+        static readonly string root=DiagnosticRoot();
+        static string DiagnosticRoot(){var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,"--phase31-root");return Path.GetFullPath(i>=0?args[i+1]:"../Artifacts/Phase31");}
         static string Hash(string text){using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(Encoding.UTF8.GetBytes(text))).Replace("-","").ToLowerInvariant();}
-        static string RuntimeHash()=>Hash(string.Join("\n",Directory.GetFiles("Assets/Scripts/Core","*",SearchOption.AllDirectories).Concat(Directory.GetFiles("Assets/Resources","*.json",SearchOption.AllDirectories)).Where(p=>!p.EndsWith(".meta")).OrderBy(p=>p,StringComparer.Ordinal).Select(p=>p+":"+Hash(File.ReadAllText(p)))));
+        public static string RuntimeHash()=>Hash(string.Join("\n",Directory.GetFiles("Assets/Scripts/Core","*",SearchOption.AllDirectories).Concat(Directory.GetFiles("Assets/Resources","*.json",SearchOption.AllDirectories)).Where(p=>!p.EndsWith(".meta")).OrderBy(p=>p,StringComparer.Ordinal).Select(p=>p+":"+Hash(File.ReadAllText(p)))));
         static Catalog Catalog()=>JsonUtility.FromJson<Catalog>(Resources.Load<TextAsset>("catalog").text);
         static void Configure(TowerSimulation s,Catalog c,string composition)
         {
