@@ -1,0 +1,21 @@
+﻿label,elapsed,recorded_frame_ms,frame_measurement,cpu_ns,gc_alloc,simulation_ms,save_ms,events_within_100ms
+performance-before-baseline,158.379,37591.880,legacy Unity deltaTime; unreliable for wall interval,3981000,195111,0.3471,0.0000,"[{""elapsed"": ""158.332500"", ""utc"": ""2026-10-03T07:02:19.9149617Z"", ""event"": ""inventory"", ""detail"": ""358""}]"
+performance-before-baseline,175.851,10494.690,legacy Unity deltaTime; unreliable for wall interval,5051200,63755,0.1572,0.0000,[]
+performance-before-baseline,283.964,3138.799,legacy Unity deltaTime; unreliable for wall interval,3221900,79537,0.0997,0.0000,"[{""elapsed"": ""283.957300"", ""utc"": ""2026-10-03T07:04:25.5391024Z"", ""event"": ""inventory"", ""detail"": ""533""}]"
+performance-before-baseline,246.778,2243.083,legacy Unity deltaTime; unreliable for wall interval,4095200,64005,0.0750,0.0000,"[{""elapsed"": ""246.771000"", ""utc"": ""2026-10-03T07:03:48.3533984Z"", ""event"": ""inventory"", ""detail"": ""453""}]"
+performance-before-baseline,213.998,1085.693,legacy Unity deltaTime; unreliable for wall interval,3233100,47308,0.5994,0.0000,[]
+performance-before-baseline,206.873,987.816,legacy Unity deltaTime; unreliable for wall interval,2714700,45434,0.2582,0.0000,"[{""elapsed"": ""206.872500"", ""utc"": ""2026-10-03T07:03:08.4544598Z"", ""event"": ""boss_phase"", ""detail"": ""1""}]"
+performance-before-baseline,238.048,661.623,legacy Unity deltaTime; unreliable for wall interval,2983500,54608,0.0660,0.0000,[]
+performance-before-baseline,73.805,515.261,legacy Unity deltaTime; unreliable for wall interval,3433900,45590,0.0797,0.0000,[]
+performance-before-baseline,279.961,375.746,legacy Unity deltaTime; unreliable for wall interval,5168000,46572,1.1688,0.0000,[]
+performance-before-baseline,180.028,363.575,legacy Unity deltaTime; unreliable for wall interval,18836200,311141,0.2473,0.0000,[]
+performance-before-baseline,290.99,157.989,legacy Unity deltaTime; unreliable for wall interval,6742900,45496,0.1449,0.0000,[]
+performance-before-baseline,233.242,151.511,legacy Unity deltaTime; unreliable for wall interval,3466000,45700,0.0678,0.0000,[]
+performance-before-baseline,48.62,145.549,legacy Unity deltaTime; unreliable for wall interval,7423200,45076,0.0804,0.0000,[]
+performance-before-baseline,284.146,145.443,legacy Unity deltaTime; unreliable for wall interval,2805200,46580,1.0598,0.0000,[]
+performance-before-baseline,175.867,139.378,legacy Unity deltaTime; unreliable for wall interval,23348400,47194,0.0916,0.0000,[]
+performance-before-baseline,158.477,133.318,legacy Unity deltaTime; unreliable for wall interval,32889300,47238,0.1182,0.0000,[]
+performance-before-baseline,205.218,127.561,legacy Unity deltaTime; unreliable for wall interval,3414700,45410,0.2552,0.0000,[]
+performance-before-baseline,188.664,127.322,legacy Unity deltaTime; unreliable for wall interval,3515700,45742,0.0540,0.0000,[]
+performance-before-baseline,165.029,121.311,legacy Unity deltaTime; unreliable for wall interval,5558100,47194,0.1256,0.0000,[]
+performance-before-baseline,181.103,121.293,legacy Unity deltaTime; unreliable for wall interval,5859900,45698,0.0579,0.0000,[]

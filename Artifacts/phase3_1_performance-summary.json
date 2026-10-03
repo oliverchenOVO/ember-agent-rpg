@@ -1,0 +1,167 @@
+[
+  {
+    "label": "performance-before-baseline",
+    "complete": true,
+    "rows": 38151,
+    "after_warmup_rows": 36781,
+    "elapsed_seconds": 300.002,
+    "warmup_seconds": 10,
+    "frame_measurement": "legacy Unity deltaTime; unreliable for wall interval",
+    "metrics": {
+      "frame_ms": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 6.053,
+        "p95": 6.071,
+        "p99": 12.130199999999999,
+        "max": 37591.88,
+        "mean": 7.88460259373716
+      },
+      "cpu_ns": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 3.7919,
+        "p95": 6.4554,
+        "p99": 8.16845979999999,
+        "max": 980.059,
+        "mean": 4.177743692477042
+      },
+      "gpu_ns": {
+        "valid": 36636,
+        "unavailable_or_zero": 145,
+        "p50": 0.8448,
+        "p95": 1.584384,
+        "p99": 2.287616,
+        "max": 55.933952,
+        "mean": 0.939992937820735
+      },
+      "gpu_timing_ms": {
+        "valid": 36636,
+        "unavailable_or_zero": 145,
+        "p50": 0.845,
+        "p95": 1.58425,
+        "p99": 2.288,
+        "max": 55.934,
+        "mean": 0.9399844415329763
+      },
+      "ui_ns": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 1.5920999999999998,
+        "p95": 3.5017,
+        "p99": 4.47392,
+        "max": 74.4288,
+        "mean": 1.8293910252576187
+      },
+      "decision_ns": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 1.6335,
+        "mean": 0.0017569533182893347
+      },
+      "gc_alloc": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 45610.0,
+        "p95": 52910.0,
+        "p99": 72337.99999999988,
+        "max": 344121.0,
+        "mean": 46612.20956472091
+      },
+      "managed_heap": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 3293184.0,
+        "p95": 3407872.0,
+        "p99": 3448832.0,
+        "max": 3686400.0,
+        "mean": 3283366.117071314
+      },
+      "total_used": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 617344784.0,
+        "p95": 619863157.0,
+        "p99": 621345889.6,
+        "max": 624576746.0,
+        "mean": 609281234.1865094
+      },
+      "draw_calls": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 463.0,
+        "p95": 919.0,
+        "p99": 1028.0,
+        "max": 1694.0,
+        "mean": 525.4416410646801
+      },
+      "batches": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 462.0,
+        "p95": 918.0,
+        "p99": 1028.0,
+        "max": 1762.0,
+        "mean": 525.0073951224817
+      },
+      "particles": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 14.0,
+        "p95": 36.0,
+        "p99": 36.0,
+        "max": 36.0,
+        "mean": 20.481308284168456
+      },
+      "simulation_ms": {
+        "valid": 36781,
+        "unavailable_or_zero": 0,
+        "p50": 0.0008,
+        "p95": 0.0558,
+        "p99": 0.21343999999999796,
+        "max": 4.4511,
+        "mean": 0.011023433294365153
+      },
+      "ui_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 36781,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "step_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 36781,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "view_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 36781,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "render_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 36781,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      }
+    },
+    "gc_bytes_per_second": 5911874.75862069
+  }
+]
