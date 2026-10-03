@@ -90,6 +90,7 @@ namespace Ember.Core.Phase2
                 if(Simulation.Distance(a.x,a.z,b.x,b.z)>range){RecordSkillTravel(a,"BasicAttack",dt);Move(a,b.x,b.z,dt,speed);}
                 else if(a.attackTimer==0)
                 {
+                    RecordSkillVisual(a,g,"basic",-1,false,a.enchant>0?"Fire":"Physical");
                     BeginBasicEconomy(a,Mathf.Max(.65f,1.7f-a.stats.dex*.025f));
                     float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
                     Deal(a,g,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog)*(a.weapon.affix=="Astral"?1.1f:1),a.enchant>0?"Fire":"Physical",a.weapon.affix=="Break");

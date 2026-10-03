@@ -23,7 +23,7 @@ namespace Ember.Presentation
                     Part("Facility",PrimitiveType.Cube,station,new Vector3(0,.35f,0),site.effect=="Heal"?new Vector3(1.8f,.7f,1.4f):new Vector3(1.1f,.7f,1),stone);
                     Ring("Interaction sigil",station,new Vector3(0,.8f,0),.65f,.06f,site.risk>.1f?red:glow);
                     if(site.effect=="Read"||site.effect=="Intel")Part("Book",PrimitiveType.Cube,station,new Vector3(0,.85f,0),new Vector3(.8f,.15f,.6f),brass,new Vector3(10,0,0));
-                    restFacilityObjects.Add(site.id,station);
+                    DressFacility(station,site);restFacilityObjects.Add(site.id,station);
                 }
             }
             restFacilities.gameObject.SetActive(group.phase==Phase.Rest);
@@ -90,6 +90,7 @@ namespace Ember.Presentation
                 if(whiteHot==null)whiteHot=Mat(new Color(1,.85f,.55f),.4f,.7f,1.2f);
                 ShowCombatCues(group);
             }
+            BindBossArt(data,group);BindEnvironmentArt(data,group);BindVisualEventStream();
         }
     }
 }

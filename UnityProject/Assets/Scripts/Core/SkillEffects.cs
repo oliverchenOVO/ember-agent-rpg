@@ -74,8 +74,7 @@ namespace Ember.Core.Phase2
         }
         void SkillFeedback(Agent a,GroupState g,SkillDef s,int target,bool infused)
         {
-            string origin=Catalog.Item(a.weapon.id).weapon;
-            var b=g.boss;b.skillPresentation=new SkillPresentation{agent=a.id,target=target,serial=b.skillPresentation.serial+1,skill=s.id,infused=infused,origin=origin,element=s.id=="holy"||s.effect=="Heal"?"Light":s.id=="frost"?"Ice":s.id=="fireball"||s.id=="meteor"||s.id=="enchant"||a.enchant>0?"Fire":"Physical",x=a.x,z=a.z};
+            RecordSkillVisual(a,g,s.id,target,infused,s.id=="holy"||s.effect=="Heal"?"Light":s.id=="frost"?"Ice":s.id=="fireball"||s.id=="meteor"||s.id=="enchant"||a.enchant>0?"Fire":"Physical");
         }
     }
 }

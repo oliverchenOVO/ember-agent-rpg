@@ -2144,6 +2144,18 @@
     {
       "key": "codex.edge",
       "value": "›"
+    },
+    {
+      "key": "art.preview",
+      "value": "In-game models and combat animation"
+    },
+    {
+      "key": "art.concurrent",
+      "value": "Four simultaneous skill casts"
+    },
+    {
+      "key": "art.live",
+      "value": "Live battle presentation"
     }
   ]
 }

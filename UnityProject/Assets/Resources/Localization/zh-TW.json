@@ -2144,6 +2144,18 @@
     {
       "key": "codex.edge",
       "value": "›"
+    },
+    {
+      "key": "art.preview",
+      "value": "實際遊戲模型與技能演出"
+    },
+    {
+      "key": "art.concurrent",
+      "value": "四名見證者同時施放技能"
+    },
+    {
+      "key": "art.live",
+      "value": "實際戰鬥介面"
     }
   ]
 }

@@ -10,7 +10,7 @@ namespace Ember.Presentation
         Transform baseArchitecture,baseRestArchitecture,foundryRest;int foundryFloor;Transform activeFoundry,activeMachine;
         readonly Dictionary<int,Transform> foundries=new Dictionary<int,Transform>();readonly Dictionary<string,Transform> machines=new Dictionary<string,Transform>();
         Transform laneCue,crossCue,annulusCue,innerCue,castRing,feedbackRing;float phaseUntil,deathUntil,introUntil;int machinePhase=-1,machineGroup=-1;string machineId="";
-        Material violet,whiteHot;int lastSkillSerial;readonly Transform[] weaponFx=new Transform[4];
+        Material violet,whiteHot;readonly Transform[] weaponFx=new Transform[4];
         readonly Transform[] controlZones=new Transform[8];
         void Beam(string name,Transform parent,Vector3 from,Vector3 to,float thickness,Material mat)
         {

@@ -1,7 +1,9 @@
 # EMBER — The Witness Tower
 四名自主 Agent 的 3D Roguelite 觀察型 RPG，Unity 6000.2.0f1。
 
-最新追加：死者之書依個性與實際見證留下 Boss 招式線索，閱讀能影響下一輪準備；新增 Boss 招式／數值與四職業技能樹。最新成品在 `Builds/KnowledgeCodex/Windows/Ember.exe`，操作與驗證見 [遺書與觀察資料驗證](Docs/KNOWLEDGE_CODEX_VALIDATION.md)。
+最新追加：Boss 名稱對應造型、關節出招、24 技能演出與場景細節；同時施法事件不再互相覆蓋。最新成品在 `Builds/CombatArt/Windows/Ember.exe`，畫面與驗證見 [戰鬥演出驗證](Docs/COMBAT_ART_VALIDATION.md)。
+
+前次功能：死者之書依個性與實際見證留下 Boss 招式線索，閱讀能影響下一輪準備；新增 Boss 招式／數值與四職業技能樹，詳見 [遺書與觀察資料驗證](Docs/KNOWLEDGE_CODEX_VALIDATION.md)。
 
 前次修正：休息區會抽選可用設施（可完全沒有設施），並修正死亡來源持續傷害造成的假彈幕。可執行版本在 `Builds/RestInteraction/Windows/Ember.exe`，功能、存檔相容性與畫面驗證見 [休息區與彈幕驗證](Docs/REST_INTERACTION_VALIDATION.md)。這次局部修正沒有重跑完整平衡 Gate；下方 Phase 3.1.1 結果保留為該版紀錄。
 
@@ -11,7 +13,7 @@ Phase 3.1.1 **Gate FAIL，不進入 Phase 4**。Build pipeline 已恢復，Devel
 設計與內容 authoring 文件在 Docs；執行與測試命令在 Tools。架構審查見 Docs/PHASE2_ARCHITECTURE.md；內容與 LLM 設定見 Docs/PHASE2_CONTENT_PIPELINE.md。
 
 用 Unity Hub 開啟 UnityProject，開啟 Assets/Scenes/Witness.unity，按 Play。
-最新 Windows 成品：Builds/KnowledgeCodex/Windows/Ember.exe（Builds/Windows/Ember.exe 是歷史成品）。空白鍵暫停，1/2/3 切換速度，方向鍵環繞鏡頭。
+最新 Windows 成品：Builds/CombatArt/Windows/Ember.exe（Builds/Windows/Ember.exe 是歷史成品）。空白鍵暫停，1/2/3 切換速度，方向鍵環繞鏡頭。
 HUD 可查看角色、遺書、歷史、遠征分隊、Agent 觀察與存讀檔。點選角色可追蹤其分隊，其他隊伍會繼續模擬。F8 在 Agent 觀察頁顯示推理來源。
 預設自主選職；Ember.exe --showcase 可在首輪展示四種職業。Ember.exe --vertical-slice 保留原第一階段模式。
 

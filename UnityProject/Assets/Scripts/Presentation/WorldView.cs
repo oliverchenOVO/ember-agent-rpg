@@ -9,7 +9,8 @@ namespace Ember.Presentation
     {
         readonly bool noHitFx=System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"--no-hit-fx")>=0;
         public int EffectSerial{get;private set;}
-        public int ActiveAgentEffects=>effects.Count;
+        public int ActiveAgentEffects{get{int count=effects.Count;foreach(var v in bursts)if(v.source>=0)count++;return count;}}
+        public bool ArtPreview{get;set;}
         public void SetUIOnly(){world.gameObject.SetActive(false);}
         public Camera camera; public Color[] colors={new Color(.95f,.6f,.22f),new Color(.35f,.85f,.72f),new Color(.57f,.55f,1),new Color(.92f,.76f,.52f)};
         Transform world, arena, refuge, boss, crown, warning, shock, collapseFront, collapseVoid;
@@ -164,10 +165,10 @@ namespace Ember.Presentation
                 Part("Head",PrimitiveType.Sphere,body,new Vector3(0,1.65f,0),new Vector3(.38f,.42f,.38f),brass);
                 Part("Shoulder armor",PrimitiveType.Cube,body,new Vector3(0,1.28f,0),new Vector3(.75f,.18f,.46f),dark);
                 for(int k=-1;k<=1;k+=2)Part("Boot",PrimitiveType.Capsule,body,new Vector3(k*.17f,.25f,0),new Vector3(.18f,.3f,.22f),dark);
-                string type=catalog.Item(a.weapon.id).weapon;
-                if(type=="Greatsword"||type=="Sword") {Part("Blade",PrimitiveType.Cube,body,new Vector3(.55f,1.05f,-.1f),new Vector3(.15f,1.7f,.075f),stone,new Vector3(0,0,-15));Part("Crossguard",PrimitiveType.Cube,body,new Vector3(.42f,.45f,-.1f),new Vector3(.45f,.08f,.12f),brass);}
-                else if(type=="Bow") {Part("Bow",PrimitiveType.Capsule,body,new Vector3(.55f,1.1f,0),new Vector3(.1f,.8f,.15f),brass,new Vector3(0,0,-18));Part("String",PrimitiveType.Cube,body,new Vector3(.65f,1.1f,0),new Vector3(.025f,1.3f,.025f),glow);}
-                else {Part("Staff shaft",PrimitiveType.Cylinder,body,new Vector3(.5f,1.05f,0),new Vector3(.09f,1.05f,.09f),brass);Part("Staff crystal",PrimitiveType.Sphere,body,new Vector3(.5f,2.1f,0),new Vector3(.32f,.42f,.32f),glow);}
+                string type=catalog.Item(a.weapon.id).weapon;var weaponRoot=Pivot("Animated weapon grip",body,Vector3.zero);actorWeaponRoots[i]=weaponRoot;
+                if(type=="Greatsword"||type=="Sword") {Part("Blade",PrimitiveType.Cube,weaponRoot,new Vector3(.55f,1.05f,-.1f),new Vector3(.15f,1.7f,.075f),stone,new Vector3(0,0,-15));Part("Crossguard",PrimitiveType.Cube,weaponRoot,new Vector3(.42f,.45f,-.1f),new Vector3(.45f,.08f,.12f),brass);}
+                else if(type=="Bow") {Part("Bow",PrimitiveType.Capsule,weaponRoot,new Vector3(.55f,1.1f,0),new Vector3(.1f,.8f,.15f),brass,new Vector3(0,0,-18));Part("String",PrimitiveType.Cube,weaponRoot,new Vector3(.65f,1.1f,0),new Vector3(.025f,1.3f,.025f),glow);}
+                else {Part("Staff shaft",PrimitiveType.Cylinder,weaponRoot,new Vector3(.5f,1.05f,0),new Vector3(.09f,1.05f,.09f),brass);Part("Staff crystal",PrimitiveType.Sphere,weaponRoot,new Vector3(.5f,2.1f,0),new Vector3(.32f,.42f,.32f),glow);}
             }
         }
         public void Update(World w,float dt,float orbit)
@@ -184,17 +185,17 @@ namespace Ember.Presentation
                 for(int i=0;i<arms.Count;i++)arms[i].localRotation=Quaternion.Euler(lift,0,(i==0?1:-1)*5);
                 crown.localRotation=Quaternion.Euler(0,Mathf.Sin(t)*4,0);
                 warning.gameObject.SetActive(w.boss.telegraph&&(observedGroup==null||observedGroup.boss.cue.shape==CueShape.Circle));warning.position=new Vector3(w.boss.targetX,.06f,w.boss.targetZ);warning.localScale=Vector3.one*(observedGroup!=null?observedRadius/3.2f:w.boss.enraged?1.25f:1);
-                shock.gameObject.SetActive(!w.boss.telegraph&&w.boss.timer>2.9f);shock.position=warning.position;shock.localScale=Vector3.one*(1+(3.6f-w.boss.timer)*2);
+                shock.gameObject.SetActive(observedGroup==null&&!w.boss.telegraph&&w.boss.timer>2.9f);shock.position=warning.position;shock.localScale=Vector3.one*(1+(3.6f-w.boss.timer)*2);
             }
             for(int i=0;i<4;i++)
             {
-                var a=w.agents[i];bodies[i].gameObject.SetActive(!a.escaped&&(observedGroup==null||observedGroup.members.Contains(i)));
+                var a=w.agents[i];bodies[i].gameObject.SetActive(!ArtPreview&&!a.escaped&&(observedGroup==null||observedGroup.members.Contains(i)));
                 bodies[i].position=new Vector3(a.x,a.alive?.05f*Mathf.Sin(t*3+i):.1f,a.z);
                 bodies[i].rotation=a.alive?Quaternion.Euler(0,battle?Mathf.Atan2(-a.x,1-a.z)*Mathf.Rad2Deg:90,0):Quaternion.Euler(0,0,85);
                 auras[i].gameObject.SetActive(a.alive);auras[i].localScale=Vector3.one*(1+.06f*Mathf.Sin(t*2+i));
                 bool present=observedGroup==null||observedGroup.members.Contains(i);
-                if(battle&&present&&a.alive&&!a.escaped&&a.damage>previousDamage[i]) AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(observedGroup?.boss.x??0,2,observedGroup?.boss.z??1),robes[i],i);
-                if(battle&&present&&a.alive&&!a.escaped&&a.healing>previousHealing[i])
+                if(observedGroup==null&&battle&&present&&a.alive&&!a.escaped&&a.damage>previousDamage[i]) AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(observedGroup?.boss.x??0,2,observedGroup?.boss.z??1),robes[i],i);
+                if(observedGroup==null&&battle&&present&&a.alive&&!a.escaped&&a.healing>previousHealing[i])
                 {
                     var target=a.intent.target>=0?w.agents[a.intent.target]:a;AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(target.x,1.4f,target.z),glow,i);
                 }
@@ -205,6 +206,8 @@ namespace Ember.Presentation
                 var e=effects[i];e.left-=dt;e.visual.position=Vector3.Lerp(e.from,e.to,1-e.left/.35f);e.visual.localScale=Vector3.one*(.15f+.1f*Mathf.Sin((1-e.left/.35f)*Mathf.PI));
                 if(e.left<=0||!battle||!w.agents[e.source].alive||w.agents[e.source].escaped||!bodies[e.source].gameObject.activeSelf){e.visual.gameObject.SetActive(false);effects.RemoveAt(i);effectPool.Push(e);}
             }
+            UpdateCombatAnimation(w,dt);
+            if(ArtPreview){camera.fieldOfView=35;camera.transform.position=new Vector3(8.5f,7.5f,-13);camera.transform.LookAt(new Vector3(observedGroup?.boss.x??0,2.3f,observedGroup?.boss.z??1));}
             if(!battle)
             {
                 float collapse=-10+Mathf.Max(0,w.phaseClock-observedRestLimit)*2.3f;

@@ -1,0 +1,190 @@
+{
+  "scope": "bounded combat presentation validation; no balance Gate or soak claim",
+  "source_runtime_hash": "702cf3b208282834a0764c944e8ba10740d869c1690418dcfe6bfd4855b357ab",
+  "editor_validation": "PASS",
+  "localization_keys": 539,
+  "glyphs_checked": 825,
+  "save_replay_cases": 7,
+  "players": [
+    {
+      "label": "combat-art-gallery-dev-zh-final2",
+      "scenarios": 75,
+      "layout_issues": 0,
+      "elapsed_seconds": 39.4285567,
+      "exit": 0,
+      "JobTempAlloc_warning_messages": 0,
+      "native_status": "no warning observed in this bounded run"
+    },
+    {
+      "label": "combat-art-gallery-dev-en-final2",
+      "scenarios": 75,
+      "layout_issues": 0,
+      "elapsed_seconds": 45.1318189,
+      "exit": 0,
+      "JobTempAlloc_warning_messages": 0,
+      "native_status": "no warning observed in this bounded run"
+    },
+    {
+      "label": "combat-art-rest-dev-final",
+      "scenarios": 5,
+      "layout_issues": 0,
+      "elapsed_seconds": 12.3367163,
+      "exit": 0,
+      "JobTempAlloc_warning_messages": 0,
+      "native_status": "no warning observed in this bounded run"
+    },
+    {
+      "label": "combat-art-codex-dev-en-final",
+      "scenarios": 13,
+      "layout_issues": 0,
+      "elapsed_seconds": 18.2997669,
+      "exit": 0,
+      "JobTempAlloc_warning_messages": 0,
+      "native_status": "no warning observed in this bounded run"
+    },
+    {
+      "label": "combat-art-gallery-release-final",
+      "scenarios": 75,
+      "layout_issues": 0,
+      "elapsed_seconds": 41.6615789,
+      "exit": 0,
+      "JobTempAlloc_warning_messages": 2,
+      "native_status": "WARN; unresolved"
+    }
+  ],
+  "full_balance_gate": "NOT_RUN; historical FAIL unchanged",
+  "5000_seed": "INCOMPLETE; not started again",
+  "120_minute_soak": "INCOMPLETE; not started again",
+  "boss_models": [
+    {
+      "floor": 1,
+      "mesh_filters": 48
+    },
+    {
+      "floor": 2,
+      "mesh_filters": 52
+    },
+    {
+      "floor": 3,
+      "mesh_filters": 38
+    },
+    {
+      "floor": 4,
+      "mesh_filters": 21
+    },
+    {
+      "floor": 5,
+      "mesh_filters": 16
+    },
+    {
+      "floor": 6,
+      "mesh_filters": 93
+    },
+    {
+      "floor": 7,
+      "mesh_filters": 91
+    },
+    {
+      "floor": 8,
+      "mesh_filters": 26
+    },
+    {
+      "floor": 9,
+      "mesh_filters": 49
+    },
+    {
+      "floor": 10,
+      "mesh_filters": 57
+    },
+    {
+      "floor": 11,
+      "mesh_filters": 37
+    },
+    {
+      "floor": 12,
+      "mesh_filters": 43
+    },
+    {
+      "floor": 13,
+      "mesh_filters": 70
+    },
+    {
+      "floor": 14,
+      "mesh_filters": 21
+    },
+    {
+      "floor": 15,
+      "mesh_filters": 21
+    },
+    {
+      "floor": 16,
+      "mesh_filters": 44
+    },
+    {
+      "floor": 17,
+      "mesh_filters": 44
+    },
+    {
+      "floor": 18,
+      "mesh_filters": 52
+    },
+    {
+      "floor": 19,
+      "mesh_filters": 21
+    },
+    {
+      "floor": 20,
+      "mesh_filters": 16
+    },
+    {
+      "floor": 21,
+      "mesh_filters": 44
+    },
+    {
+      "floor": 22,
+      "mesh_filters": 54
+    },
+    {
+      "floor": 23,
+      "mesh_filters": 51
+    },
+    {
+      "floor": 24,
+      "mesh_filters": 25
+    },
+    {
+      "floor": 25,
+      "mesh_filters": 18
+    }
+  ],
+  "gameplay_smoke": {
+    "configured_seconds": 65,
+    "completed": "elapsed=66.00636; rows=10653; runs=1; maintenance=1",
+    "exit": 0,
+    "save_load_cycles": 1
+  },
+  "manual_review": {
+    "contact_sheet": "combat-art-gallery-dev-zh-final2/boss-contact-sheet.jpg",
+    "scope": "25 model thumbnails plus listed full-size screenshots; remaining frames automated only",
+    "full_size": [
+      "combat-art-gallery-dev-zh-final2/art_boss_1.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_2.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_3.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_6.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_8.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_9.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_10.png",
+      "combat-art-gallery-dev-zh-final2/art_boss_12.png",
+      "combat-art-gallery-dev-zh-final2/art_skill_lightning.png",
+      "combat-art-gallery-dev-zh-final2/art_move_furnace_lane.png",
+      "combat-art-gallery-dev-zh-final2/art_hud.png",
+      "combat-art-gallery-dev-zh-final2/art_rest.png",
+      "combat-art-gallery-dev-en-final2/art_hud.png",
+      "combat-art-codex-dev-en-final/codex_skill_detail.png",
+      "combat-art-gallery-release-final/art_multi.png",
+      "combat-art-gallery-release-final/art_boss_10.png"
+    ]
+  },
+  "presentation_source_hash": "8ba545ff5586f50460ea11bf8b989b39316d7816878dd31e1741a5bf8bd06622",
+  "native_memory_status": "UNRESOLVED: Release gallery has JobTempAlloc warnings; gameplay smoke has zero observed warnings"
+}

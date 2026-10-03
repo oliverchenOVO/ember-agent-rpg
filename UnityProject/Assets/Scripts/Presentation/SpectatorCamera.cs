@@ -29,8 +29,7 @@ namespace Ember.Presentation
                 bool infused=!string.IsNullOrEmpty(a.weapon.infusion);weaponFx[i].gameObject.SetActive(a.alive&&(infused||a.enchant>0));string type=catalog.Item(a.weapon.id).weapon;
                 weaponFx[i].localPosition=new Vector3(.55f,type=="Bow"?1.15f:type=="Staff"?2.1f:1.5f,0);weaponFx[i].localScale=type=="Greatsword"?new Vector3(.12f,1.1f,.12f):Vector3.one*(.2f+.03f*Mathf.Sin(Time.time*5));weaponFx[i].GetComponent<Renderer>().sharedMaterial=a.enchant>0?red:glow;
             }
-            if(observedGroup==null)return;var cue=observedGroup.boss.skillPresentation;if(cue.serial==lastSkillSerial)return;lastSkillSerial=cue.serial;
-            var actor=w.agents[cue.agent];if(w.phase!=Phase.Battle||!actor.alive||actor.escaped||!observedGroup.members.Contains(actor.id))return;Vector3 from=new Vector3(actor.x+.5f,cue.origin=="Staff"?2.1f:1.4f,actor.z);Vector3 to=cue.target>=0?new Vector3(w.agents[cue.target].x,1.5f,w.agents[cue.target].z):new Vector3(observedGroup.boss.x,2,observedGroup.boss.z);AddEffect(from,to,cue.element=="Fire"?red:cue.element=="Light"?glow:robes[cue.agent],cue.agent);
+
         }
     }
 }

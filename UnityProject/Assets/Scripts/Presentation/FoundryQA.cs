@@ -24,7 +24,7 @@ namespace Ember.Presentation
             if(scenario=="foundry_dead_mage")
             {
                 var a=tower.State.world.agents[0];a.profession=Profession.Mage;a.weapon=a.Make("staff");a.alive=true;a.escaped=false;view.SetExpedition(tower.Data,g);
-                var observed=tower.Observe(0);view.Update(observed,.5f,0);a.damage+=10;view.Update(observed,.01f,0);int emitted=view.EffectSerial;
+                var observed=tower.Observe(0);view.Update(observed,.5f,0);a.unlocked.Add("fireball");a.equipped.Clear();a.equipped.Add("fireball");a.mp=a.MaxMp;a.x=b.x;a.z=b.z;tower.Cast(a,g,"fireball");view.Update(observed,.01f,0);int emitted=view.EffectSerial;
                 if(view.ActiveAgentEffects==0)throw new Exception("Living attack effect fixture failed");
                 a.alive=false;a.hp=0;a.damage+=3;view.Update(observed,.01f,0);
                 if(view.EffectSerial!=emitted||view.ActiveAgentEffects!=0)throw new Exception("Dead source emitted/retained attack effect");

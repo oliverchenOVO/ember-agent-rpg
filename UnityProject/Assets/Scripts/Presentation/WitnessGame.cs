@@ -74,7 +74,7 @@ namespace Ember.Presentation
             if(w.run!=lastRun) {lastRun=w.run;view.RebuildCharacters(w,simulation.Catalog);TrySave();}
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
-            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.Update(w,Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
+            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.Update(w,paused&&!towerQA?0:Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
             if(towerSmoke)UpdateTowerSmoke();
             UpdateAudio();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
@@ -125,6 +125,7 @@ namespace Ember.Presentation
             using var allocationUI=new AllocationScope(uiAlloc,profile&&profileDetailed);using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
             if(simulation==null||!enabled)return;glyphDrawIndex=0;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
+            if(combatArtQA&&qaScenario!="art_hud"){DrawArtCaption();return;}
             GUI.enabled=inspection==Inspection.None;
             var w=simulation.State;var a=w.agents[selected];
             Box(0,0,1600,86,new Color(.035f,.065f,.08f,.96f));Box(0,85,1600,1,new Color(.25f,.36f,.36f,.6f));

@@ -17,6 +17,14 @@ namespace Ember.Core.Phase2
         [NonSerialized] public bool stabilizePhaseWindow,stabilizeManaPressure;public float recoveryWindow;
         public CombatCue cue=new CombatCue();public float hitFlash,weakFlash,interruptFlash,blockedFlash;public int sequence;
         public List<CombatEffect> effects=new List<CombatEffect>();public List<int> revived=new List<int>();public SkillPresentation skillPresentation=new SkillPresentation();
+        public List<SkillPresentation> skillEvents=new List<SkillPresentation>();
+        public List<BossPresentationEvent> presentationEvents=new List<BossPresentationEvent>();public int presentationSerial;
+        void Present(string kind)
+        {
+            if(presentationEvents==null)presentationEvents=new List<BossPresentationEvent>();
+            presentationEvents.Add(new BossPresentationEvent{serial=++presentationSerial,kind=kind,ability=ability,phase=phase,target=target,x=x,z=z,targetX=visible.targetX,targetZ=visible.targetZ,radius=cue.radius,length=cue.length,innerRadius=cue.innerRadius,angle=cue.angle,shape=cue.shape});
+            if(presentationEvents.Count>64)presentationEvents.RemoveAt(0);
+        }
         public static BossRuntime Create(BossDefinition def)=>new BossRuntime{definition=def.id,visible=new BossState{hp=def.hp,maxHp=def.hp,timer=2},phaseStartHp=def.hp};
         public float Radius(TowerContent data)=>string.IsNullOrEmpty(ability)?3:data.Ability(ability).radius;
         public void Tick(TowerContent data,List<Agent> members,World events,float dt,Action<Agent,float,string> hurt)
@@ -30,7 +38,7 @@ namespace Ember.Core.Phase2
             {
                 var next=def.phases[phase+1];
                 if(b.hp/b.maxHp<=next.hpBelow||(next.afterSeconds>0&&elapsed>=next.afterSeconds))
-                {phase++;phaseTime=0;if(stabilizePhaseWindow){recoveryWindow=5;shield=0;adds=Mathf.Min(adds,2);}phaseStartHp=b.hp;transitioned=true;b.telegraph=false;b.timer=1;events.Say(-1,Loc.Token("p2.event.phase",Loc.Token(def.nameKey),Loc.Token(next.nameKey)),"boss");}
+                {phase++;phaseTime=0;if(stabilizePhaseWindow){recoveryWindow=5;shield=0;adds=Mathf.Min(adds,2);}phaseStartHp=b.hp;transitioned=true;Present("Phase");b.telegraph=false;b.timer=1;events.Say(-1,Loc.Token("p2.event.phase",Loc.Token(def.nameKey),Loc.Token(next.nameKey)),"boss");}
             }
             recoveryWindow=Mathf.Max(0,recoveryWindow-dt);var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter;
             if(p.dpsDeadline>0&&phaseTime>=p.dpsDeadline&&phaseStartHp-b.hp<b.maxHp*p.requiredDamage){b.enraged=true;shield=0;}
@@ -54,7 +62,7 @@ namespace Ember.Core.Phase2
             if(b.telegraph)
             {
                 b.windup-=dt;cue.left=b.windup;if(b.windup>0)return;
-                var abilityDef=data.Ability(ability);b.telegraph=false;b.hits++;casts++;
+                var abilityDef=data.Ability(ability);b.telegraph=false;b.hits++;casts++;Present("Impact");
                 Resolve(abilityDef,living,events,hurt);b.timer=abilityDef.interval*(b.enraged?.8f:1);return;
             }
             b.timer-=dt;if(b.timer>0)return;
@@ -69,7 +77,7 @@ namespace Ember.Core.Phase2
             target=chosen.id;b.targetX=chosen.x;b.targetZ=chosen.z;b.windup=attack.windup;b.telegraph=true;
             cue=new CombatCue{shape=attack.shape,x=b.targetX,z=b.targetZ,angle=(casts%2==0?0:Mathf.PI*.5f),radius=attack.radius,length=attack.length,innerRadius=attack.innerRadius,left=attack.windup,interruptible=attack.interruptible,element=attack.element};
             if(attack.shape==CueShape.Cross||attack.shape==CueShape.Annulus){cue.x=x;cue.z=z;b.targetX=x;b.targetZ=z;}
-            sequence++;
+            sequence++;Present("Windup");
             events.Say(-1,Loc.Token("p2.event.telegraph",Loc.Token(def.nameKey),Loc.Token(attack.nameKey)),"boss");
         }
         void Resolve(AbilityDefinition attack,List<Agent> living,World events,Action<Agent,float,string> hurt)
@@ -102,7 +110,7 @@ namespace Ember.Core.Phase2
             if(canInterrupt&&visible.telegraph)
             {
                 var a=data.Ability(ability);
-                if(a.interruptible&&visible.windup<=a.interruptWindow){visible.telegraph=false;visible.timer=a.interval;interrupts++;interruptFlash=.65f;}
+                if(a.interruptible&&visible.windup<=a.interruptWindow){visible.telegraph=false;visible.timer=a.interval;interrupts++;interruptFlash=.65f;Present("Interrupt");}
             }
             // Summons have independent pressure and must be removed before damaging their owner.
             if(adds>0){if(amount>0)adds--;return 0;}
