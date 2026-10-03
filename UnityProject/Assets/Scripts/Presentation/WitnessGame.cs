@@ -74,7 +74,7 @@ namespace Ember.Presentation
             if(w.run!=lastRun) {lastRun=w.run;view.RebuildCharacters(w,simulation.Catalog);TrySave();}
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
-            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.Update(w,paused&&!towerQA?0:Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
+            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.RefugeSelected=selected;view.Update(w,paused&&!towerQA?0:Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
             if(towerSmoke)UpdateTowerSmoke();
             UpdateAudio();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
@@ -125,6 +125,7 @@ namespace Ember.Presentation
             using var allocationUI=new AllocationScope(uiAlloc,profile&&profileDetailed);using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
             if(simulation==null||!enabled)return;glyphDrawIndex=0;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
+            if(refugeQA&&qaScenario!="refuge_hud"){DrawRefugeCaption();return;}
             if(combatArtQA&&qaScenario!="art_hud"){DrawArtCaption();return;}
             GUI.enabled=inspection==Inspection.None;
             var w=simulation.State;var a=w.agents[selected];
@@ -159,8 +160,8 @@ namespace Ember.Presentation
             else
             {
                 Box(425,110,590,78,new Color(.035f,.062f,.075f,.9f));Text(448,122,535,24,w.phase==Phase.Ended?Loc.T("ui.epilogue"):tower==null?Loc.T("ui.refuge_title"):Loc.T("ui.refuge_title")+" · "+Loc.T(tower.Data.Rest(tower.State.GroupOf(selected).restId).AvailableCount(tower.State.GroupOf(selected))==0?"ui.rest_empty":"ui.rest_count",tower.Data.Rest(tower.State.GroupOf(selected).restId).AvailableCount(tower.State.GroupOf(selected))),subtitle);
-                Text(448,149,535,27,w.phase==Phase.Ended?Loc.T("ui.restart",Loc.Outcome(w.outcome),Mathf.CeilToInt(8-w.restartTimer)):w.phaseClock>=(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit)?Loc.T("ui.collapse_active"):Loc.T("ui.collapse_timer",Mathf.Max(0,(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit)-w.phaseClock).ToString("F1")),label);
-                Bar(448,178,542,1-w.phaseClock/(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit),amber,3);
+                Text(448,149,535,27,w.phase==Phase.Ended?Loc.T("ui.restart",Loc.Outcome(w.outcome),Mathf.CeilToInt(8-w.restartTimer)):w.phaseClock>=(tower!=null?RefugeMap.Limit(tower.Data.Rest(tower.State.GroupOf(selected).restId),tower.State.GroupOf(selected)):Simulation.RestLimit)?Loc.T("ui.collapse_active"):Loc.T("ui.collapse_timer",Mathf.Max(0,(tower!=null?RefugeMap.Limit(tower.Data.Rest(tower.State.GroupOf(selected).restId),tower.State.GroupOf(selected)):Simulation.RestLimit)-w.phaseClock).ToString("F1")),label);
+                Bar(448,178,542,1-w.phaseClock/(tower!=null?RefugeMap.Limit(tower.Data.Rest(tower.State.GroupOf(selected).restId),tower.State.GroupOf(selected)):Simulation.RestLimit),amber,3);
             }
             // Floating nameplates track real 3D actors.
             var usedPlates=new System.Collections.Generic.List<Rect>();
@@ -192,7 +193,7 @@ namespace Ember.Presentation
             if(tower!=null&&Button(900,843,200,Loc.T("codex.boss")))OpenInspection(Inspection.Boss);
             if(Button(1110,843,200,Loc.T("codex.skills")))OpenInspection(Inspection.Skills);
             if(noticeTimer>0){Box(450,830,750,33,new Color(.08f,.16f,.17f,.95f));Text(467,836,715,25,RenderForUI(notice),label);}
-            GUI.enabled=true;DrawInspection();
+            DrawRefugeObservation(w);GUI.enabled=true;DrawInspection();
         }
         void AgentCard(Agent a,int i,float x,float y)
         {

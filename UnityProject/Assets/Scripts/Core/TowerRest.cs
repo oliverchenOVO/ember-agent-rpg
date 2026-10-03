@@ -20,7 +20,7 @@ namespace Ember.Core.Phase2
         {
             CloseTelemetry(g,true);
             g.phase=Phase.Rest;g.phaseClock=0;g.boss.visible.telegraph=false;State.floorsCleared++;
-            var f=Data.Floor(g.floor);g.restId=f.restPool[State.world.Pick(f.restPool.Length)];
+            var f=Data.Floor(g.floor);g.restId=f.restPool[State.world.Pick(f.restPool.Length)];g.refugeVersion=1;g.refugeVariant=State.world.Pick(6);
             var layout=Data.Rest(g.restId);g.restSitesRolled=true;g.availableRestSites.Clear();
             if(State.world.Roll()>=layout.emptyChance)
                 foreach(var site in layout.sites)if(State.world.Roll()<layout.facilityChance)g.availableRestSites.Add(site.id);
@@ -40,25 +40,26 @@ namespace Ember.Core.Phase2
                     for(int i=0;i<table.rolls;i++){var item=a.Make(!string.IsNullOrEmpty(table.affix)&&i==0?Catalog.Class(a.profession).weapon:table.items[State.world.Pick(table.items.Length)],!string.IsNullOrEmpty(table.affix)?1.15f:1);item.affix=table.affix??"";if(Catalog.Item(item.id).kind=="Weapon")item.infusion=table.infusion??"";Adapter.AddItem(a,item);g.claimedLoot.Add(a.id+":"+item.uid);Measure(a,"loot",1,item.id+":"+item.affix);}
                 }
                 while(g.claimedLoot.Count>32)g.claimedLoot.RemoveAt(0);Adapter.ResolveInventory(a);ResolveLoadout(a);
-                a.x=-8;a.z=-3+a.id*2;a.escaped=false;a.readBook=false;a.intent=new Intent();a.taskTimer=0;a.task="";
-                var plan=State.Plan(a.id);plan.workLeft=0;plan.site="";plan.visited.Clear();plan.nextDecision=0;
+                a.x=RefugeMap.Entry.x;a.z=-3+a.id*2;a.escaped=false;a.readBook=false;a.intent=new Intent();a.taskTimer=0;a.task="";
+                var plan=State.Plan(a.id);plan.workLeft=0;plan.discussionLeft=0;plan.knownRooms.Clear();plan.route=new RefugeRoute();plan.site="";plan.visited.Clear();plan.nextDecision=0;
                 State.Memory(a.id).Add(new Knowledge{key="victory:"+g.floor,text=Loc.Token("p2.memory.victory",g.floor),scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=.8f});
                 foreach(var other in State.Members(g).Where(o=>o.alive&&o!=a))Relate(a,other,RelationshipEventKind.TacticSuccess,.5f);
             }
         }
         void ExecuteRest(Agent a,GroupState g,float dt)
         {
-            var rest=Data.Rest(g.restId);float collapse=-10+Mathf.Max(0,g.phaseClock-rest.collapseAfter)*rest.collapseSpeed;
-            if(g.phaseClock>=rest.collapseAfter&&a.x<collapse){RecordDeath(a,DamageSource.Collapse,"",a.hp,a.hp);var collapseRow=Telemetry(g);if(collapseRow!=null)collapseRow.collapses++;Die(a,Loc.Token("cause.collapse"));return;}
+            var rest=Data.Rest(g.restId);float collapse=RefugeMap.Front(rest,g);
+            if(g.phaseClock>=RefugeMap.Limit(rest,g)&&a.x<collapse){RecordDeath(a,DamageSource.Collapse,"",a.hp,a.hp);var collapseRow=Telemetry(g);if(collapseRow!=null)collapseRow.collapses++;Die(a,Loc.Token("cause.collapse"));return;}
             var p=State.Plan(a.id);
+            if(p.discussionLeft>0){p.discussionLeft=Mathf.Max(0,p.discussionLeft-dt);a.taskTimer=p.discussionLeft;a.task="discussion";a.intent.kind=ActionKind.Rest;if(p.discussionLeft==0){ShareRooms(a,g);a.task="";}return;}
             if(p.workLeft>0)
             {
                 p.workLeft=Mathf.Max(0,p.workLeft-dt);a.taskTimer=p.workLeft;
-                if(p.workLeft==0){CompleteSite(a,g,Array.Find(rest.sites,s=>s.id==p.site));a.task="";p.visited.Add(p.site);p.nextDecision=0;}
+                if(p.workLeft==0){if(p.site.StartsWith("search:"))RevealRoom(a,g,int.Parse(p.site.Substring(7)));else CompleteSite(a,g,Array.Find(SpatialSites(g),s=>s.id==p.site));a.task="";p.visited.Add(p.site);p.nextDecision=0;}
                 return;
             }
             if(p.decision.intent=="Exit"||p.decision.intent=="LeaveParty"||p.decision.intent=="Rejoin")
-            {a.intent.kind=ActionKind.Exit;Move(a,10,a.z,dt);if(a.x>=9.5f){a.escaped=true;State.world.Say(a.id,Loc.Token("event.escape"),"exit");}return;}
+            {a.intent.kind=ActionKind.Exit;Move(a,g.refugeVersion==1?RefugeMap.Exit.x:10,g.refugeVersion==1?RefugeMap.Exit.y:a.z,dt);if(g.refugeVersion==1?Simulation.Distance(a.x,a.z,RefugeMap.Exit.x,RefugeMap.Exit.y)<.7f:a.x>=9.5f){a.escaped=true;State.world.Say(a.id,Loc.Token("event.escape"),"exit");}return;}
             if(p.decision.intent=="Rescue")
             {
                 var ally=State.Members(g).Where(o=>o!=a&&o.alive&&!o.escaped).OrderBy(o=>o.hp/o.MaxHp).FirstOrDefault();
@@ -66,13 +67,13 @@ namespace Ember.Core.Phase2
                 else {p.decision.intent="Exit";p.nextDecision=State.world.clock+1.5f;}return;
             }
             string site=p.decision.proposedAction;
-            if(p.decision.intent=="Recover"&&rest.HasSite(g,"clinic")&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
+            if(p.decision.intent=="Recover"&&KnownSite(a,g,"clinic")&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
             if(p.decision.intent=="Support")site="church";
-            if(rest.HasSite(g,"clinic")&&Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=1+Mathf.Clamp(Rules.clinicKitCost,1,3)&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)||a.inventory.FindAll(i=>i.id=="mp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)))site="clinic";
-            var station=Array.Find(rest.sites,s=>s.id==site&&rest.HasSite(g,s.id));
+            if(KnownSite(a,g,"clinic")&&Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=1+Mathf.Clamp(Rules.clinicKitCost,1,3)&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)||a.inventory.FindAll(i=>i.id=="mp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)))site="clinic";
+            var station=Array.Find(RestOptions(a,g),s=>s.id==site);
             if(station==null||(site=="bed"?p.visited.Count(v=>v==site)>=2:p.visited.Contains(site))||a.materials<station.materialCost){p.decision.intent="Exit";return;}
             a.intent.kind=station.effect=="Craft"?ActionKind.Craft:station.effect=="Read"||station.effect=="Intel"?ActionKind.Read:station.effect=="Heal"||station.effect=="Cleanse"?ActionKind.Rest:ActionKind.Explore;
-            Move(a,station.x+(a.id%2==0?-.35f:.35f),station.z,dt);
+            Move(a,station.x,station.z,dt);
             if(Simulation.Distance(a.x,a.z,station.x,station.z)<1)
             {
                 // A task is never free: reserve cost and duration, including its travel and escape margin in the brain context.
@@ -109,11 +110,12 @@ namespace Ember.Core.Phase2
             if(alive.All(a=>a.escaped)){g.travelLeft=1.5f;return;}
             // Those who chose to leave can advance while other Agents continue spending the refuge budget.
             var departed=alive.Where(a=>a.escaped).Select(a=>a.id).ToList();
-            if(departed.Count>0&&departed.Count<g.members.Count&&g.phaseClock>=Data.Rest(g.restId).collapseAfter-3)
+            if(departed.Count>0&&departed.Count<g.members.Count&&g.phaseClock>=RefugeMap.Limit(Data.Rest(g.restId),g)-3)
             {var branch=Split(g.id,departed);if(branch!=null)branch.travelLeft=1.5f;}
         }
         void Move(Agent a,float x,float z,float dt,float multiplier=1)
         {
+            var group=State.GroupOf(a.id);if(group!=null&&group.phase==Phase.Rest&&group.refugeVersion==1){MoveInRefuge(a,group,new Vector2(x,z),dt*multiplier);return;}
             var p=Vector2.MoveTowards(new Vector2(a.x,a.z),new Vector2(x,z),Simulation.MoveSpeed*dt*multiplier);a.x=Mathf.Clamp(p.x,-9.5f,10);a.z=Mathf.Clamp(p.y,-8,8);
         }
     }

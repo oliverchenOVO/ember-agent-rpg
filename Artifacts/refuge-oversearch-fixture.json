@@ -1,0 +1,1489 @@
+{
+    "schemaVersion": 2,
+    "nextGroup": 2,
+    "generation": 1,
+    "world": {
+        "schemaVersion": 1,
+        "run": 1,
+        "floor": 1,
+        "rng": 938722157,
+        "clock": 64.5995864868164,
+        "phaseClock": 0.0,
+        "restartTimer": 0.0,
+        "showcase": true,
+        "phase": 2,
+        "outcome": 1,
+        "agents": [
+            {
+                "id": 0,
+                "level": 1,
+                "skillPoints": 0,
+                "materials": 7,
+                "kills": 1,
+                "uidCounter": 5,
+                "taskRecipient": -1,
+                "name": "KAEL",
+                "profession": 0,
+                "personality": {
+                    "risk": 0.8110043406486511,
+                    "greed": 0.28523239493370058,
+                    "curiosity": 0.4108982980251312,
+                    "empathy": 0.4637623429298401,
+                    "loyalty": 0.3441363275051117,
+                    "aggression": 0.6944825053215027
+                },
+                "stats": {
+                    "str": 16,
+                    "dex": 6,
+                    "intel": 3,
+                    "vit": 10,
+                    "wis": 4,
+                    "mana": 4,
+                    "luck": 4
+                },
+                "hp": 0.0,
+                "mp": 47.0,
+                "x": -1.1775588989257813,
+                "z": -2.558415174484253,
+                "attackTimer": 0.0,
+                "decisionTimer": 0.0,
+                "taskTimer": 0.0,
+                "damage": 0.0,
+                "healing": 0.0,
+                "armor": 0.0,
+                "enchant": 0.0,
+                "guard": 0.0,
+                "alive": false,
+                "escaped": false,
+                "readBook": false,
+                "task": "",
+                "lastWords": "@codex.epitaph:{\"values\":[\"@codex.tone.risk:{\\\"values\\\":[]}\",\"1\",\"@p2.boss.rootcrown:{\\\"values\\\":[]}\",\"@cause.collapse:{\\\"values\\\":[]}\",\"@codex.no_observation:{\\\"values\\\":[]}\"]}",
+                "weapon": {
+                    "uid": 1,
+                    "id": "greatsword",
+                    "infusion": "",
+                    "affix": "",
+                    "quality": 1.0,
+                    "upgrade": 0
+                },
+                "inventory": [
+                    {
+                        "uid": 2,
+                        "id": "hp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 3,
+                        "id": "mp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 4,
+                        "id": "spear",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    }
+                ],
+                "unlocked": [
+                    "slash",
+                    "wave"
+                ],
+                "equipped": [
+                    "slash",
+                    "wave"
+                ],
+                "memory": [],
+                "cooldowns": [],
+                "bonds": [
+                    {
+                        "target": 1,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 2,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 3,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    }
+                ],
+                "intent": {
+                    "kind": 4,
+                    "skill": "",
+                    "reason": "",
+                    "target": -1,
+                    "score": 0.0
+                }
+            },
+            {
+                "id": 1,
+                "level": 2,
+                "skillPoints": 0,
+                "materials": 5,
+                "kills": 1,
+                "uidCounter": 5,
+                "taskRecipient": -1,
+                "name": "LYRA",
+                "profession": 1,
+                "personality": {
+                    "risk": 0.8236808776855469,
+                    "greed": 0.4345051050186157,
+                    "curiosity": 0.6752051115036011,
+                    "empathy": 0.2666720449924469,
+                    "loyalty": 0.4621151387691498,
+                    "aggression": 0.6942930817604065
+                },
+                "stats": {
+                    "str": 5,
+                    "dex": 17,
+                    "intel": 5,
+                    "vit": 9,
+                    "wis": 6,
+                    "mana": 6,
+                    "luck": 5
+                },
+                "hp": 0.0,
+                "mp": 57.0,
+                "x": -28.0,
+                "z": -1.0,
+                "attackTimer": 0.0,
+                "decisionTimer": 0.0,
+                "taskTimer": 0.0,
+                "damage": 0.0,
+                "healing": 0.0,
+                "armor": 0.0,
+                "enchant": 0.0,
+                "guard": 0.0,
+                "alive": false,
+                "escaped": false,
+                "readBook": false,
+                "task": "",
+                "lastWords": "",
+                "weapon": {
+                    "uid": 1,
+                    "id": "bow",
+                    "infusion": "",
+                    "affix": "",
+                    "quality": 1.0,
+                    "upgrade": 0
+                },
+                "inventory": [
+                    {
+                        "uid": 2,
+                        "id": "hp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 3,
+                        "id": "mp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 4,
+                        "id": "greatsword",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    }
+                ],
+                "unlocked": [
+                    "shot",
+                    "poison",
+                    "rain"
+                ],
+                "equipped": [
+                    "shot",
+                    "poison",
+                    "rain"
+                ],
+                "memory": [],
+                "cooldowns": [],
+                "bonds": [
+                    {
+                        "target": 0,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 2,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 3,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    }
+                ],
+                "intent": {
+                    "kind": 0,
+                    "skill": "",
+                    "reason": "",
+                    "target": -1,
+                    "score": 0.0
+                }
+            },
+            {
+                "id": 2,
+                "level": 1,
+                "skillPoints": 0,
+                "materials": 5,
+                "kills": 1,
+                "uidCounter": 5,
+                "taskRecipient": -1,
+                "name": "ORIN",
+                "profession": 2,
+                "personality": {
+                    "risk": 0.48900893330574038,
+                    "greed": 0.4504922032356262,
+                    "curiosity": 0.48126131296157839,
+                    "empathy": 0.7601907849311829,
+                    "loyalty": 0.39926624298095705,
+                    "aggression": 0.37963947653770449
+                },
+                "stats": {
+                    "str": 3,
+                    "dex": 5,
+                    "intel": 16,
+                    "vit": 8,
+                    "wis": 8,
+                    "mana": 10,
+                    "luck": 4
+                },
+                "hp": 0.0,
+                "mp": 91.0,
+                "x": -28.0,
+                "z": 1.0,
+                "attackTimer": 0.0,
+                "decisionTimer": 0.0,
+                "taskTimer": 0.0,
+                "damage": 0.0,
+                "healing": 0.0,
+                "armor": 3.0,
+                "enchant": 0.0,
+                "guard": 0.0,
+                "alive": false,
+                "escaped": false,
+                "readBook": false,
+                "task": "",
+                "lastWords": "",
+                "weapon": {
+                    "uid": 1,
+                    "id": "staff",
+                    "infusion": "",
+                    "affix": "",
+                    "quality": 1.0,
+                    "upgrade": 0
+                },
+                "inventory": [
+                    {
+                        "uid": 2,
+                        "id": "hp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 3,
+                        "id": "mp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 4,
+                        "id": "holy_staff",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    }
+                ],
+                "unlocked": [
+                    "fireball",
+                    "frost"
+                ],
+                "equipped": [
+                    "fireball",
+                    "frost"
+                ],
+                "memory": [],
+                "cooldowns": [],
+                "bonds": [
+                    {
+                        "target": 0,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 1,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 3,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    }
+                ],
+                "intent": {
+                    "kind": 0,
+                    "skill": "",
+                    "reason": "",
+                    "target": -1,
+                    "score": 0.0
+                }
+            },
+            {
+                "id": 3,
+                "level": 1,
+                "skillPoints": 0,
+                "materials": 5,
+                "kills": 1,
+                "uidCounter": 5,
+                "taskRecipient": -1,
+                "name": "SERA",
+                "profession": 3,
+                "personality": {
+                    "risk": 0.6672705411911011,
+                    "greed": 0.4468202292919159,
+                    "curiosity": 0.573015570640564,
+                    "empathy": 0.8922027945518494,
+                    "loyalty": 0.6405990719795227,
+                    "aggression": 0.27410802245140078
+                },
+                "stats": {
+                    "str": 4,
+                    "dex": 4,
+                    "intel": 10,
+                    "vit": 8,
+                    "wis": 18,
+                    "mana": 9,
+                    "luck": 3
+                },
+                "hp": 0.0,
+                "mp": 99.0,
+                "x": -28.0,
+                "z": 3.0,
+                "attackTimer": 0.0,
+                "decisionTimer": 0.0,
+                "taskTimer": 0.0,
+                "damage": 0.0,
+                "healing": 0.0,
+                "armor": 0.0,
+                "enchant": 0.0,
+                "guard": 0.0,
+                "alive": false,
+                "escaped": false,
+                "readBook": false,
+                "task": "",
+                "lastWords": "",
+                "weapon": {
+                    "uid": 4,
+                    "id": "greatsword",
+                    "infusion": "",
+                    "affix": "",
+                    "quality": 1.0,
+                    "upgrade": 0
+                },
+                "inventory": [
+                    {
+                        "uid": 2,
+                        "id": "hp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 3,
+                        "id": "mp",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    },
+                    {
+                        "uid": 1,
+                        "id": "holy_staff",
+                        "infusion": "",
+                        "affix": "",
+                        "quality": 1.0,
+                        "upgrade": 0
+                    }
+                ],
+                "unlocked": [
+                    "holy",
+                    "heal",
+                    "groupheal",
+                    "ward"
+                ],
+                "equipped": [
+                    "holy",
+                    "heal",
+                    "groupheal",
+                    "ward"
+                ],
+                "memory": [],
+                "cooldowns": [],
+                "bonds": [
+                    {
+                        "target": 0,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 1,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    },
+                    {
+                        "target": 2,
+                        "trust": 0.12000000476837158,
+                        "respect": 0.009999999776482582,
+                        "friendship": 0.01600000075995922,
+                        "love": 0.0023999998811632396,
+                        "fear": 0.0,
+                        "resentment": 0.0,
+                        "loyalty": 0.009999999776482582,
+                        "rivalry": 0.0
+                    }
+                ],
+                "intent": {
+                    "kind": 0,
+                    "skill": "",
+                    "reason": "",
+                    "target": -1,
+                    "score": 0.0
+                }
+            }
+        ],
+        "boss": {
+            "hp": 1300.0,
+            "maxHp": 1300.0,
+            "timer": 2.0,
+            "windup": 0.0,
+            "targetX": 0.0,
+            "targetZ": 0.0,
+            "enraged": false,
+            "telegraph": false,
+            "hits": 0
+        },
+        "messages": [
+            {
+                "time": 0.0,
+                "speaker": -1,
+                "text": "@event.start:{\"values\":[\"1\"]}",
+                "category": "run"
+            },
+            {
+                "time": 0.0,
+                "speaker": 0,
+                "text": "@event.class:{\"values\":[\"@class.Warrior:{\\\"values\\\":[]}\"]}",
+                "category": "build"
+            },
+            {
+                "time": 0.0,
+                "speaker": 1,
+                "text": "@event.class:{\"values\":[\"@class.Archer:{\\\"values\\\":[]}\"]}",
+                "category": "build"
+            },
+            {
+                "time": 0.0,
+                "speaker": 2,
+                "text": "@event.class:{\"values\":[\"@class.Mage:{\\\"values\\\":[]}\"]}",
+                "category": "build"
+            },
+            {
+                "time": 0.0,
+                "speaker": 3,
+                "text": "@event.class:{\"values\":[\"@class.Healer:{\\\"values\\\":[]}\"]}",
+                "category": "build"
+            },
+            {
+                "time": 0.0,
+                "speaker": -1,
+                "text": "@p2.event.victory:{\"values\":[\"@p2.boss.rootcrown:{\\\"values\\\":[]}\",\"1\"]}",
+                "category": "run"
+            },
+            {
+                "time": 0.0,
+                "speaker": 0,
+                "text": "@event.salvage:{\"values\":[]}",
+                "category": "loot"
+            },
+            {
+                "time": 0.0,
+                "speaker": 1,
+                "text": "@event.level:{\"values\":[\"2\"]}",
+                "category": "build"
+            },
+            {
+                "time": 0.0,
+                "speaker": 3,
+                "text": "@event.equip:{\"values\":[\"@item.greatsword:{\\\"values\\\":[]}\"]}",
+                "category": "loot"
+            },
+            {
+                "time": 13.900016784667969,
+                "speaker": 0,
+                "text": "@p2.event.work:{\"values\":[\"@refuge.search:{\\\"values\\\":[]}\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 16.50002670288086,
+                "speaker": 0,
+                "text": "@refuge.found:{\"values\":[\"3\",\"1\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 29.800077438354493,
+                "speaker": 0,
+                "text": "@p2.event.work:{\"values\":[\"@refuge.search:{\\\"values\\\":[]}\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 32.40007781982422,
+                "speaker": 0,
+                "text": "@refuge.found:{\"values\":[\"4\",\"1\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 41.99993133544922,
+                "speaker": 0,
+                "text": "@p2.event.work:{\"values\":[\"@refuge.search:{\\\"values\\\":[]}\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 44.599891662597659,
+                "speaker": 0,
+                "text": "@refuge.found:{\"values\":[\"2\",\"1\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 54.199745178222659,
+                "speaker": 0,
+                "text": "@p2.event.work:{\"values\":[\"@refuge.search:{\\\"values\\\":[]}\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 56.799705505371097,
+                "speaker": 0,
+                "text": "@refuge.found:{\"values\":[\"6\",\"1\"]}",
+                "category": "rest"
+            },
+            {
+                "time": 64.5995864868164,
+                "speaker": 0,
+                "text": "@event.death:{\"values\":[\"@cause.collapse:{\\\"values\\\":[]}\"]}",
+                "category": "death"
+            },
+            {
+                "time": 64.5995864868164,
+                "speaker": -1,
+                "text": "@event.wipe:{\"values\":[]}",
+                "category": "run"
+            }
+        ],
+        "book": [
+            {
+                "run": 1,
+                "author": 0,
+                "floor": 1,
+                "phase": 0,
+                "level": 1,
+                "text": "@codex.epitaph:{\"values\":[\"@codex.tone.risk:{\\\"values\\\":[]}\",\"1\",\"@p2.boss.rootcrown:{\\\"values\\\":[]}\",\"@cause.collapse:{\\\"values\\\":[]}\",\"@codex.no_observation:{\\\"values\\\":[]}\"]}",
+                "boss": "rootcrown",
+                "cause": "@cause.collapse:{\"values\":[]}",
+                "tone": "risk",
+                "weapon": "greatsword",
+                "profession": 0,
+                "skills": [
+                    "slash",
+                    "wave"
+                ],
+                "observedAbilities": []
+            }
+        ],
+        "history": [
+            {
+                "run": 1,
+                "floor": 1,
+                "deaths": 4,
+                "seconds": 64.5995864868164,
+                "outcome": 1,
+                "composition": [
+                    "@ui.agent_class:{\"values\":[\"KAEL\",\"@class.Warrior:{\\\"values\\\":[]}\"]}",
+                    "@ui.agent_class:{\"values\":[\"LYRA\",\"@class.Archer:{\\\"values\\\":[]}\"]}",
+                    "@ui.agent_class:{\"values\":[\"ORIN\",\"@class.Mage:{\\\"values\\\":[]}\"]}",
+                    "@ui.agent_class:{\"values\":[\"SERA\",\"@class.Healer:{\\\"values\\\":[]}\"]}"
+                ],
+                "survivors": [],
+                "builds": [
+                    "greatsword:",
+                    "bow:",
+                    "staff:",
+                    "greatsword:"
+                ],
+                "damage": 0.0,
+                "healing": 0.0
+            }
+        ]
+    },
+    "groups": [
+        {
+            "id": 1,
+            "floor": 1,
+            "members": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "phase": 2,
+            "strategy": "balanced",
+            "restId": "crossing",
+            "phaseClock": 64.5995864868164,
+            "travelLeft": 0.0,
+            "completed": false,
+            "terminal": true,
+            "boss": {
+                "definition": "rootcrown",
+                "ability": "",
+                "visible": {
+                    "hp": 900.0,
+                    "maxHp": 900.0,
+                    "timer": 2.0,
+                    "windup": 0.0,
+                    "targetX": 0.0,
+                    "targetZ": 0.0,
+                    "enraged": false,
+                    "telegraph": false,
+                    "hits": 0
+                },
+                "phase": 0,
+                "casts": 0,
+                "interrupts": 0,
+                "adds": 0,
+                "target": -1,
+                "elapsed": 0.0,
+                "phaseTime": 0.0,
+                "phaseStartHp": 900.0,
+                "x": 0.0,
+                "z": 1.0,
+                "shield": 0.0,
+                "survivalLeft": 0.0,
+                "hazardLeft": 0.0,
+                "hazardX": 0.0,
+                "hazardZ": 0.0,
+                "transitioned": false,
+                "deathResolved": false,
+                "statuses": [],
+                "recoveryWindow": 0.0,
+                "cue": {
+                    "shape": 0,
+                    "x": 0.0,
+                    "z": 0.0,
+                    "angle": 0.0,
+                    "radius": 0.0,
+                    "length": 0.0,
+                    "innerRadius": 0.0,
+                    "left": 0.0,
+                    "interruptible": false,
+                    "element": ""
+                },
+                "hitFlash": 0.0,
+                "weakFlash": 0.0,
+                "interruptFlash": 0.0,
+                "blockedFlash": 0.0,
+                "sequence": 0,
+                "effects": [],
+                "revived": [],
+                "skillPresentation": {
+                    "agent": 0,
+                    "target": 0,
+                    "serial": 0,
+                    "skill": "",
+                    "origin": "",
+                    "element": "",
+                    "x": 0.0,
+                    "z": 0.0,
+                    "infused": false
+                },
+                "skillEvents": [],
+                "presentationEvents": [],
+                "presentationSerial": 0
+            },
+            "claimedLoot": [
+                "0:4",
+                "0:5",
+                "1:4",
+                "1:5",
+                "2:4",
+                "2:5",
+                "3:4",
+                "3:5"
+            ],
+            "refugeVersion": 1,
+            "refugeVariant": 0,
+            "restSitesRolled": true,
+            "availableRestSites": [
+                "church",
+                "clinic",
+                "library",
+                "corpse",
+                "cache",
+                "resource"
+            ]
+        }
+    ],
+    "profiles": [
+        {
+            "agent": 0,
+            "patience": 0.6720355153083801,
+            "confidence": 0.42546653747558596,
+            "caution": 0.7299022078514099,
+            "attachment": 0.5095515251159668,
+            "strategic": 0.633499264717102
+        },
+        {
+            "agent": 1,
+            "patience": 0.6677026152610779,
+            "confidence": 0.2791169285774231,
+            "caution": 0.862693190574646,
+            "attachment": 0.3336459696292877,
+            "strategic": 0.47544339299201968
+        },
+        {
+            "agent": 2,
+            "patience": 0.7174111008644104,
+            "confidence": 0.3077649772167206,
+            "caution": 0.8790557384490967,
+            "attachment": 0.6175161004066467,
+            "strategic": 0.6113786101341248
+        },
+        {
+            "agent": 3,
+            "patience": 0.7865687012672424,
+            "confidence": 0.5386214256286621,
+            "caution": 0.22976316511631013,
+            "attachment": 0.2196098417043686,
+            "strategic": 0.30640777945518496
+        }
+    ],
+    "plans": [
+        {
+            "agent": 0,
+            "revision": 0,
+            "nextDecision": 10000.0,
+            "decision": {
+                "intent": "Explore",
+                "targetGoal": "",
+                "proposedAction": "search:0",
+                "dialogueIntent": "",
+                "provider": "rule",
+                "reasoningTags": [],
+                "riskLevel": 0.0,
+                "confidence": 0.800000011920929,
+                "utility": 0.0
+            },
+            "route": {
+                "group": 1,
+                "floor": 1,
+                "index": 3,
+                "target": {
+                    "x": -20.0,
+                    "y": -12.0
+                },
+                "points": [
+                    {
+                        "x": 12.0,
+                        "y": 12.0
+                    },
+                    {
+                        "x": 10.0,
+                        "y": 6.0
+                    },
+                    {
+                        "x": 8.0,
+                        "y": -6.0
+                    },
+                    {
+                        "x": -8.0,
+                        "y": 0.0
+                    },
+                    {
+                        "x": -8.0,
+                        "y": 6.0
+                    },
+                    {
+                        "x": -20.0,
+                        "y": 2.0
+                    },
+                    {
+                        "x": -20.0,
+                        "y": -12.0
+                    }
+                ]
+            },
+            "knownRooms": [
+                2,
+                3,
+                1,
+                5
+            ],
+            "discussionLeft": 0.0,
+            "site": "search:5",
+            "workLeft": 0.0,
+            "siteVisited": false,
+            "visited": [
+                "search:2",
+                "search:3",
+                "search:1",
+                "search:5"
+            ]
+        },
+        {
+            "agent": 1,
+            "revision": 0,
+            "nextDecision": 0.0,
+            "decision": {
+                "intent": "Fight",
+                "targetGoal": "",
+                "proposedAction": "",
+                "dialogueIntent": "",
+                "provider": "rule",
+                "reasoningTags": [],
+                "riskLevel": 0.0,
+                "confidence": 0.800000011920929,
+                "utility": 0.0
+            },
+            "route": {
+                "group": -1,
+                "floor": 0,
+                "index": 0,
+                "target": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "points": []
+            },
+            "knownRooms": [],
+            "discussionLeft": 0.0,
+            "site": "",
+            "workLeft": 0.0,
+            "siteVisited": false,
+            "visited": []
+        },
+        {
+            "agent": 2,
+            "revision": 0,
+            "nextDecision": 0.0,
+            "decision": {
+                "intent": "Fight",
+                "targetGoal": "",
+                "proposedAction": "",
+                "dialogueIntent": "",
+                "provider": "rule",
+                "reasoningTags": [],
+                "riskLevel": 0.0,
+                "confidence": 0.800000011920929,
+                "utility": 0.0
+            },
+            "route": {
+                "group": -1,
+                "floor": 0,
+                "index": 0,
+                "target": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "points": []
+            },
+            "knownRooms": [],
+            "discussionLeft": 0.0,
+            "site": "",
+            "workLeft": 0.0,
+            "siteVisited": false,
+            "visited": []
+        },
+        {
+            "agent": 3,
+            "revision": 0,
+            "nextDecision": 0.0,
+            "decision": {
+                "intent": "Fight",
+                "targetGoal": "",
+                "proposedAction": "",
+                "dialogueIntent": "",
+                "provider": "rule",
+                "reasoningTags": [],
+                "riskLevel": 0.0,
+                "confidence": 0.800000011920929,
+                "utility": 0.0
+            },
+            "route": {
+                "group": -1,
+                "floor": 0,
+                "index": 0,
+                "target": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "points": []
+            },
+            "knownRooms": [],
+            "discussionLeft": 0.0,
+            "site": "",
+            "workLeft": 0.0,
+            "siteVisited": false,
+            "visited": []
+        }
+    ],
+    "memories": [
+        {
+            "agent": 0,
+            "entries": [
+                {
+                    "key": "victory:1",
+                    "text": "@p2.memory.victory:{\"values\":[\"1\"]}",
+                    "scope": 1,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 1.0,
+                    "age": 64.5995864868164,
+                    "importance": 0.800000011920929,
+                    "emotionalWeight": 0.0
+                },
+                {
+                    "key": "bond:1:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:2:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:3:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "death",
+                    "text": "@cause.collapse:{\"values\":[]}",
+                    "scope": 1,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 1.0,
+                    "age": 0.0,
+                    "importance": 1.0,
+                    "emotionalWeight": 1.0
+                }
+            ],
+            "salient": [
+                {
+                    "run": 1,
+                    "actor": 1,
+                    "subject": 0,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 2,
+                    "subject": 0,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 3,
+                    "subject": 0,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}"
+                }
+            ]
+        },
+        {
+            "agent": 1,
+            "entries": [
+                {
+                    "key": "victory:1",
+                    "text": "@p2.memory.victory:{\"values\":[\"1\"]}",
+                    "scope": 1,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 1.0,
+                    "age": 64.5995864868164,
+                    "importance": 0.800000011920929,
+                    "emotionalWeight": 0.0
+                },
+                {
+                    "key": "bond:0:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:2:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:3:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                }
+            ],
+            "salient": [
+                {
+                    "run": 1,
+                    "actor": 0,
+                    "subject": 1,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 2,
+                    "subject": 1,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 3,
+                    "subject": 1,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}"
+                }
+            ]
+        },
+        {
+            "agent": 2,
+            "entries": [
+                {
+                    "key": "victory:1",
+                    "text": "@p2.memory.victory:{\"values\":[\"1\"]}",
+                    "scope": 1,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 1.0,
+                    "age": 64.5995864868164,
+                    "importance": 0.800000011920929,
+                    "emotionalWeight": 0.0
+                },
+                {
+                    "key": "bond:0:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:1:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:3:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                }
+            ],
+            "salient": [
+                {
+                    "run": 1,
+                    "actor": 0,
+                    "subject": 2,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 1,
+                    "subject": 2,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 3,
+                    "subject": 2,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}"
+                }
+            ]
+        },
+        {
+            "agent": 3,
+            "entries": [
+                {
+                    "key": "victory:1",
+                    "text": "@p2.memory.victory:{\"values\":[\"1\"]}",
+                    "scope": 1,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 1.0,
+                    "age": 64.5995864868164,
+                    "importance": 0.800000011920929,
+                    "emotionalWeight": 0.0
+                },
+                {
+                    "key": "bond:0:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:1:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                },
+                {
+                    "key": "bond:2:TacticSuccess",
+                    "text": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}",
+                    "scope": 2,
+                    "source": 0,
+                    "run": 1,
+                    "informant": -1,
+                    "confidence": 0.8999999761581421,
+                    "age": 64.5995864868164,
+                    "importance": 0.699999988079071,
+                    "emotionalWeight": 0.25
+                }
+            ],
+            "salient": [
+                {
+                    "run": 1,
+                    "actor": 0,
+                    "subject": 3,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 1,
+                    "subject": 3,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}"
+                },
+                {
+                    "run": 1,
+                    "actor": 2,
+                    "subject": 3,
+                    "time": 0.0,
+                    "magnitude": 0.5,
+                    "kind": 4,
+                    "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}"
+                }
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "run": 1,
+            "actor": 1,
+            "subject": 0,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 2,
+            "subject": 0,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 3,
+            "subject": 0,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 0,
+            "subject": 1,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 2,
+            "subject": 1,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 3,
+            "subject": 1,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 0,
+            "subject": 2,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 1,
+            "subject": 2,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 3,
+            "subject": 2,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"SERA\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 0,
+            "subject": 3,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"KAEL\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 1,
+            "subject": 3,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"LYRA\"]}"
+        },
+        {
+            "run": 1,
+            "actor": 2,
+            "subject": 3,
+            "time": 0.0,
+            "magnitude": 0.5,
+            "kind": 4,
+            "evidence": "@p2.relationship.TacticSuccess:{\"values\":[\"ORIN\"]}"
+        }
+    ],
+    "replay": [],
+    "completedAgents": [],
+    "splits": 0,
+    "rejoins": 0,
+    "floorsCleared": 1,
+    "telemetry": [],
+    "revivedAgents": []
+}

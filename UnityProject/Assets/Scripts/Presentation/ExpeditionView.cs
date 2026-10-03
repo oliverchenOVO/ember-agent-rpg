@@ -9,21 +9,22 @@ namespace Ember.Presentation
     {
         Transform restFacilities;string restFacilityDefinition="";
         readonly System.Collections.Generic.Dictionary<string,Transform> restFacilityObjects=new System.Collections.Generic.Dictionary<string,Transform>();
+        public int RefugeFacilityMeshes(string id)=>restFacilityObjects.TryGetValue(id,out var t)&&t.gameObject.activeInHierarchy?t.GetComponentsInChildren<MeshFilter>(true).Length:0;
         void SetRestFacilities(TowerContent data,GroupState group)
         {
-            var rest=data.Rest(group.restId);
-            if(restFacilities==null||restFacilityDefinition!=rest.id)
+            var rest=data.Rest(group.restId);string facilityKey=rest.id+":"+group.refugeVersion+":"+group.refugeVariant;
+            if(restFacilities==null||restFacilityDefinition!=facilityKey)
             {
                 if(restFacilities!=null){restFacilities.gameObject.SetActive(false);Object.Destroy(restFacilities.gameObject);}
-                restFacilityObjects.Clear();restFacilityDefinition=rest.id;
+                restFacilityObjects.Clear();restFacilityDefinition=facilityKey;
                 restFacilities=new GameObject("Available refuge facilities").transform;restFacilities.SetParent(refuge,false);
-                foreach(var site in rest.sites)
+                foreach(var site in group.refugeVersion==1?RefugeMap.For(group).Sites(rest,group):rest.sites)
                 {
                     var station=new GameObject("Rest facility / "+site.id).transform;station.SetParent(restFacilities,false);station.localPosition=new Vector3(site.x,0,site.z);
-                    Part("Facility",PrimitiveType.Cube,station,new Vector3(0,.35f,0),site.effect=="Heal"?new Vector3(1.8f,.7f,1.4f):new Vector3(1.1f,.7f,1),stone);
+                    if(group.refugeVersion==1)ModelRefugeFacility(station,site);else {Part("Facility",PrimitiveType.Cube,station,new Vector3(0,.35f,0),site.effect=="Heal"?new Vector3(1.8f,.7f,1.4f):new Vector3(1.1f,.7f,1),stone);
                     Ring("Interaction sigil",station,new Vector3(0,.8f,0),.65f,.06f,site.risk>.1f?red:glow);
                     if(site.effect=="Read"||site.effect=="Intel")Part("Book",PrimitiveType.Cube,station,new Vector3(0,.85f,0),new Vector3(.8f,.15f,.6f),brass,new Vector3(10,0,0));
-                    DressFacility(station,site);restFacilityObjects.Add(site.id,station);
+                    DressFacility(station,site);}restFacilityObjects.Add(site.id,station);
                 }
             }
             restFacilities.gameObject.SetActive(group.phase==Phase.Rest);
@@ -33,7 +34,7 @@ namespace Ember.Presentation
         readonly System.Collections.Generic.Dictionary<string,Transform> variantCache=new System.Collections.Generic.Dictionary<string,Transform>();
         public void SetExpedition(TowerContent data,GroupState group)
         {
-            SetRestFacilities(data,group);observedGroup=group;observedRestLimit=data.Rest(group.restId).collapseAfter;observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
+            EnsureArtMaterials();SetRestFacilities(data,group);observedGroup=group;observedRestLimit=RefugeMap.Limit(data.Rest(group.restId),group);observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
             if(visualTheme!=f.theme)
             {
                 visualTheme=f.theme;var color=new Color(profile.r,profile.g,profile.b);
@@ -90,7 +91,7 @@ namespace Ember.Presentation
                 if(whiteHot==null)whiteHot=Mat(new Color(1,.85f,.55f),.4f,.7f,1.2f);
                 ShowCombatCues(group);
             }
-            BindBossArt(data,group);BindEnvironmentArt(data,group);BindVisualEventStream();
+            BindBossArt(data,group);BindEnvironmentArt(data,group);BindVisualEventStream();BindRefugeArt(data,group);
         }
     }
 }

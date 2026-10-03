@@ -2156,6 +2156,82 @@
     {
       "key": "art.live",
       "value": "Live battle presentation"
+    },
+    {
+      "key": "p2.goal.Explore",
+      "value": "Search buildings"
+    },
+    {
+      "key": "refuge.search",
+      "value": "Search room"
+    },
+    {
+      "key": "refuge.found_empty",
+      "value": "I searched building {0}; there are no usable facilities."
+    },
+    {
+      "key": "refuge.found",
+      "value": "I searched building {0} and found {1} usable facilities."
+    },
+    {
+      "key": "refuge.discussion",
+      "value": "I will spend {0}s discussing the next action."
+    },
+    {
+      "key": "refuge.follow",
+      "value": "Follow Agent"
+    },
+    {
+      "key": "refuge.overview",
+      "value": "Area overview"
+    },
+    {
+      "key": "refuge.budget",
+      "value": "Explored {0} / 6 buildings · Estimated exit travel: {1}s"
+    },
+    {
+      "key": "refuge.discussing",
+      "value": "Discussing; the collapse countdown keeps running."
+    },
+    {
+      "key": "refuge.searching",
+      "value": "Searching the room for usable facilities."
+    },
+    {
+      "key": "refuge.navigation",
+      "value": "Following a walkable route around walls and rubble."
+    },
+    {
+      "key": "refuge.map",
+      "value": "Map · Green: explored"
+    },
+    {
+      "key": "refuge.facility",
+      "value": "{0} · Work {1}s · Materials {2}\nIncident risk {3}%"
+    },
+    {
+      "key": "refuge.gallery",
+      "value": "Explorable refuge"
+    },
+    {
+      "key": "refuge.scene.forest",
+      "value": "Forest settlement"
+    },
+    {
+      "key": "refuge.scene.ice",
+      "value": "Frozen outpost"
+    },
+    {
+      "key": "refuge.scene.castle",
+      "value": "Ruined quarter"
+    },
+    {
+      "key": "refuge.scene.abyss",
+      "value": "Abyss refuge"
+    },
+    {
+      "key": "refuge.scene.foundry",
+      "value": "Foundry service district"
     }
   ]
 }

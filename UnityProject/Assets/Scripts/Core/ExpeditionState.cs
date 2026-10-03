@@ -12,11 +12,13 @@ namespace Ember.Core.Phase2
         public string strategy="balanced",restId="crossing";public float phaseClock,travelLeft;
         public bool completed,terminal;public BossRuntime boss;
         public List<string> claimedLoot=new List<string>();
-        public bool restSitesRolled;public List<string> availableRestSites=new List<string>();
+        public int refugeVersion,refugeVariant;public bool restSitesRolled;public List<string> availableRestSites=new List<string>();
     }
+    [Serializable] public class RefugeRoute {public int group=-1,floor,index;public Vector2 target;public List<Vector2> points=new List<Vector2>();}
     [Serializable] public class AgentPlan
     {
         public int agent,revision;public float nextDecision;public HighDecision decision=new HighDecision();
+        public RefugeRoute route=new RefugeRoute();public List<int> knownRooms=new List<int>();public float discussionLeft;
         public string site="";public float workLeft;public bool siteVisited;public List<string> visited=new List<string>();
     }
     [Serializable] public class ExpeditionState
@@ -55,8 +57,11 @@ namespace Ember.Core.Phase2
             bool Finite(float v)=>!float.IsNaN(v)&&!float.IsInfinity(v);
             if(s.groups==null||s.groups.Count<1||s.groups.Count>4||s.groups.Select(g=>g.id).Distinct().Count()!=s.groups.Count||s.groups.SelectMany(g=>g.members).OrderBy(x=>x).SequenceEqual(new[]{0,1,2,3})==false)throw new InvalidDataException("Invalid group ownership");
             if(s.profiles==null||s.plans==null||s.memories==null||s.relationships==null||s.replay==null||s.completedAgents==null||s.completedAgents.Distinct().Count()!=s.completedAgents.Count||s.completedAgents.Any(id=>id<0||id>3))throw new InvalidDataException("Invalid cognition state");
+            foreach(var p in s.plans)
+            {if(p.knownRooms==null)p.knownRooms=new List<int>();if(p.route==null)p.route=new RefugeRoute();if(p.route.points==null)p.route.points=new List<Vector2>();if(p.knownRooms.Count>6||p.knownRooms.Any(i=>i<0||i>5)||!Finite(p.discussionLeft)||p.discussionLeft<0||!Finite(p.route.target.x)||!Finite(p.route.target.y)||p.route.points.Count>1024||p.route.index<0||p.route.index>p.route.points.Count||p.route.points.Any(v=>!Finite(v.x)||!Finite(v.y)))throw new InvalidDataException("Invalid refuge plan");}
             foreach(var g in s.groups)
             {
+                if(g.refugeVersion<0||g.refugeVersion>1||g.refugeVariant<0||g.refugeVariant>5)throw new InvalidDataException("Invalid refuge layout version");
                 if(g.boss!=null){if(g.boss.skillEvents==null)g.boss.skillEvents=new List<SkillPresentation>();if(g.boss.presentationEvents==null)g.boss.presentationEvents=new List<BossPresentationEvent>();if(g.boss.skillEvents.Count>64||g.boss.presentationEvents.Count>64)throw new InvalidDataException("Unbounded presentation events");}
                 if(g.availableRestSites==null)g.availableRestSites=new List<string>();
                 if(g.restSitesRolled&&(g.availableRestSites.Distinct().Count()!=g.availableRestSites.Count||g.availableRestSites.Any(id=>data.Rest(g.restId)==null||!data.Rest(g.restId).sites.Any(site=>site.id==id))))throw new InvalidDataException("Invalid refuge facility layout");

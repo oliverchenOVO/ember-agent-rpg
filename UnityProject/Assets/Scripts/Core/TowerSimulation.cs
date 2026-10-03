@@ -43,7 +43,7 @@ namespace Ember.Core.Phase2
                     if(!a.alive||a.escaped||State.GroupOf(a.id)!=g)continue;
                     a.attackTimer=Mathf.Max(0,a.attackTimer-dt);a.guard=Mathf.Max(0,a.guard-dt*.04f);a.enchant=Mathf.Max(0,a.enchant-dt);
                     a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+(a.weapon.affix=="Recovery"?.6f:0)+(Rules.phaseWindows&&Rules.windowManaRecovery&&g.phase==Phase.Battle&&g.boss.recoveryWindow>0?1.5f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
-                    var plan=State.Plan(a.id);if(plan.nextDecision<=w.clock&&plan.workLeft<=0)Decide(a,g,plan);
+                    var plan=State.Plan(a.id);if(plan.nextDecision<=w.clock&&plan.workLeft<=0&&plan.discussionLeft<=0)Decide(a,g,plan);
                     if(!State.groups.Contains(g)||State.GroupOf(a.id)!=g)continue;
                     if(g.phase==Phase.Battle)ExecuteCombat(a,g,dt);else {RecordRestTime(a,g,dt);ExecuteRest(a,g,dt);}
                 }
@@ -59,7 +59,8 @@ namespace Ember.Core.Phase2
         {
             var members=State.Members(g).Where(v=>v.alive&&!v.escaped).ToList();float attachment=members.Where(v=>v.id!=a.id).Select(v=>a.Bond(v.id)?.Attachment??0).DefaultIfEmpty(.1f).Average();
             var memory=State.Memory(a.id);var r=Data.Rest(g.restId);var knowledge=memory.entries.Where(e=>e.key=="intel:"+g.floor).FirstOrDefault();
-            return new AgentDecisionContext{run=State.world.run,agent=a.id,group=g.id,floor=g.floor,revision=State.Plan(a.id).revision,phase=g.phase,hp=a.hp/a.MaxHp,mp=a.mp/a.MaxMp,x=a.x,z=a.z,restOptions=r.AvailableSites(g),remaining=r.collapseAfter-g.phaseClock,escapeSeconds=(10-a.x)/Simulation.MoveSpeed,taskSeconds=State.Plan(a.id).workLeft,materials=a.materials,inventoryCount=a.inventory.Count,inventoryValue=a.weapon.quality,readBook=a.readBook,canForge=a.materials>=3&&!State.Plan(a.id).visited.Contains("forge"),personality=a.personality,profile=State.Profile(a.id),attachment=attachment,fear=a.bonds.Select(b=>b.fear).DefaultIfEmpty(0).Average(),bossHealth=g.boss.visible.hp/g.boss.visible.maxHp,intelConfidence=knowledge!=null?knowledge.confidence/(1+knowledge.age/600):0,bookConfidence=memory.entries.Where(e=>e.source==KnowledgeSource.BookOfDead).Select(e=>e.confidence/(1+e.age/600)).DefaultIfEmpty(0).Average(),knowledge=memory.entries.OrderByDescending(e=>e.importance).Take(8).ToArray(),relationshipEvidence=memory.salient.Take(4).ToArray(),intel=memory.entries.Where(e=>e.key=="intel:"+g.floor).Select(e=>e.key).ToArray(),memorySources=memory.entries.Take(8).Select(e=>e.source.ToString()).ToArray(),relationshipReasons=memory.salient.Take(4).Select(e=>e.kind.ToString()).ToArray(),allowedSites=r.AvailableSites(g).Where(s=>s.id=="bed"?State.Plan(a.id).visited.Count(v=>v==s.id)<2:!State.Plan(a.id).visited.Contains(s.id)).Select(s=>s.id).ToArray(),livingMembers=members.Select(v=>v.id).ToArray(),canRejoin=RejoinCandidate(g)!=null};
+            var options=g.phase==Phase.Rest?RestOptions(a,g,true):Array.Empty<RestSite>();
+            return new AgentDecisionContext{spatialRefuge=g.phase==Phase.Rest&&g.refugeVersion==1,run=State.world.run,agent=a.id,group=g.id,floor=g.floor,revision=State.Plan(a.id).revision,phase=g.phase,hp=a.hp/a.MaxHp,mp=a.mp/a.MaxMp,x=a.x,z=a.z,restOptions=options,remaining=RefugeMap.Limit(r,g)-g.phaseClock,escapeSeconds=g.phase==Phase.Rest&&g.refugeVersion==1?RefugeMap.For(g).Distance(new Vector2(a.x,a.z),RefugeMap.Exit)/Simulation.MoveSpeed:(10-a.x)/Simulation.MoveSpeed,taskSeconds=State.Plan(a.id).workLeft,materials=a.materials,inventoryCount=a.inventory.Count,inventoryValue=a.weapon.quality,readBook=a.readBook,canForge=a.materials>=3&&!State.Plan(a.id).visited.Contains("forge"),personality=a.personality,profile=State.Profile(a.id),attachment=attachment,fear=a.bonds.Select(b=>b.fear).DefaultIfEmpty(0).Average(),bossHealth=g.boss.visible.hp/g.boss.visible.maxHp,intelConfidence=knowledge!=null?knowledge.confidence/(1+knowledge.age/600):0,bookConfidence=memory.entries.Where(e=>e.source==KnowledgeSource.BookOfDead).Select(e=>e.confidence/(1+e.age/600)).DefaultIfEmpty(0).Average(),knowledge=memory.entries.OrderByDescending(e=>e.importance).Take(8).ToArray(),relationshipEvidence=memory.salient.Take(4).ToArray(),intel=memory.entries.Where(e=>e.key=="intel:"+g.floor).Select(e=>e.key).ToArray(),memorySources=memory.entries.Take(8).Select(e=>e.source.ToString()).ToArray(),relationshipReasons=memory.salient.Take(4).Select(e=>e.kind.ToString()).ToArray(),allowedSites=options.Where(s=>s.id=="bed"?State.Plan(a.id).visited.Count(v=>v==s.id)<2:!State.Plan(a.id).visited.Contains(s.id)).Select(s=>s.id).ToArray(),livingMembers=members.Select(v=>v.id).ToArray(),canRejoin=RejoinCandidate(g)!=null};
         }
         void Decide(Agent a,GroupState g,AgentPlan p)
         {
@@ -86,6 +87,8 @@ namespace Ember.Core.Phase2
         void ApplyDecision(Agent a,GroupState g,AgentPlan p,HighDecision d)
         {
             if(p.decision.intent!=d.intent){State.world.Say(a.id,Loc.Token("p2.event.goal",Loc.Token("p2.goal."+d.intent)),"decision");}
+            if(g.phase==Phase.Rest&&g.refugeVersion==1&&(p.decision.intent!=d.intent||p.decision.proposedAction!=d.proposedAction))
+            {p.discussionLeft=1.2f+a.personality.empathy*1.2f+State.Profile(a.id).patience*1.2f;State.world.Say(a.id,Loc.Token("refuge.discussion",p.discussionLeft.ToString("F1")),"social");}
             p.decision=d;
             State.Memory(a.id).Add(new Knowledge{key="current_goal",text=Loc.Token("p2.goal."+d.intent),scope=MemoryScope.Working,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=d.confidence,importance=.2f,emotionalWeight=d.riskLevel});
             if(d.intent=="LeaveParty"&&g.phase==Phase.Rest&&p.workLeft<=0&&!p.visited.Contains("split"))
@@ -101,11 +104,11 @@ namespace Ember.Core.Phase2
             var row=Telemetry(g);if(row!=null)row.splits++;
             State.groups.Add(newGroup);State.splits++;State.world.Say(-1,Loc.Token("p2.event.split",g.id,newGroup.id),"party");return newGroup;
         }
-        GroupState RejoinCandidate(GroupState g)=>State.groups.Find(o=>o!=g&&!o.terminal&&!g.terminal&&o.floor==g.floor&&o.phase==Phase.Rest&&g.phase==Phase.Rest&&o.travelLeft==0&&g.travelLeft==0&&State.Members(o).Concat(State.Members(g)).All(a=>!a.escaped&&State.Plan(a.id).workLeft<=0));
+        GroupState RejoinCandidate(GroupState g)=>State.groups.Find(o=>o!=g&&!o.terminal&&!g.terminal&&o.floor==g.floor&&o.restId==g.restId&&o.refugeVersion==g.refugeVersion&&o.refugeVariant==g.refugeVariant&&o.phase==Phase.Rest&&g.phase==Phase.Rest&&o.travelLeft==0&&g.travelLeft==0&&State.Members(o).Concat(State.Members(g)).All(a=>!a.escaped&&State.Plan(a.id).workLeft<=0));
         public bool Rejoin(int first,int second)
         {
             var a=State.groups.Find(g=>g.id==first);var b=State.groups.Find(g=>g.id==second);
-            if(a==null||b==null||a==b||a.floor!=b.floor||a.terminal||b.terminal||a.phase!=Phase.Rest||b.phase!=Phase.Rest||a.travelLeft>0||b.travelLeft>0||State.Members(a).Concat(State.Members(b)).Any(v=>v.escaped||State.Plan(v.id).workLeft>0))return false;
+            if(a==null||b==null||a==b||a.floor!=b.floor||a.restId!=b.restId||a.refugeVersion!=b.refugeVersion||a.refugeVariant!=b.refugeVariant||a.terminal||b.terminal||a.phase!=Phase.Rest||b.phase!=Phase.Rest||a.travelLeft>0||b.travelLeft>0||State.Members(a).Concat(State.Members(b)).Any(v=>v.escaped||State.Plan(v.id).workLeft>0))return false;
             foreach(var id in b.members)foreach(var existing in State.Members(a))if(existing.alive&&State.world.agents[id].alive)Relate(existing,State.world.agents[id],RelationshipEventKind.Rejoined);
             var row=Telemetry(a);if(row!=null)row.rejoins++;
             a.members.AddRange(b.members);a.phaseClock=Mathf.Max(a.phaseClock,b.phaseClock);State.groups.Remove(b);State.rejoins++;State.world.Say(-1,Loc.Token("p2.event.rejoin",a.id),"party");return true;
@@ -122,7 +125,7 @@ namespace Ember.Core.Phase2
         }
         public void Die(Agent a,string cause)
         {
-            if(!a.alive)return;Measure(a,"death",1,cause);a.alive=false;a.hp=0;a.taskTimer=0;a.task="";State.Plan(a.id).workLeft=0;
+            if(!a.alive)return;Measure(a,"death",1,cause);a.alive=false;a.hp=0;a.taskTimer=0;a.task="";State.Plan(a.id).workLeft=0;State.Plan(a.id).discussionLeft=0;
             State.world.Say(a.id,Loc.Token("event.death",cause),"death");WriteBook(a,cause);
             State.Memory(a.id).Add(new Knowledge{key="death",text=cause,scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=1,emotionalWeight=1});
             foreach(var other in State.Members(State.GroupOf(a.id)).Where(v=>v.alive))Relate(other,a,RelationshipEventKind.Death);

@@ -1,0 +1,195 @@
+{
+  "scope": "bounded refuge exploration/model/navigation checks; no balance or soak certification",
+  "runtime_hash": "9c8076a89b5b508cfdbb27ba0ca6ae83c213cdd3fdca3e72dbe70dbf27bc63b8",
+  "localization_keys": 558,
+  "glyphs": 849,
+  "save_replays": 7,
+  "navigation_variants": 6,
+  "rooms": 6,
+  "area": [
+    60,
+    40
+  ],
+  "autonomous_checks": [
+    "seed=1729 / ticks=454 / escaped=4 / dead=0",
+    "seed=42 / ticks=447 / escaped=4 / dead=0"
+  ],
+  "oversearch_fixture": "rooms=4 / elapsed=64.59959 / died=True",
+  "players": [
+    {
+      "label": "refuge-gallery-dev-zh-final5",
+      "scenarios": 23,
+      "seconds": 30.6463783,
+      "layout_issues": 0,
+      "JobTempAlloc_messages": 0,
+      "native_status": "none observed in this bounded run"
+    },
+    {
+      "label": "refuge-gallery-dev-en-final2",
+      "scenarios": 23,
+      "seconds": 27.5411577,
+      "layout_issues": 0,
+      "JobTempAlloc_messages": 0,
+      "native_status": "none observed in this bounded run"
+    },
+    {
+      "label": "refuge-gallery-release-final",
+      "scenarios": 23,
+      "seconds": 29.7342046,
+      "layout_issues": 0,
+      "JobTempAlloc_messages": 0,
+      "native_status": "none observed in this bounded run"
+    },
+    {
+      "label": "refuge-codex-release-final",
+      "scenarios": 13,
+      "seconds": 24.8372182,
+      "layout_issues": 0,
+      "JobTempAlloc_messages": 0,
+      "native_status": "none observed in this bounded run"
+    }
+  ],
+  "balance_gate": "NOT_RUN; historical FAIL unchanged",
+  "5000_seed": "INCOMPLETE for this candidate",
+  "120_minute_soak": "INCOMPLETE for this candidate",
+  "gameplay": {
+    "configured_seconds": 65,
+    "completion": "elapsed=66.01169; rows=6336; runs=1; maintenance=1",
+    "JobTempAlloc_messages": 0,
+    "checkpoint_groups": [
+      {
+        "id": 1,
+        "floor": 1,
+        "phase": 1,
+        "refuge_variant": 4,
+        "available_facilities": 7
+      },
+      {
+        "id": 2,
+        "floor": 2,
+        "phase": 0,
+        "refuge_variant": 4,
+        "available_facilities": 7
+      },
+      {
+        "id": 3,
+        "floor": 1,
+        "phase": 1,
+        "refuge_variant": 4,
+        "available_facilities": 7
+      }
+    ],
+    "checkpoint_room_counts": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "frame_ms_excluding_first_5s_and_cleanup": {
+      "samples": 5838,
+      "median": 6.5434,
+      "p95": 22.258,
+      "p99": 69.0992,
+      "max": 601.95,
+      "scope": "one bounded run; spikes remain; no performance certification"
+    }
+  },
+  "retained_failed_attempts": [
+    {
+      "label": "refuge-build-dev-01",
+      "result": {
+        "method": "Ember.Editor.ProjectBuilder.BuildRefuge",
+        "elapsed": 261.2957924,
+        "utc": "2026-10-03T17:55:52.2564591Z",
+        "exitCode": -1,
+        "state": "FAILED",
+        "pid": 61188,
+        "stage": "COMPILE"
+      }
+    },
+    {
+      "label": "refuge-build-dev-02",
+      "result": {
+        "exitCode": 124,
+        "stage": "BUILD",
+        "utc": "2026-10-03T17:59:16.0061657Z",
+        "elapsed": 202.7662147,
+        "state": "FAILED",
+        "method": "Ember.Editor.ProjectBuilder.BuildRefuge",
+        "pid": 43908
+      }
+    },
+    {
+      "label": "refuge-build-dev-03",
+      "result": {
+        "elapsed": 335.2713835,
+        "exitCode": 124,
+        "pid": 55688,
+        "utc": "2026-10-03T18:05:16.8547628Z",
+        "state": "FAILED",
+        "stage": "BUILD",
+        "method": "Ember.Editor.ProjectBuilder.BuildRefuge"
+      }
+    },
+    {
+      "label": "refuge-gallery-dev-zh-final",
+      "result": {
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "exitCode": 125,
+        "pid": 61356,
+        "managedAssemblyHash": "8F7F4D3A9CF8ED9985AD372EC099319EE8E83BF1E645C7615914276811EF54CC",
+        "utc": "2026-10-03T18:17:20.3652758Z",
+        "configHash": "",
+        "logBytes": 4462,
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\RefugeExploration\\Development\\Ember.exe",
+        "reason": "startup/runtime exception",
+        "state": "FAILED",
+        "elapsed": 16.837799
+      }
+    },
+    {
+      "label": "refuge-gallery-dev-zh-final2",
+      "result": {
+        "elapsed": 90.3000666,
+        "exitCode": 124,
+        "pid": 38188,
+        "managedAssemblyHash": "35076DDCA014D795564B4B57397D0CF3476CAD7B8E838D014945681EE1A3DD0C",
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "utc": "2026-10-03T18:23:21.7706891Z",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\RefugeExploration\\Development\\Ember.exe",
+        "configHash": "",
+        "reason": "timeout",
+        "state": "FAILED"
+      }
+    },
+    {
+      "label": "refuge-validation-01",
+      "result": {
+        "utc": "2026-10-03T17:39:05.6471019Z",
+        "exitCode": 124,
+        "method": "Ember.Editor.RefugeValidation.Run",
+        "stage": "VALIDATION",
+        "elapsed": 187.1980428,
+        "state": "FAILED",
+        "pid": 25160
+      }
+    },
+    {
+      "label": "refuge-validation-02",
+      "result": {
+        "method": "Ember.Editor.RefugeValidation.Run",
+        "utc": "2026-10-03T17:48:07.1344132Z",
+        "pid": 66772,
+        "elapsed": 185.9946427,
+        "exitCode": 124,
+        "state": "FAILED",
+        "stage": "VALIDATION"
+      }
+    }
+  ],
+  "manual_review": {
+    "contact_sheet": "refuge-gallery-dev-zh-final5/refuge-contact-sheet.jpg",
+    "scope": "23 thumbnails plus selected full-size model/environment/HUD/collapse images; remaining full-size images automated only"
+  },
+  "presentation_source_hash": "49d519e5eae3a634563825ed4e7f114bfb9e9811b7ee60c93942c81165f95cfd"
+}

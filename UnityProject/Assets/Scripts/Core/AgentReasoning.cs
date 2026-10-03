@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Ember.Core.Phase2
 {
-    public enum Goal { Fight, Support, Recover, Forge, Intel, ReadBook, Loot, Exit, Rescue, LeaveParty, Rejoin }
+    public enum Goal { Fight, Support, Recover, Forge, Intel, ReadBook, Loot, Exit, Rescue, LeaveParty, Rejoin, Explore }
     [Serializable] public class PersonalityProfile
     {
         public int agent; public float patience=.5f, confidence=.5f, caution=.5f, attachment=.5f, strategic=.5f;
@@ -22,7 +22,7 @@ namespace Ember.Core.Phase2
     {
         public int run,agent,group,floor,revision; public Phase phase;
         public float hp,mp,x,z,remaining,escapeSeconds,taskSeconds,fear,attachment,inventoryValue,bossHealth,intelConfidence,bookConfidence;
-        public int materials,inventoryCount; public bool readBook,canForge,canRejoin;
+        public int materials,inventoryCount; public bool readBook,canForge,canRejoin,spatialRefuge;
         public Personality personality; public PersonalityProfile profile;
         public string[] intel,memorySources,relationshipReasons,allowedSites; public int[] livingMembers;
         public Knowledge[] knowledge;public RelationshipEvent[] relationshipEvidence;
@@ -35,6 +35,7 @@ namespace Ember.Core.Phase2
             if(c.phase==Phase.Battle&&goal!=Goal.Fight&&goal!=Goal.Support&&goal!=Goal.Rescue)return false;
             if(c.phase==Phase.Rest&&goal==Goal.Fight)return false;
             if(goal==Goal.Forge&&!c.canForge||goal==Goal.Rejoin&&!c.canRejoin||goal==Goal.LeaveParty&&c.livingMembers.Length<2)return false;
+            if(d.proposedAction.StartsWith("search:")&&goal!=Goal.Explore)return false;
             return string.IsNullOrEmpty(d.proposedAction)||(c.allowedSites??Array.Empty<string>()).Contains(d.proposedAction);
         }
     }
@@ -45,7 +46,7 @@ namespace Ember.Core.Phase2
         public HighDecision Decide(AgentDecisionContext c)
         {
             var p=c.personality;var q=c.profile;var options=new List<HighDecision>();
-            void Add(Goal g,float score,string tag,string site=""){if(site!=""&&!c.allowedSites.Contains(site))return;if(site!=""&&c.restOptions!=null){var station=c.restOptions.First(s=>s.id==site);float total=Simulation.Distance(c.x,c.z,station.x,station.z)/Simulation.MoveSpeed+station.seconds+(10-station.x)/Simulation.MoveSpeed;if(total+2>c.remaining)score-=90+q.caution*30;score-=station.risk*(12+q.caution*12-p.risk*8);}options.Add(new HighDecision{intent=g.ToString(),targetGoal=g.ToString(),proposedAction=site,dialogueIntent=tag,reasoningTags=new[]{tag},riskLevel=p.risk,confidence=.8f,utility=score});}
+            void Add(Goal g,float score,string tag,string site=""){if(site!=""&&!c.allowedSites.Contains(site))return;if(site!=""&&c.restOptions!=null){var station=c.restOptions.First(s=>s.id==site);float total=c.spatialRefuge?station.travelSeconds+station.seconds+station.escapeSeconds+3:Simulation.Distance(c.x,c.z,station.x,station.z)/Simulation.MoveSpeed+station.seconds+(10-station.x)/Simulation.MoveSpeed;if(total+2>c.remaining)score-=90+q.caution*30;score-=station.risk*(12+q.caution*12-p.risk*8);}options.Add(new HighDecision{intent=g.ToString(),targetGoal=g.ToString(),proposedAction=site,dialogueIntent=tag,reasoningTags=new[]{tag},riskLevel=p.risk,confidence=.8f,utility=score});}
             if(c.phase==Phase.Battle)
             {
                 Add(Goal.Fight,25+p.aggression*18+q.confidence*8+q.strategic*(4+c.intelConfidence*8)-c.fear*8,"boss_strategy");
@@ -54,6 +55,7 @@ namespace Ember.Core.Phase2
             else
             {
                 float urgency=Mathf.Clamp01(1-(c.remaining-c.escapeSeconds-3)/12);
+                if(c.spatialRefuge)foreach(var room in c.restOptions.Where(s=>s.effect=="Search"))Add(Goal.Explore,26+p.curiosity*22+p.greed*10-urgency*(75-p.risk*22),"search_refuge",room.id);
                 Add(Goal.Exit,12+urgency*(90+q.caution*20-p.risk*12+c.bookConfidence*8),"collapse_budget");
                 Add(Goal.Recover,(1-c.hp)*75+(1-c.mp)*22+q.caution*8-urgency*70,"recover","bed");
                 Add(Goal.Recover,(1-c.hp)*65+q.caution*10-urgency*70,"recover","clinic");

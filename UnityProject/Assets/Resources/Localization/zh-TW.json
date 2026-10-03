@@ -2156,6 +2156,82 @@
     {
       "key": "art.live",
       "value": "實際戰鬥介面"
+    },
+    {
+      "key": "p2.goal.Explore",
+      "value": "搜尋建築"
+    },
+    {
+      "key": "refuge.search",
+      "value": "搜尋房間"
+    },
+    {
+      "key": "refuge.found_empty",
+      "value": "我搜尋了第 {0} 棟建築，裡面沒有可用設施。"
+    },
+    {
+      "key": "refuge.found",
+      "value": "我搜尋了第 {0} 棟建築，發現 {1} 個可用設施。"
+    },
+    {
+      "key": "refuge.discussion",
+      "value": "我會花 {0} 秒討論接下來的行動。"
+    },
+    {
+      "key": "refuge.follow",
+      "value": "跟隨角色"
+    },
+    {
+      "key": "refuge.overview",
+      "value": "全區地圖"
+    },
+    {
+      "key": "refuge.budget",
+      "value": "已探索 {0} / 6 棟建築 · 預估撤離需 {1} 秒"
+    },
+    {
+      "key": "refuge.discussing",
+      "value": "正在討論；坍塌倒數仍持續。"
+    },
+    {
+      "key": "refuge.searching",
+      "value": "正在搜尋房間，確認有哪些可用設施。"
+    },
+    {
+      "key": "refuge.navigation",
+      "value": "沿可通行路線移動；牆壁與瓦礫會擋路。"
+    },
+    {
+      "key": "refuge.map",
+      "value": "地圖 · 綠色：已探索"
+    },
+    {
+      "key": "refuge.facility",
+      "value": "{0} · 互動 {1} 秒 · 材料 {2}\n意外風險 {3}%"
+    },
+    {
+      "key": "refuge.gallery",
+      "value": "休息層探索場景"
+    },
+    {
+      "key": "refuge.scene.forest",
+      "value": "林間聚落"
+    },
+    {
+      "key": "refuge.scene.ice",
+      "value": "冰封驛站"
+    },
+    {
+      "key": "refuge.scene.castle",
+      "value": "斷垣城區"
+    },
+    {
+      "key": "refuge.scene.abyss",
+      "value": "深淵避難所"
+    },
+    {
+      "key": "refuge.scene.foundry",
+      "value": "工坊維修區"
     }
   ]
 }

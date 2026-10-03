@@ -11,6 +11,10 @@ namespace Ember.Presentation
             public string id,archetype;public float strike,dash;public Vector3 dashFrom,coreScale;public Quaternion coreRotation;
         }
         readonly Dictionary<string,ArtRig> artRigs=new Dictionary<string,ArtRig>();ArtRig artRig;
+        void EnsureArtMaterials()
+        {
+            if(bark==null){bark=Mat(new Color(.28f,.16f,.095f),.05f,.35f);bone=Mat(new Color(.8f,.75f,.58f),.12f,.45f);steel=Mat(new Color(.37f,.46f,.52f),.78f,.65f);iceArt=Mat(new Color(.35f,.77f,.95f),.35f,.8f,.65f);soulArt=Mat(new Color(.5f,.3f,.85f),.15f,.6f,1.3f);}
+        }
         Material bark,bone,steel,iceArt,soulArt;TowerContent artData;
         public int DetailedBossCount=>artRigs.Count;
         public int DetailedBossMeshCount=>artRig==null?0:artRig.root.GetComponentsInChildren<MeshFilter>(true).Length;
@@ -52,7 +56,7 @@ namespace Ember.Presentation
         }
         ArtRig BuildArtRig(BossDefinition def)
         {
-            if(bark==null){bark=Mat(new Color(.28f,.16f,.095f),.05f,.35f);bone=Mat(new Color(.8f,.75f,.58f),.12f,.45f);steel=Mat(new Color(.37f,.46f,.52f),.78f,.65f);iceArt=Mat(new Color(.35f,.77f,.95f),.35f,.8f,.65f);soulArt=Mat(new Color(.5f,.3f,.85f),.15f,.6f,1.3f);}
+            EnsureArtMaterials();
             var r=new ArtRig{root=Pivot("Detailed Boss / "+def.id,arena,Vector3.zero),id=def.id,archetype=def.archetype};
             if(def.archetype=="stoker"||def.archetype=="railjudge"||def.archetype=="weavemother"||def.archetype=="metronome"||def.archetype=="armillary")MachineSculpture(r);
             else if(def.id=="thornweaver")ThornSpiderSculpture(r);

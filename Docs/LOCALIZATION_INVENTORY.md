@@ -414,3 +414,30 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 | `p31.reason.mana` | Keep mana for a more valuable casting opportunity. | 保留魔力，等待更有價值的施法時機。 |
 | `p31.event.supplies` | Spent 1 material on a clinic supply kit for the next battle. | 花費 1 份材料補充診所藥包，準備下一場戰鬥。 |
 | `p31.skill.holy_hint` | Holy attacks also restore health; effective recovery costs up to 2 additional mana. | 聖光攻擊附帶恢復生命；有效恢復會額外消耗最多 2 點魔力。 |
+
+
+## 大型休息層追加（2026-10-04）
+
+所有新增觀察文字、搜尋與討論訊息使用相同雙語字串表，保留技術 ID。
+
+| Key | English | 繁體中文 |
+| --- | --- | --- |
+| `p2.goal.Explore` | Search buildings | 搜尋建築 |
+| `refuge.search` | Search room | 搜尋房間 |
+| `refuge.found_empty` | I searched building {0}; there are no usable facilities. | 我搜尋了第 {0} 棟建築，裡面沒有可用設施。 |
+| `refuge.found` | I searched building {0} and found {1} usable facilities. | 我搜尋了第 {0} 棟建築，發現 {1} 個可用設施。 |
+| `refuge.discussion` | I will spend {0}s discussing the next action. | 我會花 {0} 秒討論接下來的行動。 |
+| `refuge.follow` | Follow Agent | 跟隨角色 |
+| `refuge.overview` | Area overview | 全區地圖 |
+| `refuge.budget` | Explored {0} / 6 buildings · Estimated exit travel: {1}s | 已探索 {0} / 6 棟建築 · 預估撤離需 {1} 秒 |
+| `refuge.discussing` | Discussing; the collapse countdown keeps running. | 正在討論；坍塌倒數仍持續。 |
+| `refuge.searching` | Searching the room for usable facilities. | 正在搜尋房間，確認有哪些可用設施。 |
+| `refuge.navigation` | Following a walkable route around walls and rubble. | 沿可通行路線移動；牆壁與瓦礫會擋路。 |
+| `refuge.map` | Map · Green: explored | 地圖 · 綠色：已探索 |
+| `refuge.facility` | {0} · Work {1}s · Materials {2}<br>Incident risk {3}% | {0} · 互動 {1} 秒 · 材料 {2}<br>意外風險 {3}% |
+| `refuge.gallery` | Explorable refuge | 休息層探索場景 |
+| `refuge.scene.forest` | Forest settlement | 林間聚落 |
+| `refuge.scene.ice` | Frozen outpost | 冰封驛站 |
+| `refuge.scene.castle` | Ruined quarter | 斷垣城區 |
+| `refuge.scene.abyss` | Abyss refuge | 深淵避難所 |
+| `refuge.scene.foundry` | Foundry service district | 工坊維修區 |

@@ -41,7 +41,7 @@ namespace Ember.Presentation
             arena=new GameObject("01 / Rootcrown Amphitheatre").transform;arena.SetParent(world);
             refuge=new GameObject("Refuge / Ashen Crossing").transform;refuge.SetParent(world);
             var arenaParent=arena;arena=new GameObject("Rootcrown architecture").transform;arena.SetParent(arenaParent,false);MakeArena();baseArchitecture=arena;arena=arenaParent;
-            var restParent=refuge;refuge=new GameObject("Crossing architecture").transform;refuge.SetParent(restParent,false);MakeRefuge();baseRestArchitecture=refuge;refuge=restParent;MakeBoss();
+            var restParent=refuge;refuge=new GameObject("Crossing architecture").transform;refuge.SetParent(restParent,false);MakeRefuge();baseRestArchitecture=refuge;refuge=restParent;collapseFront.SetParent(refuge,true);collapseVoid.SetParent(refuge,true);MakeBoss();
             warning=Ring("Danger telegraph",arena,Vector3.zero,3.2f,.13f,red);
             shock=Ring("Impact pulse",arena,Vector3.zero,3.2f,.1f,glow);
             for(int i=0;i<4;i++) {bodies[i]=new GameObject("Witness "+i).transform;bodies[i].SetParent(world);auras[i]=Ring("Witness aura",bodies[i],new Vector3(0,.03f,0),.65f,.04f,robes[i]);}
@@ -176,7 +176,7 @@ namespace Ember.Presentation
             bool battle=w.phase==Phase.Battle||(w.phase==Phase.Ended&&w.boss.hp>0);arena.gameObject.SetActive(battle);refuge.gameObject.SetActive(!battle);angle+=orbit*dt*35;
             Vector3 focus=SpectatorFocus(w,orbit);
             var desired=focus+Quaternion.Euler(0,angle,0)*new Vector3(17,22,-27);
-            camera.transform.position=Vector3.Lerp(camera.transform.position,desired,camera.transform.position==Vector3.zero?1:dt*3);camera.transform.LookAt(focus+Vector3.up*.5f);
+            if(observedGroup==null||observedGroup.refugeVersion!=1||w.phase!=Phase.Rest){camera.transform.position=Vector3.Lerp(camera.transform.position,desired,camera.transform.position==Vector3.zero?1:dt*3);camera.transform.LookAt(focus+Vector3.up*.5f);}
             float t=Time.time;
             if(battle)
             {
@@ -212,9 +212,10 @@ namespace Ember.Presentation
             {
                 float collapse=-10+Mathf.Max(0,w.phaseClock-observedRestLimit)*2.3f;
                 collapseFront.gameObject.SetActive(collapse>-10);collapseVoid.gameObject.SetActive(collapse>-10);
-                collapseFront.localPosition=new Vector3(collapse,.35f,0);collapseVoid.localPosition=new Vector3((-10+collapse)*.5f,.01f,0);collapseVoid.localScale=new Vector3(Mathf.Max(.01f,collapse+10),.2f,11);
+                collapseFront.localScale=new Vector3(.16f,.7f,11);collapseFront.localPosition=new Vector3(collapse,.35f,0);collapseVoid.localPosition=new Vector3((-10+collapse)*.5f,.01f,0);collapseVoid.localScale=new Vector3(Mathf.Max(.01f,collapse+10),.2f,11);
                 if(collapse>-10) camera.backgroundColor=new Color(.12f,.04f,.04f);else camera.backgroundColor=new Color(.035f,.065f,.08f);
             }
+            UpdateRefugeArt(w,dt);
         }
         void AddEffect(Vector3 from,Vector3 to,Material material,int source)
         {
