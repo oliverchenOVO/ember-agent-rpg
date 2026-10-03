@@ -26,7 +26,7 @@ namespace Ember.Core.Phase2
                 var e=b.effects[i];e.left-=dt;
                 var source=State.world.agents[e.source];
                 if(e.agent==-1&&(e.kind=="Poison"||e.kind=="Burn"||e.kind=="Zone"||e.kind=="Summon")&&b.visible.hp>0&&(e.kind!="Zone"||e.radius<=0||Simulation.Distance(e.x,e.z,b.x,b.z)<e.radius))Deal(source,g,e.power*dt,e.element,false);
-                if(e.agent>=0&&e.kind=="Regen"){var a=State.world.agents[e.agent];if(a.alive&&!a.escaped)Heal(source,a,e.power*dt);}
+                if(e.agent>=0&&e.kind=="Regen"){var a=State.world.agents[e.agent];if(a.alive&&!a.escaped)Heal(source,a,e.power*dt,"Regen");}
                 if(e.left<=0)b.effects.RemoveAt(i);
             }
         }
@@ -35,9 +35,9 @@ namespace Ember.Core.Phase2
             if(Effect(g.boss,-1,"Vulnerable")!=null)power*=1.25f;
             float dealt=g.boss.Hit(Data,a,power,element,interrupt);Measure(a,"damage",dealt);return dealt;
         }
-        void Heal(Agent source,Agent target,float raw)
+        void Heal(Agent source,Agent target,float raw,string recovery="Heal")
         {
-            float amount=Mathf.Max(0,Mathf.Min(target.MaxHp-target.hp,raw));target.hp+=amount;source.healing+=amount;Measure(source,"heal",amount);if(source!=target&&amount>0)Relate(target,source,RelationshipEventKind.Healed,Mathf.Min(1,amount/40));
+            float amount=Mathf.Max(0,Mathf.Min(target.MaxHp-target.hp,raw));RecordRecovery(source,target,recovery,raw,amount);target.hp+=amount;source.healing+=amount;Measure(source,"heal",amount);if(source!=target&&amount>0)Relate(target,source,RelationshipEventKind.Healed,Mathf.Min(1,amount/40));
         }
         bool SpecialSkill(Agent a,GroupState g,SkillDef s,Agent ally)
         {
@@ -45,10 +45,10 @@ namespace Ember.Core.Phase2
             switch(s.id)
             {
                 case "revive":
-                    if(ally!=null&&!ally.alive&&!State.revivedAgents.Contains(ally.id)){ally.alive=true;ally.hp=ally.MaxHp*.35f;ally.escaped=false;State.revivedAgents.Add(ally.id);State.Plan(ally.id).nextDecision=0;Relate(ally,a,RelationshipEventKind.Rescued);}
-                    else if(ally!=null)Heal(a,ally,p);return true;
+                    if(ally!=null&&!ally.alive&&!State.revivedAgents.Contains(ally.id)){RecordRecovery(a,ally,"Revive",ally.MaxHp*.35f,ally.MaxHp*.35f);ally.alive=true;ally.hp=ally.MaxHp*.35f;ally.escaped=false;State.revivedAgents.Add(ally.id);State.Plan(ally.id).nextDecision=0;Relate(ally,a,RelationshipEventKind.Rescued);}
+                    else if(ally!=null)Heal(a,ally,p,s.id);return true;
                 case "cleanse":
-                    if(ally==null)ally=a;b.statuses.RemoveAll(e=>e.agent==ally.id);Heal(a,ally,p);return true;
+                    if(ally==null)ally=a;b.statuses.RemoveAll(e=>e.agent==ally.id);Heal(a,ally,p,s.id);return true;
                 case "ward":foreach(var id in g.members)if(State.world.agents[id].alive)ApplyEffect(b,id,a.id,"Shield",8,20+a.stats.wis*2);return true;
                 case "shield":ApplyEffect(b,a.id,a.id,"Shield",8,35+a.stats.intel*2);return true;
                 case "guard":a.guard=.65f;ApplyEffect(b,a.id,a.id,"Shield",5,15+a.stats.vit);return true;
@@ -63,9 +63,9 @@ namespace Ember.Core.Phase2
                 case "rain":case "lightning":b.adds=Mathf.Max(0,b.adds-3);Deal(a,g,p,s.id=="lightning"?"Arcane":"Physical",true);return true;
                 case "meteor":Deal(a,g,p,"Fire",true);ApplyEffect(b,-1,a.id,"Zone",4,8,"Fire");return true;
                 case "fireball":Deal(a,g,p,"Fire",true);ApplyEffect(b,-1,a.id,"Burn",4,4,"Fire");return true;
-                case "holy":Deal(a,g,p,"Light",true);Agent lowest=null;foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&(lowest==null||other.hp/other.MaxHp<lowest.hp/lowest.MaxHp))lowest=other;}if(lowest!=null)Heal(a,lowest,5+a.stats.wis*.3f);return true;
+                case "holy":Deal(a,g,p,"Light",true);Agent lowest=null;foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&(lowest==null||other.hp/other.MaxHp<lowest.hp/lowest.MaxHp))lowest=other;}if(lowest!=null)Heal(a,lowest,5+a.stats.wis*.3f,"HolyAttack");return true;
                 case "heal":if(ally!=null){Heal(a,ally,p);ApplyEffect(b,ally.id,a.id,"Regen",4,3);}return true;
-                case "groupheal":foreach(var id in g.members){var other=State.world.agents[id];if(other.alive){Heal(a,other,p*.65f);ApplyEffect(b,id,a.id,"Shield",3,12);}}return true;
+                case "groupheal":foreach(var id in g.members){var other=State.world.agents[id];if(other.alive){Heal(a,other,p*.65f,"GroupHeal");ApplyEffect(b,id,a.id,"Shield",3,12);}}return true;
                 case "shot":Deal(a,g,p*(Simulation.Distance(a.x,a.z,b.x,b.z)>5?1.15f:1),"Physical",false);ApplyEffect(b,a.id,a.id,"Haste",2,.3f);return true;
                 case "snipe":Deal(a,g,p*1.2f,"Physical",false);a.attackTimer=1.2f;return true;
                 case "slash":Deal(a,g,p,"Physical",true);b.x=Mathf.Clamp(b.x+(b.x-a.x)*.08f,-8,8);return true;

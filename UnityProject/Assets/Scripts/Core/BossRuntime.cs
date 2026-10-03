@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace Ember.Core.Phase2
 {
-    [Serializable] public class StatusState { public int agent; public string kind,element; public float left,power; }
+    [Serializable] public class StatusState { public int agent; public string kind,element,ability; public float left,power; }
     [Serializable] public class BossRuntime
     {
+        [NonSerialized] public Action<Agent,float,string,DamageSource,string> diagnosticDamage;
+        [NonSerialized] public Action<Agent,float> diagnosticDrain;
+        void Damage(Action<Agent,float,string> fallback,Agent a,float raw,string text,DamageSource source,string id="")
+        {if(diagnosticDamage!=null)diagnosticDamage(a,raw,text,source,id);else fallback(a,raw,text);}
         public string definition,ability=""; public BossState visible=new BossState();
         public int phase,casts,interrupts,adds,target=-1; public float elapsed,phaseTime,phaseStartHp,x,z=1,shield,survivalLeft,hazardLeft,hazardX,hazardZ;
         public bool transitioned,deathResolved; public List<StatusState> statuses=new List<StatusState>();
@@ -29,20 +33,20 @@ namespace Ember.Core.Phase2
             }
             var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter;
             if(p.dpsDeadline>0&&phaseTime>=p.dpsDeadline&&phaseStartHp-b.hp<b.maxHp*p.requiredDamage){b.enraged=true;shield=0;}
-            if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)hurt(a,def.ambientPressure*dt*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"));
+            if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,def.ambientPressure*dt*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"),DamageSource.Pressure);
             // Enrage escalation prevents indefinitely sustainable recovery-only strategies.
-            if(elapsed>240)foreach(var a in members)if(a.alive&&!a.escaped)hurt(a,a.MaxHp*dt*(elapsed-240)*.015f,Loc.Token("p3.cause.enrage"));
+            if(elapsed>240)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,a.MaxHp*dt*(elapsed-240)*.015f,Loc.Token("p3.cause.enrage"),DamageSource.Enrage);
             for(int i=statuses.Count-1;i>=0;i--)
             {
                 var s=statuses[i];s.left-=dt;var a=members.Find(v=>v.id==s.agent);
-                if(a!=null&&a.alive&&s.kind=="Burn")hurt(a,s.power*dt,Loc.Token("p2.cause.status",Loc.Token("p2.status."+s.kind)));
-                if(s.left<=0){if(a!=null&&a.alive&&s.kind=="Doom")hurt(a,a.MaxHp*1.2f,Loc.Token("p2.cause.status",Loc.Token("p2.status.Doom")));statuses.RemoveAt(i);}
+                if(a!=null&&a.alive&&s.kind=="Burn")Damage(hurt,a,s.power*dt,Loc.Token("p2.cause.status",Loc.Token("p2.status."+s.kind)),DamageSource.Status,s.ability);
+                if(s.left<=0){if(a!=null&&a.alive&&s.kind=="Doom")Damage(hurt,a,a.MaxHp*1.2f,Loc.Token("p2.cause.status",Loc.Token("p2.status.Doom")),DamageSource.Status,s.ability);statuses.RemoveAt(i);}
             }
             if(adds>0)
             {
-                var victim=members.Find(a=>a.alive&&!a.escaped);if(victim!=null)hurt(victim,adds*2*dt,Loc.Token("p2.cause.adds"));
+                var victim=members.Find(a=>a.alive&&!a.escaped);if(victim!=null)Damage(hurt,victim,adds*2*dt,Loc.Token("p2.cause.adds"),DamageSource.Summon);
             }
-            if(hazardLeft>0){hazardLeft-=dt;foreach(var a in members)if(a.alive&&!a.escaped&&Simulation.Distance(a.x,a.z,hazardX,hazardZ)<3)hurt(a,7*dt,Loc.Token("p2.cause.hazard"));}
+            if(hazardLeft>0){hazardLeft-=dt;foreach(var a in members)if(a.alive&&!a.escaped&&Simulation.Distance(a.x,a.z,hazardX,hazardZ)<3)Damage(hurt,a,7*dt,Loc.Token("p2.cause.hazard"),DamageSource.Hazard);}
             survivalLeft=Mathf.Max(0,survivalLeft-dt);shield=Mathf.Max(0,shield-dt*.1f);
             if(b.hp<=0)return;
             var living=members.FindAll(a=>a.alive&&!a.escaped);if(living.Count==0)return;
@@ -82,11 +86,12 @@ namespace Ember.Core.Phase2
                 if(cue.radius<=0)hits=Simulation.Distance(a.x,a.z,b.targetX,b.targetZ)<attack.radius;
                 if(attack.mechanic==Mechanic.Drain)hits=a.id==target;
                 if(!hits)continue;
-                hurt(a,attack.damage*multiplier,Loc.Token("p2.cause.ability",Loc.Token(attack.nameKey)));
+                Damage(hurt,a,attack.damage*multiplier,Loc.Token("p2.cause.ability",Loc.Token(attack.nameKey)),DamageSource.Ability,ability);
                 if(attack.push>0){var direction=new Vector2(a.x-x,a.z-z).normalized;if(direction==Vector2.zero)direction=Vector2.right;a.x=Mathf.Clamp(a.x+direction.x*attack.push,-9,9);a.z=Mathf.Clamp(a.z+direction.y*attack.push,-7.5f,7.5f);}
-                a.mp=Mathf.Max(0,a.mp-attack.resourceDrain);
+                float mpBefore=a.mp;a.mp=Mathf.Max(0,a.mp-attack.resourceDrain);
                 if(attack.mechanic==Mechanic.Drain){a.mp=Mathf.Max(0,a.mp-10);b.hp=Mathf.Min(b.maxHp,b.hp+8);}
-                if(!string.IsNullOrEmpty(attack.status)&&a.alive)statuses.Add(new StatusState{agent=a.id,kind=attack.status,element=attack.element,left=attack.duration,power=2});
+                diagnosticDrain?.Invoke(a,mpBefore-a.mp);
+                if(!string.IsNullOrEmpty(attack.status)&&a.alive)statuses.Add(new StatusState{agent=a.id,kind=attack.status,ability=ability,element=attack.element,left=attack.duration,power=2});
             }
             if(statuses.Count>32)statuses.RemoveRange(0,statuses.Count-32);
         }
@@ -109,7 +114,7 @@ namespace Ember.Core.Phase2
         public void ResolveDeath(TowerContent data,List<Agent> members,Action<Agent,float,string> hurt)
         {
             if(deathResolved)return;deathResolved=true;visible.telegraph=false;
-            if(data.Boss(definition).deathMechanic=="FinalPulse")foreach(var a in members)if(a.alive&&Simulation.Distance(a.x,a.z,x,z)<2.5f)hurt(a,18,Loc.Token("p2.cause.final_pulse"));
+            if(data.Boss(definition).deathMechanic=="FinalPulse")foreach(var a in members)if(a.alive&&Simulation.Distance(a.x,a.z,x,z)<2.5f)Damage(hurt,a,18,Loc.Token("p2.cause.final_pulse"),DamageSource.FinalPulse);
         }
         public float MovementMultiplier(int agent)=>statuses.Exists(s=>s.agent==agent&&s.kind=="Stun")?.2f:statuses.Exists(s=>s.agent==agent&&s.kind=="Slow")?.55f:1;
     }

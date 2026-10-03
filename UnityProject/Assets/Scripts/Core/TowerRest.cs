@@ -45,7 +45,7 @@ namespace Ember.Core.Phase2
         void ExecuteRest(Agent a,GroupState g,float dt)
         {
             var rest=Data.Rest(g.restId);float collapse=-10+Mathf.Max(0,g.phaseClock-rest.collapseAfter)*rest.collapseSpeed;
-            if(g.phaseClock>=rest.collapseAfter&&a.x<collapse){Die(a,Loc.Token("cause.collapse"));return;}
+            if(g.phaseClock>=rest.collapseAfter&&a.x<collapse){RecordDeath(a,DamageSource.Collapse,"",a.hp,a.hp);var collapseRow=Telemetry(g);if(collapseRow!=null)collapseRow.collapses++;Die(a,Loc.Token("cause.collapse"));return;}
             var p=State.Plan(a.id);
             if(p.workLeft>0)
             {
@@ -58,7 +58,7 @@ namespace Ember.Core.Phase2
             if(p.decision.intent=="Rescue")
             {
                 var ally=State.Members(g).Where(o=>o!=a&&o.alive&&!o.escaped).OrderBy(o=>o.hp/o.MaxHp).FirstOrDefault();
-                if(ally!=null&&ally.hp<ally.MaxHp*.6f){Move(a,ally.x,ally.z,dt);if(Simulation.Distance(a.x,a.z,ally.x,ally.z)<1&&a.mp>=8&&a.attackTimer==0){a.mp-=8;ally.hp=Mathf.Min(ally.MaxHp,ally.hp+12);a.healing+=12;a.attackTimer=2;Relate(ally,a,g.phaseClock>20?RelationshipEventKind.RiskyRescue:RelationshipEventKind.Rescued);}}
+                if(ally!=null&&ally.hp<ally.MaxHp*.6f){Move(a,ally.x,ally.z,dt);if(Simulation.Distance(a.x,a.z,ally.x,ally.z)<1&&a.mp>=8&&a.attackTimer==0){RecordMana(a,8);RecordRecovery(a,ally,"RestRescue",12,Mathf.Min(ally.MaxHp-ally.hp,12));a.mp-=8;ally.hp=Mathf.Min(ally.MaxHp,ally.hp+12);a.healing+=12;a.attackTimer=2;Relate(ally,a,g.phaseClock>20?RelationshipEventKind.RiskyRescue:RelationshipEventKind.Rescued);}}
                 else {p.decision.intent="Exit";p.nextDecision=State.world.clock+1.5f;}return;
             }
             string site=p.decision.proposedAction;
@@ -80,8 +80,8 @@ namespace Ember.Core.Phase2
             if(site==null)return;Measure(a,"rest",1,site.id);if(site.effect=="Craft")Measure(a,"craft");
             switch(site.effect)
             {
-                case "Heal":a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.35f);a.mp=Mathf.Min(a.MaxMp,a.mp+35);break;
-                case "Cleanse":g.boss.statuses.RemoveAll(s=>s.agent==a.id);a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.3f);break;
+                case "Heal":RecordRecovery(a,a,"Rest:"+site.id,site.reward+a.MaxHp*.35f,Mathf.Min(a.MaxHp-a.hp,site.reward+a.MaxHp*.35f));a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.35f);a.mp=Mathf.Min(a.MaxMp,a.mp+35);break;
+                case "Cleanse":RecordRecovery(a,a,"Rest:"+site.id,site.reward+a.MaxHp*.3f,Mathf.Min(a.MaxHp-a.hp,site.reward+a.MaxHp*.3f));g.boss.statuses.RemoveAll(s=>s.agent==a.id);a.hp=Mathf.Min(a.MaxHp,a.hp+site.reward+a.MaxHp*.3f);break;
                 case "Bless":a.guard=Mathf.Max(a.guard,site.reward);break;
                 case "Craft":
                     var recipe=Catalog.Recipe("forge"+(int)a.profession);var item=a.Make(recipe.item,recipe.quality+.25f+a.stats.wis*.01f,a.equipped.FirstOrDefault()??"");item.affix="Custom";
@@ -95,7 +95,7 @@ namespace Ember.Core.Phase2
                 case "Loot":Adapter.AddItem(a,a.Make(Catalog.items[State.world.Pick(Catalog.items.Length)].id));Adapter.ResolveInventory(a);break;
                 case "Materials":a.materials+=(int)site.reward;break;
             }
-            if(site.risk>0&&State.world.Roll()<site.risk)Hurt(a,14+g.floor*.3f,Loc.Token("p2.cause.resource"));
+            if(site.risk>0&&State.world.Roll()<site.risk)HurtDiagnostic(a,14+g.floor*.3f,Loc.Token("p2.cause.resource"),DamageSource.RestRisk);
             ResolveLoadout(a);
             State.world.Say(a.id,Loc.Token("p2.event.work_done",Loc.Token(site.nameKey)),"rest");
         }

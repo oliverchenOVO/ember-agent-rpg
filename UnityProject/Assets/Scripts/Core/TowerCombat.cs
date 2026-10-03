@@ -93,7 +93,7 @@ namespace Ember.Core.Phase2
                 }
             }
             string potion=a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);
-            if(item!=null){Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
+            if(item!=null){if(DiagnosticsEnabled){var p=DiagnosticPhase(g);if(p!=null)p.potions++;float effective=potion=="hp"?Mathf.Min(a.MaxHp-a.hp,Catalog.Item(potion).power):Mathf.Min(a.MaxMp-a.mp,Catalog.Item(potion).power);RecordRecovery(a,a,"Potion:"+potion,Catalog.Item(potion).power,effective);}Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
         }
         public bool Cast(Agent a,GroupState g,string id,int target=-1,bool weapon=false)
         {
@@ -103,7 +103,7 @@ namespace Ember.Core.Phase2
             if(id=="revive"&&!ally.alive&&State.revivedAgents.Contains(ally.id))return false;
             float tx=s.effect=="Heal"?ally.x:g.boss.x,tz=s.effect=="Heal"?ally.z:g.boss.z;
             float range=id=="trap"?8:s.range;if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)return false;
-            Measure(a,"skill",1,id);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
+            Measure(a,"skill",1,id);RecordMana(a,s.mana);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
             SkillFeedback(a,g,s,target,weapon);
             if(SpecialSkill(a,g,s,ally)){State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),s.effect=="Heal"?"heal":"skill");return true;}
             if(id=="cleanse"){g.boss.statuses.RemoveAll(st=>st.agent==a.id);}

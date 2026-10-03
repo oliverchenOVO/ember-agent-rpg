@@ -7,12 +7,13 @@ namespace Ember.Core.Phase2
     [Serializable] public class SkillCount { public string id; public int count; }
     [Serializable] public class UnitTelemetry
     {
-        public int agent; public string profession,weapon; public float damage,damageTaken,healing,quality; public int potions,deaths;
+        public List<SourceAmount> opportunities=new List<SourceAmount>(); public int agent; public string profession,weapon; public float damage,damageTaken,healing,quality; public int potions,deaths; public float rawHealing,overheal,mpSpent,mpDrained,shieldAbsorbed,mpMinimum=float.MaxValue,unlockedSeconds,equippedSeconds,readySeconds;
     }
     [Serializable] public class FloorTelemetry
     {
         public uint seed;public int run,group,floor,deaths,potions,loot,crafts,splits,rejoins,restActions,collapses,survivors;
         public string boss,result="Active",finalResult="";public float start,clearTime,damage,damageTaken,healing,gearQuality;
+        public List<PhaseDiagnostic> phases=new List<PhaseDiagnostic>(); public List<DeathDiagnostic> deathEvents=new List<DeathDiagnostic>(); public List<SourceAmount> recovery=new List<SourceAmount>();
         public List<UnitTelemetry> team=new List<UnitTelemetry>();public List<SkillCount> skills=new List<SkillCount>();
         public List<SkillCount> lootItems=new List<SkillCount>(),restSites=new List<SkillCount>();
     }
@@ -38,7 +39,7 @@ namespace Ember.Core.Phase2
                 case "hurt":r.damageTaken+=amount;if(u!=null)u.damageTaken+=amount;break;
                 case "heal":r.healing+=amount;if(u!=null)u.healing+=amount;break;
                 case "potion":r.potions++;if(u!=null)u.potions++;break;
-                case "death":r.deaths++;if(u!=null)u.deaths++;if(id.Contains("collapse"))r.collapses++;break;
+                case "death":r.deaths++;if(u!=null)u.deaths++;break;
                 case "skill":var s=r.skills.Find(v=>v.id==id);if(s==null){s=new SkillCount{id=id};r.skills.Add(s);}s.count++;break;
                 case "loot":r.loot+=(int)amount;var drop=r.lootItems.Find(v=>v.id==id);if(drop==null){drop=new SkillCount{id=id};r.lootItems.Add(drop);}drop.count+=(int)amount;break;
                 case "craft":r.crafts++;break;

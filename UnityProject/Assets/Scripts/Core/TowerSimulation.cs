@@ -37,7 +37,7 @@ namespace Ember.Core.Phase2
                 var members=State.Members(g).ToList();if(members.All(a=>!a.alive)){g.terminal=true;g.phase=Phase.Ended;continue;}
                 if(g.travelLeft>0){g.travelLeft=Mathf.Max(0,g.travelLeft-dt);if(g.travelLeft==0)NextFloor(g);continue;}
                 g.phaseClock+=dt;
-                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.Tick(Data,members,w,dt,Hurt);}
+                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.diagnosticDamage=DiagnosticsEnabled?DiagnosticBossDamage:null;g.boss.diagnosticDrain=DiagnosticsEnabled?DiagnosticDrain:null;SampleDiagnostics(g,dt);g.boss.Tick(Data,members,w,dt,Hurt);}
                 foreach(var a in members)
                 {
                     if(!a.alive||a.escaped||State.GroupOf(a.id)!=g)continue;
@@ -111,12 +111,14 @@ namespace Ember.Core.Phase2
             a.members.AddRange(b.members);a.phaseClock=Mathf.Max(a.phaseClock,b.phaseClock);State.groups.Remove(b);State.rejoins++;State.world.Say(-1,Loc.Token("p2.event.rejoin",a.id),"party");return true;
         }
         void Relate(Agent observer,Agent other,RelationshipEventKind kind,float magnitude=1)=>RelationshipSystem.Apply(observer,other,State.Memory(observer.id),State.relationships,kind,State.world.run,State.world.clock,magnitude);
-        public void Hurt(Agent a,float raw,string cause)
+        void DiagnosticDrain(Agent a,float amount)=>RecordMana(a,amount,true);
+        public void Hurt(Agent a,float raw,string cause)=>HurtInternal(a,raw,cause,DamageSource.Other,"",a.hp);
+        void HurtInternal(Agent a,float raw,string cause,DamageSource source,string ability,float hpBefore)
         {
             if(!a.alive||a.escaped)return;var g=State.GroupOf(a.id);float amount=raw<1?Mathf.Max(0,raw)*100/(100+Mathf.Max(0,a.armor)*8)*(1-Mathf.Clamp(a.guard,0,.8f)):Simulation.Damage(raw,a.armor,a.guard);
-            var barrier=Effect(g.boss,a.id,"Shield");if(barrier!=null){float absorbed=Mathf.Min(barrier.power,amount);barrier.power-=absorbed;amount-=absorbed;}
+            var barrier=Effect(g.boss,a.id,"Shield");if(barrier!=null){float absorbed=Mathf.Min(barrier.power,amount);barrier.power-=absorbed;amount-=absorbed;if(DiagnosticsEnabled){var u=Telemetry(g)?.team.Find(v=>v.agent==a.id);if(u!=null)u.shieldAbsorbed+=absorbed;}}
             var counter=Effect(g.boss,a.id,"Counter");if(counter!=null&&raw>3){Deal(a,g,counter.power,"Physical",true);g.boss.effects.Remove(counter);}
-            amount=Mathf.Min(a.hp,amount);Measure(a,"hurt",amount);a.hp=Mathf.Max(0,a.hp-amount);if(a.hp<=0)Die(a,cause);
+            amount=Mathf.Min(a.hp,amount);RecordDamage(a,raw,amount,source,ability,hpBefore);Measure(a,"hurt",amount);a.hp=Mathf.Max(0,a.hp-amount);if(a.hp<=0)Die(a,cause);
         }
         public void Die(Agent a,string cause)
         {
