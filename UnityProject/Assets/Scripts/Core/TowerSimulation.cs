@@ -37,12 +37,12 @@ namespace Ember.Core.Phase2
                 var members=State.Members(g).ToList();if(members.All(a=>!a.alive)){g.terminal=true;g.phase=Phase.Ended;continue;}
                 if(g.travelLeft>0){g.travelLeft=Mathf.Max(0,g.travelLeft-dt);if(g.travelLeft==0)NextFloor(g);continue;}
                 g.phaseClock+=dt;
-                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.stabilizePhaseWindow=Rules.phaseWindows&&g.floor==10;g.boss.stabilizeManaPressure=Rules.phaseWindows&&g.floor==10;g.boss.diagnosticDamage=DiagnosticsEnabled?DiagnosticBossDamage:null;g.boss.diagnosticDrain=DiagnosticsEnabled?DiagnosticDrain:null;SampleDiagnostics(g,dt);g.boss.Tick(Data,members,w,dt,Hurt);}
+                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.stabilizePhaseWindow=Rules.phaseWindows&&Rules.recoveryWindow&&g.floor==10;g.boss.stabilizeManaPressure=Rules.phaseWindows&&Rules.reducedManaDrain&&g.floor==10;g.boss.diagnosticDamage=DiagnosticsEnabled?DiagnosticBossDamage:null;g.boss.diagnosticDrain=DiagnosticsEnabled?DiagnosticDrain:null;SampleDiagnostics(g,dt);g.boss.Tick(Data,members,w,dt,Hurt);}
                 foreach(var a in members)
                 {
                     if(!a.alive||a.escaped||State.GroupOf(a.id)!=g)continue;
                     a.attackTimer=Mathf.Max(0,a.attackTimer-dt);a.guard=Mathf.Max(0,a.guard-dt*.04f);a.enchant=Mathf.Max(0,a.enchant-dt);
-                    a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+(a.weapon.affix=="Recovery"?.6f:0)+(g.phase==Phase.Battle&&g.boss.recoveryWindow>0?1.5f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
+                    a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+(a.weapon.affix=="Recovery"?.6f:0)+(Rules.phaseWindows&&Rules.windowManaRecovery&&g.phase==Phase.Battle&&g.boss.recoveryWindow>0?1.5f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
                     var plan=State.Plan(a.id);if(plan.nextDecision<=w.clock&&plan.workLeft<=0)Decide(a,g,plan);
                     if(!State.groups.Contains(g)||State.GroupOf(a.id)!=g)continue;
                     if(g.phase==Phase.Battle)ExecuteCombat(a,g,dt);else ExecuteRest(a,g,dt);

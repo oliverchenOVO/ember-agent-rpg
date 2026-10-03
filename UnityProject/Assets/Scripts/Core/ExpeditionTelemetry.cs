@@ -14,6 +14,8 @@ namespace Ember.Core.Phase2
         public uint seed;public int run,group,floor,deaths,potions,loot,crafts,splits,rejoins,restActions,collapses,survivors;
         public string boss,result="Active",finalResult="";public float start,clearTime,damage,damageTaken,healing,gearQuality;
         public List<PhaseDiagnostic> phases=new List<PhaseDiagnostic>(); public List<DeathDiagnostic> deathEvents=new List<DeathDiagnostic>(); public List<SourceAmount> recovery=new List<SourceAmount>();
+        public List<ReviveOpportunityDiagnostic> reviveOpportunities=new List<ReviveOpportunityDiagnostic>();
+        public List<SkillEconomyDiagnostic> skillEconomy=new List<SkillEconomyDiagnostic>();
         public List<UnitTelemetry> team=new List<UnitTelemetry>();public List<SkillCount> skills=new List<SkillCount>();
         public List<SkillCount> lootItems=new List<SkillCount>(),restSites=new List<SkillCount>();
     }

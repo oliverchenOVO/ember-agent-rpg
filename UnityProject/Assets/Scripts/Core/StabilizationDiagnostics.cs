@@ -21,7 +21,7 @@ namespace Ember.Core.Phase2
     {
         // Diagnostics are opt-in and never consume random numbers or alter decisions.
         public bool DiagnosticsEnabled;
-        public const string SimulationVersion="phase3.1-diagnostics-1", BalanceVersion="P3.1.1-A";
+        public const string SimulationVersion="phase3.1-diagnostics-1", BalanceVersion="P3.1.1-EXP1";
         static SourceAmount Source(List<SourceAmount> rows,string id)
         {var r=rows.Find(v=>v.id==id);if(r==null){r=new SourceAmount{id=id};rows.Add(r);}return r;}
         PhaseDiagnostic DiagnosticPhase(GroupState g)
@@ -37,7 +37,7 @@ namespace Ember.Core.Phase2
         void SampleDiagnostics(GroupState g,float dt)
         {
             if(!DiagnosticsEnabled)return;var p=DiagnosticPhase(g);if(p==null)return;p.duration+=dt;
-            foreach(var id in g.members){var a=State.world.agents[id];if(!a.alive||a.escaped)continue;p.agentSeconds+=dt;p.mpSum+=a.mp*dt;
+            foreach(var id in g.members){var a=State.world.agents[id];if(!a.alive||a.escaped){ObserveRevive(a,g,dt,false);continue;}p.agentSeconds+=dt;p.mpSum+=a.mp*dt;
                 if(HealingReady(g,a))p.healReadySeconds+=dt;if(Ready(a,"Defense"))p.defenseReadySeconds+=dt;
                 if(a.inventory.Exists(i=>i.id=="hp"))p.potionReadySeconds+=dt;if(AnySkillReady(a))p.skillReadySeconds+=dt;
                 var u=Telemetry(g).team.Find(v=>v.agent==id);if(u!=null){u.mpMinimum=Mathf.Min(u.mpMinimum,a.mp);RecordOpportunity(a,u,"taunt",dt);RecordOpportunity(a,u,"revive",dt);}
@@ -52,7 +52,7 @@ namespace Ember.Core.Phase2
             var u=row.team.Find(v=>v.agent==actor.id);if(u!=null&&source!="Potion:mp"){u.rawHealing+=raw;u.overheal+=Mathf.Max(0,raw-effective);}
         }
         void RecordMana(Agent a,float amount,bool drained=false)
-        {if(!DiagnosticsEnabled)return;var row=Telemetry(State.GroupOf(a.id));var u=row?.team.Find(v=>v.agent==a.id);if(u!=null){if(drained)u.mpDrained+=amount;else u.mpSpent+=amount;}}
+        {if(!DiagnosticsEnabled)return;if(!drained&&activeCaster==a.id&&activeCast!=null)activeCast.manaCost+=amount;var row=Telemetry(State.GroupOf(a.id));var u=row?.team.Find(v=>v.agent==a.id);if(u!=null){if(drained)u.mpDrained+=amount;else u.mpSpent+=amount;}}
         void DiagnosticBossDamage(Agent a,float raw,string text,DamageSource source,string ability)=>HurtDiagnostic(a,raw,text,source,ability);
         void HurtDiagnostic(Agent a,float raw,string text,DamageSource source,string ability="")
         {

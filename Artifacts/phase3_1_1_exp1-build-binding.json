@@ -1,0 +1,9 @@
+{
+  "balanceVersion": "P3.1.1-EXP1",
+  "runtimeHash": "05fae97f638e671d1a05bb8da259d782ab91f32df998770b8794f60c32418740",
+  "executableHash": "11444a2f6337ffef61386dc175a68948a78d798873a7fb45fa126e53fb5057f9",
+  "managedAssemblyHash": "642dd3c43fa27863a3fa0ec5639447f992aefae5f1665ba111b4069ffe6530d2",
+  "runner": "Unity Editor / pure simulation",
+  "referencePlayer": "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\Agent RPG\\Builds\\Phase311\\EXP1\\Development\\Ember.exe",
+  "notPlayerSimulation": true
+}

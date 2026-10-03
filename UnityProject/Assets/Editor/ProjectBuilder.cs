@@ -22,6 +22,8 @@ namespace Ember.Editor
         public static void BuildReleaseDiagnostics(){BuildPlayer(false);}
         public static void BuildDevelopmentRecovery(){BuildPlayer(true,"../Builds/Phase311/Development/Ember.exe");}
         public static void BuildReleaseRecovery(){BuildPlayer(false,"../Builds/Phase311/Windows/Ember.exe");}
+        public static void BuildDevelopmentExperiment(){BuildPlayer(true,"../Builds/Phase311/EXP1/Development/Ember.exe");}
+        public static void BuildReleaseExperiment(){BuildPlayer(false,"../Builds/Phase311/EXP1/Windows/Ember.exe");}
         static void BuildPlayer(bool development,string output=null)
         {
             Debug.Log("BUILD START / development="+development+" / UTC="+DateTime.UtcNow.ToString("O"));

@@ -13,8 +13,8 @@ namespace Ember.Editor
 {
     public static class Phase31Validation
     {
-        [Serializable] public class RunConfig { public string label="baseline100",composition="Natural";public StabilizationRules rules=new StabilizationRules();public int firstSeed=1,count=100,floorLimit=25,maxTicks=50000,maxWallSeconds=900; }
-        [Serializable] public class Manifest { public string runtimeHash,configHash,simulationVersion,balanceVersion,startedUtc;public RunConfig config; }
+        [Serializable] public class RunConfig { public string label="baseline100",composition="Natural",executablePath="",expectedRuntimeHash="";public StabilizationRules rules=new StabilizationRules();public int firstSeed=1,count=100,floorLimit=25,maxTicks=50000,maxWallSeconds=900; }
+        [Serializable] public class Manifest { public string runtimeHash,configHash,simulationVersion,balanceVersion,startedUtc,executableHash,managedAssemblyHash,runner="Unity Editor / pure simulation";public RunConfig config; }
         [Serializable] public class SeedResult { public uint seed;public string result;public int ticks,floor,living;public float seconds;public FloorTelemetry[] encounters; }
         static readonly string root=DiagnosticRoot();
         static string DiagnosticRoot(){var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,"--phase31-root");return Path.GetFullPath(i>=0?args[i+1]:"../Artifacts/Phase31");}
@@ -49,7 +49,13 @@ namespace Ember.Editor
             if(config.count<1||config.count>5000||config.firstSeed<1||config.maxTicks<1||config.maxTicks>50000||config.maxWallSeconds<1||config.maxWallSeconds>900||config.floorLimit<1||config.floorLimit>25||config.label.IndexOfAny(Path.GetInvalidFileNameChars())>=0||config.label.Contains(".."))throw new Exception("Unbounded/invalid run config");
             string dir=Path.Combine(root,config.label);Directory.CreateDirectory(dir);string manifestPath=Path.Combine(dir,"manifest.json"),rawPath=Path.Combine(dir,"results.jsonl");
             var manifest=new Manifest{runtimeHash=RuntimeHash(),configHash=Hash(JsonUtility.ToJson(config)),config=config,simulationVersion=TowerSimulation.SimulationVersion,balanceVersion=TowerSimulation.BalanceVersion,startedUtc=DateTime.UtcNow.ToString("O")};
-            if(File.Exists(manifestPath)){var prior=JsonUtility.FromJson<Manifest>(File.ReadAllText(manifestPath));if(prior.runtimeHash!=manifest.runtimeHash||prior.configHash!=manifest.configHash)throw new Exception("Resume rejected: runtime/config differs");manifest=prior;}else File.WriteAllText(manifestPath,JsonUtility.ToJson(manifest,true));
+            if(!string.IsNullOrEmpty(config.executablePath))
+            {
+                if(config.expectedRuntimeHash!=manifest.runtimeHash)throw new Exception("Build binding rejected: runtime differs");
+                string exe=Path.GetFullPath(config.executablePath),assembly=Path.Combine(Path.GetDirectoryName(exe),"Ember_Data/Managed/Assembly-CSharp.dll");
+                using(var h=SHA256.Create()){manifest.executableHash=BitConverter.ToString(h.ComputeHash(File.ReadAllBytes(exe))).Replace("-","").ToLowerInvariant();manifest.managedAssemblyHash=BitConverter.ToString(h.ComputeHash(File.ReadAllBytes(assembly))).Replace("-","").ToLowerInvariant();}
+            }
+            if(File.Exists(manifestPath)){var prior=JsonUtility.FromJson<Manifest>(File.ReadAllText(manifestPath));if(prior.runtimeHash!=manifest.runtimeHash||prior.configHash!=manifest.configHash||prior.executableHash!=manifest.executableHash||prior.managedAssemblyHash!=manifest.managedAssemblyHash)throw new Exception("Resume rejected: runtime/config/player differs");manifest=prior;}else File.WriteAllText(manifestPath,JsonUtility.ToJson(manifest,true));
             int done=0,clears=0,wipes=0,nonterminal=0;
             if(File.Exists(rawPath))foreach(var line in File.ReadLines(rawPath)){var r=JsonUtility.FromJson<SeedResult>(line);if(r==null||r.seed!=config.firstSeed+done||r.encounters==null)throw new Exception("Resume rejected: truncated/noncontiguous prefix");done++;if(r.result=="TowerClear"||r.result=="ReachedLimit")clears++;else if(r.result=="Wipe")wipes++;else nonterminal++;}
             if(done>config.count)throw new Exception("Resume prefix exceeds range");var clock=Stopwatch.StartNew();var c=Catalog();var data=TowerContent.Load();

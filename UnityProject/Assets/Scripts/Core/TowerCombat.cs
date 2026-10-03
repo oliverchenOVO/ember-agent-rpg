@@ -26,12 +26,13 @@ namespace Ember.Core.Phase2
         }
         void ExecuteCombat(Agent a,GroupState g,float dt)
         {
-            if(Rules.combatRecovery)CombatPotions(a,g);var b=g.boss;var plan=State.Plan(a.id);float radius=b.Radius(Data);
+            if(Rules.combatRecovery&&Rules.potionBeforeMovement)CombatPotions(a,g);var b=g.boss;var plan=State.Plan(a.id);float radius=b.Radius(Data);
             bool danger=b.visible.telegraph&&(b.cue.radius>0?b.cue.Contains(a.x,a.z,.6f):Simulation.Distance(a.x,a.z,b.visible.targetX,b.visible.targetZ)<radius+.6f);
             bool hazard=b.hazardLeft>0&&Simulation.Distance(a.x,a.z,b.hazardX,b.hazardZ)<3.4f;
             float speed=b.MovementMultiplier(a.id)*(Effect(b,a.id,"Haste")!=null?1.3f:1)*(a.weapon.affix=="Mobility"?1.12f:1);
             if(danger||hazard)
             {
+                ObserveRevive(a,g,dt,true);
                 float tx=danger?b.visible.targetX:b.hazardX,tz=danger?b.visible.targetZ:b.hazardZ;
                 // Search reachable safe directions; clamping an outward vector at the arena wall can trap an Agent forever.
                 Vector2 best=new Vector2(a.x,a.z);float bestScore=float.NegativeInfinity;
@@ -66,6 +67,7 @@ namespace Ember.Core.Phase2
                 }
             }
             StabilizeIntent(a,g);
+            ObserveRevive(a,g,dt,false);
             if(a.intent.kind==ActionKind.GiveUp){a.intent.kind=ActionKind.Attack;}
             if(a.intent.kind==ActionKind.Protect&&plan.decision.intent=="Fight")a.intent.kind=ActionKind.Attack;
             if(a.intent.kind==ActionKind.Protect)
@@ -78,8 +80,8 @@ namespace Ember.Core.Phase2
                 var s=Catalog.Skill(a.intent.skill);var ally=s.effect=="Heal"?State.Members(g).FirstOrDefault(v=>v.id==a.intent.target&&(v.alive||s.id=="revive")):null;
                 float tx=ally?.x??b.x,tz=ally?.z??b.z;
                 float range=s.id=="trap"?8:s.range;
-                if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)Move(a,tx,tz,dt,speed);
-                else if(!Cast(a,g,s.id,a.intent.target,a.weapon.infusion==s.id)&&Rules.combatRecovery){a.intent.kind=ActionKind.Attack;a.decisionTimer=0;}
+                if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range){RecordSkillTravel(a,s.id,dt);Move(a,tx,tz,dt,speed);}
+                else if(!Cast(a,g,s.id,a.intent.target,a.weapon.infusion==s.id)&&Rules.combatRecovery&&Rules.retryInvalidCasts){a.intent.kind=ActionKind.Attack;a.decisionTimer=0;}
             }
             if(a.intent.kind!=ActionKind.Skill)
             {
@@ -93,8 +95,8 @@ namespace Ember.Core.Phase2
                     a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
                 }
             }
-            string potion=!Rules.combatRecovery&&a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);
-            if(!Rules.combatRecovery&&item!=null){if(DiagnosticsEnabled){var p=DiagnosticPhase(g);if(p!=null)p.potions++;float effective=potion=="hp"?Mathf.Min(a.MaxHp-a.hp,Catalog.Item(potion).power):Mathf.Min(a.MaxMp-a.mp,Catalog.Item(potion).power);RecordRecovery(a,a,"Potion:"+potion,Catalog.Item(potion).power,effective);}Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
+            string potion=!(Rules.combatRecovery&&Rules.potionBeforeMovement)&&a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);
+            if(!(Rules.combatRecovery&&Rules.potionBeforeMovement)&&item!=null){if(DiagnosticsEnabled){var p=DiagnosticPhase(g);if(p!=null)p.potions++;float effective=potion=="hp"?Mathf.Min(a.MaxHp-a.hp,Catalog.Item(potion).power):Mathf.Min(a.MaxMp-a.mp,Catalog.Item(potion).power);RecordRecovery(a,a,"Potion:"+potion,Catalog.Item(potion).power,effective);}Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
         }
         public bool Cast(Agent a,GroupState g,string id,int target=-1,bool weapon=false)
         {
@@ -105,9 +107,9 @@ namespace Ember.Core.Phase2
             if(id=="revive"&&!ally.alive&&State.revivedAgents.Contains(ally.id))return false;
             float tx=s.effect=="Heal"?ally.x:g.boss.x,tz=s.effect=="Heal"?ally.z:g.boss.z;
             float range=id=="trap"?8:s.range;if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)return false;
-            Measure(a,"skill",1,id);RecordMana(a,s.mana);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
+            BeginCastEconomy(a,s);Measure(a,"skill",1,id);RecordMana(a,s.mana);a.mp-=s.mana;var cooldown=a.cooldowns.Find(cd=>cd.id==id);if(cooldown==null){cooldown=new Cooldown{id=id};a.cooldowns.Add(cooldown);}cooldown.left=s.cooldown;
             SkillFeedback(a,g,s,target,weapon);
-            if(SpecialSkill(a,g,s,ally)){State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),s.effect=="Heal"?"heal":"skill");return true;}
+            if(SpecialSkill(a,g,s,ally)){EndCastEconomy();State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),s.effect=="Heal"?"heal":"skill");return true;}
             if(id=="cleanse"){g.boss.statuses.RemoveAll(st=>st.agent==a.id);}
             else if(s.effect=="Heal")
             {
@@ -124,7 +126,7 @@ namespace Ember.Core.Phase2
                 Measure(a,"damage",g.boss.Hit(Data,a,(s.power+(a.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.7f+a.stats.str*.3f)*Simulation.Proficiency(a,Catalog),element,true));
                 State.world.Say(a.id,Loc.Token("event.skill",Loc.Ref("skill",id)),"skill");
             }
-            return true;
+            EndCastEconomy();return true;
         }
     }
 }
