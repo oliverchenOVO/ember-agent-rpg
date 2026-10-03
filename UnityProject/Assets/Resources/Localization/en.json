@@ -1628,6 +1628,522 @@
     {
       "key": "ui.rest_count",
       "value": "{0} facilities"
+    },
+    {
+      "key": "codex.boss",
+      "value": "Boss dossier"
+    },
+    {
+      "key": "codex.skills",
+      "value": "Skill tree"
+    },
+    {
+      "key": "codex.close",
+      "value": "Close"
+    },
+    {
+      "key": "codex.open_book",
+      "value": "Read full legacy"
+    },
+    {
+      "key": "codex.observer",
+      "value": "Observer data is public. Agents learn moves through witnessing or reading legacies. Inspection pauses play."
+    },
+    {
+      "key": "codex.survived",
+      "value": "Survived the end of this life"
+    },
+    {
+      "key": "codex.list",
+      "value": "{0} / {1}"
+    },
+    {
+      "key": "codex.epitaph",
+      "value": "{0}\nI reached floor {1}, facing {2}. My ending: {3}.\n{4}"
+    },
+    {
+      "key": "codex.witnessed",
+      "value": "Moves I personally witnessed: {0}. Details and responses follow below."
+    },
+    {
+      "key": "codex.no_observation",
+      "value": "I witnessed no confirmed move. Do not mistake guesses for intelligence."
+    },
+    {
+      "key": "codex.observed",
+      "value": "I saw {0} telegraph {1}."
+    },
+    {
+      "key": "codex.inherited",
+      "value": "{0}'s legacy recorded {1}: {2}"
+    },
+    {
+      "key": "codex.prepared",
+      "value": "The legacy's account of {1} led me to prepare {0}."
+    },
+    {
+      "key": "codex.tone.risk",
+      "value": "I always wanted one step farther. Next time, do not test those markers with your life."
+    },
+    {
+      "key": "codex.tone.curiosity",
+      "value": "The moves I never understood haunt me. Record what I saw so next time we have answers."
+    },
+    {
+      "key": "codex.tone.empathy",
+      "value": "I worry about my companions. Watch where attacks land before trying to save anyone."
+    },
+    {
+      "key": "codex.tone.greed",
+      "value": "I wanted one more treasure. Stay alive first, or you carry nothing out."
+    },
+    {
+      "key": "codex.tone.loyalty",
+      "value": "I never wanted our party to lose anyone. These clues are the last thing I can leave."
+    },
+    {
+      "key": "codex.tone.aggression",
+      "value": "I was too eager to strike. Remember the openings instead of chasing every attack."
+    },
+    {
+      "key": "codex.book_meta",
+      "value": "Life {0} / {1} / {2} / Level {3}"
+    },
+    {
+      "key": "codex.book_build",
+      "value": "Final build: {0}; skills: {1}"
+    },
+    {
+      "key": "codex.legacy",
+      "value": "This older legacy contains no move evidence. Its original text is preserved."
+    },
+    {
+      "key": "codex.book_help",
+      "value": "Read at a refuge with the Book of the Dead to learn from up to 8 recent relevant legacies."
+    },
+    {
+      "key": "codex.known",
+      "value": "Witnessed"
+    },
+    {
+      "key": "codex.inherited_badge",
+      "value": "Legacy knowledge"
+    },
+    {
+      "key": "codex.unknown",
+      "value": "Not witnessed"
+    },
+    {
+      "key": "codex.boss_stats",
+      "value": "HP {0} / {1} | Armor {2} | Weak: {3} | Resist: {4}"
+    },
+    {
+      "key": "codex.boss_state",
+      "value": "Current phase: {0} | Enraged: {1} | Shield reduction: {2}% | Adds: {3}"
+    },
+    {
+      "key": "codex.yes",
+      "value": "Yes"
+    },
+    {
+      "key": "codex.no",
+      "value": "No"
+    },
+    {
+      "key": "codex.phase",
+      "value": "{0} | HP ≤ {1}% or {2}s elapsed (0 = no time trigger); enrage {3}s; weakness +{4}% / resistance -{5}%"
+    },
+    {
+      "key": "codex.phase_start",
+      "value": "Opening phase"
+    },
+    {
+      "key": "codex.dps",
+      "value": "Phase check: deal at least {1}% max HP within {0}s or trigger enrage."
+    },
+    {
+      "key": "codex.pressure",
+      "value": "Ambient pressure: base {0} damage/s, increasing after enrage; 20% during recovery windows. Additional escalating attrition after 240s."
+    },
+    {
+      "key": "codex.death_pulse",
+      "value": "Death pulse: radius 2.5, base damage 18 even after defeat."
+    },
+    {
+      "key": "codex.boss_note",
+      "value": "Base values below. Enrage: move damage ×1.2, interval ×0.8. Armor and defense affect actual damage. Intervals start after resolution and exclude windup."
+    },
+    {
+      "key": "codex.timing",
+      "value": "Windup {0}s | Post-resolution interval {1}s | Radius/half-width {2} | Length {3} | Inner radius {4}"
+    },
+    {
+      "key": "codex.target",
+      "value": "Shape: {0} | Target: {1} | Interruptible: {2} | Final interrupt window: {3}s"
+    },
+    {
+      "key": "codex.damage",
+      "value": "Base damage {0} ({1})"
+    },
+    {
+      "key": "codex.drain",
+      "value": "Total drain {0} MP on hit"
+    },
+    {
+      "key": "codex.status",
+      "value": "Applies {0} for {1}s: {2}"
+    },
+    {
+      "key": "codex.push",
+      "value": "Knockback distance {0}"
+    },
+    {
+      "key": "codex.hazard",
+      "value": "Hazard lasts {0}s, radius 3, base damage 7/s."
+    },
+    {
+      "key": "codex.skill_header",
+      "value": "{0} / {1} | Level {2} | Points {3} | Equipped {4} / 4"
+    },
+    {
+      "key": "codex.skill_help",
+      "value": "Select a node for details. Connections show prerequisites. Agents choose unlocks and loadouts autonomously. Infusions can cross classes."
+    },
+    {
+      "key": "codex.skill_cost",
+      "value": "MP {0} | Cooldown {1}s | Range {2} | Points {3}"
+    },
+    {
+      "key": "codex.prerequisite",
+      "value": "Requires: {0}"
+    },
+    {
+      "key": "codex.equipped",
+      "value": "Equipped"
+    },
+    {
+      "key": "codex.unlocked",
+      "value": "Unlocked"
+    },
+    {
+      "key": "codex.locked",
+      "value": "Locked"
+    },
+    {
+      "key": "codex.infused",
+      "value": "Weapon infusion"
+    },
+    {
+      "key": "codex.other_class",
+      "value": "Other class; available through weapon infusion."
+    },
+    {
+      "key": "codex.unlockable",
+      "value": "Prerequisites and points ready; awaiting Agent choice."
+    },
+    {
+      "key": "codex.not_ready",
+      "value": "Missing prerequisite or skill points."
+    },
+    {
+      "key": "codex.weapon",
+      "value": "Weapon requirement: {0} (waived for infused casts)"
+    },
+    {
+      "key": "codex.skill_note",
+      "value": "Values use this Agent's current stats before mitigation. Healing is capped by max HP; DOT is affected by resistance. Guard decays by 4 percentage points/s."
+    },
+    {
+      "key": "codex.formula",
+      "value": "Skill power = base {0} + STR×0.4 + {1}×0.8 = {2}"
+    },
+    {
+      "key": "codex.int",
+      "value": "INT"
+    },
+    {
+      "key": "codex.wis",
+      "value": "WIS"
+    },
+    {
+      "key": "codex.personal",
+      "value": "Self"
+    },
+    {
+      "key": "codex.no_weapon",
+      "value": "Any"
+    },
+    {
+      "key": "codex.element.Physical",
+      "value": "Physical"
+    },
+    {
+      "key": "codex.element.Fire",
+      "value": "Fire"
+    },
+    {
+      "key": "codex.element.Ice",
+      "value": "Ice"
+    },
+    {
+      "key": "codex.element.Light",
+      "value": "Light"
+    },
+    {
+      "key": "codex.element.Dark",
+      "value": "Dark"
+    },
+    {
+      "key": "codex.element.Arcane",
+      "value": "Arcane"
+    },
+    {
+      "key": "codex.element.",
+      "value": "None"
+    },
+    {
+      "key": "codex.shape.Circle",
+      "value": "Circle"
+    },
+    {
+      "key": "codex.shape.Lane",
+      "value": "Lane"
+    },
+    {
+      "key": "codex.shape.Cross",
+      "value": "Cross"
+    },
+    {
+      "key": "codex.shape.Annulus",
+      "value": "Annulus"
+    },
+    {
+      "key": "codex.target.Random",
+      "value": "Random living Agent"
+    },
+    {
+      "key": "codex.target.LowestHealth",
+      "value": "Lowest HP ratio"
+    },
+    {
+      "key": "codex.target.Farthest",
+      "value": "Farthest Agent"
+    },
+    {
+      "key": "codex.target.HighestDamage",
+      "value": "Highest damage dealt"
+    },
+    {
+      "key": "codex.status_effect.Burn",
+      "value": "Base damage 2/s"
+    },
+    {
+      "key": "codex.status_effect.Slow",
+      "value": "Movement speed 55%"
+    },
+    {
+      "key": "codex.status_effect.Stun",
+      "value": "Movement speed 20%"
+    },
+    {
+      "key": "codex.status_effect.Weaken",
+      "value": "Status marker; no additional damage reduction currently"
+    },
+    {
+      "key": "codex.status_effect.Doom",
+      "value": "On expiration, base damage equal to 120% max HP"
+    },
+    {
+      "key": "codex.mechanic.Slam",
+      "value": "Damages Agents inside the telegraph."
+    },
+    {
+      "key": "codex.mechanic.Projectile",
+      "value": "Fires an attack into the targeted area."
+    },
+    {
+      "key": "codex.mechanic.Charge",
+      "value": "Charges to the target and hits the telegraph area."
+    },
+    {
+      "key": "codex.mechanic.Summon",
+      "value": "Adds 2 summons, capped at 6; each deals base damage 2/s. Attacks remove summons before damaging the Boss."
+    },
+    {
+      "key": "codex.mechanic.Storm",
+      "value": "Attacks and leaves a hazard at the target."
+    },
+    {
+      "key": "codex.mechanic.Drain",
+      "value": "Hits the locked target regardless of ground area; drains an extra 10 MP and restores 8 Boss HP."
+    },
+    {
+      "key": "codex.mechanic.Shield",
+      "value": "Grants 55% damage reduction, decaying by 10 percentage points/s."
+    },
+    {
+      "key": "codex.mechanic.Survival",
+      "value": "Boss is immune during the duration and creates a hazard."
+    },
+    {
+      "key": "codex.mechanic.Doom",
+      "value": "Applies a status on hit; beware lethal damage on expiry."
+    },
+    {
+      "key": "codex.advice.Slam",
+      "value": "Leave the marker during windup; interrupt in the final window when allowed."
+    },
+    {
+      "key": "codex.advice.Projectile",
+      "value": "Leave the targeted area before resuming attacks."
+    },
+    {
+      "key": "codex.advice.Charge",
+      "value": "Stay off the charge path; attack after the charge."
+    },
+    {
+      "key": "codex.advice.Summon",
+      "value": "Keep add-clearing skills ready and remove summons first."
+    },
+    {
+      "key": "codex.advice.Storm",
+      "value": "Leave persistent hazards instead of staying to attack."
+    },
+    {
+      "key": "codex.advice.Drain",
+      "value": "Ground dodging cannot avoid targeted drain; reserve shields and MP supplies."
+    },
+    {
+      "key": "codex.advice.Shield",
+      "value": "Recover resources while the shield decays; avoid wasting skills."
+    },
+    {
+      "key": "codex.advice.Survival",
+      "value": "Move during immunity; resume damage after the hazard ends."
+    },
+    {
+      "key": "codex.advice.Doom",
+      "value": "Leave during windup; prioritize cleansing if afflicted."
+    },
+    {
+      "key": "codex.skill.slash",
+      "value": "Physical damage {0}; can interrupt. Pushes Boss away by offset×0.08."
+    },
+    {
+      "key": "codex.skill.wave",
+      "value": "Physical damage {0}; can interrupt. Vulnerable for 5s, damage taken +25%."
+    },
+    {
+      "key": "codex.skill.rage",
+      "value": "Fire empowerment for 10s: basic attacks gain base damage 12; regenerate 3 HP/s for 6s."
+    },
+    {
+      "key": "codex.skill.guard",
+      "value": "Guard reduction 65%; shield absorbs {7} damage for 5s."
+    },
+    {
+      "key": "codex.skill.taunt",
+      "value": "Retargets current attack to self; circle telegraph moves with the target. Guard reduction 50%."
+    },
+    {
+      "key": "codex.skill.counter",
+      "value": "Immediate physical damage {1}; can interrupt. For 5s, hits with base damage >3 trigger counter damage {0}. Guard reduction 50%."
+    },
+    {
+      "key": "codex.skill.shot",
+      "value": "Physical damage {0}, increased to {5} beyond distance 5. Movement speed +30% for 2s."
+    },
+    {
+      "key": "codex.skill.poison",
+      "value": "Immediate physical damage {2}; poison deals base damage 6/s for 8s."
+    },
+    {
+      "key": "codex.skill.rain",
+      "value": "Physical damage {0}; can interrupt; removes up to 3 summons first."
+    },
+    {
+      "key": "codex.skill.trap",
+      "value": "Radius 3 trap for 5s; roots Boss inside and deals base physical damage 5/s. Can disrupt casts in their interrupt window."
+    },
+    {
+      "key": "codex.skill.pierce",
+      "value": "Physical damage {0}; can interrupt. Vulnerable for 5s, damage taken +25%."
+    },
+    {
+      "key": "codex.skill.snipe",
+      "value": "Physical damage {4}; sets basic attack wait to 1.2s."
+    },
+    {
+      "key": "codex.skill.fireball",
+      "value": "Fire damage {0}; can interrupt. Burn deals base fire damage 4/s for 4s."
+    },
+    {
+      "key": "codex.skill.frost",
+      "value": "Ice damage {0}; can interrupt. Roots within radius 3 for 3s; adds 0.8s to Boss attack wait."
+    },
+    {
+      "key": "codex.skill.meteor",
+      "value": "Fire damage {0}; can interrupt. Radius 3 zone deals base fire damage 8/s for 4s."
+    },
+    {
+      "key": "codex.skill.shield",
+      "value": "Self shield absorbs {6} damage for 8s."
+    },
+    {
+      "key": "codex.skill.enchant",
+      "value": "Fire empowerment for 12s; basic attacks gain base damage 12; enchant status lasts 12s."
+    },
+    {
+      "key": "codex.skill.lightning",
+      "value": "Arcane damage {0}; can interrupt; removes up to 3 summons first."
+    },
+    {
+      "key": "codex.skill.holy",
+      "value": "Light damage {0}; can interrupt. Heals lowest-HP-ratio ally for {9}; extra MP proportional to effective healing, up to {10}."
+    },
+    {
+      "key": "codex.skill.heal",
+      "value": "Single-target heal {0}; regenerates 3 HP/s for 4s."
+    },
+    {
+      "key": "codex.skill.groupheal",
+      "value": "Heals each living party member for {3}; grants shields absorbing 12 damage for 3s."
+    },
+    {
+      "key": "codex.skill.ward",
+      "value": "Shields each living party member for {8} damage, lasting 8s."
+    },
+    {
+      "key": "codex.skill.cleanse",
+      "value": "Removes all Boss statuses from the target and heals {0}."
+    },
+    {
+      "key": "codex.skill.revive",
+      "value": "Revives a dead ally at 35% max HP, once per ally per life. Living targets are healed for {0}."
+    },
+    {
+      "key": "codex.weapon.Sword",
+      "value": "Sword"
+    },
+    {
+      "key": "codex.weapon.Bow",
+      "value": "Bow"
+    },
+    {
+      "key": "codex.weapon.Staff",
+      "value": "Staff"
+    },
+    {
+      "key": "codex.agent_stats",
+      "value": "STR {0} | DEX {1} | INT {2} | VIT {3} | WIS {4} | Mana stat {5} | Luck {6}"
+    },
+    {
+      "key": "codex.node_cost",
+      "value": "MP {0} | Cooldown {1}s\nRange {2} | Points {3}"
+    },
+    {
+      "key": "codex.edge",
+      "value": "›"
     }
   ]
 }

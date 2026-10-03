@@ -1,0 +1,134 @@
+{
+  "source_runtime_hash": "733b3b381e923dd7316aac3d48104ff6deff527dd1345194e0609ecabad48300",
+  "editor_validation": "PASS",
+  "skill_descriptions": 24,
+  "localization_keys": 536,
+  "glyphs_checked": 819,
+  "save_replay_cases": 7,
+  "ui": [
+    {
+      "label": "knowledge-qa-dev-1600-zh-final",
+      "scenarios": 13,
+      "issues": 0,
+      "exit": 0,
+      "assembly": "1E9568319B89EA4E829D7E8D81F0DDE09A5690928F6D00E8E766A4A3350DD6A1"
+    },
+    {
+      "label": "knowledge-qa-dev-1280-en-final",
+      "scenarios": 13,
+      "issues": 0,
+      "exit": 0,
+      "assembly": "1E9568319B89EA4E829D7E8D81F0DDE09A5690928F6D00E8E766A4A3350DD6A1"
+    },
+    {
+      "label": "knowledge-qa-dev-1280-zh-final",
+      "scenarios": 13,
+      "issues": 0,
+      "exit": 0,
+      "assembly": "1E9568319B89EA4E829D7E8D81F0DDE09A5690928F6D00E8E766A4A3350DD6A1"
+    },
+    {
+      "label": "knowledge-qa-dev-1600-en-final",
+      "scenarios": 13,
+      "issues": 0,
+      "exit": 0,
+      "assembly": "1E9568319B89EA4E829D7E8D81F0DDE09A5690928F6D00E8E766A4A3350DD6A1"
+    },
+    {
+      "label": "knowledge-qa-release-1600-zh-final",
+      "scenarios": 13,
+      "issues": 0,
+      "exit": 0,
+      "assembly": "B25B9B4742563A751E3BD4CC23270D60015E8E718A7770F2D896001199F56A8A"
+    }
+  ],
+  "manual_review": [
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-zh-final/codex_skill_detail.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1280-en-final/codex_boss.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1280-en-final/codex_healer_detail.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1280-zh-final/codex_book_bottom.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1280-zh-final/codex_warrior.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1280-zh-final/codex_archer.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-en-final/codex_mage.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-zh-final/codex_book.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-zh-final/codex_boss.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-zh-final/codex_boss_bottom.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-en-final/codex_legacy.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1600-en-final/codex_empty.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-dev-1280-en-final/codex_archer_detail.png",
+      "result": "PASS",
+      "review": "visual inspection: glyphs, wrapping, clipped controls, scroll content"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-release-1600-zh-final/codex_book.png",
+      "result": "PASS",
+      "review": "visual inspection"
+    },
+    {
+      "path": "Artifacts/Phase311/knowledge-qa-release-1600-zh-final/codex_healer_detail.png",
+      "result": "PASS",
+      "review": "visual inspection"
+    }
+  ],
+  "full_balance_gate": "NOT_RUN; historical P3.1.1 FAIL unchanged",
+  "5000_seed": "NOT_RUN",
+  "120_minute_soak": "NOT_RUN",
+  "gameplay_smoke": {
+    "configured_seconds": 65,
+    "result": "PASS",
+    "completed": "elapsed=66.00974; rows=10370; runs=1; maintenance=1",
+    "save_load_cycles": 1,
+    "runtime_exceptions": 0,
+    "JobTempAlloc_warnings": 0,
+    "scope": "bounded startup/gameplay/save/load/cleanup; not performance certification"
+  }
+}

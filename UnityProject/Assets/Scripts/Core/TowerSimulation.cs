@@ -37,7 +37,7 @@ namespace Ember.Core.Phase2
                 var members=State.Members(g).ToList();if(members.All(a=>!a.alive)){g.terminal=true;g.phase=Phase.Ended;continue;}
                 if(g.travelLeft>0){g.travelLeft=Mathf.Max(0,g.travelLeft-dt);if(g.travelLeft==0)NextFloor(g);continue;}
                 g.phaseClock+=dt;
-                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.stabilizePhaseWindow=Rules.phaseWindows&&Rules.recoveryWindow&&g.floor==10;g.boss.stabilizeManaPressure=Rules.phaseWindows&&Rules.reducedManaDrain&&g.floor==10;g.boss.diagnosticDamage=DiagnosticsEnabled?DiagnosticBossDamage:null;g.boss.diagnosticDrain=DiagnosticsEnabled?DiagnosticDrain:null;SampleDiagnostics(g,dt);g.boss.Tick(Data,members,w,dt,Hurt);}
+                if(g.phase==Phase.Battle){TickEffects(g,dt);g.boss.stabilizePhaseWindow=Rules.phaseWindows&&Rules.recoveryWindow&&g.floor==10;g.boss.stabilizeManaPressure=Rules.phaseWindows&&Rules.reducedManaDrain&&g.floor==10;g.boss.diagnosticDamage=DiagnosticsEnabled?DiagnosticBossDamage:null;g.boss.diagnosticDrain=DiagnosticsEnabled?DiagnosticDrain:null;SampleDiagnostics(g,dt);ObserveBoss(g);g.boss.Tick(Data,members,w,dt,Hurt);ObserveBoss(g);}
                 foreach(var a in members)
                 {
                     if(!a.alive||a.escaped||State.GroupOf(a.id)!=g)continue;
@@ -123,11 +123,11 @@ namespace Ember.Core.Phase2
         public void Die(Agent a,string cause)
         {
             if(!a.alive)return;Measure(a,"death",1,cause);a.alive=false;a.hp=0;a.taskTimer=0;a.task="";State.Plan(a.id).workLeft=0;
-            State.world.Say(a.id,Loc.Token("event.death",cause),"death");a.lastWords=Loc.Token("epitaph.death");WriteBook(a);
+            State.world.Say(a.id,Loc.Token("event.death",cause),"death");WriteBook(a,cause);
             State.Memory(a.id).Add(new Knowledge{key="death",text=cause,scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=1,emotionalWeight=1});
             foreach(var other in State.Members(State.GroupOf(a.id)).Where(v=>v.alive))Relate(other,a,RelationshipEventKind.Death);
         }
-        void WriteBook(Agent a){State.world.book.Add(new Epitaph{run=State.world.run,author=a.id,text=a.lastWords});while(State.world.book.Count>64)State.world.book.RemoveAt(0);}
+
         public void Finish(Outcome outcome)
         {
             var w=State.world;if(w.phase==Phase.Ended)return;foreach(var g in State.groups)CloseTelemetry(g,false);foreach(var row in State.telemetry)row.finalResult=outcome.ToString();w.phase=Phase.Ended;w.outcome=outcome;w.restartTimer=0;
@@ -136,7 +136,7 @@ namespace Ember.Core.Phase2
             {
                 r.composition.Add(Loc.Token("ui.agent_class",a.name,Loc.Ref("class",a.profession)));r.damage+=a.damage;r.healing+=a.healing;r.builds.Add(a.weapon.id+":"+a.weapon.infusion);
                 if(a.alive&&State.completedAgents.Contains(a.id))r.survivors.Add(a.name);if(!a.alive)r.deaths++;
-                if(a.alive){a.lastWords=Loc.Token("epitaph.care");WriteBook(a);}
+                if(a.alive){WriteBook(a,Loc.Token("codex.survived"));}
             }
             w.history.Add(r);while(w.history.Count>100)w.history.RemoveAt(0);w.Say(-1,Loc.Token(outcome==Outcome.TowerClear?"p2.event.clear":"event.wipe"),"run");CancelPending();
         }

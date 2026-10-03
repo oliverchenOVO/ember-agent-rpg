@@ -66,6 +66,12 @@ namespace Ember.Core.Phase2
                 if(s.profiles.Count(p=>p.agent==id)!=1||s.plans.Count(p=>p.agent==id)!=1||s.memories.Count(p=>p.agent==id)!=1)throw new InvalidDataException("Missing agent cognition");
                 var a=s.world.agents[id];if(c.Item(a.weapon.id)==null||a.inventory.Any(i=>c.Item(i.id)==null)||a.inventory.Count>24||a.equipped.Count>4||a.equipped.Any(k=>c.Skill(k)==null)||!Finite(a.x)||!Finite(a.z)||!Finite(a.taskTimer)||!Finite(s.Plan(id).workLeft)||s.Memory(id).entries.Count>48||s.Memory(id).salient.Count>12)throw new InvalidDataException("Invalid agent payload");
             }
+            foreach(var e in s.world.book)
+            {
+                if(e.skills==null)e.skills=new List<string>();if(e.observedAbilities==null)e.observedAbilities=new List<string>();
+                if(e.author<0||e.author>3||e.skills.Count>4||e.skills.Any(id=>c.Skill(id)==null)||e.observedAbilities.Count>24||e.observedAbilities.Distinct().Count()!=e.observedAbilities.Count)throw new InvalidDataException("Invalid epitaph evidence");
+                if(e.floor!=0&&(data.Floor(e.floor)==null||e.boss!=data.Floor(e.floor).bossId||e.phase<0||e.phase>=data.Boss(e.boss).phases.Length||e.observedAbilities.Any(id=>!data.Boss(e.boss).phases.SelectMany(p=>p.abilities).Contains(id))))throw new InvalidDataException("Invalid witnessed boss evidence");
+            }
             if(s.relationships.Count>128||s.replay.Count>128||s.world.book.Count>64||s.world.history.Count>100)throw new InvalidDataException("Unbounded save payload");
             return s;
         }

@@ -57,7 +57,8 @@ namespace Ember.Presentation
             if(simulation==null)return;
             if(towerQA)UpdateTowerQA();else if(qaEnabled)UpdateLocalizationQA();
             if(Input.GetKeyDown(KeyCode.F8))reasonerDebug=!reasonerDebug;
-            if(Input.GetKeyDown(KeyCode.Space))paused=!paused;
+            if(inspection!=Inspection.None&&Input.GetKeyDown(KeyCode.Escape))CloseInspection();
+            if(inspection==Inspection.None&&Input.GetKeyDown(KeyCode.Space))paused=!paused;
             if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;
             if(!paused)
             {
@@ -124,6 +125,7 @@ namespace Ember.Presentation
             using var allocationUI=new AllocationScope(uiAlloc,profile&&profileDetailed);using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
             if(simulation==null||!enabled)return;glyphDrawIndex=0;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
+            GUI.enabled=inspection==Inspection.None;
             var w=simulation.State;var a=w.agents[selected];
             Box(0,0,1600,86,new Color(.035f,.065f,.08f,.96f));Box(0,85,1600,1,new Color(.25f,.36f,.36f,.6f));
             Text(30,17,215,43,Loc.T("ui.brand"),title);Text(32,57,260,20,Loc.T("ui.tagline"),small);
@@ -186,7 +188,10 @@ namespace Ember.Presentation
             DrawSkillTooltip(a);
             Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);
             if(Button(1350,843,222,Loc.T("ui.language"))){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");PlayerPrefs.SetString("locale",Loc.Locale);PlayerPrefs.Save();}
+            if(tower!=null&&Button(900,843,200,Loc.T("codex.boss")))OpenInspection(Inspection.Boss);
+            if(Button(1110,843,200,Loc.T("codex.skills")))OpenInspection(Inspection.Skills);
             if(noticeTimer>0){Box(450,830,750,33,new Color(.08f,.16f,.17f,.95f));Text(467,836,715,25,RenderForUI(notice),label);}
+            GUI.enabled=true;DrawInspection();
         }
         void AgentCard(Agent a,int i,float x,float y)
         {
@@ -215,8 +220,9 @@ namespace Ember.Presentation
             }
             else if(tab==1)
             {
-                int start=Mathf.Max(0,w.book.Count-4);if(w.book.Count==0)Text(46,721,1100,55,Loc.T("ui.book_empty"),label);
-                for(int i=start;i<w.book.Count;i++) {var e=w.book[i];Text(46,714+(i-start)*27,150,24,Loc.T("ui.book_author",e.run,w.agents[e.author].name),subtitle);Text(211,714+(i-start)*27,1000,24,RenderForUI(e.text),label);}
+                if(Button(1020,713,201,Loc.T("codex.open_book")))OpenInspection(Inspection.Book);
+                if(w.book.Count==0)Text(46,757,1140,55,Loc.T("ui.book_empty"),label);
+                else {var e=w.book[w.book.Count-1];Text(46,718,945,25,Loc.T("ui.book_author",e.run,w.agents[e.author].name),subtitle);Text(46,751,1140,77,RenderForUI(e.text).Split('\n')[0],small);}
             }
             else if(tab==2)
             {

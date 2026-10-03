@@ -28,6 +28,7 @@ namespace Ember.Presentation
             int rulesIndex=Array.IndexOf(args,"--balance-config");if(rulesIndex>=0)tower.Rules=JsonUtility.FromJson<StabilizationRules>(File.ReadAllText(args[rulesIndex+1]));
             towerSmoke=Array.IndexOf(args,"--phase2-smoke")>=0;towerQA=Array.IndexOf(args,"--phase2-qa")>=0;simulation.Restore(tower.Observe(0));
             if(Array.IndexOf(args,"--phase3-qa")>=0){towerQA=true;towerCases=new[]{"foundry6","foundry7","foundry8","foundry9","foundry10","lane","cross","annulus","foundry_phase2","foundry_phase3","foundry_refuge","infusion_sword","infusion_bow","infusion_staff","foundry_intel","foundry_death","foundry_english","foundry_saved","foundry_loaded","foundry_split","holy_tooltip"};}
+            if(Array.IndexOf(args,"--knowledge-qa")>=0){towerQA=true;towerCases=new[]{"codex_book","codex_book_bottom","codex_boss","codex_boss_bottom","codex_warrior","codex_archer","codex_mage","codex_healer","codex_skill_detail","codex_archer_detail","codex_healer_detail","codex_legacy","codex_empty"};}
             if(Array.IndexOf(args,"--rest-interaction-qa")>=0){towerQA=true;towerCases=new[]{"foundry_empty","foundry_partial","crossing_empty","crossing_partial","foundry_dead_mage"};}
         }
         void LoadExpedition()
@@ -98,6 +99,7 @@ namespace Ember.Presentation
         }
         void SetupTowerScenario(string scenario)
         {
+            inspection=Inspection.None;codexScroll=Vector2.zero;
             tower.Dispose();tower=new TowerSimulation(simulation.Catalog,TowerContent.Load(),1729,true);selected=0;tab=0;paused=true;noticeTimer=0;reasonerDebug=false;speed=1;
             Loc.SetLocale(qaLocaleOverride??(scenario=="english"||scenario=="foundry_english"?"en":"zh-TW"));var g=tower.State.groups[0];int floor=Array.IndexOf(towerCases,scenario)+1;
             if(floor>5)floor=scenario=="final"?25:scenario=="ice"?6:scenario=="castle"?11:scenario=="abyss"?16:scenario=="terminal_forest"?21:scenario=="terminal_ice"?22:scenario=="terminal_castle"?23:scenario=="terminal_abyss"?24:1;
@@ -120,6 +122,7 @@ namespace Ember.Presentation
                 if(scenario=="final"){g.floor=25;g.boss=BossRuntime.Create(tower.Data.Boss(tower.Data.Floor(25).bossId));g.boss.visible.hp=0;tower.EnterRest(g);foreach(var a in tower.State.Members(g))a.escaped=true;tower.NextFloor(g);tower.Finish(Outcome.TowerClear);}
                 else {tower.Die(tower.State.world.agents[0],Loc.Token("cause.collapse"));tower.Finish(Outcome.Wipe);}tab=scenario=="book"?1:2;
             }
+            if(scenario.StartsWith("codex_"))SetupKnowledgeQA(scenario,g);
             simulation.Restore(tower.Observe(selected));lastRun=simulation.State.run;lastOutcome=(int)simulation.State.outcome;view.RebuildCharacters(simulation.State,simulation.Catalog);weaponSignature="";
         }
     }

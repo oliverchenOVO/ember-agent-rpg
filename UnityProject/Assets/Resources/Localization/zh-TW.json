@@ -1628,6 +1628,522 @@
     {
       "key": "ui.rest_count",
       "value": "{0} 處設施"
+    },
+    {
+      "key": "codex.boss",
+      "value": "Boss 資料"
+    },
+    {
+      "key": "codex.skills",
+      "value": "技能樹"
+    },
+    {
+      "key": "codex.close",
+      "value": "關閉"
+    },
+    {
+      "key": "codex.open_book",
+      "value": "閱讀完整遺書"
+    },
+    {
+      "key": "codex.observer",
+      "value": "觀察資料完整公開；Agent 仍須親眼見證或閱讀遺書才能取得招式記憶。檢視期間暫停。"
+    },
+    {
+      "key": "codex.survived",
+      "value": "輪迴結束時仍生還"
+    },
+    {
+      "key": "codex.list",
+      "value": "{0} / {1}"
+    },
+    {
+      "key": "codex.epitaph",
+      "value": "{0}\n我停在第 {1} 層，面對{2}。我的結局：{3}。\n{4}"
+    },
+    {
+      "key": "codex.witnessed",
+      "value": "我親眼見過的招式：{0}。詳細記錄與應對線索留在下方。"
+    },
+    {
+      "key": "codex.no_observation",
+      "value": "我沒有親眼見到可確認的招式；別把猜測當成情報。"
+    },
+    {
+      "key": "codex.observed",
+      "value": "我親眼看見{0}準備施放{1}。"
+    },
+    {
+      "key": "codex.inherited",
+      "value": "{0}的遺書記載了{1}：{2}"
+    },
+    {
+      "key": "codex.prepared",
+      "value": "根據遺書中對{1}的記錄，我準備了{0}。"
+    },
+    {
+      "key": "codex.tone.risk",
+      "value": "我總想再往前一步；下一個我，別拿命去試那些標記。"
+    },
+    {
+      "key": "codex.tone.curiosity",
+      "value": "我最放不下那些沒弄懂的招式。把我看見的記下來，下一次就有答案。"
+    },
+    {
+      "key": "codex.tone.empathy",
+      "value": "我掛念的是同伴。看清攻擊落在哪裡，再決定怎麼救人。"
+    },
+    {
+      "key": "codex.tone.greed",
+      "value": "我還想多帶走一件東西。下次先留住命，戰利品才帶得出去。"
+    },
+    {
+      "key": "codex.tone.loyalty",
+      "value": "我不想讓隊伍少一個人。留下這些線索，是我最後能做的事。"
+    },
+    {
+      "key": "codex.tone.aggression",
+      "value": "我太急著打倒眼前的敵人。記住出招的空檔，別只顧著追擊。"
+    },
+    {
+      "key": "codex.book_meta",
+      "value": "第 {0} 輪 / {1} / {2} / 等級 {3}"
+    },
+    {
+      "key": "codex.book_build",
+      "value": "留下的配置：{0}；技能：{1}"
+    },
+    {
+      "key": "codex.legacy",
+      "value": "舊版遺書未保存招式證據，保留原文供閱讀。"
+    },
+    {
+      "key": "codex.book_help",
+      "value": "在有死者之書的避難層閱讀，才能把線索帶進本輪記憶；保留最近 8 筆相關遺書。"
+    },
+    {
+      "key": "codex.known",
+      "value": "親眼見過"
+    },
+    {
+      "key": "codex.inherited_badge",
+      "value": "遺書線索"
+    },
+    {
+      "key": "codex.unknown",
+      "value": "尚未見證"
+    },
+    {
+      "key": "codex.boss_stats",
+      "value": "生命 {0} / {1}　護甲 {2}　弱點 {3}　抗性 {4}"
+    },
+    {
+      "key": "codex.boss_state",
+      "value": "目前階段：{0}　狂暴：{1}　護盾減傷：{2}%　召喚物：{3}"
+    },
+    {
+      "key": "codex.yes",
+      "value": "是"
+    },
+    {
+      "key": "codex.no",
+      "value": "否"
+    },
+    {
+      "key": "codex.phase",
+      "value": "{0}｜生命 ≤ {1}% 或開戰 {2} 秒後（0 表示無時間條件）；狂暴 {3} 秒；弱點增傷 {4}%／抗性減傷 {5}%"
+    },
+    {
+      "key": "codex.phase_start",
+      "value": "開戰階段"
+    },
+    {
+      "key": "codex.dps",
+      "value": "階段限時：{0} 秒內造成至少最大生命 {1}% 傷害，否則狂暴。"
+    },
+    {
+      "key": "codex.pressure",
+      "value": "持續壓力：基礎每秒 {0} 傷害，隨狂暴時間增加；恢復空檔降至 20%。開戰超過 240 秒另有遞增耗損。"
+    },
+    {
+      "key": "codex.death_pulse",
+      "value": "擊敗後仍會爆發最後脈衝：半徑 2.5，基礎傷害 18。"
+    },
+    {
+      "key": "codex.boss_note",
+      "value": "以下為基礎數值。狂暴時招式傷害 ×1.2、間隔 ×0.8；實際傷害另計護甲與防禦。間隔從結算後起算，另加預警時間。"
+    },
+    {
+      "key": "codex.timing",
+      "value": "預警 {0} 秒　結算後間隔 {1} 秒　範圍 {2}（半徑／半寬）　長度 {3}　內圈 {4}"
+    },
+    {
+      "key": "codex.target",
+      "value": "形狀：{0}　鎖定：{1}　可打斷：{2}　打斷窗口：最後 {3} 秒"
+    },
+    {
+      "key": "codex.damage",
+      "value": "基礎傷害 {0}（{1}）"
+    },
+    {
+      "key": "codex.drain",
+      "value": "命中時合計扣除魔力 {0}"
+    },
+    {
+      "key": "codex.status",
+      "value": "附加{0}，持續 {1} 秒：{2}"
+    },
+    {
+      "key": "codex.push",
+      "value": "擊退距離 {0}"
+    },
+    {
+      "key": "codex.hazard",
+      "value": "危險區持續 {0} 秒，半徑 3，每秒基礎傷害 7。"
+    },
+    {
+      "key": "codex.skill_header",
+      "value": "{0} / {1}　等級 {2}　技能點 {3}　已裝備 {4} / 4"
+    },
+    {
+      "key": "codex.skill_help",
+      "value": "點選節點查看效果。連線代表實際前置技能；裝備與解鎖由 Agent 自主決定。灌注技能可跨職業使用。"
+    },
+    {
+      "key": "codex.skill_cost",
+      "value": "魔力 {0}　冷卻 {1} 秒　距離 {2}　技能點 {3}"
+    },
+    {
+      "key": "codex.prerequisite",
+      "value": "前置：{0}"
+    },
+    {
+      "key": "codex.equipped",
+      "value": "已裝備"
+    },
+    {
+      "key": "codex.unlocked",
+      "value": "已解鎖"
+    },
+    {
+      "key": "codex.locked",
+      "value": "未解鎖"
+    },
+    {
+      "key": "codex.infused",
+      "value": "武器灌注"
+    },
+    {
+      "key": "codex.other_class",
+      "value": "其他職業；需透過武器灌注使用。"
+    },
+    {
+      "key": "codex.unlockable",
+      "value": "前置與技能點已足夠，等待 Agent 決定。"
+    },
+    {
+      "key": "codex.not_ready",
+      "value": "目前缺少前置技能或技能點。"
+    },
+    {
+      "key": "codex.weapon",
+      "value": "武器需求：{0}（武器灌注施放免除此限制）"
+    },
+    {
+      "key": "codex.skill_note",
+      "value": "以下依目前角色屬性計算，為減傷前數值。治療受生命上限限制；持續傷害受抗性影響。防禦值每秒衰減 4 個百分點。"
+    },
+    {
+      "key": "codex.formula",
+      "value": "技能強度 = 基礎值 {0} + 力量×0.4 + {1}×0.8 = {2}"
+    },
+    {
+      "key": "codex.int",
+      "value": "智力"
+    },
+    {
+      "key": "codex.wis",
+      "value": "智慧"
+    },
+    {
+      "key": "codex.personal",
+      "value": "自身"
+    },
+    {
+      "key": "codex.no_weapon",
+      "value": "不限"
+    },
+    {
+      "key": "codex.element.Physical",
+      "value": "物理"
+    },
+    {
+      "key": "codex.element.Fire",
+      "value": "火焰"
+    },
+    {
+      "key": "codex.element.Ice",
+      "value": "冰霜"
+    },
+    {
+      "key": "codex.element.Light",
+      "value": "聖光"
+    },
+    {
+      "key": "codex.element.Dark",
+      "value": "暗影"
+    },
+    {
+      "key": "codex.element.Arcane",
+      "value": "奧術"
+    },
+    {
+      "key": "codex.element.",
+      "value": "無"
+    },
+    {
+      "key": "codex.shape.Circle",
+      "value": "圓形"
+    },
+    {
+      "key": "codex.shape.Lane",
+      "value": "直線"
+    },
+    {
+      "key": "codex.shape.Cross",
+      "value": "十字"
+    },
+    {
+      "key": "codex.shape.Annulus",
+      "value": "環形"
+    },
+    {
+      "key": "codex.target.Random",
+      "value": "隨機存活角色"
+    },
+    {
+      "key": "codex.target.LowestHealth",
+      "value": "生命比例最低"
+    },
+    {
+      "key": "codex.target.Farthest",
+      "value": "距離最遠"
+    },
+    {
+      "key": "codex.target.HighestDamage",
+      "value": "累積傷害最高"
+    },
+    {
+      "key": "codex.status_effect.Burn",
+      "value": "每秒基礎傷害 2"
+    },
+    {
+      "key": "codex.status_effect.Slow",
+      "value": "移動速度降為 55%"
+    },
+    {
+      "key": "codex.status_effect.Stun",
+      "value": "移動速度降為 20%"
+    },
+    {
+      "key": "codex.status_effect.Weaken",
+      "value": "狀態標記；目前未額外降低傷害"
+    },
+    {
+      "key": "codex.status_effect.Doom",
+      "value": "結束時承受最大生命 120% 的基礎傷害"
+    },
+    {
+      "key": "codex.mechanic.Slam",
+      "value": "對預警區內角色造成傷害。"
+    },
+    {
+      "key": "codex.mechanic.Projectile",
+      "value": "朝鎖定區域發射攻擊。"
+    },
+    {
+      "key": "codex.mechanic.Charge",
+      "value": "衝至鎖定位置，攻擊預警區。"
+    },
+    {
+      "key": "codex.mechanic.Summon",
+      "value": "增加 2 個召喚物，上限 6；每個每秒造成基礎傷害 2。攻擊先清除召喚物，再傷害 Boss。"
+    },
+    {
+      "key": "codex.mechanic.Storm",
+      "value": "攻擊後在目標位置留下危險區。"
+    },
+    {
+      "key": "codex.mechanic.Drain",
+      "value": "直接命中鎖定角色，不看地面範圍；額外吸取 10 魔力，Boss 恢復 8 生命。"
+    },
+    {
+      "key": "codex.mechanic.Shield",
+      "value": "獲得 55% 減傷護盾，每秒衰減 10 個百分點。"
+    },
+    {
+      "key": "codex.mechanic.Survival",
+      "value": "Boss 在持續期間免疫傷害，並留下危險區。"
+    },
+    {
+      "key": "codex.mechanic.Doom",
+      "value": "命中後施加狀態，注意結束時的致命傷害。"
+    },
+    {
+      "key": "codex.advice.Slam",
+      "value": "預警時離開標記；可打斷的招式留意最後窗口。"
+    },
+    {
+      "key": "codex.advice.Projectile",
+      "value": "先避開鎖定區，再回頭攻擊。"
+    },
+    {
+      "key": "codex.advice.Charge",
+      "value": "別站在衝刺路線上，衝刺後再追擊。"
+    },
+    {
+      "key": "codex.advice.Summon",
+      "value": "保留清場技能，先處理召喚物。"
+    },
+    {
+      "key": "codex.advice.Storm",
+      "value": "離開持續危險區，別為了追擊停留。"
+    },
+    {
+      "key": "codex.advice.Drain",
+      "value": "地面閃避無法躲開鎖定吸取；保留護盾與魔力補給。"
+    },
+    {
+      "key": "codex.advice.Shield",
+      "value": "利用護盾衰退的時間恢復資源，避免空耗技能。"
+    },
+    {
+      "key": "codex.advice.Survival",
+      "value": "免疫期間專心移動，等危險區結束再輸出。"
+    },
+    {
+      "key": "codex.advice.Doom",
+      "value": "預警時離開範圍，受影響後優先淨化。"
+    },
+    {
+      "key": "codex.skill.slash",
+      "value": "物理傷害 {0}；可打斷。將 Boss 沿遠離角色的方向推移（差向量×0.08）。"
+    },
+    {
+      "key": "codex.skill.wave",
+      "value": "物理傷害 {0}；可打斷。易傷 5 秒，所受傷害增加 25%。"
+    },
+    {
+      "key": "codex.skill.rage",
+      "value": "持續 10 秒的火焰強化：普通攻擊額外基礎傷害 12；並每秒恢復 3 生命，持續 6 秒。"
+    },
+    {
+      "key": "codex.skill.guard",
+      "value": "防禦減傷 65%；護盾吸收 {7} 傷害，持續 5 秒。"
+    },
+    {
+      "key": "codex.skill.taunt",
+      "value": "將目前招式改鎖定自身；圓形預警同步移動。防禦減傷 50%。"
+    },
+    {
+      "key": "codex.skill.counter",
+      "value": "立即造成物理傷害 {1}；可打斷。反擊效果 5 秒，受到基礎傷害大於 3 的攻擊時反擊 {0}。防禦減傷 50%。"
+    },
+    {
+      "key": "codex.skill.shot",
+      "value": "物理傷害 {0}；距離大於 5 時提高至 {5}。移動速度增加 30%，持續 2 秒。"
+    },
+    {
+      "key": "codex.skill.poison",
+      "value": "立即物理傷害 {2}；中毒每秒基礎傷害 6，持續 8 秒。"
+    },
+    {
+      "key": "codex.skill.rain",
+      "value": "物理傷害 {0}；可打斷；先移除最多 3 個召喚物。"
+    },
+    {
+      "key": "codex.skill.trap",
+      "value": "放置半徑 3 的陷阱，持續 5 秒；Boss 位於區內時定身，區內每秒基礎物理傷害 5。可在打斷窗口干擾招式。"
+    },
+    {
+      "key": "codex.skill.pierce",
+      "value": "物理傷害 {0}；可打斷。易傷 5 秒，所受傷害增加 25%。"
+    },
+    {
+      "key": "codex.skill.snipe",
+      "value": "物理傷害 {4}；施放後普通攻擊等待 1.2 秒。"
+    },
+    {
+      "key": "codex.skill.fireball",
+      "value": "火焰傷害 {0}；可打斷。燃燒每秒基礎火焰傷害 4，持續 4 秒。"
+    },
+    {
+      "key": "codex.skill.frost",
+      "value": "冰霜傷害 {0}；可打斷。定身 3 秒（半徑 3），Boss 下一次攻擊等待增加 0.8 秒。"
+    },
+    {
+      "key": "codex.skill.meteor",
+      "value": "火焰傷害 {0}；可打斷。留下半徑 3 的區域，每秒基礎火焰傷害 8，持續 4 秒。"
+    },
+    {
+      "key": "codex.skill.shield",
+      "value": "自身護盾吸收 {6} 傷害，持續 8 秒。"
+    },
+    {
+      "key": "codex.skill.enchant",
+      "value": "火焰強化 12 秒；普通攻擊額外基礎傷害 12；附魔狀態持續 12 秒。"
+    },
+    {
+      "key": "codex.skill.lightning",
+      "value": "奧術傷害 {0}；可打斷；先移除最多 3 個召喚物。"
+    },
+    {
+      "key": "codex.skill.holy",
+      "value": "聖光傷害 {0}；可打斷。治療生命比例最低的同伴 {9}；依實際治療比例額外耗魔，最多 {10}。"
+    },
+    {
+      "key": "codex.skill.heal",
+      "value": "單體治療 {0}；另每秒恢復 3 生命，持續 4 秒。"
+    },
+    {
+      "key": "codex.skill.groupheal",
+      "value": "全隊存活角色各治療 {3}，並獲得吸收 12 傷害的護盾，持續 3 秒。"
+    },
+    {
+      "key": "codex.skill.ward",
+      "value": "全隊存活角色各獲得吸收 {8} 傷害的護盾，持續 8 秒。"
+    },
+    {
+      "key": "codex.skill.cleanse",
+      "value": "移除目標身上所有 Boss 狀態，並治療 {0}。"
+    },
+    {
+      "key": "codex.skill.revive",
+      "value": "復活死亡同伴，恢復其最大生命的 35%；每位同伴每輪限復活一次。對存活同伴改為治療 {0}。"
+    },
+    {
+      "key": "codex.weapon.Sword",
+      "value": "劍"
+    },
+    {
+      "key": "codex.weapon.Bow",
+      "value": "弓"
+    },
+    {
+      "key": "codex.weapon.Staff",
+      "value": "法杖"
+    },
+    {
+      "key": "codex.agent_stats",
+      "value": "力量 {0}　敏捷 {1}　智力 {2}　體質 {3}　智慧 {4}　魔力屬性 {5}　幸運 {6}"
+    },
+    {
+      "key": "codex.node_cost",
+      "value": "魔力 {0}　冷卻 {1} 秒\n距離 {2}　技能點 {3}"
+    },
+    {
+      "key": "codex.edge",
+      "value": "›"
     }
   ]
 }

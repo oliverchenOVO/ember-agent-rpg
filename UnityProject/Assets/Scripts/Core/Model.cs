@@ -55,7 +55,11 @@ namespace Ember.Core
     }
     [Serializable] public class BossState { public float hp, maxHp, timer=2, windup, targetX, targetZ; public bool enraged, telegraph; public int hits; }
     [Serializable] public class Message { public float time; public int speaker=-1; public string text, category; }
-    [Serializable] public class Epitaph { public int run, author; public string text; }
+    [Serializable] public class Epitaph
+    {
+        public int run,author,floor,phase,level;public string text,boss,cause,tone,weapon;public Profession profession;
+        public List<string> skills=new List<string>(),observedAbilities=new List<string>();
+    }
     [Serializable] public class RunRecord
     {
         public int run, floor, deaths; public float seconds; public Outcome outcome;

@@ -41,7 +41,7 @@ namespace Ember.Core.Phase2
         }
         bool SpecialSkill(Agent a,GroupState g,SkillDef s,Agent ally)
         {
-            var b=g.boss;float p=s.power+a.stats.str*.4f+(s.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.8f;
+            var b=g.boss;float p=CodexText.Power(a,s);
             switch(s.id)
             {
                 case "revive":

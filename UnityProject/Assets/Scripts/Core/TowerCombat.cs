@@ -20,14 +20,15 @@ namespace Ember.Core.Phase2
             }
             g.floor++;g.phase=Phase.Battle;g.phaseClock=0;g.travelLeft=0;g.boss=BossRuntime.Create(Data.Boss(Data.Floor(g.floor).bossId));g.claimedLoot.Clear();
             foreach(var a in State.Members(g).Where(a=>a.alive))
-            {a.escaped=false;a.x=-6+a.id*3.5f;a.z=-5;a.taskTimer=0;a.task="";a.intent=new Intent();var p=State.Plan(a.id);p.nextDecision=0;p.workLeft=0;p.visited.Clear();}
+            {a.escaped=false;a.x=-6+a.id*3.5f;a.z=-5;a.taskTimer=0;a.task="";a.intent=new Intent();var p=State.Plan(a.id);p.nextDecision=0;p.workLeft=0;p.visited.Clear();PrepareFromBook(a,g);}
             State.world.Say(-1,Loc.Token("p2.event.floor",g.id,g.floor,Loc.Token(Data.Floor(g.floor).nameKey)),"floor");
             if(!string.IsNullOrEmpty(Data.Floor(g.floor).introKey))State.world.Say(-1,Loc.Token(Data.Floor(g.floor).introKey),"boss");
         }
         void ExecuteCombat(Agent a,GroupState g,float dt)
         {
             if(Rules.combatRecovery&&Rules.potionBeforeMovement)CombatPotions(a,g);var b=g.boss;var plan=State.Plan(a.id);float radius=b.Radius(Data);
-            bool danger=b.visible.telegraph&&(b.cue.radius>0?b.cue.Contains(a.x,a.z,.6f):Simulation.Distance(a.x,a.z,b.visible.targetX,b.visible.targetZ)<radius+.6f);
+            float margin=KnowsAbility(a,b.definition,b.ability,KnowledgeSource.BookOfDead)?1.1f:.6f;
+            bool danger=b.visible.telegraph&&(b.cue.radius>0?b.cue.Contains(a.x,a.z,margin):Simulation.Distance(a.x,a.z,b.visible.targetX,b.visible.targetZ)<radius+margin);
             bool hazard=b.hazardLeft>0&&Simulation.Distance(a.x,a.z,b.hazardX,b.hazardZ)<3.4f;
             float speed=b.MovementMultiplier(a.id)*(Effect(b,a.id,"Haste")!=null?1.3f:1)*(a.weapon.affix=="Mobility"?1.12f:1);
             if(danger||hazard)
