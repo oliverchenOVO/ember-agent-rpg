@@ -28,6 +28,8 @@ namespace Ember.Editor
         public static void BuildReleaseHealing(){BuildPlayer(false,"../Builds/Phase311/EXP2.1/Windows/Ember.exe");}
         public static void BuildDevelopmentObserverRecovery(){BuildPlayer(true,"../Builds/Phase311/EXP2.1-R1/Development/Ember.exe");}
         public static void BuildReleaseObserverRecovery(){BuildPlayer(false,"../Builds/Phase311/EXP2.1-R1/Windows/Ember.exe");}
+        public static void BuildRestInteraction(){BuildPlayer(true,"../Builds/RestInteraction/Development/Ember.exe");}
+        public static void BuildReleaseRestInteraction(){BuildPlayer(false,"../Builds/RestInteraction/Windows/Ember.exe");}
         static void BuildPlayer(bool development,string output=null)
         {
             Debug.Log("BUILD START / development="+development+" / UTC="+DateTime.UtcNow.ToString("O"));

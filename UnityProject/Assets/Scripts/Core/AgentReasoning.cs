@@ -56,6 +56,7 @@ namespace Ember.Core.Phase2
                 float urgency=Mathf.Clamp01(1-(c.remaining-c.escapeSeconds-3)/12);
                 Add(Goal.Exit,12+urgency*(90+q.caution*20-p.risk*12+c.bookConfidence*8),"collapse_budget");
                 Add(Goal.Recover,(1-c.hp)*75+(1-c.mp)*22+q.caution*8-urgency*70,"recover","bed");
+                Add(Goal.Recover,(1-c.hp)*65+q.caution*10-urgency*70,"recover","clinic");
                 if(c.materials>0)Add(Goal.Support,12+p.empathy*14+q.caution*8-urgency*65,"bless_group","church");
                 if(c.canForge)Add(Goal.Forge,24+p.greed*10+q.strategic*15-c.inventoryValue*7-urgency*65,"plan_build","forge");
                 Add(Goal.Intel,16+p.curiosity*14+q.strategic*12-(c.intel.Length>0?24:0)-urgency*55,"learn_boss","library");

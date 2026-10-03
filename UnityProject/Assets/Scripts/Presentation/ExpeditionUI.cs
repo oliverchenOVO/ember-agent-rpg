@@ -28,6 +28,7 @@ namespace Ember.Presentation
             int rulesIndex=Array.IndexOf(args,"--balance-config");if(rulesIndex>=0)tower.Rules=JsonUtility.FromJson<StabilizationRules>(File.ReadAllText(args[rulesIndex+1]));
             towerSmoke=Array.IndexOf(args,"--phase2-smoke")>=0;towerQA=Array.IndexOf(args,"--phase2-qa")>=0;simulation.Restore(tower.Observe(0));
             if(Array.IndexOf(args,"--phase3-qa")>=0){towerQA=true;towerCases=new[]{"foundry6","foundry7","foundry8","foundry9","foundry10","lane","cross","annulus","foundry_phase2","foundry_phase3","foundry_refuge","infusion_sword","infusion_bow","infusion_staff","foundry_intel","foundry_death","foundry_english","foundry_saved","foundry_loaded","foundry_split","holy_tooltip"};}
+            if(Array.IndexOf(args,"--rest-interaction-qa")>=0){towerQA=true;towerCases=new[]{"foundry_empty","foundry_partial","crossing_empty","crossing_partial","foundry_dead_mage"};}
         }
         void LoadExpedition()
         {
@@ -101,7 +102,7 @@ namespace Ember.Presentation
             Loc.SetLocale(qaLocaleOverride??(scenario=="english"||scenario=="foundry_english"?"en":"zh-TW"));var g=tower.State.groups[0];int floor=Array.IndexOf(towerCases,scenario)+1;
             if(floor>5)floor=scenario=="final"?25:scenario=="ice"?6:scenario=="castle"?11:scenario=="abyss"?16:scenario=="terminal_forest"?21:scenario=="terminal_ice"?22:scenario=="terminal_castle"?23:scenario=="terminal_abyss"?24:1;
             g.floor=floor;g.boss=BossRuntime.Create(tower.Data.Boss(tower.Data.Floor(floor).bossId));
-            if(towerCases[0]=="foundry6")SetupFoundryQA(scenario,g);
+            if(towerCases[0].StartsWith("foundry"))SetupFoundryQA(scenario,g);
             if(scenario=="caster"||scenario=="charger"||scenario=="summoner"||scenario=="environment")
             {g.boss.ability=tower.Data.Boss(g.boss.definition).phases[0].abilities[0];g.boss.visible.telegraph=true;g.boss.visible.windup=1;g.boss.visible.targetX=-2;g.boss.visible.targetZ=-3;if(scenario=="summoner")g.boss.adds=3;}
             if(scenario=="phase_transition"){g.boss.visible.hp*=.4f;tower.Step();}

@@ -4,6 +4,8 @@
 
 Resources/catalog.json 仍擁有職業、技能、物品與配方的既有穩定 ID。Resources/tower.json 是 schema version 2 的塔資料，包含 25 層、25 個 Boss 定義、9 種能力 mechanic、9 種休息設施與 9 種環境 profile。前五層使用五種不同可執行 archetype，其他樓層重組機制，`placeholder: true` 明確表示尚未製作各自完整內容。
 
+休息設施表是候選集合，不代表每次全部存在。RestDefinition 可選填 `emptyChance`（預設 0.15）與 `facilityChance`（預設 0.65）：前者抽完全空白的休息區，其餘逐項抽選設施。出口與坍塌不參與設施抽選。結果保存於分隊狀態，讀檔／分隊不重新抽選；缺少新欄位的舊存檔保留既有完整設施。驗證見 [休息區與彈幕修正](REST_INTERACTION_VALIDATION.md)。
+
 Tools/write_phase2_content.py 是目前的 authoring 來源；修改後重產 tower.json。Tools/phase2_strings.py 擁有新增中英文案，執行 Tools/write_localization.py 產生字串表與盤點。不要只改生成檔，否則下次產生會被覆寫。
 
 Floor 的 id/floor/nameKey/theme/bossId/difficultyTier、arenaRules、hazard、lootTables、restPool、threatTags、intelTags、music/ambience、lighting/vfx 都是資料。主題順序為森林、冰原、城堡、深淵、四種終末版本、獨立塔心。音樂/環境音參照目前標為 placeholder；環境與 Boss 輪廓以可重用程序幾何呈現，尚非最終素材。

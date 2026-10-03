@@ -1620,6 +1620,14 @@
     {
       "key": "p31.skill.holy_hint",
       "value": "Holy attacks also restore health; effective recovery costs up to 2 additional mana."
+    },
+    {
+      "key": "ui.rest_empty",
+      "value": "No facilities"
+    },
+    {
+      "key": "ui.rest_count",
+      "value": "{0} facilities"
     }
   ]
 }

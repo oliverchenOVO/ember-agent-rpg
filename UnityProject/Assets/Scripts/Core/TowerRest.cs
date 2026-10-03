@@ -21,6 +21,9 @@ namespace Ember.Core.Phase2
             CloseTelemetry(g,true);
             g.phase=Phase.Rest;g.phaseClock=0;g.boss.visible.telegraph=false;State.floorsCleared++;
             var f=Data.Floor(g.floor);g.restId=f.restPool[State.world.Pick(f.restPool.Length)];
+            var layout=Data.Rest(g.restId);g.restSitesRolled=true;g.availableRestSites.Clear();
+            if(State.world.Roll()>=layout.emptyChance)
+                foreach(var site in layout.sites)if(State.world.Roll()<layout.facilityChance)g.availableRestSites.Add(site.id);
             if(!string.IsNullOrEmpty(f.deathKey))State.world.Say(-1,Loc.Token(f.deathKey),"boss");
             State.world.Say(-1,Loc.Token("p2.event.victory",Loc.Token(Data.Boss(g.boss.definition).nameKey),g.id),"run");
             foreach(var a in State.Members(g).Where(a=>a.alive))
@@ -63,10 +66,10 @@ namespace Ember.Core.Phase2
                 else {p.decision.intent="Exit";p.nextDecision=State.world.clock+1.5f;}return;
             }
             string site=p.decision.proposedAction;
-            if(p.decision.intent=="Recover"&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
+            if(p.decision.intent=="Recover"&&rest.HasSite(g,"clinic")&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
             if(p.decision.intent=="Support")site="church";
-            if(Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=1+Mathf.Clamp(Rules.clinicKitCost,1,3)&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)||a.inventory.FindAll(i=>i.id=="mp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)))site="clinic";
-            var station=Array.Find(rest.sites,s=>s.id==site);
+            if(rest.HasSite(g,"clinic")&&Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=1+Mathf.Clamp(Rules.clinicKitCost,1,3)&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)||a.inventory.FindAll(i=>i.id=="mp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)))site="clinic";
+            var station=Array.Find(rest.sites,s=>s.id==site&&rest.HasSite(g,s.id));
             if(station==null||(site=="bed"?p.visited.Count(v=>v==site)>=2:p.visited.Contains(site))||a.materials<station.materialCost){p.decision.intent="Exit";return;}
             a.intent.kind=station.effect=="Craft"?ActionKind.Craft:station.effect=="Read"||station.effect=="Intel"?ActionKind.Read:station.effect=="Heal"||station.effect=="Cleanse"?ActionKind.Rest:ActionKind.Explore;
             Move(a,station.x+(a.id%2==0?-.35f:.35f),station.z,dt);

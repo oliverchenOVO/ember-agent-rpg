@@ -1,4 +1,5 @@
 using System.Linq;
+using Ember.Core;
 using Ember.Core.Phase2;
 using UnityEngine;
 
@@ -6,11 +7,33 @@ namespace Ember.Presentation
 {
     public sealed partial class WorldView
     {
+        Transform restFacilities;string restFacilityDefinition="";
+        readonly System.Collections.Generic.Dictionary<string,Transform> restFacilityObjects=new System.Collections.Generic.Dictionary<string,Transform>();
+        void SetRestFacilities(TowerContent data,GroupState group)
+        {
+            var rest=data.Rest(group.restId);
+            if(restFacilities==null||restFacilityDefinition!=rest.id)
+            {
+                if(restFacilities!=null){restFacilities.gameObject.SetActive(false);Object.Destroy(restFacilities.gameObject);}
+                restFacilityObjects.Clear();restFacilityDefinition=rest.id;
+                restFacilities=new GameObject("Available refuge facilities").transform;restFacilities.SetParent(refuge,false);
+                foreach(var site in rest.sites)
+                {
+                    var station=new GameObject("Rest facility / "+site.id).transform;station.SetParent(restFacilities,false);station.localPosition=new Vector3(site.x,0,site.z);
+                    Part("Facility",PrimitiveType.Cube,station,new Vector3(0,.35f,0),site.effect=="Heal"?new Vector3(1.8f,.7f,1.4f):new Vector3(1.1f,.7f,1),stone);
+                    Ring("Interaction sigil",station,new Vector3(0,.8f,0),.65f,.06f,site.risk>.1f?red:glow);
+                    if(site.effect=="Read"||site.effect=="Intel")Part("Book",PrimitiveType.Cube,station,new Vector3(0,.85f,0),new Vector3(.8f,.15f,.6f),brass,new Vector3(10,0,0));
+                    restFacilityObjects.Add(site.id,station);
+                }
+            }
+            restFacilities.gameObject.SetActive(group.phase==Phase.Rest);
+            foreach(var entry in restFacilityObjects)entry.Value.gameObject.SetActive(rest.HasSite(group,entry.Key));
+        }
         GroupState observedGroup;float observedRadius=3.2f;Transform variant,environmentProps,hazard,phaseRing;Transform[] adds;string visualArchetype="",visualTheme="";float previousBossHp,impactUntil;int visualPhase=-1;
         readonly System.Collections.Generic.Dictionary<string,Transform> variantCache=new System.Collections.Generic.Dictionary<string,Transform>();
         public void SetExpedition(TowerContent data,GroupState group)
         {
-            observedGroup=group;observedRestLimit=data.Rest(group.restId).collapseAfter;observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
+            SetRestFacilities(data,group);observedGroup=group;observedRestLimit=data.Rest(group.restId).collapseAfter;observedRadius=group.boss.Radius(data);var definition=data.Boss(group.boss.definition);var f=data.Floor(group.floor);var profile=data.environments.First(e=>e.id==f.theme);
             if(visualTheme!=f.theme)
             {
                 visualTheme=f.theme;var color=new Color(profile.r,profile.g,profile.b);
@@ -49,7 +72,6 @@ namespace Ember.Presentation
             {
                 hazard=Ring("Persistent hazard",arena,Vector3.zero,3,.08f,red);phaseRing=Ring("Phase transition",arena,Vector3.zero,2.7f,.1f,brass);
                 adds=new Transform[6];for(int i=0;i<adds.Length;i++){adds[i]=Part("Summoned echo",PrimitiveType.Capsule,arena,new Vector3(Mathf.Cos(i)*4,1,Mathf.Sin(i)*4+1),new Vector3(.45f,1,.45f),red);}
-                foreach(var site in data.rests[0].sites){Ring("Rest site / "+site.id,refuge,new Vector3(site.x,.05f,site.z),.75f,.06f,site.risk>.1f?red:glow);}
             }
             boss.gameObject.SetActive(definition.archetype=="guardian"&&group.boss.visible.hp>0);variant.gameObject.SetActive(definition.archetype!="guardian"&&group.boss.visible.hp>0);
             variant.localPosition=new Vector3(group.boss.x,.1f*Mathf.Sin(Time.time),group.boss.z);variant.localRotation=Quaternion.Euler(0,definition.archetype=="environment"?Time.time*15:0,0);

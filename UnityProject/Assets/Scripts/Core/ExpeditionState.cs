@@ -12,6 +12,7 @@ namespace Ember.Core.Phase2
         public string strategy="balanced",restId="crossing";public float phaseClock,travelLeft;
         public bool completed,terminal;public BossRuntime boss;
         public List<string> claimedLoot=new List<string>();
+        public bool restSitesRolled;public List<string> availableRestSites=new List<string>();
     }
     [Serializable] public class AgentPlan
     {
@@ -55,7 +56,11 @@ namespace Ember.Core.Phase2
             if(s.groups==null||s.groups.Count<1||s.groups.Count>4||s.groups.Select(g=>g.id).Distinct().Count()!=s.groups.Count||s.groups.SelectMany(g=>g.members).OrderBy(x=>x).SequenceEqual(new[]{0,1,2,3})==false)throw new InvalidDataException("Invalid group ownership");
             if(s.profiles==null||s.plans==null||s.memories==null||s.relationships==null||s.replay==null||s.completedAgents==null||s.completedAgents.Distinct().Count()!=s.completedAgents.Count||s.completedAgents.Any(id=>id<0||id>3))throw new InvalidDataException("Invalid cognition state");
             foreach(var g in s.groups)
+            {
+                if(g.availableRestSites==null)g.availableRestSites=new List<string>();
+                if(g.restSitesRolled&&(g.availableRestSites.Distinct().Count()!=g.availableRestSites.Count||g.availableRestSites.Any(id=>data.Rest(g.restId)==null||!data.Rest(g.restId).sites.Any(site=>site.id==id))))throw new InvalidDataException("Invalid refuge facility layout");
                 if(data.Floor(g.floor)==null||g.boss==null||g.boss.definition!=data.Floor(g.floor).bossId||g.boss.phase<0||g.boss.phase>=data.Boss(g.boss.definition).phases.Length||!Finite(g.phaseClock)||g.phaseClock<0||!Finite(g.travelLeft)||g.travelLeft<0||!Finite(g.boss.visible.hp)||!Finite(g.boss.visible.maxHp)||g.boss.visible.maxHp<=0||g.boss.visible.hp<0||g.boss.visible.hp>g.boss.visible.maxHp||!Enum.IsDefined(typeof(Phase),g.phase)||data.Rest(g.restId)==null||g.members.Count==0)throw new InvalidDataException("Invalid group progress");
+            }
             for(int id=0;id<4;id++)
             {
                 if(s.profiles.Count(p=>p.agent==id)!=1||s.plans.Count(p=>p.agent==id)!=1||s.memories.Count(p=>p.agent==id)!=1)throw new InvalidDataException("Missing agent cognition");

@@ -9,6 +9,7 @@ namespace Ember.Presentation
     {
         readonly bool noHitFx=System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"--no-hit-fx")>=0;
         public int EffectSerial{get;private set;}
+        public int ActiveAgentEffects=>effects.Count;
         public void SetUIOnly(){world.gameObject.SetActive(false);}
         public Camera camera; public Color[] colors={new Color(.95f,.6f,.22f),new Color(.35f,.85f,.72f),new Color(.57f,.55f,1),new Color(.92f,.76f,.52f)};
         Transform world, arena, refuge, boss, crown, warning, shock, collapseFront, collapseVoid;
@@ -18,7 +19,7 @@ namespace Ember.Presentation
         Material[] robes=new Material[4];
         float angle=0,observedRestLimit=Simulation.RestLimit;
         float[] previousDamage=new float[4], previousHealing=new float[4];
-        class Effect {public Transform visual;public Vector3 from,to;public float left=.35f;}
+        class Effect {public Transform visual;public Vector3 from,to;public float left=.35f;public int source;}
         readonly List<Effect> effects=new List<Effect>();
         readonly Stack<Effect> effectPool=new Stack<Effect>();
         readonly List<Mesh> ownedMeshes=new List<Mesh>();readonly List<Material> ownedMaterials=new List<Material>();bool disposed;
@@ -102,10 +103,6 @@ namespace Ember.Presentation
             Part("Bridge foundation",PrimitiveType.Cube,refuge,new Vector3(0,-.5f,0),new Vector3(22,.8f,11),dark);
             for(int i=0;i<11;i++)Part("Crossing slabs",PrimitiveType.Cube,refuge,new Vector3(-10+i*2,-.04f,0),new Vector3(1.94f,.12f,10),ground);
             for(int i=0;i<8;i++) {Lantern(refuge,new Vector3(-8+i*2.3f,0,4.7f));Part("Broken arch",PrimitiveType.Cube,refuge,new Vector3(-8+i*2.3f,2.2f,-5),new Vector3(.55f,4.4f,.55f),stone);}
-            Part("Sanctuary bed",PrimitiveType.Cube,refuge,new Vector3(-4,.35f,-2),new Vector3(2,.7f,2),stone);Ring("Healing sigil",refuge,new Vector3(-4,.73f,-2),1,.04f,glow);Point(refuge,new Vector3(-4,2,-2),new Color(.2f,.8f,.7f),4,6);
-            Part("Legacy lectern",PrimitiveType.Cube,refuge,new Vector3(-4,.7f,3),new Vector3(.8f,1.4f,.8f),dark);Part("Book of the Dead",PrimitiveType.Cube,refuge,new Vector3(-4,1.45f,3),new Vector3(1.2f,.12f,.9f),brass,new Vector3(12,0,0));
-            Part("Forge anvil",PrimitiveType.Cube,refuge,new Vector3(-1,.7f,2),new Vector3(1.8f,1.4f,.9f),stone);Point(refuge,new Vector3(-1,1,2),new Color(1,.38f,.1f),5,7);Particles(refuge,new Vector3(-1,1.5f,2),new Color(1,.5f,.1f),.04f,9,1);
-            for(int i=0;i<3;i++)Part("Cache",PrimitiveType.Cube,refuge,new Vector3(3+i*.5f,.3f,-3),new Vector3(.7f,.6f,.5f),brass,new Vector3(0,i*17,0));
             Part("Exit left",PrimitiveType.Cube,refuge,new Vector3(10,3,-2),new Vector3(.5f,6,.5f),stone);Part("Exit right",PrimitiveType.Cube,refuge,new Vector3(10,3,2),new Vector3(.5f,6,.5f),stone);Part("Exit arch",PrimitiveType.Cube,refuge,new Vector3(10,5.8f,0),new Vector3(.5f,.5f,4.5f),brass);
             Ring("Exit sigil",refuge,new Vector3(9,.02f,0),1.8f,.08f,glow);Point(refuge,new Vector3(9,3,0),new Color(.22f,.95f,.85f),6,8);
             collapseFront=Part("Advancing collapse",PrimitiveType.Cube,refuge,new Vector3(-10,.35f,0),new Vector3(.16f,.7f,11),red);
@@ -196,17 +193,17 @@ namespace Ember.Presentation
                 bodies[i].rotation=a.alive?Quaternion.Euler(0,battle?Mathf.Atan2(-a.x,1-a.z)*Mathf.Rad2Deg:90,0):Quaternion.Euler(0,0,85);
                 auras[i].gameObject.SetActive(a.alive);auras[i].localScale=Vector3.one*(1+.06f*Mathf.Sin(t*2+i));
                 bool present=observedGroup==null||observedGroup.members.Contains(i);
-                if(battle&&present&&a.damage>previousDamage[i]) AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(observedGroup?.boss.x??0,2,observedGroup?.boss.z??1),robes[i]);
-                if(battle&&present&&a.healing>previousHealing[i])
+                if(battle&&present&&a.alive&&!a.escaped&&a.damage>previousDamage[i]) AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(observedGroup?.boss.x??0,2,observedGroup?.boss.z??1),robes[i],i);
+                if(battle&&present&&a.alive&&!a.escaped&&a.healing>previousHealing[i])
                 {
-                    var target=a.intent.target>=0?w.agents[a.intent.target]:a;AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(target.x,1.4f,target.z),glow);
+                    var target=a.intent.target>=0?w.agents[a.intent.target]:a;AddEffect(new Vector3(a.x,1.4f,a.z),new Vector3(target.x,1.4f,target.z),glow,i);
                 }
                 previousDamage[i]=a.damage;previousHealing[i]=a.healing;
             }
             for(int i=effects.Count-1;i>=0;i--)
             {
                 var e=effects[i];e.left-=dt;e.visual.position=Vector3.Lerp(e.from,e.to,1-e.left/.35f);e.visual.localScale=Vector3.one*(.15f+.1f*Mathf.Sin((1-e.left/.35f)*Mathf.PI));
-                if(e.left<=0){e.visual.gameObject.SetActive(false);effects.RemoveAt(i);effectPool.Push(e);}
+                if(e.left<=0||!battle||!w.agents[e.source].alive||w.agents[e.source].escaped||!bodies[e.source].gameObject.activeSelf){e.visual.gameObject.SetActive(false);effects.RemoveAt(i);effectPool.Push(e);}
             }
             if(!battle)
             {
@@ -216,11 +213,11 @@ namespace Ember.Presentation
                 if(collapse>-10) camera.backgroundColor=new Color(.12f,.04f,.04f);else camera.backgroundColor=new Color(.035f,.065f,.08f);
             }
         }
-        void AddEffect(Vector3 from,Vector3 to,Material material)
+        void AddEffect(Vector3 from,Vector3 to,Material material,int source)
         {
             if(noHitFx||effects.Count>=64)return;EffectSerial++;
             var effect=effectPool.Count>0?effectPool.Pop():new Effect{visual=Part("Pooled impact mote",PrimitiveType.Sphere,world,from,Vector3.one*.2f,material)};
-            effect.from=from;effect.to=to;effect.left=.35f;effect.visual.gameObject.SetActive(true);effect.visual.GetComponent<Renderer>().sharedMaterial=material;effects.Add(effect);
+            effect.source=source;effect.from=from;effect.to=to;effect.left=.35f;effect.visual.gameObject.SetActive(true);effect.visual.GetComponent<Renderer>().sharedMaterial=material;effects.Add(effect);
         }
         public Vector3 Screen(Agent a) => camera.WorldToScreenPoint(new Vector3(a.x,2.5f,a.z));
     }

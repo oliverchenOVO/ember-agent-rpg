@@ -9,13 +9,29 @@ namespace Ember.Presentation
     {
         void SetupFoundryQA(string scenario,GroupState g)
         {
-            int floor=scenario.StartsWith("foundry")&&int.TryParse(scenario.Substring(7),out var number)?number:scenario=="annulus"||scenario=="foundry_phase2"||scenario=="foundry_phase3"?10:scenario=="cross"?7:6;
+            int floor=scenario.StartsWith("crossing")?1:scenario.StartsWith("foundry")&&int.TryParse(scenario.Substring(7),out var number)?number:scenario=="annulus"||scenario=="foundry_phase2"||scenario=="foundry_phase3"?10:scenario=="cross"?7:6;
             g.floor=floor;g.boss=BossRuntime.Create(tower.Data.Boss(tower.Data.Floor(floor).bossId));g.boss.visible.timer=0;
             // Give the genuine content enough anticipation to be visible in the frozen fixture.
             tower.Step();var b=g.boss;
             if(scenario=="cross"||scenario=="annulus"){var ability=tower.Data.Ability(scenario=="cross"?"rail_cross":"pulse_ring");b.ability=ability.id;b.cue=new CombatCue{shape=ability.shape,x=0,z=1,radius=ability.radius,innerRadius=ability.innerRadius,length=ability.length,interruptible=ability.interruptible,left=ability.windup};b.visible.windup=ability.windup;b.visible.targetX=0;b.visible.targetZ=1;}
             if(scenario=="foundry_phase2"||scenario=="foundry_phase3"){b.phase=scenario=="foundry_phase3"?2:1;b.visible.hp=b.visible.maxHp*(b.phase==2?.25f:.55f);b.visible.telegraph=false;}
             if(scenario=="foundry_refuge"||scenario=="foundry_split"||scenario=="foundry_saved"||scenario=="foundry_loaded"){b.visible.hp=0;tower.EnterRest(g);g.phaseClock=7;if(scenario=="foundry_split"){tower.Split(g.id,new[]{2,3});tab=4;}}
+            if(scenario=="foundry_empty"||scenario=="foundry_partial"||scenario.StartsWith("crossing_"))
+            {
+                b.visible.hp=0;tower.EnterRest(g);g.phaseClock=7;g.restSitesRolled=true;g.availableRestSites.Clear();
+                if(scenario.EndsWith("_partial"))g.availableRestSites.AddRange(new[]{"book","forge"});
+            }
+            if(scenario=="foundry_dead_mage")
+            {
+                var a=tower.State.world.agents[0];a.profession=Profession.Mage;a.weapon=a.Make("staff");a.alive=true;a.escaped=false;view.SetExpedition(tower.Data,g);
+                var observed=tower.Observe(0);view.Update(observed,.5f,0);a.damage+=10;view.Update(observed,.01f,0);int emitted=view.EffectSerial;
+                if(view.ActiveAgentEffects==0)throw new Exception("Living attack effect fixture failed");
+                a.alive=false;a.hp=0;a.damage+=3;view.Update(observed,.01f,0);
+                if(view.EffectSerial!=emitted||view.ActiveAgentEffects!=0)throw new Exception("Dead source emitted/retained attack effect");
+                a.damage+=3;view.Update(observed,.01f,0);
+                if(view.EffectSerial!=emitted)throw new Exception("Dead DOT tick emitted new projectile");
+                System.IO.File.WriteAllText(System.IO.Path.Combine(artifactPath,"dead-source-check.txt"),"PASS: live effect, death cleanup, repeated dead-source damage increments; no new projectiles");
+            }
             if(scenario=="holy_tooltip"){selected=3;tooltipQA=true;var healer=tower.State.world.agents[3];healer.weapon.infusion="holy";}
             else if(scenario.StartsWith("infusion"))
             {

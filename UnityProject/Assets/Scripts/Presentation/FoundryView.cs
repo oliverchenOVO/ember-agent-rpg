@@ -96,7 +96,6 @@ namespace Ember.Presentation
             if(foundryRest==null)
             {
                 foundryRest=new GameObject("Foundry service room").transform;foundryRest.SetParent(refuge,false);Part("Maintenance floor",PrimitiveType.Cube,foundryRest,new Vector3(0,-.2f,0),new Vector3(22,.4f,13),dark);
-                foreach(var site in data.Rest("foundry_service").sites){Part("Maintenance station / "+site.id,PrimitiveType.Cube,foundryRest,new Vector3(site.x,.35f,site.z),new Vector3(1.4f,.7f,1.1f),stone);Ring("Station port",foundryRest,new Vector3(site.x,.8f,site.z),.6f,.06f,site.id=="forge"?red:glow);}
                 for(int i=-1;i<=1;i+=2)Beam("Maintenance cable",foundryRest,new Vector3(i*10,0,6),new Vector3(i*10,5,6),.5f,brass);
                 Ring("Service exit",foundryRest,new Vector3(9,.04f,0),1.2f,.1f,glow);
             }

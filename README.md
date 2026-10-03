@@ -1,6 +1,8 @@
 # EMBER — The Witness Tower
 四名自主 Agent 的 3D Roguelite 觀察型 RPG，Unity 6000.2.0f1。
 
+最新追加修正：休息區會抽選可用設施（可完全沒有設施），並修正死亡來源持續傷害造成的假彈幕。可執行版本在 `Builds/RestInteraction/Windows/Ember.exe`，功能、存檔相容性與畫面驗證見 [休息區與彈幕驗證](Docs/REST_INTERACTION_VALIDATION.md)。這次局部修正沒有重跑完整平衡 Gate；下方 Phase 3.1.1 結果保留為該版紀錄。
+
 Phase 3.1.1 **Gate FAIL，不進入 Phase 4**。Build pipeline 已恢復，Development／Release 成功，3,500 個診斷 seed-runs、治療改善、雙語畫面及存讀檔證據見 [最新驗證報告](Docs/PHASE3_1_1_VALIDATION.md)。H3 法師／弓箭手編成仍不合格，沒有 RC／FINAL；500／1000／5000 正式批次未啟動。本輪成品另存 `Builds/Phase311/EXP2.1-R1`，完整 SHA 見 `Artifacts/phase3_1_1_exp21_r1_build-manifest.json`；原 `Builds/Windows` 是歷史成品。舊 700 樣本與當時停滯記錄保留在 [Phase 3.1 報告](Docs/PHASE3_1_VALIDATION.md)。`Tools/build.ps1 -TestsOnly` 包含 5000 seeds，非本輪收尾短測指令。
 
 目前預設執行 Phase 3：25 層流程、原五種 Boss 與 6–10F「廢棄星鑄工坊」五個專屬 Boss、分隊爬塔、來源記憶及可選 LLM gateway。技能效果、跨職業灌注、觀察鏡頭、聲音事件與難度 telemetry 已深化；11–25F 仍有佔位內容，並非 25 套最終製作。

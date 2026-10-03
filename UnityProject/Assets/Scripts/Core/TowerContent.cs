@@ -36,7 +36,14 @@ namespace Ember.Core.Phase2
     }
     [Serializable] public class LootTable { public string id,affix,infusion; public string[] items; public int rolls, materials; }
     [Serializable] public class RestSite { public string id, nameKey, effect; public float x,z,seconds,risk,reward; public int materialCost; }
-    [Serializable] public class RestDefinition { public string id; public float collapseAfter, collapseSpeed; public RestSite[] sites; }
+    [Serializable] public class RestDefinition
+    {
+        public string id;public float collapseAfter,collapseSpeed;
+        public float emptyChance=.15f,facilityChance=.65f;public RestSite[] sites;
+        public bool HasSite(GroupState g,string site)=>!g.restSitesRolled||g.availableRestSites.Contains(site);
+        public int AvailableCount(GroupState g)=>g.restSitesRolled?g.availableRestSites.Count:sites.Length;
+        public RestSite[] AvailableSites(GroupState g)=>sites.Where(s=>HasSite(g,s.id)).ToArray();
+    }
     [Serializable] public class EnvironmentProfile { public string id; public float r,g,b, fog; public string lighting,vfx,music,ambience; }
     [Serializable] public class TowerContent
     {

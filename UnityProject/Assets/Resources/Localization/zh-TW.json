@@ -1620,6 +1620,14 @@
     {
       "key": "p31.skill.holy_hint",
       "value": "聖光攻擊附帶恢復生命；有效恢復會額外消耗最多 2 點魔力。"
+    },
+    {
+      "key": "ui.rest_empty",
+      "value": "沒有可用設施"
+    },
+    {
+      "key": "ui.rest_count",
+      "value": "{0} 處設施"
     }
   ]
 }

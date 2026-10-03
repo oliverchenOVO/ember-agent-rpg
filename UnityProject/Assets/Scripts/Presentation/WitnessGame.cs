@@ -155,7 +155,7 @@ namespace Ember.Presentation
             }
             else
             {
-                Box(425,110,590,78,new Color(.035f,.062f,.075f,.9f));Text(448,122,380,24,w.phase==Phase.Ended?Loc.T("ui.epilogue"):Loc.T("ui.refuge_title"),subtitle);
+                Box(425,110,590,78,new Color(.035f,.062f,.075f,.9f));Text(448,122,535,24,w.phase==Phase.Ended?Loc.T("ui.epilogue"):tower==null?Loc.T("ui.refuge_title"):Loc.T("ui.refuge_title")+" · "+Loc.T(tower.Data.Rest(tower.State.GroupOf(selected).restId).AvailableCount(tower.State.GroupOf(selected))==0?"ui.rest_empty":"ui.rest_count",tower.Data.Rest(tower.State.GroupOf(selected).restId).AvailableCount(tower.State.GroupOf(selected))),subtitle);
                 Text(448,149,535,27,w.phase==Phase.Ended?Loc.T("ui.restart",Loc.Outcome(w.outcome),Mathf.CeilToInt(8-w.restartTimer)):w.phaseClock>=(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit)?Loc.T("ui.collapse_active"):Loc.T("ui.collapse_timer",Mathf.Max(0,(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit)-w.phaseClock).ToString("F1")),label);
                 Bar(448,178,542,1-w.phaseClock/(tower!=null?tower.Data.Rest(tower.State.GroupOf(selected).restId).collapseAfter:Simulation.RestLimit),amber,3);
             }
