@@ -48,3 +48,5 @@ EXP2.1 runtime `593eb2559149e06de985e51d08e50a138c1e4354bd2ed2dbfc2d2eb5b17412bf
 證據在 `Artifacts/Phase311/exp21-baseline-on-native-A/player.log`、`native-symbols.txt`、`process-heartbeat.txt`、`events.csv` 與逐幀 CSV。`Tools/symbolize_native.ps1` 新增任意 log 位址解析，仍要求獨立驗證的 module base。後續 Player wrapper 用 bounded log snapshot 記錄首次發現 warning 的 UTC／process elapsed，精度約一秒＋flush 延遲；不冒充 engine callback 時間。
 
 五分鐘對照短於本次 warning 出現範圍；B/C 是預設 mesh embers 未啟用／不存在 Boss 專屬 ParticleSystem 的 no-op controls，不能作為 causal isolation。完整八組與新版效能／GC 結果以 `Docs/PHASE3_1_1_VALIDATION.md` 為準。本次重現證明先前五分鐘零警告不足以宣稱修復；Native Gate 仍須真正穩定的重現差異或正常特效 warning=0。
+
+R1 observer 清理修正後，五分鐘 Save/Load recovery、十分鐘 baseline ON／OFF、十分鐘 gameplay、二十分鐘 extreme 均 COMPLETE／exit 0、JobTempAlloc=0、exception=0；正常特效未移除。R1 assembly 為 `f7ba3899fa61a5c05a1d0666ce4b7414a89acb3fbb2aba5c74da23d0a1af9890`。這些是所測窗口的零警告觀察，不是原版 runtime 警告精確根因的證明。原版 H FAILED 與 A 的一次 warning 保留；不同版本不拼成一份八組 PASS。

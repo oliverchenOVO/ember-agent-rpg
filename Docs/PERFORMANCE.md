@@ -1,5 +1,55 @@
 # Phase 3 效能與原生配置診斷
 
+## Phase 3.1.1 收尾與資料範圍
+
+最新資料為 EXP2.1-R1 Development，runtime `593eb2559149e06de985e51d08e50a138c1e4354bd2ed2dbfc2d2eb5b17412bf`、assembly `f7ba3899fa61a5c05a1d0666ce4b7414a89acb3fbb2aba5c74da23d0a1af9890`、H3 rules file SHA `311db79af73ee907ce39b6ae256cda570c6aa7c977b66af12006efe7710124ce`。本輪不重啟 120-minute soak，也不把下方舊版共享負載資料冒充新版。
+
+R1 修正的是測試收尾期間仍觸發 Save/Load 的 observer 生命週期錯誤，沒有更改平衡 Core、字型或正常特效。原 EXP2.1 曾在十分鐘 baseline 出現一次 runtime JobTempAlloc；新版零警告窗口與原版警告均保留，尚未證明精確觸發條件。完整結論見 [Phase 3.1.1 驗證](PHASE3_1_1_VALIDATION.md)。
+
+量測以 Stopwatch 逐幀 wall interval 為主，排除前十秒暖機與 cleanup 後的 frames；cleanup 仍保留在 raw CSV 和每個 ≥p99 frame 的事件分析。CPU/GPU counters 為不同取樣點，事件時間鄰近不等於因果。OFF 停止詳細 scope 與物件盤點，但 CSV、counters 仍啟用，只能估計這些額外診斷的增量，不能稱作零 observer 的產品 GC。Mono 區域 allocation API 校準失敗，欄位 NA；`Total Used Memory` 與 OS Working Set 都不能冒充 native-only memory。逐幀 phase 欄位缺失，checkpoint 的 Battle/Rest 只能證實離散覆蓋，不能算出連續分階段百分位。
+
+### R1 完整 workload 數據
+
+四組均正常退出、cleanup 完成、exception=0、JobTempAlloc=0。完整數值與 identity 見 `Artifacts/phase3_1_1_exp21_r1_performance-summary.json`／`performance-metrics.csv`／`workload-coverage.csv`（後兩者亦使用同一完整 prefix）。
+
+| workload | CPU p50/p95/p99 ms | GPU p50/p95/p99 ms | wall p50/p95/p99 ms |
+|---|---|---|---|
+| baseline ON 10m | 2.135 / 3.077 / 3.984 | 0.846 / 1.524 / 1.861 | 6.053 / 6.464 / 6.796 |
+| baseline OFF 10m | 2.344 / 3.759 / 5.611 | 0.729 / 0.926 / 1.772 | 6.055 / 6.745 / 8.447 |
+| gameplay 10m | 3.340 / 5.362 / 6.897 | 0.668 / 1.315 / 1.763 | 6.059 / 6.911 / 8.351 |
+| extreme 20m | 3.385 / 5.416 / 7.225 | 0.930 / 1.729 / 2.132 | 6.062 / 7.101 / 11.302 |
+
+| workload | GC MB/s | GC bytes/frame mean | managed heap p50/max MiB | engine total-used max MiB |
+|---|---:|---:|---|---:|
+| baseline ON 10m | 7.904 | 48018.0 | 3.246 / 3.680 | 594.272 |
+| baseline OFF 10m | 7.791 | 47591.4 | 3.238 / 3.684 | 594.844 |
+| gameplay 10m | 7.916 | 48487.5 | 3.242 / 4.285 | 594.055 |
+| extreme 20m | 11.047 | 68817.8 | 4.453 / 6.992 | 932.146 |
+
+| workload | UI p50/p95/p99 ms | Step p50/p95/p99 ms | View p50/p95/p99 ms | localization render p50/p95/p99 ms |
+|---|---|---|---|---|
+| baseline ON 10m | 0.897 / 1.466 / 1.908 | 0.003 / 0.041 / 0.127 | 0.020 / 0.031 / 0.042 | 0.070 / 0.105 / 0.274 |
+| baseline OFF 10m | NA | NA | NA | NA |
+| gameplay 10m | 1.295 / 2.655 / 3.894 | 0.005 / 0.076 / 0.213 | 0.030 / 0.051 / 0.086 | 0.105 / 0.236 / 0.553 |
+| extreme 20m | 1.278 / 2.402 / 3.493 | 0.112 / 0.418 / 1.183 | 0.051 / 0.095 / 0.141 | 0.088 / 0.172 / 0.306 |
+
+| workload | particles peak | draw calls p50/p95/p99 | batches p50/p95/p99 |
+|---|---:|---|---|
+| baseline ON 10m | 36.0 | 325.000 / 797.000 / 845.000 | 325.000 / 797.000 / 845.000 |
+| baseline OFF 10m | NA | 328.000 / 820.000 / 871.000 | 328.000 / 820.000 / 870.000 |
+| gameplay 10m | 36.0 | 304.000 / 702.000 / 842.000 | 304.000 / 702.000 / 841.000 |
+| extreme 20m | 32.0 | 775.000 / 1172.000 / 1447.000 | 775.000 / 1171.000 / 1443.000 |
+
+ON／OFF 差異約 0.113 MB/s（相對 OFF 1.45%）；單次比較沒有充分隔離全 observer 成本，也不能將 CPU／wall 差異歸因於唯一開關。GC 仍持續配置，未證實產品 GC 改善。
+
+gameplay 有自然分隊、兩組並行、9 次 Save/Load；extreme 有 9 輪、最高 25F、19 次 Save/Load／telemetry flush。分鐘 checkpoint 有 Battle／Rest，gameplay 另有 Ended；逐幀沒有 phase，因此不能計算連續分階段百分位。300／600／900 秒附近有死亡／重啟證據，但沒有專用注入 marker，逐次故障注入歸因仍 NOT VERIFIED。
+
+全部 ≥p99 spikes 分別為 ON 974／OFF 966／gameplay 967／extreme 1,911 列，包含 cleanup；記錄 UI／Step／View／localization cost 及事件時間窗。最大非 cleanup wall spike 分別 198.932／987.719／201.145／1,485.112 ms。extreme 最大值附近同時有 VFX、IO、telemetry、inventory；單靠相鄰時間不能宣稱因果。CSV 的 save_ms 會保留前次值，不能作每幀存檔成本。
+
+**Performance Gate NOT VERIFIED；Native 精確根因未證明。本輪停止測試，整體平衡 Gate FAIL，不進入 Phase 4。**
+
+下方內容保留為 Phase 3／3.1 歷史紀錄；其當時的 Build／符號狀態不代表 Phase 3.1.1 的最新狀態。
+
 Phase 3.1 新增乾淨 300 秒 1x baseline（CPU p95 6.455 ms、p99 8.168 ms）及逐幀 wall interval／事件／配置量隔離工具。新版 Build 停滯，三 workload 前後測與 GC 改善仍未完成；Gate 未通過。限制見 [Phase 3.1 驗證](PHASE3_1_VALIDATION.md)，不要把下面舊共享負載 soak 當成正常遊玩基準。
 
 2026-10-03，在 F 槽完成 **120 分鐘實際渲染壓力測試**。Windows / Unity 6000.2.0f1 / D3D12 / RTX 3070 Ti Laptop（8 GB）。Development Player 使用凍結 Runtime，16 倍速、分鐘存讀檔、輪替觀察、五分鐘死亡/坍塌；同機同時執行 headless seed runner，前段也有 Release 建置/畫面 QA。這不是單獨的一倍速效能基準，數字不能直接當作正常遊玩幀率。

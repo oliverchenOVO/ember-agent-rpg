@@ -28,8 +28,8 @@ if(-not $Graphics){$taskArguments=@('-nographics')+$taskArguments}
 $taskProcess=Start-Process -FilePath 'D:\unity\6000.2.0f1\Editor\Unity.exe' -ArgumentList $taskArguments -WindowStyle Hidden -PassThru -WorkingDirectory $taskProject -RedirectStandardOutput (Join-Path $taskFolder 'stdout.txt') -RedirectStandardError (Join-Path $taskFolder 'stderr.txt')
 $taskClock=[Diagnostics.Stopwatch]::StartNew()
 $taskSample=Join-Path $taskFolder 'samples.csv'
-'utc,elapsed,state,pid,cpu_delta,log_growth,log_bytes,log_timestamp,stage,idle_seconds,working_set,ilpp_pid,ilpp_cpu,ilpp_memory,ilpp_priority,pipe_present' | Set-Content -LiteralPath $taskSample
-$taskBeforeCpu=0;$taskBeforeBytes=0;$taskProgress=0;$taskNext=0;$taskStage='STARTUP';$taskSeenStage='';$taskResult='FAILED';$taskCode=1;$taskObserved=@{}
+'utc,elapsed,state,pid,cpu_delta,log_growth,log_bytes,log_timestamp,stage,idle_seconds,working_set,ilpp_pid,ilpp_cpu,ilpp_memory,ilpp_priority,pipe_present,child_cpu_delta' | Set-Content -LiteralPath $taskSample
+$taskBeforeCpu=0;$taskBeforeBytes=0;$taskProgress=0;$taskNext=0;$taskStage='STARTUP';$taskSeenStage='';$taskResult='FAILED';$taskCode=1;$taskObserved=@{};$taskChildCpu=@{}
 while($true){
     $taskProcess.Refresh()
     if($taskProcess.HasExited){$taskProcess.WaitForExit();$taskCode=$taskProcess.ExitCode;$taskResult=if($taskCode -eq 0){'COMPLETE'}else{'FAILED'};break}
@@ -58,6 +58,17 @@ while($true){
     $taskIdle=$taskElapsed-$taskProgress
     $taskState=if($taskIdle -ge $StallSeconds){'STALLED'}elseif($taskIdle -ge $IdleWarningSeconds){'IDLE'}else{'ACTIVE'}
     $taskChildren=Get-CimInstance Win32_Process -Filter "ParentProcessId=$($taskProcess.Id)"
+    $taskChildProgress=0
+    foreach($taskChild in $taskChildren){
+        if($taskChild.Name -eq 'Unity.Licensing.Client.exe'){continue}
+        $taskChildProcess=Get-Process -Id $taskChild.ProcessId -ErrorAction SilentlyContinue
+        if($taskChildProcess){
+            $taskKey=[string]$taskChild.ProcessId;$taskCurrent=$taskChildProcess.CPU
+            if($taskChildCpu.ContainsKey($taskKey)){$taskChildProgress+=[Math]::Max(0,$taskCurrent-$taskChildCpu[$taskKey])}
+            $taskChildCpu[$taskKey]=$taskCurrent
+        }
+    }
+    if($taskChildProgress -ge .02){$taskProgress=$taskElapsed;$taskIdle=0;$taskState='ACTIVE'}
     foreach($taskChild in $taskChildren){$taskObserved[[string]$taskChild.ProcessId]=$taskChild}
     $taskWorkerInfo=$taskChildren | Where-Object Name -eq 'Unity.ILPP.Runner.exe' | Select-Object -First 1
     $taskWorker=if($taskWorkerInfo){Get-Process -Id $taskWorkerInfo.ProcessId -ErrorAction SilentlyContinue}else{$null}
@@ -68,10 +79,10 @@ while($true){
     }
     $taskTimestamp=if($taskInfo){$taskInfo.LastWriteTimeUtc.ToString('O')}else{''}
     $taskWorkerPid=if($taskWorker){$taskWorker.Id}else{0};$taskWorkerCpu=if($taskWorker){$taskWorker.CPU}else{0};$taskWorkerMemory=if($taskWorker){$taskWorker.WorkingSet64}else{0};$taskWorkerPriority=if($taskWorker){$taskWorker.PriorityClass}else{''}
-    "$([DateTime]::UtcNow.ToString('O')),$taskElapsed,$taskState,$($taskProcess.Id),$taskCpuDelta,$taskGrowth,$taskBytes,$taskTimestamp,$taskStage,$taskIdle,$($taskProcess.WorkingSet64),$taskWorkerPid,$taskWorkerCpu,$taskWorkerMemory,$taskWorkerPriority,$taskPipe" | Add-Content -LiteralPath $taskSample
+    "$([DateTime]::UtcNow.ToString('O')),$taskElapsed,$taskState,$($taskProcess.Id),$taskCpuDelta,$taskGrowth,$taskBytes,$taskTimestamp,$taskStage,$taskIdle,$($taskProcess.WorkingSet64),$taskWorkerPid,$taskWorkerCpu,$taskWorkerMemory,$taskWorkerPriority,$taskPipe,$taskChildProgress" | Add-Content -LiteralPath $taskSample
     $taskMetadata=@{utc=[DateTime]::UtcNow.ToString('O');pid=$taskProcess.Id;method=$Method;stage=$taskStage;state=$taskState;children=@($taskChildren | Select-Object ProcessId,ParentProcessId,Name,ExecutablePath,CommandLine)}
     $taskMetadata | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $taskFolder 'process-metadata.json') -Encoding utf8
-    if($taskElapsed -ge $taskNext){$taskNext=$taskElapsed+30;Write-Output ("{0} elapsed={1:F1}s PID={2} CPU+={3:F3}s log+={4} stage={5} idle={6:F1}s ILPP={7} IPC={8} logUTC={9}" -f $taskState,$taskElapsed,$taskProcess.Id,$taskCpuDelta,$taskGrowth,$taskStage,$taskIdle,$taskWorkerPid,$taskPipe,$taskTimestamp)}
+    if($taskElapsed -ge $taskNext){$taskNext=$taskElapsed+30;Write-Output ("{0} elapsed={1:F1}s PID={2} CPU+={3:F3}s childCPU+={10:F3}s log+={4} stage={5} idle={6:F1}s ILPP={7} IPC={8} logUTC={9}" -f $taskState,$taskElapsed,$taskProcess.Id,$taskCpuDelta,$taskGrowth,$taskStage,$taskIdle,$taskWorkerPid,$taskPipe,$taskTimestamp,$taskChildProgress)}
     if($taskState -eq 'STALLED' -or $taskElapsed -ge $TimeoutSeconds){
         $taskResult=if($taskState -eq 'STALLED'){'STALLED'}else{'FAILED'};$taskCode=124
         $taskTail | Set-Content -LiteralPath (Join-Path $taskFolder 'stopped-log-tail.txt') -Encoding utf8

@@ -39,3 +39,13 @@ CompileOnly 不產生 Player，檢查 assembly 已載入、import 完成且 cata
 Development smoke：25 個 Phase 2、21 個 Phase 3 fixture，自動 layout 0 issues、exit 0；另有 300.0065 秒正常 1x Player、48993 幀、maintenance 0、exit 0，JobTempAlloc 0。fixture 提供 1F/rest/9F/10F/save/load 與雙語切換，長度 smoke 是實際連續模擬，兩種證據分開。manual 四組矩陣仍待完成。
 
 成品隔離於 `Builds/Phase311/Development` 與 `Builds/Phase311/Windows`，沒有覆寫舊 Phase 3 成品。完整 executable／managed／data 檔案 SHA 及來源 runtime SHA 記錄於 `Artifacts/phase3_1_1_build-manifest.json`。SOURCE runtime 為 `1ecb08e858c003475e6d84dfd9fc5583d9ca3be2dee480e47236b2c55294ac0f`；balance P3.1.1-A 只更名版本標記，尚未再調數值。
+
+## EXP2.1-R1 後續建置
+
+上節為凍結 candidate-A 的歷史結果。EXP2.1 雙語主要畫面已人工檢查 36 fixtures＋8 gameplay hot-switch，詳細 coverage 見 `Docs/PHASE3_1_1_VALIDATION.md`，沒有將 A 的未完成 manual matrix 說成已完成。
+
+R1 修正 PerformanceSession 清理期間仍可能 LoadGame 的 observer 錯誤。Development Build PID 53388、25.646 秒；Release PID 47884、19.748 秒，均 wrapper COMPLETE／exit 0。兩者 runtime 同為 `593eb2559149e06de985e51d08e50a138c1e4354bd2ed2dbfc2d2eb5b17412bf`；各成品 assembly／完整檔案 SHA 保存於 `Artifacts/phase3_1_1_exp21_r1_build-manifest.json`。原版失敗 log、原 3,500 seed-runs 與舊成品都保留，沒有重新綁定其 identity。
+
+watchdog 另外納入直接子程序 CPU delta，避免 Editor 暫時不動、但 ILPP／Bee 仍工作時誤判 STALLED；Licensing Client 不作編譯進度。仍有總時間上限，沒有因 worker 有 CPU 而無限等待。這是監測工具改善，並非宣稱舊 Build 停滯根因已證明。
+
+最新 wrapper 收尾實測：`exp21-r1-final-compile`，PID 43200，6.844 秒，COMPLETE／exit 0／COMPILE GATE PASSED，沒有改 source 來觸發無必要的重建。R1 Development／Release 全檔 SHA 再次複核，與 manifest 完全相同。所有本輪 Player／Editor 已退出。
