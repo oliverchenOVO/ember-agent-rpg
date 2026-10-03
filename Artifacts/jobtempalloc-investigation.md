@@ -38,3 +38,13 @@ Phase 3 保留的短測：empty / camera / camera+mesh 沒有警告；particle c
 新版 Development Build 的 Editor 在建置前停於 ILPP 連線，未產生新 Player，因此新版 5–15 分鐘隔離與功能排除矩陣未完成。保留既有 Development exe，但不以它冒充候選版本。乾淨原版 300 秒 baseline 未觀察到 JobTempAlloc，不能以短測無警告否定舊 runtime 六次警告。
 
 新增 `--no-particles` 與 `--mesh-embers` 選用實驗，預設仍是原粒子。mesh 方案只供排除該引擎 job path，沒有宣稱外觀或效能驗證通過。ProfilerRecorder 正常完成前與 OnDisable 釋放只屬生命週期補強，不是配置來源的已證明修復。完整 Gate 狀態見 `Docs/PHASE3_1_VALIDATION.md`。
+
+## Phase 3.1.1 新版重現
+
+EXP2.1 runtime `593eb2559149e06de985e51d08e50a138c1e4354bd2ed2dbfc2d2eb5b17412bf`、Development assembly `14091e0cfd350761df20a117a62db9bb3692b30057370fd935d098b991de9363`，正常粒子／1x／無 headless／無故障注入的 10-minute baseline 已完成。執行中觀察到一次 lifespan warning，log 成長在 watchdog process elapsed 364.48–394.90 秒之間；沒有引擎精確時間戳，不把此範圍補造成精確 event time。complete marker 601.008 秒、91,019 frames，正常退出。
+
+新 UnityPlayer DLL SHA 仍為 `86a01ca0ccd81e70d7e14de57c039daf6f6e1bdc74ad9cafcde0cba74375fc75`。以同一 PE export RVA `0x10fa0a0` 與 stack `UnityMain+0xb` 推得本次 ASLR base `0x7ffb765e0000`，解析 33 個唯一位址。48-byte stack 和上面的 ParticleSystem geometry 鏈一致；兩筆 128-byte stack 另外包含 profiler callback vector grow、GfxDevice async job、RenderShadowMaps 與 D3D12 ExecuteCommandBuffersAsync。allocation dump 的 age=0/state=OK，不能把每筆 dump 都稱為超齡泄漏。
+
+證據在 `Artifacts/Phase311/exp21-baseline-on-native-A/player.log`、`native-symbols.txt`、`process-heartbeat.txt`、`events.csv` 與逐幀 CSV。`Tools/symbolize_native.ps1` 新增任意 log 位址解析，仍要求獨立驗證的 module base。後續 Player wrapper 用 bounded log snapshot 記錄首次發現 warning 的 UTC／process elapsed，精度約一秒＋flush 延遲；不冒充 engine callback 時間。
+
+五分鐘對照短於本次 warning 出現範圍；B/C 是預設 mesh embers 未啟用／不存在 Boss 專屬 ParticleSystem 的 no-op controls，不能作為 causal isolation。完整八組與新版效能／GC 結果以 `Docs/PHASE3_1_1_VALIDATION.md` 為準。本次重現證明先前五分鐘零警告不足以宣稱修復；Native Gate 仍須真正穩定的重現差異或正常特效 warning=0。

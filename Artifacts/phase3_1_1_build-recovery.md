@@ -34,7 +34,7 @@ CompileOnly 不產生 Player，檢查 assembly 已載入、import 完成且 cata
 
 沒有清除快取、升級 Unity 或更動 worker priority。ILPP 50344 等 worker 在 BelowNormal 下仍有 CPU、記憶體約 48 MB、named pipe PRESENT，編譯成功。`UnityAutoQuitter.exe` 位於 Unity 官方安裝的 Data/Tools，命令列指向 Editor 與 ILPP PID，是該工具鏈生命週期程序，沒有把它當成外部干擾程序。
 
-前轮 ILPP 的精確停滯觸發條件這次沒有重現，因此 **root cause 未證明**。可驗證改善是 launch/watchdog：独立 stdout/stderr 檔案、保留父程序、同專案互斥、exit code + method marker 雙重判定、CPU/log/IPC 觀測及有界退出；不是宣稱已修復 Unity 引擎。沒有為求成功任意刪 Library。
+前輪 ILPP 的精確停滯觸發條件這次沒有重現，因此 **root cause 未證明**。可驗證改善是 launch/watchdog：獨立 stdout/stderr 檔案、保留父程序、同專案互斥、exit code + method marker 雙重判定、CPU/log/IPC 觀測及有界退出；不是宣稱已修復 Unity 引擎。沒有為求成功任意刪 Library。
 
 Development smoke：25 個 Phase 2、21 個 Phase 3 fixture，自動 layout 0 issues、exit 0；另有 300.0065 秒正常 1x Player、48993 幀、maintenance 0、exit 0，JobTempAlloc 0。fixture 提供 1F/rest/9F/10F/save/load 與雙語切換，長度 smoke 是實際連續模擬，兩種證據分開。manual 四組矩陣仍待完成。
 

@@ -1,4 +1,4 @@
-param([string]$Image,[string]$Symbols,[string]$Output,[string]$BaseHex="",[switch]$Scan,[string]$Mask="*ThreadsafeLinearAllocator*")
+param([string]$Image,[string]$Symbols,[string]$Output,[string]$BaseHex="",[switch]$Scan,[string]$Mask="*ThreadsafeLinearAllocator*",[string]$LogPath='')
 Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
@@ -20,7 +20,13 @@ public static class EmberSymbols {
 '@
 try {
  [EmberSymbols]::Open($Image,$Symbols)
- if($Scan){$taskLines=@();for([ulong]$taskBase=0x7ffb6a000000;$taskBase -le 0x7ffb6bcb0000;$taskBase+=0x10000){$taskLines+=($taskBase.ToString('x')+' '+[EmberSymbols]::At(0x7ffb6c70a7ad-$taskBase))}}
+ if($LogPath){
+  if(-not $BaseHex){throw 'Log symbolication requires a separately verified module base.'}
+  [ulong]$taskBase=[Convert]::ToUInt64($BaseHex,16)
+  $taskAddresses=[regex]::Matches([IO.File]::ReadAllText([IO.Path]::GetFullPath($LogPath)),'0x([0-9a-fA-F]+) \(UnityPlayer\)') | ForEach-Object {$_.Groups[1].Value} | Select-Object -Unique
+  $taskLines=$taskAddresses | ForEach-Object {$_+' '+[EmberSymbols]::At([Convert]::ToUInt64($_,16)-$taskBase)}
+ }
+ elseif($Scan){$taskLines=@();for([ulong]$taskBase=0x7ffb6a000000;$taskBase -le 0x7ffb6bcb0000;$taskBase+=0x10000){$taskLines+=($taskBase.ToString('x')+' '+[EmberSymbols]::At(0x7ffb6c70a7ad-$taskBase))}}
  elseif($BaseHex){[ulong]$taskBase=[Convert]::ToUInt64($BaseHex,16);$taskAddresses=@(0x7ffb6c70a7ad,0x7ffb6c70a93c,0x7ffb6ca56226,0x7ffb6d8daa53,0x7ffb6bcf73c2,0x7ffb6bcbeded,0x7ffb6bcc59d3,0x7ffb6bd14156,0x7ffb6c2bb96f,0x7ffb6c2b7ba2,0x7ffb6c2998b8,0x7ffb6c299974,0x7ffb6c29fe7a,0x7ffb6c865741,0x7ffb6c86469d,0x7ffb6c869319,0x7ffb6c86a0ab);$taskLines=$taskAddresses | ForEach-Object { $_.ToString('x')+' '+[EmberSymbols]::At($_-$taskBase) }}
  else{$taskLines=[EmberSymbols]::Matching($Mask)}
  $taskLines | Set-Content -LiteralPath $Output -Encoding utf8

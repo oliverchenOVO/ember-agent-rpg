@@ -1,0 +1,21 @@
+﻿label,elapsed,recorded_frame_ms,frame_measurement,cpu_ns,gc_alloc,simulation_ms,save_ms,events_within_100ms
+dev-smoke-5m,289.42,145.819200,Stopwatch wall interval,2853000,46826,0.0006,0.0000,[]
+dev-smoke-5m,48.906,140.087100,Stopwatch wall interval,2428700,47292,0.0006,0.0000,[]
+dev-smoke-5m,289.809,98.026000,Stopwatch wall interval,2515000,45694,0.0009,0.0000,[]
+dev-smoke-5m,175.357,87.331000,Stopwatch wall interval,2449800,63555,0.0005,0.0000,"[{""elapsed"": ""175.270000"", ""utc"": ""2026-10-03T09:50:42.9721457Z"", ""event"": ""inventory"", ""detail"": ""454""}]"
+dev-smoke-5m,55.224,72.076800,Stopwatch wall interval,2027499,61867,0.0004,0.0000,"[{""elapsed"": ""55.151980"", ""utc"": ""2026-10-03T09:48:42.8536971Z"", ""event"": ""inventory"", ""detail"": ""346""}]"
+dev-smoke-5m,190.354,69.525000,Stopwatch wall interval,3606500,65041,0.0005,0.0000,"[{""elapsed"": ""190.284800"", ""utc"": ""2026-10-03T09:50:57.9863876Z"", ""event"": ""inventory"", ""detail"": ""534""}]"
+dev-smoke-5m,205.356,57.088300,Stopwatch wall interval,1751800,65065,0.0005,0.0000,"[{""elapsed"": ""205.299400"", ""utc"": ""2026-10-03T09:51:13.0013214Z"", ""event"": ""inventory"", ""detail"": ""534""}]"
+dev-smoke-5m,51.468,48.670100,Stopwatch wall interval,2212400,45402,0.0796,0.0000,[]
+dev-smoke-5m,37.089,48.542300,Stopwatch wall interval,2142500,45684,0.0005,0.0000,[]
+dev-smoke-5m,70.211,43.550100,Stopwatch wall interval,1695800,58103,0.0004,0.0000,"[{""elapsed"": ""70.167210"", ""utc"": ""2026-10-03T09:48:57.8690085Z"", ""event"": ""inventory"", ""detail"": ""346""}]"
+dev-smoke-5m,285.253,38.536700,Stopwatch wall interval,3280500,45656,0.0007,0.0000,[]
+dev-smoke-5m,85.21,28.831600,Stopwatch wall interval,2245800,61935,0.0004,0.0000,"[{""elapsed"": ""85.181390"", ""utc"": ""2026-10-03T09:49:12.8834226Z"", ""event"": ""inventory"", ""detail"": ""353""}]"
+dev-smoke-5m,237.315,28.420800,Stopwatch wall interval,2243300,46010,0.0006,0.0000,[]
+dev-smoke-5m,113.3,26.904300,Stopwatch wall interval,3140100,136156,0.0009,0.0000,[]
+dev-smoke-5m,259.997,25.667900,Stopwatch wall interval,11172800,47658,0.0007,0.0000,[]
+dev-smoke-5m,259.719,25.280900,Stopwatch wall interval,5569300,45752,0.0012,0.0000,[]
+dev-smoke-5m,259.957,25.074000,Stopwatch wall interval,8210599,47670,0.0007,0.0000,[]
+dev-smoke-5m,258.25,24.835900,Stopwatch wall interval,11453600,45706,0.0006,0.0000,[]
+dev-smoke-5m,235.062,24.171700,Stopwatch wall interval,3996400,45534,0.0008,0.0000,[]
+dev-smoke-5m,247.974,23.271500,Stopwatch wall interval,2267500,42554,0.0006,0.0000,[]

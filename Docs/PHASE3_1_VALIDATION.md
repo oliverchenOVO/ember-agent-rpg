@@ -4,6 +4,8 @@
 
 **Gate 未通過；不建議進入 Phase 4。** 本輪保留診斷、候選修正與完整樣本；不能把候選版稱為正式通過版。
 
+後續 Phase 3.1.1 已恢復 Compile／Development／Release pipeline；新樣本、重新驗證與限制見 [Phase 3.1.1](PHASE3_1_1_VALIDATION.md)。本文件保留 Phase 3.1 當時 Gate FAIL 與未完成項目，不以後續結果改寫歷史。
+
 ## 1. Summary
 
 完成結構化死亡／恢復 telemetry、版本化可續跑 runner、原版與候選各 100 自然 seeds、原版與候選各五編成 × 50 seeds，共 700 個完成樣本。資料按 runtime/config 分開，不能合併成同版本 700-seed regression。

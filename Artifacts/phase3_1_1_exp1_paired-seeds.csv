@@ -1,0 +1,13 @@
+﻿label,baseline_only,variant_only,both_clear,neither_clear
+A-window,1,1,77,21
+B-drain,0,0,78,22
+C-window-drain,1,1,77,21
+control-baseline,0,0,78,22
+control-candidate-A,1,19,77,3
+D-potions,5,1,73,21
+E-reserve,5,1,73,21
+F-supply,1,18,77,4
+G-defense,0,9,78,13
+H-defense-holy-cost,0,9,78,13
+I-window-mana,0,3,78,19
+J-loadout,3,0,75,22

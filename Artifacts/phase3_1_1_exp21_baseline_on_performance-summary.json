@@ -1,0 +1,204 @@
+[
+  {
+    "label": "exp21-baseline-on-native-A",
+    "complete": true,
+    "rows": 91019,
+    "after_warmup_rows": 89466,
+    "elapsed_seconds": 601.002,
+    "warmup_seconds": 10,
+    "frame_measurement": "Stopwatch wall interval",
+    "metrics": {
+      "frame_ms": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 6.0941,
+        "p95": 8.702124999999999,
+        "p99": 13.942235000000013,
+        "max": 1576.3369,
+        "mean": 6.6059022231909585
+      },
+      "cpu_ns": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 3.4127,
+        "p95": 7.4174,
+        "p99": 11.411060000000045,
+        "max": 1575.2127,
+        "mean": 4.1698919262624505
+      },
+      "gpu_ns": {
+        "valid": 88910,
+        "unavailable_or_zero": 556,
+        "p50": 0.8284159999999999,
+        "p95": 1.6752639999999999,
+        "p99": 2.0633589999999997,
+        "max": 10.56256,
+        "mean": 0.8954333684962468
+      },
+      "gpu_timing_ms": {
+        "valid": 88910,
+        "unavailable_or_zero": 556,
+        "p50": 0.828,
+        "p95": 1.675,
+        "p99": 2.063,
+        "max": 10.563,
+        "mean": 0.8953838375885607
+      },
+      "ui_ns": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 1.3527,
+        "p95": 3.8216249999999996,
+        "p99": 5.564535000000012,
+        "max": 272.1485,
+        "mean": 1.8290598607292055
+      },
+      "decision_ns": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 2.9629,
+        "mean": 0.0018281134732747626
+      },
+      "gc_alloc": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 46970.0,
+        "p95": 55477.0,
+        "p99": 74068.80000000005,
+        "max": 410993.0,
+        "mean": 48044.51227281873
+      },
+      "managed_heap": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 3395584.0,
+        "p95": 3502080.0,
+        "p99": 3538944.0,
+        "max": 3989504.0,
+        "mean": 3380111.9924887666
+      },
+      "total_used": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 616641333.5,
+        "p95": 620028012.75,
+        "p99": 621019497.8,
+        "max": 623615028.0,
+        "mean": 611105140.986386
+      },
+      "draw_calls": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 324.0,
+        "p95": 827.0,
+        "p99": 1020.3500000000058,
+        "max": 1883.0,
+        "mean": 415.4728276663761
+      },
+      "batches": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 324.0,
+        "p95": 827.0,
+        "p99": 1021.0,
+        "max": 1843.0,
+        "mean": 415.46645653097266
+      },
+      "particles": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 12.0,
+        "p95": 36.0,
+        "p99": 36.0,
+        "max": 36.0,
+        "mean": 15.18505353989225
+      },
+      "simulation_ms": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 0.0007,
+        "p95": 0.0712,
+        "p99": 0.25013500000000055,
+        "max": 84.9573,
+        "mean": 0.013990750676248132
+      },
+      "ui_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 89466,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "step_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 89466,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "view_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 89466,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "render_alloc": {
+        "valid": 0,
+        "unavailable_or_zero": 89466,
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null,
+        "mean": null
+      },
+      "ui_ms": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 1.3598,
+        "p95": 3.831975,
+        "p99": 5.582655000000008,
+        "max": 272.1588,
+        "mean": 1.839686924641777
+      },
+      "step_scope_ms": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 0.0041,
+        "p95": 0.07627500000000001,
+        "p99": 0.25627000000000116,
+        "max": 84.9597,
+        "mean": 0.017592686607204307
+      },
+      "view_ms": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 0.0294,
+        "p95": 0.0576,
+        "p99": 0.1065,
+        "max": 5.7507,
+        "mean": 0.03509977421590159
+      },
+      "localization_ms": {
+        "valid": 89466,
+        "unavailable_or_zero": 0,
+        "p50": 0.1053,
+        "p95": 0.304375,
+        "p99": 0.7228,
+        "max": 45.8867,
+        "mean": 0.1502407383810608
+      }
+    },
+    "gc_bytes_per_second": 7273037.023813956,
+    "spike_threshold_ms": 13.942235000000013
+  }
+]

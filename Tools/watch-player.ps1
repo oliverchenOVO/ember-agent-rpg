@@ -22,7 +22,8 @@ $taskLog=Join-Path $taskFolder 'player.log'
 $taskArguments=@('--artifacts',$taskFolder,'-screen-width',"$Width",'-screen-height',"$Height",'-screen-fullscreen','0','-logFile',$taskLog,'-diag-job-temp-memory-leak-validation')+$PlayerArgs
 $taskArguments=@($taskArguments | ForEach-Object {'"'+$_.Replace('"','')+'"'})
 $taskProcess=Start-Process -FilePath $taskExe -ArgumentList $taskArguments -WindowStyle Normal -PassThru -RedirectStandardOutput (Join-Path $taskFolder 'stdout.txt') -RedirectStandardError (Join-Path $taskFolder 'stderr.txt')
-$taskClock=[Diagnostics.Stopwatch]::StartNew();$taskNext=0
+$taskClock=[Diagnostics.Stopwatch]::StartNew();$taskNext=0;$taskWarnings=0
+'utc,process_elapsed,observed_warning_count,log_bytes' | Set-Content -LiteralPath (Join-Path $taskFolder 'native-warning-observations.csv')
 while(-not $taskProcess.HasExited){
     $taskProcess.Refresh()
     $taskLogInfo=Get-Item -LiteralPath $taskLog -ErrorAction SilentlyContinue
@@ -32,6 +33,11 @@ while(-not $taskProcess.HasExited){
         $taskStream=[IO.File]::Open($taskLog,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::ReadWrite)
         try{$taskBuffer=[byte[]]::new(65536);$taskRead=$taskStream.Read($taskBuffer,0,$taskBuffer.Length);$taskHead=[Text.Encoding]::UTF8.GetString($taskBuffer,0,$taskRead)}finally{$taskStream.Dispose()}
         if($taskHead -match '(?:FileNotFound|NullReference|Argument|InvalidOperation|Unhandled)Exception:'){$taskFatal='startup/runtime exception'}
+        $taskWarningCount=[regex]::Matches($taskHead,'Internal: JobTempAlloc').Count
+        if($taskWarningCount -gt $taskWarnings){
+            "$([DateTime]::UtcNow.ToString('O')),$($taskClock.Elapsed.TotalSeconds),$taskWarningCount,$($taskLogInfo.Length)" | Add-Content -LiteralPath (Join-Path $taskFolder 'native-warning-observations.csv')
+            $taskWarnings=$taskWarningCount
+        }
         if($taskLogInfo.Length -gt $MaxLogMegabytes*1MB){$taskFatal='log volume limit'}
     }
     if($taskFatal){Stop-Process -Id $taskProcess.Id -ErrorAction SilentlyContinue;@{state='FAILED';reason=$taskFatal;elapsed=$taskClock.Elapsed.TotalSeconds;pid=$taskProcess.Id;logBytes=$taskLogInfo.Length} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskFolder 'process-result.json');Write-Output "PLAYER FAILED: $taskFatal; artifacts preserved";exit 125}
