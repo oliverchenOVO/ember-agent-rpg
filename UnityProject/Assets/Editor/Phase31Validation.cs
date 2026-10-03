@@ -15,7 +15,8 @@ namespace Ember.Editor
     {
         [Serializable] public class RunConfig { public string label="baseline100",composition="Natural",executablePath="",expectedRuntimeHash="";public StabilizationRules rules=new StabilizationRules();public int firstSeed=1,count=100,floorLimit=25,maxTicks=50000,maxWallSeconds=900; }
         [Serializable] public class Manifest { public string runtimeHash,configHash,simulationVersion,balanceVersion,startedUtc,executableHash,managedAssemblyHash,runner="Unity Editor / pure simulation";public RunConfig config; }
-        [Serializable] public class SeedResult { public uint seed;public string result;public int ticks,floor,living;public float seconds;public FloorTelemetry[] encounters; }
+        [Serializable] public class InventorySnapshot {public int agent,initialMaterials,materials,hpPotions,mpPotions,items; public bool alive;}
+        [Serializable] public class SeedResult { public uint seed;public string result;public int ticks,floor,living;public float seconds;public FloorTelemetry[] encounters;public InventorySnapshot[] inventory; }
         static readonly string root=DiagnosticRoot();
         static string DiagnosticRoot(){var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,"--phase31-root");return Path.GetFullPath(i>=0?args[i+1]:"../Artifacts/Phase31");}
         static string Hash(string text){using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(Encoding.UTF8.GetBytes(text))).Replace("-","").ToLowerInvariant();}
@@ -66,10 +67,11 @@ namespace Ember.Editor
                 {
                     uint seed=(uint)(config.firstSeed+done);using(var s=new TowerSimulation(c,data,seed,config.composition!="Natural"){TelemetryEnabled=true,DiagnosticsEnabled=true,TelemetrySeed=seed})
                     {
-                        s.Rules=config.rules??new StabilizationRules();Configure(s,c,config.composition);int tick=0;for(;tick<config.maxTicks&&s.State.world.phase!=Phase.Ended&&s.State.groups.Max(g=>g.floor)<=config.floorLimit;tick++)s.Step();
+                        s.Rules=config.rules??new StabilizationRules();Configure(s,c,config.composition);var inventory=s.State.world.agents.Select(a=>new InventorySnapshot{agent=a.id,initialMaterials=a.materials}).ToArray();int tick=0;for(;tick<config.maxTicks&&s.State.world.phase!=Phase.Ended&&s.State.groups.Max(g=>g.floor)<=config.floorLimit;tick++)s.Step();
                         string outcome=s.State.groups.Max(g=>g.floor)>config.floorLimit?"ReachedLimit":s.State.world.phase==Phase.Ended?s.State.world.outcome.ToString():"Nonterminal";
                         if(outcome=="TowerClear"||outcome=="ReachedLimit")clears++;else if(outcome=="Wipe")wipes++;else nonterminal++;
-                        writer.WriteLine(JsonUtility.ToJson(new SeedResult{seed=seed,result=outcome,ticks=tick,floor=s.State.groups.Max(g=>g.floor),living=s.State.world.agents.Count(a=>a.alive),seconds=s.State.world.clock,encounters=s.State.telemetry.ToArray()}));writer.Flush();
+                        foreach(var entry in inventory){var a=s.State.world.agents[entry.agent];entry.materials=a.materials;entry.hpPotions=a.inventory.Count(v=>v.id=="hp");entry.mpPotions=a.inventory.Count(v=>v.id=="mp");entry.items=a.inventory.Count;entry.alive=a.alive;}
+                        writer.WriteLine(JsonUtility.ToJson(new SeedResult{seed=seed,result=outcome,ticks=tick,floor=s.State.groups.Max(g=>g.floor),living=s.State.world.agents.Count(a=>a.alive),seconds=s.State.world.clock,encounters=s.State.telemetry.ToArray(),inventory=inventory}));writer.Flush();
                     }
                     done++;string progress=$"completed={done}/{config.count}; clears={clears}; wipes={wipes}; nonterminal={nonterminal}; elapsedThisInvocation={clock.Elapsed.TotalSeconds:F2}; UTC={DateTime.UtcNow:O}";
                     File.WriteAllText(Path.Combine(dir,"heartbeat.txt"),progress);File.WriteAllText(Path.Combine(dir,"checkpoint.txt"),done.ToString());if(done%5==0)Debug.Log("PHASE31 PROGRESS / "+progress);

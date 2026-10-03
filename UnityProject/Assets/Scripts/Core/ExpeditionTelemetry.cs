@@ -7,7 +7,7 @@ namespace Ember.Core.Phase2
     [Serializable] public class SkillCount { public string id; public int count; }
     [Serializable] public class UnitTelemetry
     {
-        public List<SourceAmount> opportunities=new List<SourceAmount>(); public int agent; public string profession,weapon; public float damage,damageTaken,healing,quality; public int potions,deaths; public float rawHealing,overheal,mpSpent,mpDrained,shieldAbsorbed,mpMinimum=float.MaxValue,unlockedSeconds,equippedSeconds,readySeconds;
+        public List<SourceAmount> opportunities=new List<SourceAmount>(); public int agent; public string profession,weapon; public float damage,damageTaken,healing,quality; public int potions,deaths,materialsSpent; public float restSeconds,rawHealing,overheal,mpSpent,mpDrained,shieldAbsorbed,mpMinimum=float.MaxValue,unlockedSeconds,equippedSeconds,readySeconds;
     }
     [Serializable] public class FloorTelemetry
     {

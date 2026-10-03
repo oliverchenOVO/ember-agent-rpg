@@ -86,13 +86,14 @@ namespace Ember.Core.Phase2
             if(a.intent.kind!=ActionKind.Skill)
             {
                 var weapon=Catalog.Item(a.weapon.id);float range=weapon.weapon=="Bow"||weapon.weapon=="Staff"?9:2.8f;
-                if(Simulation.Distance(a.x,a.z,b.x,b.z)>range)Move(a,b.x,b.z,dt,speed);
+                if(Simulation.Distance(a.x,a.z,b.x,b.z)>range){RecordSkillTravel(a,"BasicAttack",dt);Move(a,b.x,b.z,dt,speed);}
                 else if(a.attackTimer==0)
                 {
+                    BeginBasicEconomy(a,Mathf.Max(.65f,1.7f-a.stats.dex*.025f));
                     float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
                     Deal(a,g,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog)*(a.weapon.affix=="Astral"?1.1f:1),a.enchant>0?"Fire":"Physical",a.weapon.affix=="Break");
                     if(a.weapon.affix=="Scorch")ApplyEffect(b,-1,a.id,"Burn",3,3,"Fire");
-                    a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
+                    a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);EndCastEconomy();
                 }
             }
             string potion=!(Rules.combatRecovery&&Rules.potionBeforeMovement)&&a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);

@@ -45,7 +45,7 @@ namespace Ember.Core.Phase2
                     a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+(a.weapon.affix=="Recovery"?.6f:0)+(Rules.phaseWindows&&Rules.windowManaRecovery&&g.phase==Phase.Battle&&g.boss.recoveryWindow>0?1.5f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
                     var plan=State.Plan(a.id);if(plan.nextDecision<=w.clock&&plan.workLeft<=0)Decide(a,g,plan);
                     if(!State.groups.Contains(g)||State.GroupOf(a.id)!=g)continue;
-                    if(g.phase==Phase.Battle)ExecuteCombat(a,g,dt);else ExecuteRest(a,g,dt);
+                    if(g.phase==Phase.Battle)ExecuteCombat(a,g,dt);else {RecordRestTime(a,g,dt);ExecuteRest(a,g,dt);}
                 }
                 if(!State.groups.Contains(g))continue;
                 if(g.phase==Phase.Battle&&g.boss.visible.hp<=0){g.boss.ResolveDeath(Data,members,Hurt);if(members.Any(a=>a.alive))EnterRest(g);}

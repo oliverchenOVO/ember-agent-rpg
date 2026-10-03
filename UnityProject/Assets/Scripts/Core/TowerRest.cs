@@ -65,7 +65,7 @@ namespace Ember.Core.Phase2
             string site=p.decision.proposedAction;
             if(p.decision.intent=="Recover"&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
             if(p.decision.intent=="Support")site="church";
-            if(Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=2&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<2||a.inventory.FindAll(i=>i.id=="mp").Count<2))site="clinic";
+            if(Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=1+Mathf.Clamp(Rules.clinicKitCost,1,3)&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)||a.inventory.FindAll(i=>i.id=="mp").Count<Mathf.Clamp(Rules.clinicStockLimit,1,2)))site="clinic";
             var station=Array.Find(rest.sites,s=>s.id==site);
             if(station==null||(site=="bed"?p.visited.Count(v=>v==site)>=2:p.visited.Contains(site))||a.materials<station.materialCost){p.decision.intent="Exit";return;}
             a.intent.kind=station.effect=="Craft"?ActionKind.Craft:station.effect=="Read"||station.effect=="Intel"?ActionKind.Read:station.effect=="Heal"||station.effect=="Cleanse"?ActionKind.Rest:ActionKind.Explore;
@@ -73,7 +73,7 @@ namespace Ember.Core.Phase2
             if(Simulation.Distance(a.x,a.z,station.x,station.z)<1)
             {
                 // A task is never free: reserve cost and duration, including its travel and escape margin in the brain context.
-                a.materials-=station.materialCost;p.site=site;p.workLeft=station.seconds;a.taskTimer=p.workLeft;a.task=site;
+                a.materials-=station.materialCost;RecordMaterialsSpent(a,station.materialCost);p.site=site;p.workLeft=station.seconds;a.taskTimer=p.workLeft;a.task=site;
                 State.world.Say(a.id,Loc.Token("p2.event.work",Loc.Token(station.nameKey)),"rest");
             }
         }

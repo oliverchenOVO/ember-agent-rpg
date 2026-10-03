@@ -21,7 +21,7 @@ namespace Ember.Core.Phase2
     {
         // Diagnostics are opt-in and never consume random numbers or alter decisions.
         public bool DiagnosticsEnabled;
-        public const string SimulationVersion="phase3.1-diagnostics-1", BalanceVersion="P3.1.1-EXP1";
+        public const string SimulationVersion="phase3.1-diagnostics-1", BalanceVersion="P3.1.1-EXP2.1";
         static SourceAmount Source(List<SourceAmount> rows,string id)
         {var r=rows.Find(v=>v.id==id);if(r==null){r=new SourceAmount{id=id};rows.Add(r);}return r;}
         PhaseDiagnostic DiagnosticPhase(GroupState g)
@@ -47,7 +47,7 @@ namespace Ember.Core.Phase2
         {if(u.opportunities==null)u.opportunities=new List<SourceAmount>();var r=Source(u.opportunities,skill);if(a.unlocked.Contains(skill))r.raw+=dt;if(a.equipped.Contains(skill))r.effective+=dt;if(CanUseSkill(a,skill,false))r.mana+=dt;}
         void RecordRecovery(Agent actor,Agent target,string source,float raw,float effective,float mana=0)
         {
-            if(!DiagnosticsEnabled)return;var row=Telemetry(State.GroupOf(target.id));if(row==null)return;
+            if(!DiagnosticsEnabled)return;if(activeCaster==actor.id&&activeCast!=null){activeCast.rawHealing+=raw;activeCast.effectiveHealing+=effective;}var row=Telemetry(State.GroupOf(target.id));if(row==null)return;
             if(row.recovery==null)row.recovery=new List<SourceAmount>();var r=Source(row.recovery,source);r.raw+=raw;r.effective+=effective;r.overheal+=Mathf.Max(0,raw-effective);r.mana+=mana;r.count++;
             var u=row.team.Find(v=>v.agent==actor.id);if(u!=null&&source!="Potion:mp"){u.rawHealing+=raw;u.overheal+=Mathf.Max(0,raw-effective);}
         }

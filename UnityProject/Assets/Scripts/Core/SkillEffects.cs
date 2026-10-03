@@ -37,7 +37,7 @@ namespace Ember.Core.Phase2
         }
         void Heal(Agent source,Agent target,float raw,string recovery="Heal")
         {
-            float amount=Mathf.Max(0,Mathf.Min(target.MaxHp-target.hp,raw));RecordRecovery(source,target,recovery,raw,amount);if(activeCaster==source.id&&activeCast!=null){activeCast.rawHealing+=raw;activeCast.effectiveHealing+=amount;}target.hp+=amount;source.healing+=amount;Measure(source,"heal",amount);if(source!=target&&amount>0)Relate(target,source,RelationshipEventKind.Healed,Mathf.Min(1,amount/40));
+            float amount=Mathf.Max(0,Mathf.Min(target.MaxHp-target.hp,raw));RecordRecovery(source,target,recovery,raw,amount);target.hp+=amount;source.healing+=amount;Measure(source,"heal",amount);if(source!=target&&amount>0)Relate(target,source,RelationshipEventKind.Healed,Mathf.Min(1,amount/40));
         }
         bool SpecialSkill(Agent a,GroupState g,SkillDef s,Agent ally)
         {

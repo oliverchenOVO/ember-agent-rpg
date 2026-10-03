@@ -23,6 +23,12 @@ namespace Ember.Core.Phase2
         void BeginCastEconomy(Agent a,SkillDef skill)
         {if(!DiagnosticsEnabled)return;activeCast=Economy(a,skill.id);activeCaster=a.id;if(activeCast!=null){activeCast.casts++;activeCast.cooldownSum+=skill.cooldown;}}
         void EndCastEconomy(){activeCast=null;activeCaster=-1;}
+        void BeginBasicEconomy(Agent a,float cooldown)
+        {if(!DiagnosticsEnabled)return;activeCast=Economy(a,"BasicAttack");activeCaster=a.id;if(activeCast!=null){activeCast.casts++;activeCast.cooldownSum+=cooldown;}}
+        void RecordMaterialsSpent(Agent a,int amount)
+        {if(!DiagnosticsEnabled)return;var u=Telemetry(State.GroupOf(a.id))?.team.Find(v=>v.agent==a.id);if(u!=null)u.materialsSpent+=amount;}
+        void RecordRestTime(Agent a,GroupState g,float dt)
+        {if(!DiagnosticsEnabled)return;var u=Telemetry(g)?.team.Find(v=>v.agent==a.id);if(u!=null)u.restSeconds+=dt;}
         void RecordSkillTravel(Agent a,string id,float dt)
         {if(DiagnosticsEnabled){var r=Economy(a,id);if(r!=null)r.travelSeconds+=dt;}}
         // Instant casts have no cast timer. Cooldown is not time during which basic attacks are blocked.
