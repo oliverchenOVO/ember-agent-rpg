@@ -1,5 +1,7 @@
 # EMBER 語系架構
 
+Phase 3.1 目前共 405 keys／700 glyphs，新增對照集中於 `Tools/phase31_strings.py` 並匯入既有產生器。下方 399 keys 為 Phase 3 歷史數量。表／字型檢查通過不代表新版像素矩陣通過；缺字根因尚未證明，狀態見 [Phase 3.1 驗證](PHASE3_1_VALIDATION.md)。
+
 預設語系為 `zh-TW`。右下角「語言 / 繁體中文」可即時切換英文，選擇會存入 PlayerPrefs；啟動參數 `--locale zh-TW` 或 `--locale en` 可指定此次語系。品牌 EMBER、KAEL / LYRA / ORIN / SERA 及 Agent RPG 保留原名。
 
 ## 字串表與新增文案

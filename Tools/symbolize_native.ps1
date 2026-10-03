@@ -26,4 +26,3 @@ try {
  $taskLines | Set-Content -LiteralPath $Output -Encoding utf8
  Write-Output ("Symbols saved: "+$taskLines.Count)
 } finally { [EmberSymbols]::Close() }
-

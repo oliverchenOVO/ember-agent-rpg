@@ -1,5 +1,7 @@
 # Phase 3 效能與原生配置診斷
 
+Phase 3.1 新增乾淨 300 秒 1x baseline（CPU p95 6.455 ms、p99 8.168 ms）及逐幀 wall interval／事件／配置量隔離工具。新版 Build 停滯，三 workload 前後測與 GC 改善仍未完成；Gate 未通過。限制見 [Phase 3.1 驗證](PHASE3_1_VALIDATION.md)，不要把下面舊共享負載 soak 當成正常遊玩基準。
+
 2026-10-03，在 F 槽完成 **120 分鐘實際渲染壓力測試**。Windows / Unity 6000.2.0f1 / D3D12 / RTX 3070 Ti Laptop（8 GB）。Development Player 使用凍結 Runtime，16 倍速、分鐘存讀檔、輪替觀察、五分鐘死亡/坍塌；同機同時執行 headless seed runner，前段也有 Release 建置/畫面 QA。這不是單獨的一倍速效能基準，數字不能直接當作正常遊玩幀率。
 
 ## 完整量測

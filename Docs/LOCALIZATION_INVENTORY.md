@@ -1,6 +1,6 @@
 # 玩家可見文字盤點 / zh-TW 字串表
 
-共 399 個語意鍵。英文與繁中各一份；保留全部技術識別字。
+共 405 個語意鍵。英文與繁中各一份；保留全部技術識別字。
 
 搜尋範圍：Assets 全部 C#、JSON、Unity Scene、ProjectSettings，以及會再產生內容的 Tools/write_catalog.py。
 可見來源：WitnessGame UI 與列舉顯示、PlayerWindow 視窗標題、UtilityBrain 意圖、Simulation 系統/對話/遺言、catalog 技能與物品名、舊存檔。
@@ -408,3 +408,9 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 | `p3.effects` | Effect: {0} | 效果：{0} |
 | `p3.camera` | Spectator camera · arrows override | 觀察鏡頭 · 方向鍵手動接管 |
 | `p3.profiling` | Profiling {0} min · run {1} | 效能紀錄 {0} 分鐘 · 第 {1} 輪 |
+| `p31.reason.intercept` | Draw this attack toward me and cover the wounded ally. | 把這次攻擊引向我，掩護受傷的隊友。 |
+| `p31.reason.defense` | Reduce sustained damage to survive this phase. | 先減輕持續傷害，保留撐過這一階段的能力。 |
+| `p31.reason.shield` | Use basic attacks against the shield and summons. | 先用普通攻擊應對護盾與召喚物。 |
+| `p31.reason.mana` | Keep mana for a more valuable casting opportunity. | 保留魔力，等待更有價值的施法時機。 |
+| `p31.event.supplies` | Spent 1 material on a clinic supply kit for the next battle. | 花費 1 份材料補充診所藥包，準備下一場戰鬥。 |
+| `p31.skill.holy_hint` | Holy attacks also restore health; effective recovery costs up to 2 additional mana. | 聖光攻擊附帶恢復生命；有效恢復會額外消耗最多 2 點魔力。 |
