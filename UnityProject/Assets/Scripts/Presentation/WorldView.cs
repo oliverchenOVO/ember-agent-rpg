@@ -148,7 +148,9 @@ namespace Ember.Presentation
         }
         void Particles(Transform parent,Vector3 p,Color c,float size,float rate,float radius)
         {
+            if(System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"--no-particles")>=0)return;
             var g=new GameObject("Drifting embers");g.transform.SetParent(parent,false);g.transform.localPosition=p;
+            if(System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"--mesh-embers")>=0){g.AddComponent<DriftingEmbers>().Initialize(size,rate,radius,c,camera);return;}
             var ps=g.AddComponent<ParticleSystem>();var main=ps.main;main.startColor=c;main.startSize=size;main.startLifetime=4;main.startSpeed=.18f;main.maxParticles=100;var emission=ps.emission;emission.rateOverTime=rate;var shape=ps.shape;shape.shapeType=ParticleSystemShapeType.Sphere;shape.radius=radius;
             var m=new Material(Shader.Find("Particles/Standard Unlit"));ownedMaterials.Add(m);m.color=c;ps.GetComponent<ParticleSystemRenderer>().sharedMaterial=m;ps.Play();
         }

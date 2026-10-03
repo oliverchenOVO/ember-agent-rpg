@@ -47,7 +47,7 @@ namespace Ember.Presentation
         void SetupLocalizationScenario(string scenario)
         {
             simulation=new Simulation(simulation.Catalog,1729,true);selected=0;tab=0;paused=true;noticeTimer=0;notice="";speed=1;
-            Loc.SetLocale(scenario=="english"?"en":"zh-TW");var w=simulation.State;
+            Loc.SetLocale(qaLocaleOverride??(scenario=="english"?"en":"zh-TW"));var w=simulation.State;
             if(scenario=="telegraph"){w.boss.telegraph=true;w.boss.windup=.7f;w.boss.targetX=w.agents[0].x;w.boss.targetZ=w.agents[0].z;}
             if(scenario=="enraged"){w.boss.enraged=true;w.boss.hp=w.boss.maxHp*.35f;}
             bool rest=scenario=="refuge"||scenario=="four_skills"||scenario=="collapse";

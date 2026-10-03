@@ -26,7 +26,7 @@ namespace Ember.Presentation
             }
             tower=new TowerSimulation(c,TowerContent.Load(),1729,Array.IndexOf(args,"--showcase")>=0,reasoner);
             towerSmoke=Array.IndexOf(args,"--phase2-smoke")>=0;towerQA=Array.IndexOf(args,"--phase2-qa")>=0;simulation.Restore(tower.Observe(0));
-            if(Array.IndexOf(args,"--phase3-qa")>=0){towerQA=true;towerCases=new[]{"foundry6","foundry7","foundry8","foundry9","foundry10","lane","cross","annulus","foundry_phase2","foundry_phase3","foundry_refuge","infusion_sword","infusion_bow","infusion_staff","foundry_intel","foundry_death","foundry_english","foundry_saved","foundry_loaded","foundry_split"};}
+            if(Array.IndexOf(args,"--phase3-qa")>=0){towerQA=true;towerCases=new[]{"foundry6","foundry7","foundry8","foundry9","foundry10","lane","cross","annulus","foundry_phase2","foundry_phase3","foundry_refuge","infusion_sword","infusion_bow","infusion_staff","foundry_intel","foundry_death","foundry_english","foundry_saved","foundry_loaded","foundry_split","holy_tooltip"};}
         }
         void LoadExpedition()
         {
@@ -65,9 +65,9 @@ namespace Ember.Presentation
                 var g=tower.State.GroupOf(selected);var learned=m.entries.FirstOrDefault(e=>e.key=="intel:"+g.floor);
                 string intel=learned!=null?(string.IsNullOrEmpty(tower.Data.Floor(g.floor).intelKey)?string.Join(" / ",tower.Data.Boss(g.boss.definition).phases[g.boss.phase].abilities.Select(id=>Loc.T(tower.Data.Ability(id).nameKey))):Loc.T(tower.Data.Floor(g.floor).intelKey)):Loc.T("p2.intel_unknown");
                 Text(46,741,1140,24,Loc.T("p2.intel",intel),small);
-                var salient=m.salient.LastOrDefault();Text(46,767,1140,24,salient!=null?Loc.Render(salient.evidence):Loc.T("p2.observation"),small);
+                var salient=m.salient.LastOrDefault();Text(46,767,1140,24,salient!=null?RenderForUI(salient.evidence):Loc.T("p2.observation"),small);
                 var memory=m.entries.OrderByDescending(e=>e.importance).ThenBy(e=>e.age).FirstOrDefault();
-                Text(46,794,1140,28,reasonerDebug?Loc.T("p2.provider",Loc.T("p2."+plan.decision.provider),plan.revision):memory!=null?Loc.T("p2.memory",Loc.T("p2.source."+memory.source),Loc.Render(memory.text)):Loc.T("p2.split_status",tower.State.groups.Count,tower.State.splits,tower.State.rejoins),small);
+                Text(46,794,1140,28,reasonerDebug?Loc.T("p2.provider",Loc.T("p2."+plan.decision.provider),plan.revision):memory!=null?Loc.T("p2.memory",Loc.T("p2.source."+memory.source),RenderForUI(memory.text)):Loc.T("p2.split_status",tower.State.groups.Count,tower.State.splits,tower.State.rejoins),small);
             }
         }
         void UpdateTowerSmoke()
@@ -97,7 +97,7 @@ namespace Ember.Presentation
         void SetupTowerScenario(string scenario)
         {
             tower.Dispose();tower=new TowerSimulation(simulation.Catalog,TowerContent.Load(),1729,true);selected=0;tab=0;paused=true;noticeTimer=0;reasonerDebug=false;speed=1;
-            Loc.SetLocale(scenario=="english"||scenario=="foundry_english"?"en":"zh-TW");var g=tower.State.groups[0];int floor=Array.IndexOf(towerCases,scenario)+1;
+            Loc.SetLocale(qaLocaleOverride??(scenario=="english"||scenario=="foundry_english"?"en":"zh-TW"));var g=tower.State.groups[0];int floor=Array.IndexOf(towerCases,scenario)+1;
             if(floor>5)floor=scenario=="final"?25:scenario=="ice"?6:scenario=="castle"?11:scenario=="abyss"?16:scenario=="terminal_forest"?21:scenario=="terminal_ice"?22:scenario=="terminal_castle"?23:scenario=="terminal_abyss"?24:1;
             g.floor=floor;g.boss=BossRuntime.Create(tower.Data.Boss(tower.Data.Floor(floor).bossId));
             if(towerCases[0]=="foundry6")SetupFoundryQA(scenario,g);

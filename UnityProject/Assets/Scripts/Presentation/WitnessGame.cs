@@ -8,7 +8,7 @@ namespace Ember.Presentation
 {
     public sealed partial class WitnessGame : MonoBehaviour
     {
-        Simulation simulation; WorldView view; float accumulator, speed=1; bool paused, smoke, collapseSmoke;
+        string qaLocaleOverride; Simulation simulation; WorldView view; float accumulator, speed=1; bool paused, smoke, collapseSmoke;
         bool shotBattle,shotRest,shotEnd; int selected, tab, lastRun, lastOutcome;
         string notice="", savePath, artifactPath, weaponSignature=""; float noticeTimer;
         Message lastSound;
@@ -17,7 +17,8 @@ namespace Ember.Presentation
         AudioSource audioSource; AudioClip strike,heal;
         void Start()
         {
-            var args=Environment.GetCommandLineArgs();int localeIndex=Array.IndexOf(args,"--locale");
+            var args=Environment.GetCommandLineArgs();int qaLocaleIndex=Array.IndexOf(args,"--qa-locale");if(qaLocaleIndex>=0)qaLocaleOverride=args[qaLocaleIndex+1];int localeIndex=Array.IndexOf(args,"--locale");
+            int fontProbe=Array.IndexOf(args,"--font-probe");if(fontProbe>=0){int outIndex=Array.IndexOf(args,"--artifacts");var test=gameObject.AddComponent<FontReproduction>();test.mode=args[fontProbe+1];test.path=args[outIndex+1];enabled=false;return;}
             int probe=Array.IndexOf(args,"--native-diag");if(probe>=0){gameObject.AddComponent<NativeAllocationProbe>().mode=args[probe+1];enabled=false;return;}
             Application.wantsToQuit+=CloseWindow;
             Loc.SetLocale(localeIndex>=0&&localeIndex+1<args.Length?args[localeIndex+1]:PlayerPrefs.GetString("locale","zh-TW"));
@@ -42,7 +43,7 @@ namespace Ember.Presentation
             Invoke(nameof(LocalizeWindowTitle),.3f);
             if(qaEnabled){paused=true;qaNext=Time.realtimeSinceStartup+.5f;}
             if(towerQA){paused=true;qaEnabled=true;qaNext=Time.realtimeSinceStartup+.5f;}
-            StartProfile(args);
+            StartGlyphDiagnostics(args);StartProfile(args);
         }
         AudioClip Tone(float frequency,float duration)
         {
@@ -58,7 +59,7 @@ namespace Ember.Presentation
             if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;
             if(!paused)
             {
-                var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
+                using var allocationStep=new AllocationScope(stepAlloc,profile);var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
                 accumulator+=Mathf.Min(Time.unscaledDeltaTime,.25f)*speed;
                 while(accumulator>=Simulation.StepSeconds){if(tower!=null)tower.Step();else simulation.Step();accumulator-=Simulation.StepSeconds;}
                 if(profile)profileAiMs=stepWatch.Elapsed.TotalMilliseconds;
@@ -70,8 +71,7 @@ namespace Ember.Presentation
             if(w.run!=lastRun) {lastRun=w.run;view.RebuildCharacters(w,simulation.Catalog);TrySave();}
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
-            view.Update(w,Time.unscaledDeltaTime,orbit);noticeTimer-=Time.unscaledDeltaTime;
-            view.ShowInfusions(w,simulation.Catalog);
+            using(var allocationView=new AllocationScope(viewAlloc,profile)){view.Update(w,Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
             if(towerSmoke)UpdateTowerSmoke();
             UpdateAudio();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
@@ -96,7 +96,7 @@ namespace Ember.Presentation
         void TrySave(){try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LocalizeWindowTitle(){PlayerWindow.LocalizeTitle();}
         void RefreshLanguage(){title=null;LocalizeWindowTitle();}
-        void OnDestroy(){Application.wantsToQuit-=CloseWindow;Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
+        void OnDestroy(){CloseGlyphDiagnostics();Application.wantsToQuit-=CloseWindow;Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
         void Notice(string text){notice=text;noticeTimer=5;}
         void Styles()
         {
@@ -112,15 +112,15 @@ namespace Ember.Presentation
         void Text(float x,float y,float width,float height,string text,GUIStyle style=null)
         {
             var chosen=style??label;var rect=new Rect(x,y,width,height);if(qaEnabled)CheckLayout(rect,text,chosen,false);
-            GUI.Label(rect,text,chosen);
+            glyphDrawIndex++;GUI.Label(rect,text,chosen);
         }
         void Bar(float x,float y,float width,float ratio,Color color,float height=4){Box(x,y,width,height,new Color(.14f,.2f,.21f));Box(x,y,width*Mathf.Clamp01(ratio),height,color);}
         bool Button(float x,float y,float width,string text){var rect=new Rect(x,y,width,32);Box(x,y,width,32,new Color(.13f,.21f,.23f,.95f));if(qaEnabled)CheckLayout(rect,text,button,true);bool pressed=GUI.Button(rect,text,button);if(pressed&&sound!=null)sound.Play(AudioEvent.UI);return pressed;}
         string TimeText(float seconds) => ((int)seconds/60).ToString("00")+":"+((int)seconds%60).ToString("00");
         void OnGUI()
         {
-            using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
-            if(simulation==null||!enabled)return;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
+            using var allocationUI=new AllocationScope(uiAlloc,profile);using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
+            if(simulation==null||!enabled)return;glyphDrawIndex=0;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
             var w=simulation.State;var a=w.agents[selected];
             Box(0,0,1600,86,new Color(.035f,.065f,.08f,.96f));Box(0,85,1600,1,new Color(.25f,.36f,.36f,.6f));
@@ -170,7 +170,7 @@ namespace Ember.Presentation
                 }
             }
             Box(28,107,294,272,new Color(.035f,.062f,.075f,.89f));Text(47,124,258,22,Loc.T("ui.mind"),subtitle);
-            Text(47,153,235,30,Loc.T("ui.agent_class",a.name,Loc.Profession(a.profession)),label);Text(47,188,252,75,tower!=null?Loc.T("p2.goal",Loc.T("p2.goal."+tower.State.Plan(selected).decision.intent)):Loc.Render(a.intent.reason),label);
+            Text(47,153,235,30,Loc.T("ui.agent_class",a.name,Loc.Profession(a.profession)),label);Text(47,188,252,75,tower!=null?Loc.T("p2.goal",Loc.T("p2.goal."+tower.State.Plan(selected).decision.intent)):RenderForUI(a.intent.reason),label);
             Text(47,273,258,22,Loc.T("ui.traits1",Mathf.RoundToInt(a.personality.risk*100),Mathf.RoundToInt(a.personality.curiosity*100)),small);
             Text(47,301,258,22,Loc.T("ui.traits2",Mathf.RoundToInt(a.personality.empathy*100),Mathf.RoundToInt(a.personality.greed*100)),small);
             Text(47,326,258,32,Loc.T("ui.intent",Loc.Action(a.intent.kind)),subtitle);
@@ -184,7 +184,7 @@ namespace Ember.Presentation
             DrawSkillTooltip(a);
             Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);
             if(Button(1350,843,222,Loc.T("ui.language"))){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");PlayerPrefs.SetString("locale",Loc.Locale);PlayerPrefs.Save();}
-            if(noticeTimer>0){Box(450,830,750,33,new Color(.08f,.16f,.17f,.95f));Text(467,836,715,25,Loc.Render(notice),label);}
+            if(noticeTimer>0){Box(450,830,750,33,new Color(.08f,.16f,.17f,.95f));Text(467,836,715,25,RenderForUI(notice),label);}
         }
         void AgentCard(Agent a,int i,float x,float y)
         {
@@ -208,13 +208,13 @@ namespace Ember.Presentation
                 for(int i=start;i<w.messages.Count;i++)
                 {
                     var m=w.messages[i];float y=714+(i-start)*27;Text(46,y,55,22,TimeText(m.time),small);
-                    Text(109,y,83,24,m.speaker<0?Loc.T("ui.tower"):w.agents[m.speaker].name,subtitle);Text(199,y,1022,26,Loc.Render(m.text),label);
+                    Text(109,y,83,24,m.speaker<0?Loc.T("ui.tower"):w.agents[m.speaker].name,subtitle);Text(199,y,1022,26,RenderForUI(m.text),label);
                 }
             }
             else if(tab==1)
             {
                 int start=Mathf.Max(0,w.book.Count-4);if(w.book.Count==0)Text(46,721,1100,55,Loc.T("ui.book_empty"),label);
-                for(int i=start;i<w.book.Count;i++) {var e=w.book[i];Text(46,714+(i-start)*27,150,24,Loc.T("ui.book_author",e.run,w.agents[e.author].name),subtitle);Text(211,714+(i-start)*27,1000,24,Loc.Render(e.text),label);}
+                for(int i=start;i<w.book.Count;i++) {var e=w.book[i];Text(46,714+(i-start)*27,150,24,Loc.T("ui.book_author",e.run,w.agents[e.author].name),subtitle);Text(211,714+(i-start)*27,1000,24,RenderForUI(e.text),label);}
             }
             else if(tab==2)
             {

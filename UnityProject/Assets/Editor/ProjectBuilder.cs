@@ -30,7 +30,7 @@ namespace Ember.Editor
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone,ScriptingImplementation.Mono2x);
             // Include shaders referenced by name at runtime, which scene analysis cannot discover.
             var settings=new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/GraphicsSettings.asset")[0]);var shaders=settings.FindProperty("m_AlwaysIncludedShaders");
-            foreach(string name in new[]{"Standard","Particles/Standard Unlit"})
+            foreach(string name in new[]{"Standard","Particles/Standard Unlit","Sprites/Default"})
             {
                 var shader=Shader.Find(name);bool exists=false;for(int i=0;i<shaders.arraySize;i++)if(shaders.GetArrayElementAtIndex(i).objectReferenceValue==shader)exists=true;
                 if(!exists){int i=shaders.arraySize;shaders.InsertArrayElementAtIndex(i);shaders.GetArrayElementAtIndex(i).objectReferenceValue=shader;}

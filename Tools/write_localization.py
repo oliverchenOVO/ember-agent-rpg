@@ -99,6 +99,8 @@ from phase2_strings import entries as phase2_entries
 for key,(en,zh) in phase2_entries.items():add(key,en,zh)
 from phase3_strings import entries as phase3_entries
 for key,(en,zh) in phase3_entries.items():add(key,en,zh)
+from phase31_strings import entries as phase31_entries
+for key,(en,zh) in phase31_entries.items():add(key,en,zh)
 
 if __name__=='__main__':
     import sys

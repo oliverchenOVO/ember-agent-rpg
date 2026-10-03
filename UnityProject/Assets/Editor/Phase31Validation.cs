@@ -13,7 +13,7 @@ namespace Ember.Editor
 {
     public static class Phase31Validation
     {
-        [Serializable] public class RunConfig { public string label="baseline100",composition="Natural";public int firstSeed=1,count=100,floorLimit=25,maxTicks=50000,maxWallSeconds=900; }
+        [Serializable] public class RunConfig { public string label="baseline100",composition="Natural";public StabilizationRules rules=new StabilizationRules();public int firstSeed=1,count=100,floorLimit=25,maxTicks=50000,maxWallSeconds=900; }
         [Serializable] public class Manifest { public string runtimeHash,configHash,simulationVersion,balanceVersion,startedUtc;public RunConfig config; }
         [Serializable] public class SeedResult { public uint seed;public string result;public int ticks,floor,living;public float seconds;public FloorTelemetry[] encounters; }
         static readonly string root=Path.GetFullPath("../Artifacts/Phase31");
@@ -59,7 +59,7 @@ namespace Ember.Editor
                 {
                     uint seed=(uint)(config.firstSeed+done);using(var s=new TowerSimulation(c,data,seed,config.composition!="Natural"){TelemetryEnabled=true,DiagnosticsEnabled=true,TelemetrySeed=seed})
                     {
-                        Configure(s,c,config.composition);int tick=0;for(;tick<config.maxTicks&&s.State.world.phase!=Phase.Ended&&s.State.groups.Max(g=>g.floor)<=config.floorLimit;tick++)s.Step();
+                        s.Rules=config.rules??new StabilizationRules();Configure(s,c,config.composition);int tick=0;for(;tick<config.maxTicks&&s.State.world.phase!=Phase.Ended&&s.State.groups.Max(g=>g.floor)<=config.floorLimit;tick++)s.Step();
                         string outcome=s.State.groups.Max(g=>g.floor)>config.floorLimit?"ReachedLimit":s.State.world.phase==Phase.Ended?s.State.world.outcome.ToString():"Nonterminal";
                         if(outcome=="TowerClear"||outcome=="ReachedLimit")clears++;else if(outcome=="Wipe")wipes++;else nonterminal++;
                         writer.WriteLine(JsonUtility.ToJson(new SeedResult{seed=seed,result=outcome,ticks=tick,floor=s.State.groups.Max(g=>g.floor),living=s.State.world.agents.Count(a=>a.alive),seconds=s.State.world.clock,encounters=s.State.telemetry.ToArray()}));writer.Flush();
@@ -70,6 +70,58 @@ namespace Ember.Editor
             }
             File.WriteAllText(Path.Combine(dir,"summary.txt"),$"completed={done}; requested={config.count}; clears={clears}; wipes={wipes}; nonterminal={nonterminal}; complete={done==config.count}; finishedUtc={DateTime.UtcNow:O}\n");
             if(nonterminal>0)throw new Exception("Nonterminal seed: retain artifacts and investigate");Debug.Log("PHASE31 BOUNDED RUN ENDED / "+done+" / "+config.count);
+        }
+        public static void Compositions()
+        {
+            Unit();Directory.CreateDirectory(root);string path=Path.Combine(root,"run-config.json"),original=File.ReadAllText(path);
+            var template=JsonUtility.FromJson<RunConfig>(original);
+            try { foreach(var composition in new[]{"Warrior","Archer","Mage","Healer","Mixed"})
+                {var config=new RunConfig{label=template.label+"-"+composition,composition=composition,count=50,floorLimit=10,maxWallSeconds=180,rules=template.rules??new StabilizationRules()};File.WriteAllText(path,JsonUtility.ToJson(config,true));Run();}
+            } finally {File.WriteAllText(path,original);}
+        }
+        public static void Snapshots()
+        {
+            Directory.CreateDirectory(root);var c=Catalog();var data=TowerContent.Load();
+            using(var output=new StreamWriter(Path.Combine(root,"attribute-snapshots.csv")))
+            {output.WriteLine("rules,composition,floor,agent,level,str,dex,intel,vit,wis,hp,max_hp,mp,max_mp,quality,weapon,equipped");
+                foreach(bool candidate in new[]{false,true})foreach(var composition in new[]{"Warrior","Archer","Mage","Healer","Mixed"})
+                using(var s=new TowerSimulation(c,data,1,true))
+                {
+                    s.Rules=new StabilizationRules{phaseWindows=candidate,combatRecovery=candidate,clinicSupplies=candidate,holyRecoveryCost=candidate};Configure(s,c,composition);int previous=0;
+                    for(int tick=0;tick<50000&&s.State.world.phase!=Phase.Ended&&s.State.groups.Max(g=>g.floor)<=10;tick++)
+                    {
+                        int floor=s.State.groups.Max(g=>g.floor);if(floor!=previous){previous=floor;foreach(var a in s.State.world.agents)output.WriteLine(string.Join(",",candidate,composition,floor,a.id,a.level,a.stats.str,a.stats.dex,a.stats.intel,a.stats.vit,a.stats.wis,a.hp,a.MaxHp,a.mp,a.MaxMp,a.weapon.quality,a.weapon.id,string.Join("|",a.equipped)));}s.Step();
+                    }
+                }
+            }
+            Debug.Log("PHASE31 ATTRIBUTE SNAPSHOTS COMPLETE");
+        }
+        public static void ShortGate()
+        {
+            Unit();Phase3Validation.Unit();LocalizationValidation.Run();Snapshots();
+            var c=Catalog();var data=TowerContent.Load();int checks=0;
+            foreach(var scenario in new[]{"combat","rest","split","before_boss","after_death","before_10","next_life"})
+            using(var original=new TowerSimulation(c,data,1729,true))using(var resumed=new TowerSimulation(c,data,1729,true))
+            {
+                var g=original.State.groups[0];
+                if(scenario=="before_boss"||scenario=="before_10"){g.floor=scenario=="before_10"?10:9;g.boss=BossRuntime.Create(data.Boss(data.Floor(g.floor).bossId));g.boss.visible.timer=0;}
+                if(scenario=="rest"||scenario=="split"){g.boss.visible.hp=0;original.EnterRest(g);if(scenario=="split")original.Split(g.id,new[]{2,3});}
+                if(scenario=="after_death")original.Die(original.State.world.agents[0],Loc.Token("cause.slam"));
+                if(scenario=="next_life")original.NewLife();
+                string path=Path.Combine(root,"save-"+scenario+".json");ExpeditionStore.Save(path,original.State);
+                resumed.Restore(ExpeditionStore.Load(path,c,data));
+                for(int t=0;t<300;t++){original.Step();resumed.Step();}
+                if(JsonUtility.ToJson(original.State.world)!=JsonUtility.ToJson(resumed.State.world)||JsonUtility.ToJson(original.State.groups)!=JsonUtility.ToJson(resumed.State.groups))throw new Exception("Save replay differs / "+scenario);
+                checks++;Debug.Log("PHASE31 SAVE REPLAY / "+scenario+" / PASSED");
+            }
+            File.WriteAllText(Path.Combine(root,"save-replay-tests.txt"),"passed="+checks+"\nUTC="+DateTime.UtcNow.ToString("O"));
+        }
+        public static void Ablations()
+        {
+            string path=Path.Combine(root,"run-config.json"),original=File.ReadAllText(path);
+            try{foreach(var name in new[]{"all","no-windows","no-combat","no-clinic","no-holy-cost"})
+            {var config=new RunConfig{label="candidate1-ablation-"+name,count=100,floorLimit=10,maxWallSeconds=180,rules=new StabilizationRules{phaseWindows=name!="no-windows",combatRecovery=name!="no-combat",clinicSupplies=name!="no-clinic",holyRecoveryCost=name!="no-holy-cost"}};File.WriteAllText(path,JsonUtility.ToJson(config,true));Run();}}
+            finally{File.WriteAllText(path,original);}
         }
     }
 }
