@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory=$true)][string]$Method,
     [Parameter(Mandatory=$true)][string]$Label,
     [int]$TimeoutSeconds=900,[int]$IdleWarningSeconds=120,[int]$StallSeconds=420,
-    [switch]$Graphics,[string]$DiagnosticRoot=''
+    [switch]$Graphics,[string]$DiagnosticRoot='',[string]$RulesPath=''
 )
 $ErrorActionPreference='Stop'
 if($TimeoutSeconds -lt 1 -or $TimeoutSeconds -gt 1800){throw 'Timeout must be 1..1800 seconds.'}
@@ -19,6 +19,11 @@ $taskLog=Join-Path $taskFolder 'Editor.log'
 $taskArguments=@('-batchmode','-quit','-projectPath',('"'+$taskProject+'"'),'-executeMethod',$Method,'-logFile',('"'+$taskLog+'"'))
 if(-not $DiagnosticRoot){$DiagnosticRoot=Join-Path $taskFolder 'diagnostics'}
 $taskArguments+=@('--phase31-root',('"'+[IO.Path]::GetFullPath($DiagnosticRoot)+'"'))
+if($RulesPath){
+    if(-not(Test-Path -LiteralPath $RulesPath)){throw 'Rules file is missing.'}
+    $null=Get-Content -LiteralPath $RulesPath -Raw | ConvertFrom-Json
+    $taskArguments+=@('--phase311-rules',('"'+[IO.Path]::GetFullPath($RulesPath)+'"'))
+}
 if(-not $Graphics){$taskArguments=@('-nographics')+$taskArguments}
 $taskProcess=Start-Process -FilePath 'D:\unity\6000.2.0f1\Editor\Unity.exe' -ArgumentList $taskArguments -WindowStyle Hidden -PassThru -WorkingDirectory $taskProject -RedirectStandardOutput (Join-Path $taskFolder 'stdout.txt') -RedirectStandardError (Join-Path $taskFolder 'stderr.txt')
 $taskClock=[Diagnostics.Stopwatch]::StartNew()
@@ -32,7 +37,16 @@ while($true){
     $taskCpu=$taskProcess.TotalProcessorTime.TotalSeconds
     $taskInfo=Get-Item -LiteralPath $taskLog -ErrorAction SilentlyContinue
     $taskBytes=if($taskInfo){$taskInfo.Length}else{0}
-    $taskTail=if($taskInfo){Get-Content -LiteralPath $taskLog -Tail 35 -ErrorAction SilentlyContinue}else{@()}
+    $taskTail=@()
+    if($taskInfo -and $taskInfo.Length -gt 0){
+        $taskStream=[IO.File]::Open($taskLog,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::ReadWrite)
+        try{
+            $taskLength=$taskStream.Length;$taskStart=[Math]::Max(0,$taskLength-65536)
+            $null=$taskStream.Seek($taskStart,[IO.SeekOrigin]::Begin)
+            $taskBuffer=[byte[]]::new([int]($taskLength-$taskStart));$taskRead=$taskStream.Read($taskBuffer,0,$taskBuffer.Length)
+            $taskTail=@([Text.Encoding]::UTF8.GetString($taskBuffer,0,$taskRead) -split "`n" | Select-Object -Last 35)
+        }finally{$taskStream.Dispose()}
+    }
     $taskText=$taskTail -join "`n"
     if($taskText -match 'Exiting batchmode|Cleanup mono|shutting down'){ $taskStage='SHUTDOWN' }
     elseif($taskText -match 'BUILD START|Building Player|BuildPlayer|Shader compiler|shader compiler|Building (?:scene|asset)|Build pipeline'){ $taskStage='BUILD' }
@@ -69,7 +83,14 @@ while($true){
     Start-Sleep -Seconds 1
 }
 if($taskResult -eq 'COMPLETE'){
-    $taskFinalLog=if(Test-Path -LiteralPath $taskLog){[IO.File]::ReadAllText($taskLog)}else{''}
+    # Child shutdown/antivirus may still hold a writer after the Editor exits.
+    # Permit a concurrent writer while reading the final success marker.
+    $taskFinalLog=''
+    if(Test-Path -LiteralPath $taskLog){
+        $taskLogStream=[IO.File]::Open($taskLog,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::ReadWrite)
+        $taskLogReader=[IO.StreamReader]::new($taskLogStream)
+        try{$taskFinalLog=$taskLogReader.ReadToEnd()}finally{$taskLogReader.Dispose()}
+    }
     $taskExpected=if($Method.EndsWith('.CompileOnly')){'COMPILE GATE PASSED'}elseif($Method.EndsWith('.ValidateOnly')){'EDITOR VALIDATION GATE PASSED'}elseif($Method -match 'ProjectBuilder.Build'){'EMBER WINDOWS BUILD PASSED'}else{''}
     if(($taskExpected -and -not $taskFinalLog.Contains($taskExpected)) -or $taskFinalLog -match 'error CS\d+|executeMethod method .* threw an exception'){$taskResult='FAILED';$taskCode=1}
 }

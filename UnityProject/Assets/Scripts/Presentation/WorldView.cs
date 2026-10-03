@@ -7,6 +7,9 @@ namespace Ember.Presentation
 {
     public sealed partial class WorldView
     {
+        readonly bool noHitFx=System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"--no-hit-fx")>=0;
+        public int EffectSerial{get;private set;}
+        public void SetUIOnly(){world.gameObject.SetActive(false);}
         public Camera camera; public Color[] colors={new Color(.95f,.6f,.22f),new Color(.35f,.85f,.72f),new Color(.57f,.55f,1),new Color(.92f,.76f,.52f)};
         Transform world, arena, refuge, boss, crown, warning, shock, collapseFront, collapseVoid;
         Transform[] bodies=new Transform[4], auras=new Transform[4];
@@ -215,7 +218,7 @@ namespace Ember.Presentation
         }
         void AddEffect(Vector3 from,Vector3 to,Material material)
         {
-            if(effects.Count>=64)return;
+            if(noHitFx||effects.Count>=64)return;EffectSerial++;
             var effect=effectPool.Count>0?effectPool.Pop():new Effect{visual=Part("Pooled impact mote",PrimitiveType.Sphere,world,from,Vector3.one*.2f,material)};
             effect.from=from;effect.to=to;effect.left=.35f;effect.visual.gameObject.SetActive(true);effect.visual.GetComponent<Renderer>().sharedMaterial=material;effects.Add(effect);
         }

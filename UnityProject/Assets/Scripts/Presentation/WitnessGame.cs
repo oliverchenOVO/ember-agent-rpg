@@ -8,6 +8,7 @@ namespace Ember.Presentation
 {
     public sealed partial class WitnessGame : MonoBehaviour
     {
+        bool nativeNoSave,nativeUIOnly;public bool NativeSaveLoad{get;private set;}
         string qaLocaleOverride; Simulation simulation; WorldView view; float accumulator, speed=1; bool paused, smoke, collapseSmoke;
         bool shotBattle,shotRest,shotEnd; int selected, tab, lastRun, lastOutcome;
         string notice="", savePath, artifactPath, weaponSignature=""; float noticeTimer;
@@ -43,7 +44,8 @@ namespace Ember.Presentation
             Invoke(nameof(LocalizeWindowTitle),.3f);
             if(qaEnabled){paused=true;qaNext=Time.realtimeSinceStartup+.5f;}
             if(towerQA){paused=true;qaEnabled=true;qaNext=Time.realtimeSinceStartup+.5f;}
-            StartGlyphDiagnostics(args);StartProfile(args);
+            nativeNoSave=Array.IndexOf(args,"--no-save-load")>=0;nativeUIOnly=Array.IndexOf(args,"--ui-only")>=0;NativeSaveLoad=Array.IndexOf(args,"--native-save-load")>=0;
+            StartGlyphDiagnostics(args);StartProfile(args);if(nativeUIOnly){paused=true;view.SetUIOnly();}
         }
         AudioClip Tone(float frequency,float duration)
         {
@@ -59,7 +61,7 @@ namespace Ember.Presentation
             if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;
             if(!paused)
             {
-                using var allocationStep=new AllocationScope(stepAlloc,profile);var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
+                using var allocationStep=new AllocationScope(stepAlloc,profile&&profileDetailed);var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
                 accumulator+=Mathf.Min(Time.unscaledDeltaTime,.25f)*speed;
                 while(accumulator>=Simulation.StepSeconds){if(tower!=null)tower.Step();else simulation.Step();accumulator-=Simulation.StepSeconds;}
                 if(profile)profileAiMs=stepWatch.Elapsed.TotalMilliseconds;
@@ -71,7 +73,7 @@ namespace Ember.Presentation
             if(w.run!=lastRun) {lastRun=w.run;view.RebuildCharacters(w,simulation.Catalog);TrySave();}
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
-            using(var allocationView=new AllocationScope(viewAlloc,profile)){view.Update(w,Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
+            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.Update(w,Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
             if(towerSmoke)UpdateTowerSmoke();
             UpdateAudio();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
@@ -93,7 +95,7 @@ namespace Ember.Presentation
                 if(Time.realtimeSinceStartup>3){Debug.Log("EMBER COLLAPSE PRESENTATION CHECK COMPLETE");RequestQuit(0);}
             }
         }
-        void TrySave(){try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
+        void TrySave(){if(nativeNoSave)return;try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LocalizeWindowTitle(){PlayerWindow.LocalizeTitle();}
         void RefreshLanguage(){title=null;LocalizeWindowTitle();}
         void OnDestroy(){CloseGlyphDiagnostics();Application.wantsToQuit-=CloseWindow;Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
@@ -119,7 +121,7 @@ namespace Ember.Presentation
         string TimeText(float seconds) => ((int)seconds/60).ToString("00")+":"+((int)seconds%60).ToString("00");
         void OnGUI()
         {
-            using var allocationUI=new AllocationScope(uiAlloc,profile);using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
+            using var allocationUI=new AllocationScope(uiAlloc,profile&&profileDetailed);using var uiSample=new Unity.Profiling.ProfilerMarker("Ember.UI").Auto();
             if(simulation==null||!enabled)return;glyphDrawIndex=0;Styles();float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f);float ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
             var w=simulation.State;var a=w.agents[selected];

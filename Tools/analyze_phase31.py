@@ -3,11 +3,12 @@ import argparse, collections, csv, hashlib, json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+INPUT_ROOT = ROOT/'Artifacts/Phase31'
 SOURCES = ['Other','Pressure','Enrage','Status','Summon','Hazard','Ability','FinalPulse','Collapse','RestRisk']
 CAUSES = ['BURST','ATTRITION','MANA_COLLAPSE','HAZARD','FAILED_DODGE','FAILED_INTERRUPT','NO_RECOVERY','AI_PRIORITY','COLLAPSE','OTHER']
 
 def read_run(label):
-    folder = ROOT/'Artifacts/Phase31'/label
+    folder = INPUT_ROOT/label
     manifest = json.loads((folder/'manifest.json').read_text(encoding='utf-8-sig'))
     seeds = [json.loads(line) for line in (folder/'results.jsonl').read_text(encoding='utf-8-sig').splitlines()]
     assert [s['seed'] for s in seeds] == list(range(manifest['config']['firstSeed'],manifest['config']['firstSeed']+len(seeds)))
@@ -19,11 +20,11 @@ def write_csv(name,rows):
         writer=csv.DictWriter(output,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('labels',nargs='+');parser.add_argument('--prefix',default='phase3_1');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('labels',nargs='+');parser.add_argument('--prefix',default='phase3_1');parser.add_argument('--input-root',default='Artifacts/Phase31');args=parser.parse_args();global INPUT_ROOT;INPUT_ROOT=ROOT/args.input_root
     breakdown=[];compositions=[];inventory=[];text=[]
     for label in args.labels:
         manifest,seeds=read_run(label);cfg=manifest['config'];rows=[r for s in seeds for r in s['encounters']];ten=[r for r in rows if r['floor']==10]
-        sha=hashlib.sha256((ROOT/'Artifacts/Phase31'/label/'results.jsonl').read_bytes()).hexdigest()
+        sha=hashlib.sha256((INPUT_ROOT/label/'results.jsonl').read_bytes()).hexdigest()
         inventory.append(dict(label=label,completed=len(seeds),requested=cfg['count'],complete=len(seeds)==cfg['count'],composition=cfg['composition'],first_seed=cfg['firstSeed'],last_seed=seeds[-1]['seed'] if seeds else '',runtime_hash=manifest['runtimeHash'],config_hash=manifest['configHash'],raw_sha256=sha,balance_version=manifest['balanceVersion'],started_utc=manifest['startedUtc']))
         recovery=collections.defaultdict(lambda:collections.Counter());skills=collections.Counter();loot=collections.Counter();weapons=collections.Counter();opportunities=collections.defaultdict(lambda:collections.Counter())
         for r in rows:
@@ -42,7 +43,8 @@ def main():
                 for s in p['damageSources']:damage[s['id']]+=s['effective']
             for d in deaths:killers[SOURCES[d['source']]+':'+d['ability']]+=1;causes[CAUSES[d['cause']]]+=1
             seconds=sum(p['agentSeconds'] for p in ps)
-            breakdown.append(dict(label=label,runtime_hash=manifest['runtimeHash'],composition=cfg['composition'],phase=phase+1,encounters=len(ps),deaths=len(deaths),mean_phase_seconds=sum(p['duration'] for p in ps)/max(1,len(ps)),damage_taken=sum(v for k,v in damage.items() if k!='RestRisk'),rest_damage_excluded=damage.get('RestRisk',0),mean_remaining_mp=sum(p['mpSum'] for p in ps)/max(1,seconds),potions=sum(p['potions'] for p in ps),skill_ready_fraction=sum(p['skillReadySeconds'] for p in ps)/max(1,seconds),heal_ready_fraction=sum(p['healReadySeconds'] for p in ps)/max(1,seconds),defense_ready_fraction=sum(p['defenseReadySeconds'] for p in ps)/max(1,seconds),potion_ready_fraction=sum(p['potionReadySeconds'] for p in ps)/max(1,seconds),low_mp_deaths=sum(d['mpFraction']<.2 for d in deaths),potion_available_at_death=sum(d['potionAvailable'] for d in deaths),heal_available_at_death=sum(d['healingAvailable'] for d in deaths),damage_sources=json.dumps(damage,sort_keys=True),lethal_sources=json.dumps(killers,sort_keys=True),primary_causes=json.dumps(causes,sort_keys=True)))
+            rest_damage=sum(v for k,v in damage.items() if k.split(':')[0]=='RestRisk')
+            breakdown.append(dict(label=label,runtime_hash=manifest['runtimeHash'],composition=cfg['composition'],phase=phase+1,encounters=len(ps),deaths=len(deaths),mean_phase_seconds=sum(p['duration'] for p in ps)/max(1,len(ps)),damage_taken=sum(damage.values())-rest_damage,rest_damage_excluded=rest_damage,mean_remaining_mp=sum(p['mpSum'] for p in ps)/max(1,seconds),potions=sum(p['potions'] for p in ps),skill_ready_fraction=sum(p['skillReadySeconds'] for p in ps)/max(1,seconds),heal_ready_fraction=sum(p['healReadySeconds'] for p in ps)/max(1,seconds),defense_ready_fraction=sum(p['defenseReadySeconds'] for p in ps)/max(1,seconds),potion_ready_fraction=sum(p['potionReadySeconds'] for p in ps)/max(1,seconds),low_mp_deaths=sum(d['mpFraction']<.2 for d in deaths),potion_available_at_death=sum(d['potionAvailable'] for d in deaths),heal_available_at_death=sum(d['healingAvailable'] for d in deaths),damage_sources=json.dumps(damage,sort_keys=True),lethal_sources=json.dumps(killers,sort_keys=True),primary_causes=json.dumps(causes,sort_keys=True)))
         units=[u for r in rows for u in r['team']];death_floors=collections.Counter({})
         for r in rows:
             for d in r.get('deathEvents',[]):death_floors[r['floor']]+=1

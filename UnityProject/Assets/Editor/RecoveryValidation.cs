@@ -31,7 +31,9 @@ namespace Ember.Editor
             {
                 s.Rules.predictiveHealing=true;var g=s.State.groups[0];var healer=s.State.world.agents.Single(a=>a.profession==Profession.Healer);var ally=s.State.world.agents[0];
                 healer.unlocked.Add("heal");healer.equipped.Add("heal");healer.mp=healer.MaxMp;healer.x=ally.x;healer.z=ally.z;
-                ally.hp=ally.MaxHp-1;float mana=healer.mp;
+                ally.hp=ally.MaxHp;float mana=healer.mp;
+                if(s.Cast(healer,g,"heal",ally.id)||healer.mp!=mana)throw new Exception("Instant healing spends mana before HP is missing");checks++;
+                ally.hp=ally.MaxHp-1;
                 if(s.Cast(healer,g,"heal",ally.id)||healer.mp!=mana)throw new Exception("Predictive healing wastes mana on one missing HP");checks++;
                 ally.hp=ally.MaxHp*.2f;float hp=ally.hp;
                 if(!s.Cast(healer,g,"heal",ally.id)||ally.hp<=hp||healer.mp>=mana)throw new Exception("Predictive healing rejects urgent recovery");checks++;

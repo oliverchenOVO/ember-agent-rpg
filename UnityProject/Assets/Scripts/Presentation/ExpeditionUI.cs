@@ -25,6 +25,7 @@ namespace Ember.Presentation
                 }
             }
             tower=new TowerSimulation(c,TowerContent.Load(),1729,Array.IndexOf(args,"--showcase")>=0,reasoner);
+            int rulesIndex=Array.IndexOf(args,"--balance-config");if(rulesIndex>=0)tower.Rules=JsonUtility.FromJson<StabilizationRules>(File.ReadAllText(args[rulesIndex+1]));
             towerSmoke=Array.IndexOf(args,"--phase2-smoke")>=0;towerQA=Array.IndexOf(args,"--phase2-qa")>=0;simulation.Restore(tower.Observe(0));
             if(Array.IndexOf(args,"--phase3-qa")>=0){towerQA=true;towerCases=new[]{"foundry6","foundry7","foundry8","foundry9","foundry10","lane","cross","annulus","foundry_phase2","foundry_phase3","foundry_refuge","infusion_sword","infusion_bow","infusion_staff","foundry_intel","foundry_death","foundry_english","foundry_saved","foundry_loaded","foundry_split","holy_tooltip"};}
         }
@@ -110,7 +111,7 @@ namespace Ember.Presentation
                 if(scenario!="refuge"){var branch=tower.Split(g.id,new[]{2,3});tower.Split(g.id,new[]{1});if(scenario=="independent"){foreach(var a in tower.State.Members(branch))a.escaped=true;tower.NextFloor(branch);selected=3;}tab=4;}
             }
             if(scenario=="memory"||scenario=="relationships"||scenario=="debug"||scenario=="english")
-            {tower.CompleteSite(tower.State.world.agents[0],g,tower.Data.rests[0].sites.First(s=>s.id=="library"));selected=1;tab=5;if(scenario=="debug")reasonerDebug=true;}
+            {tower.CompleteSite(tower.State.world.agents[0],g,tower.Data.rests[0].sites.First(s=>s.id=="library"));selected=1;tab=scenario=="relationships"?3:5;if(scenario=="debug")reasonerDebug=true;}
             simulation.Restore(tower.Observe(selected));
             if(scenario=="saved")SaveGame();if(scenario=="loaded"){SaveGame();tower.State.world.agents[0].hp=1;LoadGame();}
             if(scenario=="book"||scenario=="history"||scenario=="final")

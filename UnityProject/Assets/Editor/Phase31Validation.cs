@@ -109,10 +109,13 @@ namespace Ember.Editor
         {
             Unit();Phase3Validation.Unit();LocalizationValidation.Run();Snapshots();
             var c=Catalog();var data=TowerContent.Load();int checks=0;
+            var args=Environment.GetCommandLineArgs();int rulesIndex=Array.IndexOf(args,"--phase311-rules");
+            var replayRules=rulesIndex>=0?JsonUtility.FromJson<StabilizationRules>(File.ReadAllText(args[rulesIndex+1])):new StabilizationRules();
+            Debug.Log("PHASE311 REPLAY RULES / "+JsonUtility.ToJson(replayRules)+" / runtime="+RuntimeHash());
             foreach(var scenario in new[]{"combat","rest","split","before_boss","after_death","before_10","next_life"})
             using(var original=new TowerSimulation(c,data,1729,true))using(var resumed=new TowerSimulation(c,data,1729,true))
             {
-                var g=original.State.groups[0];
+                original.Rules=replayRules;resumed.Rules=replayRules;var g=original.State.groups[0];
                 if(scenario=="before_boss"||scenario=="before_10"){g.floor=scenario=="before_10"?10:9;g.boss=BossRuntime.Create(data.Boss(data.Floor(g.floor).bossId));g.boss.visible.timer=0;}
                 if(scenario=="rest"||scenario=="split"){g.boss.visible.hp=0;original.EnterRest(g);if(scenario=="split")original.Split(g.id,new[]{2,3});}
                 if(scenario=="after_death")original.Die(original.State.world.agents[0],Loc.Token("cause.slam"));
