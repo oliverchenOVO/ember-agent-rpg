@@ -21,6 +21,7 @@ New-Item -ItemType Directory -Path $taskFolder -Force | Out-Null
 $taskLog=Join-Path $taskFolder 'player.log'
 $taskArguments=@('--artifacts',$taskFolder,'-screen-width',"$Width",'-screen-height',"$Height",'-screen-fullscreen','0','-logFile',$taskLog,'-diag-job-temp-memory-leak-validation')+$PlayerArgs
 $taskArguments=@($taskArguments | ForEach-Object {'"'+$_.Replace('"','')+'"'})
+@{utc=[DateTime]::UtcNow.ToString('O');executable=$taskExe;arguments=$taskArguments;width=$Width;height=$Height;timeoutSeconds=$TimeoutSeconds;maxLogMegabytes=$MaxLogMegabytes;configHash=$taskConfigHash} | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $taskFolder 'launch-config.json') -Encoding utf8
 $taskProcess=Start-Process -FilePath $taskExe -ArgumentList $taskArguments -WindowStyle Normal -PassThru -RedirectStandardOutput (Join-Path $taskFolder 'stdout.txt') -RedirectStandardError (Join-Path $taskFolder 'stderr.txt')
 $taskClock=[Diagnostics.Stopwatch]::StartNew();$taskNext=0;$taskWarnings=0
 'utc,process_elapsed,observed_warning_count,log_bytes' | Set-Content -LiteralPath (Join-Path $taskFolder 'native-warning-observations.csv')

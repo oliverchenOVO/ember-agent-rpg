@@ -1,7 +1,11 @@
-param([string]$Executable='Builds/Phase311/EXP2.1/Development/Ember.exe',[string]$Rules='Artifacts/Phase311/exp21-H3-player-rules.json',[string]$Prefix='exp21')
+param([string]$Executable='Builds/Phase311/EXP2.1/Development/Ember.exe',[string]$Rules='Artifacts/Phase311/exp21-H3-player-rules.json',[string]$Prefix='exp21',[string[]]$Only=@())
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $taskRules=[IO.Path]::GetFullPath((Join-Path $taskRoot $Rules))
+$taskExe=[IO.Path]::GetFullPath((Join-Path $taskRoot $Executable))
+$taskExpectedExe=(Get-FileHash -LiteralPath $taskExe -Algorithm SHA256).Hash
+$taskExpectedAssembly=(Get-FileHash -LiteralPath (Join-Path (Split-Path $taskExe) 'Ember_Data/Managed/Assembly-CSharp.dll') -Algorithm SHA256).Hash
+$taskExpectedRules=(Get-FileHash -LiteralPath $taskRules -Algorithm SHA256).Hash
 # Every Player is isolated and bounded. B/C are documented no-op controls because
 # default mesh embers and Boss-specific ParticleSystems do not exist in this build.
 $taskCases=@(
@@ -17,12 +21,15 @@ $taskCases=@(
  @{label='gameplay-10m';mode='gameplay';seconds=600;flags=@()},
  @{label='extreme-20m';mode='extreme';seconds=1200;flags=@()}
 )
+foreach($taskName in $Only){if($taskName -notin $taskCases.label){throw "Unknown workload: $taskName"}}
 foreach($taskCase in $taskCases){
+ if($Only.Count -gt 0 -and $taskCase.label -notin $Only){continue}
  $taskLabel=$Prefix+'-'+$taskCase.label
  $taskFolder=Join-Path $taskRoot ('Artifacts/Phase311/'+$taskLabel)
  if(Test-Path -LiteralPath $taskFolder){
   $taskState=Get-Content -LiteralPath (Join-Path $taskFolder 'process-result.json') -Raw | ConvertFrom-Json
   if($taskState.state -ne 'COMPLETE' -or -not(Test-Path -LiteralPath (Join-Path $taskFolder 'complete.txt'))){throw "Preserve incomplete $taskLabel; choose fresh invocation label"}
+  if($taskState.executableHash -ne $taskExpectedExe -or $taskState.managedAssemblyHash -ne $taskExpectedAssembly -or $taskState.configHash -ne $taskExpectedRules){throw "Resume rejected: executable/assembly/rules differ for $taskLabel"}
   Write-Output "RETAIN COMPLETED $taskLabel";continue
  }
  $taskArgs=@('--profile-seconds',([string]$taskCase.seconds),'--profile-mode',$taskCase.mode,'--locale','zh-TW','--balance-config',$taskRules)+$taskCase.flags

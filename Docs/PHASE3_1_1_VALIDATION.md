@@ -43,6 +43,8 @@ EXP1 每組 100 seeds，Natural、firstSeed=1、floorLimit=10。A–G、兩組 c
 
 H 固定編成突破 10F：戰士 51/100、弓箭手 1/100、法師 2/100、補師 100/100、混合 99/100。法師只有 38 encounters 到 10F，弓箭手 65；不能隱藏較早樓層的失敗。**H 未通過組成 Gate，不得僅依 Natural 88% 正式化。** 尚未調整 Boss HP／raw damage，也沒有削弱全體補師傷害。下一步隔離有限存量補給、role 配裝與預測治療。
 
+![恢復與組成診斷](Images/phase3_1_1-recovery.png)
+
 ## EXP2.1 後續診斷（尚未正式化）
 
 目前 runtime `593eb2559149e06de985e51d08e50a138c1e4354bd2ed2dbfc2d2eb5b17412bf`，Development assembly `14091e0cfd350761df20a117a62db9bb3692b30057370fd935d098b991de9363`。全部以 manifest 綁定；Editor pure simulation 不是 Windows Player 實機平衡測試。
@@ -76,7 +78,9 @@ EXP1 Natural 1–10F：baseline Holy 10,402 casts，389,191 direct damage、139,
 
 baseline Heal 2,412 casts，32,086 effective HP／19,296 MP，83.54% direct overheal；A control 1,311 casts，23,677 effective HP／10,488 MP，78.18% overheal。這與四補師舊樣本 81% 的分母不同，不能混用。Holy 在造成傷害的同時，對最缺血者提供小額治療；低 overheal、3 秒 CD，以及 Wis 同時影響輸出／治療／被動 MP recovery，使它成為續航來源。需要先改善 Heal timing，再判斷技能 tradeoff。
 
-目前其他 Healer damage skill 只有基本武器攻擊；技能表沒有第二個純輸出職業技能。EXP1 未獨立量測基本攻擊，EXP2 新增 direct BasicAttack 次數／傷害／間隔及移動成本。延遲 Regen／DoT 另外記錄，不把它們算成當次瞬發效果。Holy 的有效恢復最多額外耗 2 MP，沒有改動其傷害／基礎治療值。
+施放 opportunity cost 的限制：`ExecuteCombat` 在 Skill intent 時不執行基本攻擊，射程外移動與等待下一次 tactical decision 也可能延後攻擊；不是整段 cooldown 都禁止攻擊。已量測 cast_time=0、成功施放 CD、travel（含失敗嘗試），但「本可攻擊卻因 Skill intent 而錯失的次數／傷害」未另外計數，明確 NOT VERIFIED，不把三者加總冒充完整 opportunity cost。
+
+目前其他 Healer damage skill 只有基本武器攻擊；技能表沒有第二個純輸出職業技能。EXP1 未獨立量測基本攻擊，EXP2 新增 direct BasicAttack 次數／傷害／間隔及移動成本。延遲 Regen／DoT 另外記錄，不把它們算成當次瞬發效果。Holy 的有效恢復最多額外耗 2 MP，沒有改動其傷害／基礎治療值。武器 Staff 的基本攻擊也依 Healer Wis 縮放，因此同一屬性同時影響 Holy、基本攻擊與 MP recovery；續航不能只歸因於 Holy 混合效果。
 
 新增材料實際支出、rest agent-seconds、seed 終點 inventory 及初始材料。藥水／clinic 非無限：每層站點訪問有上限，補給仍支付正常站點費用、額外 kit 費用、旅行與工作時間，且 10F 後不補 kit。**需要以新 cohort 的數值確認，原 EXP1 缺少完整支出與庫存欄，不能以 code inspection 替代數據。**
 
@@ -90,7 +94,7 @@ Revive 使用十項 boolean 觀察與 joint eligibility，按 pattern／reason �
 
 Recovery validation 原本 11 個復活條件檢查，再加入治療／economy／正常 Step AI revive，16 checks PASS（目前 EXP2.1 runtime）；包含滿血瞬發不可預先扣魔、少量缺血不浪費治療、急迫治療、direct economy，以及復活正向與阻擋條件。正常 Step 中 AI 自己選擇並復活隊友，有 ATTEMPT 與真正 `Revive` recovery 證據，沒有只手動呼叫 Cast 就宣稱 AI PASS。
 
-EXP1 H／A Natural 與固定補師／混合 cohort 的觀察只有 NO_TARGET，joint eligible seconds=0。A control 有一次 skill id `revive`，recovery source 卻是小寫 `revive`：它是對活人治療，**不是真正復活**。無實際目標不能反推 AI 忽略救援。後續 cohort 仍需量測。
+EXP1 H／A Natural 與固定補師／混合 cohort 的觀察只有 NO_TARGET，joint eligible seconds=0。A control 有一次 skill id `revive`，recovery source 卻是小寫 `revive`：它是對活人治療，**不是真正復活**。無實際目標不能反推 AI 忽略救援。EXP2.1 Natural 與 H3／N 的純補師、混合 cohort 同樣只有 NO_TARGET、joint eligible=0；非補師組沒有 Healer，無 Revive observation rows。自然使用率仍未驗證，正向 AI fixture 與自然可用機會分開報告。
 
 EXP2.1 Release 目前已成功，22.337 秒，assembly SHA `07bfe5e0df051616736519ac79e9abaff9378db48307f3cf271e80a9238b9dcc`；Development 15.917 秒，runtime 相同。完整出貨檔案 SHA 見 `Artifacts/phase3_1_1_exp21_build-manifest.json`。16-check Recovery 與 H3 七種 replay 均以此 source runtime 驗證，Development／Release Player identity 分開保存。
 
@@ -105,6 +109,14 @@ EXP2.1 四組最新 Release UI matrix 共 184 fixtures，自動 layout issues=0�
 ## JobTempAlloc isolation
 
 EXP2.1 最新 10-minute baseline 在執行中重新出現一次 JobTempAlloc warning（48 bytes＋兩筆 128 bytes allocation stacks）；native Gate 尚未通過。先前 candidate-A、EXP1、EXP2 五分鐘可見 Player smoke 的 JobTempAlloc 都為 0；未替換正常 VFX。舊 ParticleSystemGeometryJob 呼叫鏈保留，觸發條件／完整八組 5–10 分鐘隔離尚未完成。**Native Gate NOT VERIFIED。** 場景目前 ParticleSystems 為環境／休息層／foundry 飄散粒子，hit FX 是 pooled mesh；必須標明不存在的 Boss 專屬 PS／預設未啟用的 mesh embers，不假裝 no-op 是有意義的差異。
+
+### Save/Load 收尾失敗與 R1 修正
+
+原 EXP2.1 Native H 於五分鐘收尾出現 `NullReferenceException → Transform.childCount → WorldView.RebuildCharacters → LoadGame → ProfileMaintenance`。watchdog 在 process 305.21 秒終止，保留約 298 秒的已 flush frames／events／save；沒有 complete marker，明確 FAILED，不以之前四次正常 Save/Load 宣稱整組 PASS。根因是 cleanup 的一秒量測 drain 還允許維護排程，可能在 `ProfileStop` 已銷毀角色後執行 Load。
+
+R1 僅修正 Presentation 測試生命週期：到 duration 或 draining 階段，不再觸發 maintenance／natural actions，仍保留 counters／frames 到 cleanup 完成。Core 與 Resources runtime hash 仍為 `593eb255...`；原 3,500 seed-runs 繼續綁定原 assembly，不修改 manifest 或重跑。R1 Development 25.646 秒、assembly `f7ba3899fa61a5c05a1d0666ce4b7414a89acb3fbb2aba5c74da23d0a1af9890`；Release 19.748 秒、assembly `8e57de76295b506e178437ba6a494236670d4a515e37289d3f7cc92a70748416`。完整新 manifest 為 `Artifacts/phase3_1_1_exp21_r1_build-manifest.json`，成品另存 `Builds/Phase311/EXP2.1-R1`。
+
+R1 同條件 Native H 重新測試（新 label、不覆寫失敗 log）：301.010 秒、49,094 frames、4 次 Save/Load maintenance、正常退出、exception=0、JobTempAlloc=0；修正後 cleanup 有 begin/end markers。這是 observer bug 的正向重測，不把它當成舊版 runtime JobTempAlloc 已修復。原八組結果含 H FAILED，見 `Artifacts/phase3_1_1_exp21_native-matrix.csv`；跨 assembly 的 recovery 列另記，沒有拼成同一版本八組 PASS。
 
 ## Performance 與 GC
 

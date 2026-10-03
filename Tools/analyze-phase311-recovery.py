@@ -12,7 +12,7 @@ for d in sorted(folder.iterdir()):
     if not (d/'summary.txt').exists():continue
     manifest=json.loads((d/'manifest.json').read_text(encoding='utf-8-sig'));cfg=manifest['config'];ss=[json.loads(l) for l in (d/'results.jsonl').read_text(encoding='utf-8-sig').splitlines()]
     assert [s['seed'] for s in ss]==list(range(cfg['firstSeed'],cfg['firstSeed']+len(ss)))
-    rows=[r for s in ss for r in s['encounters']];ten=[r for r in rows if r['floor']==10];resolved=[r for r in ten if r['result']!='Active'];wins=sum(r['result']=='Clear' for r in resolved);low,high=wilson(wins,len(resolved))
+    rows=[r for s in ss for r in s['encounters']];battle=[r for r in rows if not r['boss'].startswith('RestRisk:')];ten=[r for r in battle if r['floor']==10];resolved=[r for r in ten if r['result']!='Active'];wins=sum(r['result']=='Clear' for r in resolved);low,high=wilson(wins,len(resolved))
     identity=dict(label=d.name,balance_version=manifest['balanceVersion'],runtime_hash=manifest['runtimeHash'],config_hash=manifest['configHash'],executable_hash=manifest.get('executableHash',''),assembly_hash=manifest.get('managedAssemblyHash',''))
     tables['ablation'].append(dict(**identity,seeds=len(ss),requested=cfg['count'],complete=len(ss)==cfg['count'],floor10_encounters=len(ten),floor10_censored=len(ten)-len(resolved),floor10_clear=wins,clear_percent=100*wins/max(1,len(resolved)),wilson_low=low,wilson_high=high,death_count=sum(r['deaths'] for r in ten),mean_clear_seconds=sum(r['clearTime'] for r in ten if r['result']=='Clear')/max(1,wins),potions_floor10=sum(r['potions'] for r in ten),mp_spent_floor10=sum(u['mpSpent'] for r in ten for u in r['team']),mp_drained_floor10=sum(u['mpDrained'] for r in ten for u in r['team']),nonterminal=sum(s['result']=='Nonterminal' for s in ss),rules=json.dumps(cfg['rules'],sort_keys=True),raw_sha256=hashlib.sha256((d/'results.jsonl').read_bytes()).hexdigest()))
     economy=collections.defaultdict(collections.Counter);revive=collections.defaultdict(collections.Counter)
@@ -35,7 +35,7 @@ for d in sorted(folder.iterdir()):
         for r in rows:
             for v in r['recovery']:recovery[v['id']]+=v['count']
         tables['resource-economy'].append(dict(**identity,seeds=len(ss),materials_spent=spent,materials_generated=spent+sum(v['materials']-v['initialMaterials'] for v in inventories),materials_remaining=sum(v['materials'] for v in inventories),living_materials_remaining=sum(v['materials'] for v in inventories if v['alive']),hp_potions_remaining=sum(v['hpPotions'] for v in inventories),mp_potions_remaining=sum(v['mpPotions'] for v in inventories),living_hp_potions=sum(v['hpPotions'] for v in inventories if v['alive']),living_mp_potions=sum(v['mpPotions'] for v in inventories if v['alive']),rest_agent_seconds=sum(u['restSeconds'] for u in units),hp_potions_used=recovery['Potion:hp'],mp_potions_used=recovery['Potion:mp'],true_revives=recovery['Revive'],revive_heals_on_living=recovery['revive'],encounters=len(rows),potions_per_encounter=sum(r['potions'] for r in rows)/max(1,len(rows))))
-    if len(ss)==cfg['count']:complete[d.name]={s['seed']:any(r['floor']==10 and r['result']=='Clear' for r in s['encounters']) for s in ss}
+    if len(ss)==cfg['count']:complete[d.name]={s['seed']:any(r['floor']==10 and not r['boss'].startswith('RestRisk:') and r['result']=='Clear' for r in s['encounters']) for s in ss}
 if 'control-baseline' in complete:
     baseline=complete['control-baseline']
     for label,cohort in complete.items():

@@ -33,8 +33,13 @@ namespace Ember.Presentation
         void LateUpdate()
         {
             if(writer==null)return;float now=Time.realtimeSinceStartup;long stamp=System.Diagnostics.Stopwatch.GetTimestamp();double realtime=Time.realtimeSinceStartupAsDouble;double wallMs=previousTimestamp==0?0:(stamp-previousTimestamp)*1000d/System.Diagnostics.Stopwatch.Frequency,realtimeMs=previousRealtime==0?0:(realtime-previousRealtime)*1000;previousTimestamp=stamp;previousRealtime=realtime;FrameTimingManager.CaptureFrameTimings();
-            if((mode!="baseline"||game.NativeSaveLoad)&&now>=maintenance){game.ProfileMaintenance((int)((now-started)/60));maintenance=now+60;}
-            game.ProfileNaturalActions(now-started);
+            // Keep frame/counter sampling during cleanup, but never load a scene
+            // after ProfileStop has destroyed its character transforms.
+            if(!draining&&now-started<seconds)
+            {
+                if((mode!="baseline"||game.NativeSaveLoad)&&now>=maintenance){game.ProfileMaintenance((int)((now-started)/60));maintenance=now+60;}
+                game.ProfileNaturalActions(now-started);
+            }
             var state=game.ProfileState;var observed=state.GroupOf(game.ProfileSelected);
             if(state.world.run!=priorRun){Mark("restart",state.world.run.ToString());priorRun=state.world.run;}
             if(observed.floor!=priorFloor){Mark("floor",observed.floor.ToString());priorFloor=observed.floor;}
