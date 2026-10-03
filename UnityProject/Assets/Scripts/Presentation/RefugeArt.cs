@@ -60,6 +60,7 @@ namespace Ember.Presentation
             Vector3 focus=new Vector3(w.agents[RefugeSelected].x,0,w.agents[RefugeSelected].z);
             if(PreviewRefugeRoom>=0){var c=RefugeMap.For(observedGroup).rooms[PreviewRefugeRoom];focus=new Vector3(c.x,0,c.y);}
             if(PreviewRefugeObject.HasValue){focus=PreviewRefugeObject.Value;camera.transform.position=focus+new Vector3(2,7,-5.5f);camera.transform.LookAt(focus+Vector3.up*.7f);camera.fieldOfView=36;return;}
+            if(RefugeManual){DrawManualRefugeCamera();return;}
             var desired=RefugeOverview?new Vector3(31,48,-55):focus+Quaternion.Euler(0,angle,0)*new Vector3(12,19,-19);
             camera.transform.position=Vector3.Lerp(camera.transform.position,desired,Mathf.Clamp01((dt>0?dt:Time.unscaledDeltaTime)*5));camera.transform.LookAt((RefugeOverview?new Vector3(-1,0,0):focus)+Vector3.up*.5f);camera.fieldOfView=RefugeOverview?48:42;
         }

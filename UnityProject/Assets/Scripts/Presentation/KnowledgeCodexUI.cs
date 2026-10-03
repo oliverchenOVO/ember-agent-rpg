@@ -7,7 +7,7 @@ namespace Ember.Presentation
 {
     public sealed partial class WitnessGame
     {
-        enum Inspection { None,Book,Boss,Skills }
+        enum Inspection { None,Book,Boss,Skills,Inventory,Memories }
         Inspection inspection;Vector2 codexScroll;float codexHeight=1000;bool inspectionWasPaused;
         Profession inspectedClass;string inspectedSkill="";
         void OpenInspection(Inspection mode)
@@ -36,21 +36,21 @@ namespace Ember.Presentation
         {
             if(inspection==Inspection.None)return;
             Box(0,0,1600,900,new Color(0,0,0,.68f));Box(320,75,960,747,new Color(.035f,.065f,.08f,.99f));
-            string heading=Loc.T(inspection==Inspection.Book?"ui.book":inspection==Inspection.Boss?"codex.boss":"codex.skills");
+            string heading=Loc.T(inspection==Inspection.Book?"ui.book":inspection==Inspection.Boss?"codex.boss":inspection==Inspection.Inventory?"inspect.inventory":inspection==Inspection.Memories?"inspect.memories":"codex.skills");
             Text(344,90,780,43,heading,title);if(Button(1150,94,102,Loc.T("codex.close")))CloseInspection();
-            Text(344,137,895,46,Loc.T("codex.observer"),small);
+            Text(344,137,895,46,Loc.T(inspection==Inspection.Inventory||inspection==Inspection.Memories?"inspect.observer":"codex.observer"),small);
             float top=190;
-            if(inspection==Inspection.Skills)
+            if(inspection==Inspection.Skills||inspection==Inspection.Inventory||inspection==Inspection.Memories)
             {
                 for(int i=0;i<4;i++)if(Button(344+i*225,190,213,(selected==i?"• ":"")+simulation.State.agents[i].name))
                 {selected=i;inspectedClass=simulation.State.agents[i].profession;inspectedSkill=simulation.Catalog.skills.First(s=>s.profession==inspectedClass).id;codexScroll=Vector2.zero;}
-                for(int i=0;i<4;i++)if(Button(344+i*225,231,213,(inspectedClass==(Profession)i?"• ":"")+Loc.Profession((Profession)i)))
+                if(inspection==Inspection.Skills)for(int i=0;i<4;i++)if(Button(344+i*225,231,213,(inspectedClass==(Profession)i?"• ":"")+Loc.Profession((Profession)i)))
                 {inspectedClass=(Profession)i;inspectedSkill=simulation.Catalog.skills.First(s=>s.profession==inspectedClass).id;codexScroll=Vector2.zero;}
-                top=276;
+                top=inspection==Inspection.Skills?276:231;
             }
             if(towerQA&&(qaScenario.EndsWith("bottom")||qaScenario.EndsWith("detail")))codexScroll.y=codexHeight;
             codexScroll=GUI.BeginScrollView(new Rect(340,top,920,800-top),codexScroll,new Rect(0,0,890,codexHeight));float y=10;
-            if(inspection==Inspection.Book)DrawLegacyPages(ref y);else if(inspection==Inspection.Boss)DrawBossDossier(ref y);else if(inspection==Inspection.Skills)DrawSkillTree(ref y);
+            if(inspection==Inspection.Book)DrawLegacyPages(ref y);else if(inspection==Inspection.Boss)DrawBossDossier(ref y);else if(inspection==Inspection.Skills)DrawSkillTree(ref y);else if(inspection==Inspection.Inventory)DrawInventory(ref y);else if(inspection==Inspection.Memories)DrawMemories(ref y);
             codexHeight=Mathf.Max(y+20,800-top);GUI.EndScrollView();
         }
         void DrawLegacyPages(ref float y)

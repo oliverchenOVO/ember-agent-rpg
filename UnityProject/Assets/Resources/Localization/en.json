@@ -2232,6 +2232,170 @@
     {
       "key": "refuge.scene.foundry",
       "value": "Foundry service district"
+    },
+    {
+      "key": "inspect.inventory",
+      "value": "Backpack"
+    },
+    {
+      "key": "inspect.memories",
+      "value": "Memories"
+    },
+    {
+      "key": "inspect.reset_camera",
+      "value": "Return to follow"
+    },
+    {
+      "key": "inspect.skill_tip",
+      "value": "Skill: {0} | Mana {1} | Cooldown {2}s"
+    },
+    {
+      "key": "inspect.bag_header",
+      "value": "{0}'s backpack | Items {1} / {2} | Materials {3}"
+    },
+    {
+      "key": "inspect.bag_help",
+      "value": "Equipped and carried items are separate; duplicates are listed individually. Weapon power excludes attributes, proficiency and combat bonuses."
+    },
+    {
+      "key": "inspect.worn",
+      "value": "Equipped weapon"
+    },
+    {
+      "key": "inspect.carried",
+      "value": "Carried items"
+    },
+    {
+      "key": "inspect.bag_empty",
+      "value": "The backpack is empty."
+    },
+    {
+      "key": "inspect.item_stats",
+      "value": "{0} | Quality {1} | Upgrade +{2}"
+    },
+    {
+      "key": "inspect.weapon",
+      "value": "Base power {0} | Weapon type {1} | Infusion {2}"
+    },
+    {
+      "key": "inspect.potion.hp",
+      "value": "Restores up to {0} HP on use."
+    },
+    {
+      "key": "inspect.potion.mp",
+      "value": "Restores up to {0} mana on use."
+    },
+    {
+      "key": "inspect.skill_book",
+      "value": "Teaches {0} when used."
+    },
+    {
+      "key": "inspect.armor",
+      "value": "Permanently adds {0} armor when used."
+    },
+    {
+      "key": "inspect.experience",
+      "value": "Grants one level when used."
+    },
+    {
+      "key": "inspect.memory_header",
+      "value": "{0}'s memories"
+    },
+    {
+      "key": "inspect.memory_help",
+      "value": "Actual memories grouped by scope and source. Confidence is the recorded value; age affects decisions. Inspection grants no knowledge to Agents."
+    },
+    {
+      "key": "inspect.memory_empty",
+      "value": "No memories recorded."
+    },
+    {
+      "key": "inspect.memory_meta",
+      "value": "Source: {0} | Life {1} | Confidence {2}% | Age {3} | Importance {4}%"
+    },
+    {
+      "key": "inspect.salient",
+      "value": "Memorable interactions"
+    },
+    {
+      "key": "inspect.event_meta",
+      "value": "Life {0} | Time {1}"
+    },
+    {
+      "key": "inspect.kind.Weapon",
+      "value": "Weapon"
+    },
+    {
+      "key": "inspect.kind.Potion",
+      "value": "Potion"
+    },
+    {
+      "key": "inspect.kind.Armor",
+      "value": "Armor"
+    },
+    {
+      "key": "inspect.kind.Experience",
+      "value": "Experience item"
+    },
+    {
+      "key": "inspect.kind.SkillBook",
+      "value": "Skill book"
+    },
+    {
+      "key": "inspect.scope.Working",
+      "value": "Working memory"
+    },
+    {
+      "key": "inspect.scope.Run",
+      "value": "This life"
+    },
+    {
+      "key": "inspect.scope.Relationship",
+      "value": "Relationships"
+    },
+    {
+      "key": "inspect.scope.LongTerm",
+      "value": "Long-term memory"
+    },
+    {
+      "key": "inspect.scope.Survivor",
+      "value": "Survivor memory"
+    },
+    {
+      "key": "inspect.source.OwnExperience",
+      "value": "Own experience"
+    },
+    {
+      "key": "inspect.source.BookOfDead",
+      "value": "Book of the Dead"
+    },
+    {
+      "key": "inspect.source.ToldByAgent",
+      "value": "Told by an Agent"
+    },
+    {
+      "key": "inspect.camera_help",
+      "value": "Space: pause / resume\nWheel: zoom\nLeft drag: orbit\nRight drag: pan"
+    },
+    {
+      "key": "inspect.weapon_type.Greatsword",
+      "value": "Greatsword"
+    },
+    {
+      "key": "inspect.weapon_type.Neutral",
+      "value": "General-purpose weapon"
+    },
+    {
+      "key": "inspect.weapon_type.Bow",
+      "value": "Bow"
+    },
+    {
+      "key": "inspect.weapon_type.Staff",
+      "value": "Staff"
+    },
+    {
+      "key": "inspect.observer",
+      "value": "Observation only. Inspection pauses play; closing restores its previous state."
     }
   ]
 }

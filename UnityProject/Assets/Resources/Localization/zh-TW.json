@@ -2232,6 +2232,170 @@
     {
       "key": "refuge.scene.foundry",
       "value": "工坊維修區"
+    },
+    {
+      "key": "inspect.inventory",
+      "value": "背包"
+    },
+    {
+      "key": "inspect.memories",
+      "value": "記憶內容"
+    },
+    {
+      "key": "inspect.reset_camera",
+      "value": "回到跟隨視角"
+    },
+    {
+      "key": "inspect.skill_tip",
+      "value": "技能：{0} · 法力 {1} · 冷卻 {2} 秒"
+    },
+    {
+      "key": "inspect.bag_header",
+      "value": "{0} 的背包｜物品 {1} / {2}　材料 {3}"
+    },
+    {
+      "key": "inspect.bag_help",
+      "value": "裝備與攜帶物品分開列出；同名物品逐件顯示。數值為武器基礎威力，不含屬性、熟練度與戰鬥加成。"
+    },
+    {
+      "key": "inspect.worn",
+      "value": "目前裝備"
+    },
+    {
+      "key": "inspect.carried",
+      "value": "攜帶物品"
+    },
+    {
+      "key": "inspect.bag_empty",
+      "value": "背包裡目前沒有物品。"
+    },
+    {
+      "key": "inspect.item_stats",
+      "value": "{0}｜品質 {1}　強化 +{2}"
+    },
+    {
+      "key": "inspect.weapon",
+      "value": "基礎威力 {0}｜武器類型 {1}｜技能灌注 {2}"
+    },
+    {
+      "key": "inspect.potion.hp",
+      "value": "使用時恢復最多 {0} 生命。"
+    },
+    {
+      "key": "inspect.potion.mp",
+      "value": "使用時恢復最多 {0} 法力。"
+    },
+    {
+      "key": "inspect.skill_book",
+      "value": "使用後學會：{0}。"
+    },
+    {
+      "key": "inspect.armor",
+      "value": "使用後永久增加護甲 {0}。"
+    },
+    {
+      "key": "inspect.experience",
+      "value": "使用後提升一級。"
+    },
+    {
+      "key": "inspect.memory_header",
+      "value": "{0} 的記憶"
+    },
+    {
+      "key": "inspect.memory_help",
+      "value": "依記憶類別列出實際內容與來源；信心為原始紀錄值，會受記憶年齡影響決策。檢視不會替 Agent 增加情報。"
+    },
+    {
+      "key": "inspect.memory_empty",
+      "value": "目前沒有留下記憶。"
+    },
+    {
+      "key": "inspect.memory_meta",
+      "value": "來源：{0}｜第 {1} 輪｜信心 {2}%｜記憶年齡 {3}｜重要性 {4}%"
+    },
+    {
+      "key": "inspect.salient",
+      "value": "印象深刻的互動"
+    },
+    {
+      "key": "inspect.event_meta",
+      "value": "第 {0} 輪 · 發生時間 {1}"
+    },
+    {
+      "key": "inspect.kind.Weapon",
+      "value": "武器"
+    },
+    {
+      "key": "inspect.kind.Potion",
+      "value": "藥水"
+    },
+    {
+      "key": "inspect.kind.Armor",
+      "value": "護甲"
+    },
+    {
+      "key": "inspect.kind.Experience",
+      "value": "經驗物品"
+    },
+    {
+      "key": "inspect.kind.SkillBook",
+      "value": "技能書"
+    },
+    {
+      "key": "inspect.scope.Working",
+      "value": "短期記憶"
+    },
+    {
+      "key": "inspect.scope.Run",
+      "value": "本輪經歷"
+    },
+    {
+      "key": "inspect.scope.Relationship",
+      "value": "同伴關係"
+    },
+    {
+      "key": "inspect.scope.LongTerm",
+      "value": "長期記憶"
+    },
+    {
+      "key": "inspect.scope.Survivor",
+      "value": "生還者記憶"
+    },
+    {
+      "key": "inspect.source.OwnExperience",
+      "value": "親身經歷"
+    },
+    {
+      "key": "inspect.source.BookOfDead",
+      "value": "死者之書"
+    },
+    {
+      "key": "inspect.source.ToldByAgent",
+      "value": "同伴轉述"
+    },
+    {
+      "key": "inspect.camera_help",
+      "value": "空白鍵　暫停 / 繼續\n滾輪　縮放視角\n左鍵拖曳　旋轉\n右鍵拖曳　平移"
+    },
+    {
+      "key": "inspect.weapon_type.Greatsword",
+      "value": "巨劍"
+    },
+    {
+      "key": "inspect.weapon_type.Neutral",
+      "value": "通用武器"
+    },
+    {
+      "key": "inspect.weapon_type.Bow",
+      "value": "弓"
+    },
+    {
+      "key": "inspect.weapon_type.Staff",
+      "value": "法杖"
+    },
+    {
+      "key": "inspect.observer",
+      "value": "只供觀察；檢視期間遊戲暫停，關閉後恢復原先狀態。"
     }
   ]
 }

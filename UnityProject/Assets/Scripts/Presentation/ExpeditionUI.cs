@@ -30,6 +30,7 @@ namespace Ember.Presentation
             if(Array.IndexOf(args,"--phase3-qa")>=0){towerQA=true;towerCases=new[]{"foundry6","foundry7","foundry8","foundry9","foundry10","lane","cross","annulus","foundry_phase2","foundry_phase3","foundry_refuge","infusion_sword","infusion_bow","infusion_staff","foundry_intel","foundry_death","foundry_english","foundry_saved","foundry_loaded","foundry_split","holy_tooltip"};}
             StartCombatArtQA(args);StartRefugeQA(args);
             if(Array.IndexOf(args,"--knowledge-qa")>=0){towerQA=true;towerCases=new[]{"codex_book","codex_book_bottom","codex_boss","codex_boss_bottom","codex_warrior","codex_archer","codex_mage","codex_healer","codex_skill_detail","codex_archer_detail","codex_healer_detail","codex_legacy","codex_empty"};}
+            if(Array.IndexOf(args,"--inspection-qa")>=0){towerQA=true;towerCases=new[]{"inspect_bag","inspect_bag_bottom","inspect_bag_empty","inspect_memory","inspect_memory_bottom","inspect_memory_empty","inspect_camera","inspect_camera_zoom","inspect_camera_orbit","inspect_camera_pan","inspect_camera_reset","inspect_hover_blank","inspect_hover_skill","inspect_hover_infusion"};}
             if(Array.IndexOf(args,"--rest-interaction-qa")>=0){towerQA=true;towerCases=new[]{"foundry_empty","foundry_partial","crossing_empty","crossing_partial","foundry_dead_mage"};}
         }
         void LoadExpedition()
@@ -123,6 +124,7 @@ namespace Ember.Presentation
                 if(scenario=="final"){g.floor=25;g.boss=BossRuntime.Create(tower.Data.Boss(tower.Data.Floor(25).bossId));g.boss.visible.hp=0;tower.EnterRest(g);foreach(var a in tower.State.Members(g))a.escaped=true;tower.NextFloor(g);tower.Finish(Outcome.TowerClear);}
                 else {tower.Die(tower.State.world.agents[0],Loc.Token("cause.collapse"));tower.Finish(Outcome.Wipe);}tab=scenario=="book"?1:2;
             }
+            if(scenario.StartsWith("inspect_"))SetupInspectionQA(scenario,g);
             if(scenario.StartsWith("codex_"))SetupKnowledgeQA(scenario,g);
             if(scenario.StartsWith("art_"))SetupCombatArtQA(scenario,g);
             if(scenario.StartsWith("refuge_"))SetupRefugeQA(scenario,g);

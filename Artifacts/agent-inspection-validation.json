@@ -1,0 +1,103 @@
+{
+  "candidate": "agent-inspection",
+  "base_commit": "ac66729",
+  "presentation_source_hash": "16fa291ac450fac9e16c05a7f05cc6ddb1c75ff08e92dad537177d3ad16f70c1",
+  "build_manifest": "Artifacts/agent-inspection-build-manifest.json",
+  "final_build": {
+    "method": "Ember.Editor.ProjectBuilder.BuildAgentInspectionPair",
+    "state": "COMPLETE",
+    "exitCode": 0,
+    "stage": "BUILD",
+    "pid": 28304,
+    "elapsed": 154.3839682,
+    "utc": "2026-10-03T19:46:42.9981016Z"
+  },
+  "galleries": [
+    {
+      "label": "inspection-gallery-dev-zh-final",
+      "layout": "Phase2 scenarios: 14 / 1600x900 / issues: 0",
+      "screenshots": 14,
+      "process": {
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "elapsed": 27.6650118,
+        "configHash": "",
+        "exitCode": 0,
+        "utc": "2026-10-03T19:47:30.1606240Z",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\AgentInspection\\Development\\Ember.exe",
+        "state": "COMPLETE",
+        "managedAssemblyHash": "86B4D90E92EDC95A708DBCECBA08A123B9AF0DF7032033502793A28DF5509A63"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "camera_check": "PASS: wheel zoom, orbit, pan, limits, reset and unchanged simulation state. Shared input controller; physical mouse hardware not automated."
+    },
+    {
+      "label": "inspection-gallery-dev-en-final",
+      "layout": "Phase2 scenarios: 14 / 1280x720 / issues: 0",
+      "screenshots": 14,
+      "process": {
+        "exitCode": 0,
+        "state": "COMPLETE",
+        "utc": "2026-10-03T19:48:20.8481902Z",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\AgentInspection\\Development\\Ember.exe",
+        "managedAssemblyHash": "86B4D90E92EDC95A708DBCECBA08A123B9AF0DF7032033502793A28DF5509A63",
+        "configHash": "",
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "elapsed": 43.2916596
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "camera_check": "PASS: wheel zoom, orbit, pan, limits, reset and unchanged simulation state. Shared input controller; physical mouse hardware not automated."
+    },
+    {
+      "label": "inspection-gallery-release-zh-final",
+      "layout": "Phase2 scenarios: 14 / 1280x720 / issues: 0",
+      "screenshots": 14,
+      "process": {
+        "state": "COMPLETE",
+        "utc": "2026-10-03T19:48:50.6617689Z",
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "elapsed": 28.5828094,
+        "managedAssemblyHash": "1E68E67B6C79931FA21E8CA2863548A3B6E7F8DBB545A0679A8728C7B6E1A673",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\AgentInspection\\Windows\\Ember.exe",
+        "configHash": "",
+        "exitCode": 0
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "camera_check": "PASS: wheel zoom, orbit, pan, limits, reset and unchanged simulation state. Shared input controller; physical mouse hardware not automated."
+    },
+    {
+      "label": "inspection-codex-release-final",
+      "layout": "Phase2 scenarios: 13 / 1600x900 / issues: 0",
+      "screenshots": 13,
+      "process": {
+        "exitCode": 0,
+        "configHash": "",
+        "elapsed": 49.0004505,
+        "managedAssemblyHash": "1E68E67B6C79931FA21E8CA2863548A3B6E7F8DBB545A0679A8728C7B6E1A673",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\AgentInspection\\Windows\\Ember.exe",
+        "utc": "2026-10-03T19:49:37.0299511Z",
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "state": "COMPLETE"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "camera_check": null
+    }
+  ],
+  "screenshots": 55,
+  "physical_mouse_test": false,
+  "performance_certification": false,
+  "concurrency": "User-owned older Player preserved; UI QA only, no performance claims.",
+  "prior_failures": [
+    "inspection-build-pair-1 timeout",
+    "inspection-build-pair-2 UPM startup failure",
+    "inspection-gallery-dev-zh-1 8 corrected issues"
+  ],
+  "long_tests": {
+    "5000_seed": "not run for this candidate",
+    "120_minute_soak": "not run for this candidate",
+    "balance_gate": "prior FAIL unchanged"
+  }
+}

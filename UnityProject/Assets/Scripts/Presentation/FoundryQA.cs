@@ -43,11 +43,33 @@ namespace Ember.Presentation
             simulation.Restore(tower.Observe(selected));if(scenario=="foundry_saved")SaveGame();if(scenario=="foundry_loaded"){SaveGame();LoadGame();}
         }
         bool tooltipQA;
+        Vector2? inspectionQAMouse;
+        Vector2 SkillPointer=>inspectionQAMouse??Event.current.mousePosition;
+        string hoveredSkill="";
+        void DrawEquippedSkillLinks(Agent a)
+        {
+            hoveredSkill="";float x=47,y=551;
+            foreach(string id in a.equipped)
+            {
+                string name=Loc.Skill(id);float width=Mathf.Min(258,small.CalcSize(new GUIContent(name)).x+14);
+                if(x+width>305){x=47;y+=25;}
+                var rect=new Rect(x,y,width,23);Text(x,y,width,23,name,small);
+                if(rect.Contains(SkillPointer)&&inspection==Inspection.None)hoveredSkill=id;
+                x+=width+3;
+            }
+        }
         void DrawSkillTooltip(Agent a)
         {
-            if(!tooltipQA&&!new Rect(47,468,258,134).Contains(Event.current.mousePosition))return;
-            string id=!string.IsNullOrEmpty(a.weapon.infusion)?a.weapon.infusion:a.equipped.FirstOrDefault();if(string.IsNullOrEmpty(id))return;var s=simulation.Catalog.Skill(id);
-            Box(335,505,465,id=="holy"?142:92,new Color(.035f,.062f,.075f,.96f));Text(350,516,435,26,Loc.T("p3.infusion",Loc.Skill(id),s.mana,s.cooldown),small);Text(350,549,435,34,Loc.T("p3.effects",Loc.T("p3.skill."+id)),small);if(id=="holy"&&tower!=null&&tower.Rules.holyRecoveryCost)Text(350,589,435,48,Loc.T("p31.skill.holy_hint"),small);
+            if(inspection!=Inspection.None)return;
+            string id=hoveredSkill;bool infused=false;
+            // Infusion has its own row. Empty infusion must never fall back to a skill.
+            if(!string.IsNullOrEmpty(a.weapon.infusion)&&new Rect(47,468,258,44).Contains(SkillPointer)){id=a.weapon.infusion;infused=true;}
+            if(tooltipQA){id=a.weapon.infusion;infused=true;}
+            if(qaEnabled&&qaScenario.StartsWith("inspect_hover")){bool correct=qaScenario.EndsWith("blank")?string.IsNullOrEmpty(id):id=="meteor"&&infused==qaScenario.EndsWith("infusion");if(!correct&&!qaIssues.Contains("Tooltip hit region failed / "+qaScenario))qaIssues.Add("Tooltip hit region failed / "+qaScenario);}
+            if(string.IsNullOrEmpty(id))return;var s=simulation.Catalog.Skill(id);if(s==null)return;
+            Box(335,505,565,162,new Color(.035f,.062f,.075f,.96f));Text(350,516,535,26,Loc.T(infused?"p3.infusion":"inspect.skill_tip",Loc.Skill(id),s.mana,s.cooldown),small);
+            Text(350,549,535,72,CodexText.SkillEffect(a,s,tower==null||tower.Rules.holyRecoveryCost),small);
+            if(id=="holy"&&tower!=null&&tower.Rules.holyRecoveryCost)Text(350,619,535,44,Loc.T("p31.skill.holy_hint"),small);
         }
     }
 }

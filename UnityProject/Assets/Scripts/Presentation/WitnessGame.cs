@@ -74,7 +74,7 @@ namespace Ember.Presentation
             if(w.run!=lastRun) {lastRun=w.run;view.RebuildCharacters(w,simulation.Catalog);TrySave();}
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
             float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
-            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.RefugeSelected=selected;view.Update(w,paused&&!towerQA?0:Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
+            if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.RefugeSelected=selected;UpdateRefugeMouse(w);view.Update(w,paused&&!towerQA?0:Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
             if(towerSmoke)UpdateTowerSmoke();
             UpdateAudio();
             if(w.messages.Count>0&&w.messages[w.messages.Count-1]!=lastSound)
@@ -148,7 +148,7 @@ namespace Ember.Presentation
             Text(1302,123,245,22,Loc.T("ui.witnesses"),subtitle);
             for(int i=0;i<4;i++) AgentCard(w.agents[i],i,1300,157+i*113);
             Text(1302,624,245,22,Loc.T("ui.controls"),subtitle);
-            Text(1302,653,245,70,Loc.T("ui.controls_help"),small);
+            Text(1302,647,245,82,Loc.T(w.phase==Phase.Rest?"inspect.camera_help":"ui.controls_help"),small);
             if(tower!=null)DrawGroupSidebar();else {Text(1302,730,245,30,w.run==1&&w.showcase?Loc.T("ui.showcase"):Loc.T("ui.autonomous"),small);Text(1302,771,245,44,Loc.T("ui.next_classes"),small);}
             if(w.phase==Phase.Battle)
             {
@@ -180,12 +180,14 @@ namespace Ember.Presentation
             Text(47,273,258,22,Loc.T("ui.traits1",Mathf.RoundToInt(a.personality.risk*100),Mathf.RoundToInt(a.personality.curiosity*100)),small);
             Text(47,301,258,22,Loc.T("ui.traits2",Mathf.RoundToInt(a.personality.empathy*100),Mathf.RoundToInt(a.personality.greed*100)),small);
             Text(47,326,258,32,Loc.T("ui.intent",Loc.Action(a.intent.kind)),subtitle);
-            Box(28,394,294,251,new Color(.035f,.062f,.075f,.89f));Text(47,412,258,22,Loc.T("ui.build",w.run),subtitle);
+            Box(28,394,294,264,new Color(.035f,.062f,.075f,.89f));Text(47,412,258,22,Loc.T("ui.build",w.run),subtitle);
             Text(47,442,258,25,string.IsNullOrEmpty(a.weapon.affix)?Loc.Item(a.weapon.id):Loc.T("p3.affix",Loc.Item(a.weapon.id),Loc.T("p3.affix."+a.weapon.affix)),label);
             Text(47,468,258,52,Loc.T("ui.quality",a.weapon.quality.ToString("F2"),Loc.Skill(a.weapon.infusion)),small);
             Text(47,523,258,24,Loc.T("ui.stats",a.stats.str,a.stats.dex,a.stats.intel,a.stats.vit),small);
-            Text(47,552,258,50,Loc.T("ui.skills",string.Join(" / ",a.equipped.ConvertAll(Loc.Skill))),small);
-            Text(47,609,258,22,Loc.T("ui.resources",a.materials,a.inventory.Count,tower!=null?tower.State.Memory(a.id).entries.Count:a.memory.Count),small);
+            DrawEquippedSkillLinks(a);
+            Text(47,598,258,22,Loc.T("ui.resources",a.materials,a.inventory.Count,tower!=null?tower.State.Memory(a.id).entries.Count:a.memory.Count),small);
+            if(Button(47,622,120,Loc.T("inspect.inventory")))OpenInspection(Inspection.Inventory);
+            if(Button(177,622,128,Loc.T("inspect.memories")))OpenInspection(Inspection.Memories);
             Bottom(w);
             DrawSkillTooltip(a);
             Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);

@@ -441,3 +441,6 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 | `refuge.scene.castle` | Ruined quarter | 斷垣城區 |
 | `refuge.scene.abyss` | Abyss refuge | 深淵避難所 |
 | `refuge.scene.foundry` | Foundry service district | 工坊維修區 |
+
+
+2026-10-04 Agent inspection：新增 41 個 `inspect.*` 雙語鍵，涵蓋背包、物品效果、記憶類別與來源、相機操作及技能提示。總計 599 鍵，872 種驗證字元覆蓋。

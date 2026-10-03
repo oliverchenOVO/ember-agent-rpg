@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Label,[string]$Executable='Builds/Phase311/Development/Ember.exe',[string[]]$PlayerArgs=@(),[int]$TimeoutSeconds=660,[int]$Width=1600,[int]$Height=900,[int]$MaxLogMegabytes=64)
+param([Parameter(Mandatory=$true)][string]$Label,[string]$Executable='Builds/Phase311/Development/Ember.exe',[string[]]$PlayerArgs=@(),[int]$TimeoutSeconds=660,[int]$Width=1600,[int]$Height=900,[int]$MaxLogMegabytes=64,[switch]$AllowExistingPlayer)
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Split-Path $PSScriptRoot -Parent))
 $taskExe=[IO.Path]::GetFullPath((Join-Path $taskRoot $Executable))
@@ -18,7 +18,8 @@ if($taskConfigIndex -ge 0){
     $taskConfigHash=(Get-FileHash -LiteralPath $taskConfigPath -Algorithm SHA256).Hash
 }
 if(Test-Path -LiteralPath $taskFolder){throw 'Use a new label; existing artifacts are preserved.'}
-if(Get-Process Unity,Ember -ErrorAction SilentlyContinue){throw 'Run Player in isolation; another Unity/Player process is active.'}
+if((Get-Process Unity -ErrorAction SilentlyContinue) -or (-not $AllowExistingPlayer -and (Get-Process Ember -ErrorAction SilentlyContinue))){throw 'Run Player in isolation; another Unity/Player process is active.'}
+# UI galleries may preserve a user-owned Player. Never use this switch for performance measurements.
 New-Item -ItemType Directory -Path $taskFolder -Force | Out-Null
 $taskLog=Join-Path $taskFolder 'player.log'
 $taskArguments=@('--artifacts',$taskFolder,'-screen-width',"$Width",'-screen-height',"$Height",'-screen-fullscreen','0','-logFile',$taskLog,'-diag-job-temp-memory-leak-validation')+$PlayerArgs

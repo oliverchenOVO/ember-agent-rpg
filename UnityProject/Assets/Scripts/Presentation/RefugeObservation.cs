@@ -10,7 +10,7 @@ namespace Ember.Presentation
         void DrawRefugeObservation(World w)
         {
             if(tower==null||w.phase!=Phase.Rest)return;var g=tower.State.GroupOf(selected);if(g.refugeVersion!=1)return;
-            if(Button(700,843,175,Loc.T(view.RefugeOverview?"refuge.follow":"refuge.overview")))view.RefugeOverview=!view.RefugeOverview;
+            if(Button(700,843,175,Loc.T(view.RefugeManual?"inspect.reset_camera":view.RefugeOverview?"refuge.follow":"refuge.overview"))){if(view.RefugeManual){view.ResetRefugeCamera();view.RefugeOverview=false;}else view.RefugeOverview=!view.RefugeOverview;}
             var plan=tower.State.Plan(selected);var map=RefugeMap.For(g);float scale=Mathf.Min(Screen.width/1600f,Screen.height/900f),ox=(Screen.width-1600*scale)/2,oy=(Screen.height-900*scale)/2;
             if(Time.realtimeSinceStartup>=refugeEstimateUntil){refugeEstimate=map.Distance(new Vector2(w.agents[selected].x,w.agents[selected].z),RefugeMap.Exit)/Simulation.MoveSpeed;refugeEstimateUntil=Time.realtimeSinceStartup+.5f;}
             Box(425,199,590,52,new Color(.035f,.062f,.075f,.88f));Text(438,203,565,23,Loc.T("refuge.budget",plan.knownRooms.Count,refugeEstimate.ToString("F1")),small);
