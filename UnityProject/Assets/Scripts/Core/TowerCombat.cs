@@ -26,7 +26,7 @@ namespace Ember.Core.Phase2
         }
         void ExecuteCombat(Agent a,GroupState g,float dt)
         {
-            var b=g.boss;var plan=State.Plan(a.id);float radius=b.Radius(Data);
+            if(Rules.combatRecovery)CombatPotions(a,g);var b=g.boss;var plan=State.Plan(a.id);float radius=b.Radius(Data);
             bool danger=b.visible.telegraph&&(b.cue.radius>0?b.cue.Contains(a.x,a.z,.6f):Simulation.Distance(a.x,a.z,b.visible.targetX,b.visible.targetZ)<radius+.6f);
             bool hazard=b.hazardLeft>0&&Simulation.Distance(a.x,a.z,b.hazardX,b.hazardZ)<3.4f;
             float speed=b.MovementMultiplier(a.id)*(Effect(b,a.id,"Haste")!=null?1.3f:1)*(a.weapon.affix=="Mobility"?1.12f:1);
@@ -65,6 +65,7 @@ namespace Ember.Core.Phase2
                     if(ally!=null&&ally.hp<ally.MaxHp*.75f&&Simulation.CanCast(a,Catalog,"heal"))a.intent=new Intent{kind=ActionKind.Skill,skill="heal",target=ally.id,reason=Loc.Token("reason.heal",Loc.Ref("skill","heal"))};
                 }
             }
+            StabilizeIntent(a,g);
             if(a.intent.kind==ActionKind.GiveUp){a.intent.kind=ActionKind.Attack;}
             if(a.intent.kind==ActionKind.Protect&&plan.decision.intent=="Fight")a.intent.kind=ActionKind.Attack;
             if(a.intent.kind==ActionKind.Protect)
@@ -78,9 +79,9 @@ namespace Ember.Core.Phase2
                 float tx=ally?.x??b.x,tz=ally?.z??b.z;
                 float range=s.id=="trap"?8:s.range;
                 if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)Move(a,tx,tz,dt,speed);
-                else Cast(a,g,s.id,a.intent.target,a.weapon.infusion==s.id);
+                else if(!Cast(a,g,s.id,a.intent.target,a.weapon.infusion==s.id)&&Rules.combatRecovery){a.intent.kind=ActionKind.Attack;a.decisionTimer=0;}
             }
-            else
+            if(a.intent.kind!=ActionKind.Skill)
             {
                 var weapon=Catalog.Item(a.weapon.id);float range=weapon.weapon=="Bow"||weapon.weapon=="Staff"?9:2.8f;
                 if(Simulation.Distance(a.x,a.z,b.x,b.z)>range)Move(a,b.x,b.z,dt,speed);
@@ -92,14 +93,15 @@ namespace Ember.Core.Phase2
                     a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
                 }
             }
-            string potion=a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);
-            if(item!=null){if(DiagnosticsEnabled){var p=DiagnosticPhase(g);if(p!=null)p.potions++;float effective=potion=="hp"?Mathf.Min(a.MaxHp-a.hp,Catalog.Item(potion).power):Mathf.Min(a.MaxMp-a.mp,Catalog.Item(potion).power);RecordRecovery(a,a,"Potion:"+potion,Catalog.Item(potion).power,effective);}Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
+            string potion=!Rules.combatRecovery&&a.hp<a.MaxHp*.35f?"hp":a.mp<a.MaxMp*.2f?"mp":"";var item=a.inventory.Find(i=>i.id==potion);
+            if(!Rules.combatRecovery&&item!=null){if(DiagnosticsEnabled){var p=DiagnosticPhase(g);if(p!=null)p.potions++;float effective=potion=="hp"?Mathf.Min(a.MaxHp-a.hp,Catalog.Item(potion).power):Mathf.Min(a.MaxMp-a.mp,Catalog.Item(potion).power);RecordRecovery(a,a,"Potion:"+potion,Catalog.Item(potion).power,effective);}Measure(a,"potion");if(potion=="hp")a.hp=Mathf.Min(a.MaxHp,a.hp+Catalog.Item(potion).power);else a.mp=Mathf.Min(a.MaxMp,a.mp+Catalog.Item(potion).power);a.inventory.Remove(item);}
         }
         public bool Cast(Agent a,GroupState g,string id,int target=-1,bool weapon=false)
         {
             if(State.GroupOf(a.id)!=g||g.phase!=Phase.Battle||!CanUseSkill(a,id,weapon))return false;
             var s=Catalog.Skill(id);var ally=State.Members(g).FirstOrDefault(v=>v.id==target&&(v.alive||id=="revive")&&!v.escaped);
             if(s.effect=="Heal"&&ally==null)return false;
+            if(!RecoverySpellUseful(a,g,s,ally))return false;
             if(id=="revive"&&!ally.alive&&State.revivedAgents.Contains(ally.id))return false;
             float tx=s.effect=="Heal"?ally.x:g.boss.x,tz=s.effect=="Heal"?ally.z:g.boss.z;
             float range=id=="trap"?8:s.range;if(range>0&&Simulation.Distance(a.x,a.z,tx,tz)>range)return false;

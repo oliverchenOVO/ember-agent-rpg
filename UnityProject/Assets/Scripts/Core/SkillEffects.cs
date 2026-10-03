@@ -63,7 +63,7 @@ namespace Ember.Core.Phase2
                 case "rain":case "lightning":b.adds=Mathf.Max(0,b.adds-3);Deal(a,g,p,s.id=="lightning"?"Arcane":"Physical",true);return true;
                 case "meteor":Deal(a,g,p,"Fire",true);ApplyEffect(b,-1,a.id,"Zone",4,8,"Fire");return true;
                 case "fireball":Deal(a,g,p,"Fire",true);ApplyEffect(b,-1,a.id,"Burn",4,4,"Fire");return true;
-                case "holy":Deal(a,g,p,"Light",true);Agent lowest=null;foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&(lowest==null||other.hp/other.MaxHp<lowest.hp/lowest.MaxHp))lowest=other;}if(lowest!=null)Heal(a,lowest,5+a.stats.wis*.3f,"HolyAttack");return true;
+                case "holy":Deal(a,g,p,"Light",true);Agent lowest=null;foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&(lowest==null||other.hp/other.MaxHp<lowest.hp/lowest.MaxHp))lowest=other;}if(lowest!=null){float raw=5+a.stats.wis*.3f,amount=Mathf.Min(raw,lowest.MaxHp-lowest.hp);float cost=Rules.holyRecoveryCost&&amount>0?2*amount/raw:0;if(a.mp>=cost){a.mp-=cost;RecordMana(a,cost);Heal(a,lowest,raw,"HolyAttack");}}return true;
                 case "heal":if(ally!=null){Heal(a,ally,p);ApplyEffect(b,ally.id,a.id,"Regen",4,3);}return true;
                 case "groupheal":foreach(var id in g.members){var other=State.world.agents[id];if(other.alive){Heal(a,other,p*.65f,"GroupHeal");ApplyEffect(b,id,a.id,"Shield",3,12);}}return true;
                 case "shot":Deal(a,g,p*(Simulation.Distance(a.x,a.z,b.x,b.z)>5?1.15f:1),"Physical",false);ApplyEffect(b,a.id,a.id,"Haste",2,.3f);return true;

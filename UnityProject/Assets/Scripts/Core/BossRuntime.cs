@@ -14,6 +14,7 @@ namespace Ember.Core.Phase2
         public string definition,ability=""; public BossState visible=new BossState();
         public int phase,casts,interrupts,adds,target=-1; public float elapsed,phaseTime,phaseStartHp,x,z=1,shield,survivalLeft,hazardLeft,hazardX,hazardZ;
         public bool transitioned,deathResolved; public List<StatusState> statuses=new List<StatusState>();
+        [NonSerialized] public bool stabilizePhaseWindow,stabilizeManaPressure;public float recoveryWindow;
         public CombatCue cue=new CombatCue();public float hitFlash,weakFlash,interruptFlash,blockedFlash;public int sequence;
         public List<CombatEffect> effects=new List<CombatEffect>();public List<int> revived=new List<int>();public SkillPresentation skillPresentation=new SkillPresentation();
         public static BossRuntime Create(BossDefinition def)=>new BossRuntime{definition=def.id,visible=new BossState{hp=def.hp,maxHp=def.hp,timer=2},phaseStartHp=def.hp};
@@ -29,11 +30,11 @@ namespace Ember.Core.Phase2
             {
                 var next=def.phases[phase+1];
                 if(b.hp/b.maxHp<=next.hpBelow||(next.afterSeconds>0&&elapsed>=next.afterSeconds))
-                {phase++;phaseTime=0;phaseStartHp=b.hp;transitioned=true;b.telegraph=false;b.timer=1;events.Say(-1,Loc.Token("p2.event.phase",Loc.Token(def.nameKey),Loc.Token(next.nameKey)),"boss");}
+                {phase++;phaseTime=0;if(stabilizePhaseWindow){recoveryWindow=5;shield=0;adds=Mathf.Min(adds,2);}phaseStartHp=b.hp;transitioned=true;b.telegraph=false;b.timer=1;events.Say(-1,Loc.Token("p2.event.phase",Loc.Token(def.nameKey),Loc.Token(next.nameKey)),"boss");}
             }
-            var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter;
+            recoveryWindow=Mathf.Max(0,recoveryWindow-dt);var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter;
             if(p.dpsDeadline>0&&phaseTime>=p.dpsDeadline&&phaseStartHp-b.hp<b.maxHp*p.requiredDamage){b.enraged=true;shield=0;}
-            if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,def.ambientPressure*dt*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"),DamageSource.Pressure);
+            if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,def.ambientPressure*dt*(recoveryWindow>0?.2f:1)*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"),DamageSource.Pressure);
             // Enrage escalation prevents indefinitely sustainable recovery-only strategies.
             if(elapsed>240)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,a.MaxHp*dt*(elapsed-240)*.015f,Loc.Token("p3.cause.enrage"),DamageSource.Enrage);
             for(int i=statuses.Count-1;i>=0;i--)
@@ -88,7 +89,7 @@ namespace Ember.Core.Phase2
                 if(!hits)continue;
                 Damage(hurt,a,attack.damage*multiplier,Loc.Token("p2.cause.ability",Loc.Token(attack.nameKey)),DamageSource.Ability,ability);
                 if(attack.push>0){var direction=new Vector2(a.x-x,a.z-z).normalized;if(direction==Vector2.zero)direction=Vector2.right;a.x=Mathf.Clamp(a.x+direction.x*attack.push,-9,9);a.z=Mathf.Clamp(a.z+direction.y*attack.push,-7.5f,7.5f);}
-                float mpBefore=a.mp;a.mp=Mathf.Max(0,a.mp-attack.resourceDrain);
+                float mpBefore=a.mp;a.mp=Mathf.Max(0,a.mp-Mathf.Max(0,attack.resourceDrain-(stabilizeManaPressure&&attack.id=="extract"?6:0)));
                 if(attack.mechanic==Mechanic.Drain){a.mp=Mathf.Max(0,a.mp-10);b.hp=Mathf.Min(b.maxHp,b.hp+8);}
                 diagnosticDrain?.Invoke(a,mpBefore-a.mp);
                 if(!string.IsNullOrEmpty(attack.status)&&a.alive)statuses.Add(new StatusState{agent=a.id,kind=attack.status,ability=ability,element=attack.element,left=attack.duration,power=2});

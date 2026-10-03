@@ -1596,6 +1596,30 @@
     {
       "key": "p3.profiling",
       "value": "效能紀錄 {0} 分鐘 · 第 {1} 輪"
+    },
+    {
+      "key": "p31.reason.intercept",
+      "value": "把這次攻擊引向我，掩護受傷的隊友。"
+    },
+    {
+      "key": "p31.reason.defense",
+      "value": "先減輕持續傷害，保留撐過這一階段的能力。"
+    },
+    {
+      "key": "p31.reason.shield",
+      "value": "先用普通攻擊應對護盾與召喚物。"
+    },
+    {
+      "key": "p31.reason.mana",
+      "value": "保留魔力，等待更有價值的施法時機。"
+    },
+    {
+      "key": "p31.event.supplies",
+      "value": "花費 1 份材料補充診所藥包，準備下一場戰鬥。"
+    },
+    {
+      "key": "p31.skill.holy_hint",
+      "value": "聖光攻擊附帶恢復生命；有效恢復會額外消耗最多 2 點魔力。"
     }
   ]
 }

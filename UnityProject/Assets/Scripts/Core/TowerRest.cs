@@ -30,6 +30,7 @@ namespace Ember.Core.Phase2
                 string skill=RuleBasedReasoner.SelectSkill(a,Catalog,State.Profile(a.id));if(skill!=null)Adapter.Unlock(a,skill);
                 // Keep only four active skills, choosing a strategy rather than growing slots.
                 if(a.unlocked.Count>4){var choice=a.unlocked.Select(id=>Catalog.Skill(id)).OrderByDescending(s=>s.effect=="Heal"?a.personality.empathy*80:s.power+(s.effect=="Guard"?State.Profile(a.id).caution*40:0)).Take(4).Select(s=>s.id).ToList();var attack=a.unlocked.FirstOrDefault(id=>Catalog.Skill(id).effect=="Damage");if(attack!=null&&!choice.Any(id=>Catalog.Skill(id).effect=="Damage")){choice[3]=attack;}if(a.unlocked.Contains("revive")&&a.personality.empathy>.35f&&State.Members(g).Any(v=>!v.alive)&&!choice.Contains("revive")){int replace=choice.FindIndex(id=>id!="holy"&&id!="heal");if(replace>=0)choice[replace]="revive";}a.equipped=choice;}
+                if(Rules.combatRecovery&&g.floor>=5){string role=a.profession==Profession.Warrior?"taunt":a.profession==Profession.Healer?"revive":a.profession==Profession.Mage?"shield":"";foreach(string reserve in new[]{role,a.profession==Profession.Warrior?"guard":""}){if(string.IsNullOrEmpty(reserve)||!a.unlocked.Contains(reserve)||a.equipped.Contains(reserve))continue;if(a.equipped.Count<4)a.equipped.Add(reserve);else {string starter=Catalog.Class(a.profession).starter;int replace=a.equipped.FindLastIndex(id=>id!=starter&&id!="heal"&&id!=role);if(replace>=0)a.equipped[replace]=reserve;}}}
                 foreach(string tableId in f.lootTables)
                 {
                     var table=Array.Find(Data.loot,l=>l.id==tableId);a.materials+=table.materials;
@@ -64,6 +65,7 @@ namespace Ember.Core.Phase2
             string site=p.decision.proposedAction;
             if(p.decision.intent=="Recover"&&g.boss.statuses.Any(s=>s.agent==a.id))site="clinic";
             if(p.decision.intent=="Support")site="church";
+            if(Rules.clinicSupplies&&g.floor<=10&&p.decision.intent=="Recover"&&a.materials>=2&&!p.visited.Contains("clinic")&&(a.inventory.FindAll(i=>i.id=="hp").Count<2||a.inventory.FindAll(i=>i.id=="mp").Count<2))site="clinic";
             var station=Array.Find(rest.sites,s=>s.id==site);
             if(station==null||(site=="bed"?p.visited.Count(v=>v==site)>=2:p.visited.Contains(site))||a.materials<station.materialCost){p.decision.intent="Exit";return;}
             a.intent.kind=station.effect=="Craft"?ActionKind.Craft:station.effect=="Read"||station.effect=="Intel"?ActionKind.Read:station.effect=="Heal"||station.effect=="Cleanse"?ActionKind.Rest:ActionKind.Explore;
@@ -96,7 +98,7 @@ namespace Ember.Core.Phase2
                 case "Materials":a.materials+=(int)site.reward;break;
             }
             if(site.risk>0&&State.world.Roll()<site.risk)HurtDiagnostic(a,14+g.floor*.3f,Loc.Token("p2.cause.resource"),DamageSource.RestRisk);
-            ResolveLoadout(a);
+            StockClinic(a,g,site);ResolveLoadout(a);
             State.world.Say(a.id,Loc.Token("p2.event.work_done",Loc.Token(site.nameKey)),"rest");
         }
         void UpdateDepartures(GroupState g)

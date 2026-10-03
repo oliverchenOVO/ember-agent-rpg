@@ -1596,6 +1596,30 @@
     {
       "key": "p3.profiling",
       "value": "Profiling {0} min · run {1}"
+    },
+    {
+      "key": "p31.reason.intercept",
+      "value": "Draw this attack toward me and cover the wounded ally."
+    },
+    {
+      "key": "p31.reason.defense",
+      "value": "Reduce sustained damage to survive this phase."
+    },
+    {
+      "key": "p31.reason.shield",
+      "value": "Use basic attacks against the shield and summons."
+    },
+    {
+      "key": "p31.reason.mana",
+      "value": "Keep mana for a more valuable casting opportunity."
+    },
+    {
+      "key": "p31.event.supplies",
+      "value": "Spent 1 material on a clinic supply kit for the next battle."
+    },
+    {
+      "key": "p31.skill.holy_hint",
+      "value": "Holy attacks also restore health; effective recovery costs up to 2 additional mana."
     }
   ]
 }

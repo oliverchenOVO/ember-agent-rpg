@@ -79,7 +79,7 @@ namespace Ember.Editor
                 {
                     var g=s.State.groups[0];var a=s.State.world.agents[(int)skill.profession];a.unlocked.Add(skill.id);a.equipped.Clear();a.equipped.Add(skill.id);a.mp=100;a.x=g.boss.x;a.z=g.boss.z;a.hp=a.MaxHp*.5f;
                     if(skill.id=="revive"){s.Die(s.State.world.agents[0],Loc.Token("cause.slam"));a.x=s.State.world.agents[0].x;a.z=s.State.world.agents[0].z;}
-                    Check(s.Cast(a,g,skill.id,skill.id=="revive"?0:a.id),"skill effect executes "+skill.id);Check(a.mp==100-skill.mana&&a.cooldowns.Any(cd=>cd.id==skill.id),"cost/cooldown "+skill.id);
+                    Check(s.Cast(a,g,skill.id,skill.id=="revive"?0:a.id),"skill effect executes "+skill.id);Check(a.mp==100-skill.mana-(skill.id=="holy"?2:0)&&a.cooldowns.Any(cd=>cd.id==skill.id),"cost/cooldown "+skill.id);
                     if(skill.id=="revive"){Check(s.State.world.agents[0].alive&&s.State.revivedAgents.Contains(0),"real one-life revival");s.Die(s.State.world.agents[0],Loc.Token("cause.slam"));a.cooldowns.Clear();a.mp=100;Check(!s.Cast(a,g,"revive",0)&&a.mp==100&&s.State.world.agents[0].hp==0,"second revival rejected without cost");}
                     if(skill.id=="poison")Check(g.boss.effects.Any(e=>e.kind=="Poison"),"poison persists");if(skill.id=="shield")Check(g.boss.effects.Any(e=>e.kind=="Shield"),"barrier persists");
                     var loaded=ExpeditionStore.Parse(JsonUtility.ToJson(s.State),c,data);Check(loaded.groups[0].boss.effects.Count==g.boss.effects.Count,"effects save/load "+skill.id);
