@@ -2396,6 +2396,58 @@
     {
       "key": "inspect.observer",
       "value": "只供觀察；檢視期間遊戲暫停，關閉後恢復原先狀態。"
+    },
+    {
+      "key": "readability.all_authors",
+      "value": "全部角色"
+    },
+    {
+      "key": "readability.no_legacy",
+      "value": "{0} 目前沒有留下遺書。"
+    },
+    {
+      "key": "readability.previous",
+      "value": "較新一篇"
+    },
+    {
+      "key": "readability.next",
+      "value": "較舊一篇"
+    },
+    {
+      "key": "readability.book_entry",
+      "value": "第 {0} 輪 / {1} · 第 {2} / {3} 篇"
+    },
+    {
+      "key": "readability.damage_header",
+      "value": "{0} 的持續威脅"
+    },
+    {
+      "key": "readability.pressure",
+      "value": "場地壓力 {0}／秒（全場，無法靠走位閃避）"
+    },
+    {
+      "key": "readability.attrition",
+      "value": "超時耗損 {0}／秒（開戰超過 240 秒）"
+    },
+    {
+      "key": "readability.burn",
+      "value": "灼燒 {0}／秒，最長剩 {1} 秒"
+    },
+    {
+      "key": "readability.doom",
+      "value": "死亡倒數：{0} 秒後觸發"
+    },
+    {
+      "key": "readability.adds",
+      "value": "召喚物 {0} 隻：{1}／秒"
+    },
+    {
+      "key": "readability.hazard",
+      "value": "危險地面 7／秒，剩 {0} 秒（離開紅圈）"
+    },
+    {
+      "key": "readability.raw_note",
+      "value": "以上為減傷前數值；護甲、防禦與護盾影響實際扣血。"
     }
   ]
 }

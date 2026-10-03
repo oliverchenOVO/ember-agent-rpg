@@ -78,6 +78,7 @@ namespace Ember.Presentation
         }
         void UpdateCombatAnimation(World w,float dt)
         {
+            UpdateDamageReadability(w);
             if(observedGroup==null)return;BindVisualEventStream();var b=observedGroup.boss;bool battle=w.phase==Phase.Battle;
             if(!battle)ClearVisualBursts();else
             {

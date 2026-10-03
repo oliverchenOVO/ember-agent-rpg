@@ -1,0 +1,100 @@
+{
+  "candidate": "combat-readability",
+  "base_commit": "c01a6b4",
+  "presentation_source_hash": "f4f36499beb9d0ea5eaf5f2b5e98396e0369ee467cb951331a17fb037dabd882",
+  "build_manifest": "Artifacts/combat-readability-build-manifest.json",
+  "final_build": {
+    "pid": 64864,
+    "exitCode": 0,
+    "method": "Ember.Editor.ProjectBuilder.BuildCombatReadabilityPair",
+    "utc": "2026-10-03T20:07:55.1458267Z",
+    "stage": "SHUTDOWN",
+    "elapsed": 221.5824408,
+    "state": "COMPLETE"
+  },
+  "galleries": [
+    {
+      "label": "readability-gallery-dev-zh-1",
+      "layout": "Phase2 scenarios: 12 / 1600x900 / issues: 0",
+      "screenshots": 12,
+      "process": {
+        "state": "COMPLETE",
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "configHash": "",
+        "elapsed": 63.7927887,
+        "utc": "2026-10-03T20:09:35.6328535Z",
+        "exitCode": 0,
+        "managedAssemblyHash": "66750A1930C48181792E4F8712BD60B58BA80B5ACA6CD8EB462286C87852FD11",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\CombatReadability\\Development\\Ember.exe"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "readability_check": "PASS: no-cast pressure damage, visible persistent aura, overtime labels and observation state unchanged; author-specific legacy fixtures."
+    },
+    {
+      "label": "readability-gallery-dev-en-final",
+      "layout": "Phase2 scenarios: 12 / 1280x720 / issues: 0",
+      "screenshots": 12,
+      "process": {
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "utc": "2026-10-03T20:12:16.9232131Z",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\CombatReadability\\Development\\Ember.exe",
+        "exitCode": 0,
+        "managedAssemblyHash": "66750A1930C48181792E4F8712BD60B58BA80B5ACA6CD8EB462286C87852FD11",
+        "state": "COMPLETE",
+        "configHash": "",
+        "elapsed": 112.6305722
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "readability_check": "PASS: no-cast pressure damage, visible persistent aura, overtime labels and observation state unchanged; author-specific legacy fixtures."
+    },
+    {
+      "label": "readability-gallery-release-zh-final",
+      "layout": "Phase2 scenarios: 12 / 1600x900 / issues: 0",
+      "screenshots": 12,
+      "process": {
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\CombatReadability\\Windows\\Ember.exe",
+        "managedAssemblyHash": "E98341A273B9662203670243E9CF26946030AB4B14A387C11468DE8C076E622F",
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "state": "COMPLETE",
+        "exitCode": 0,
+        "elapsed": 82.6146364,
+        "configHash": "",
+        "utc": "2026-10-03T20:12:20.3473415Z"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "readability_check": "PASS: no-cast pressure damage, visible persistent aura, overtime labels and observation state unchanged; author-specific legacy fixtures."
+    },
+    {
+      "label": "readability-codex-release-final",
+      "layout": "Phase2 scenarios: 13 / 1280x720 / issues: 0",
+      "screenshots": 13,
+      "process": {
+        "configHash": "",
+        "exitCode": 0,
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "elapsed": 110.004574,
+        "utc": "2026-10-03T20:13:30.6435149Z",
+        "state": "COMPLETE",
+        "managedAssemblyHash": "E98341A273B9662203670243E9CF26946030AB4B14A387C11468DE8C076E622F",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\CombatReadability\\Windows\\Ember.exe"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "readability_check": null
+    }
+  ],
+  "screenshots": 49,
+  "performance_certification": false,
+  "concurrency": "User-owned older Player preserved; UI QA only, no performance claims.",
+  "prior_failures": [
+    "readability-build-pair-1 UnityLinker native access violation"
+  ],
+  "long_tests": {
+    "5000_seed": "not run for this candidate",
+    "120_minute_soak": "not run for this candidate",
+    "balance_gate": "prior FAIL unchanged"
+  }
+}

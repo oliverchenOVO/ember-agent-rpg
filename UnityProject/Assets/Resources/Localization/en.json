@@ -2396,6 +2396,58 @@
     {
       "key": "inspect.observer",
       "value": "Observation only. Inspection pauses play; closing restores its previous state."
+    },
+    {
+      "key": "readability.all_authors",
+      "value": "All authors"
+    },
+    {
+      "key": "readability.no_legacy",
+      "value": "{0} has no recorded legacy."
+    },
+    {
+      "key": "readability.previous",
+      "value": "Newer"
+    },
+    {
+      "key": "readability.next",
+      "value": "Older"
+    },
+    {
+      "key": "readability.book_entry",
+      "value": "Life {0} / {1} | Entry {2} / {3}"
+    },
+    {
+      "key": "readability.damage_header",
+      "value": "Ongoing threats to {0}"
+    },
+    {
+      "key": "readability.pressure",
+      "value": "Arena pressure {0}/s (arena-wide; movement cannot avoid it)"
+    },
+    {
+      "key": "readability.attrition",
+      "value": "Overtime attrition {0}/s (fight exceeded 240s)"
+    },
+    {
+      "key": "readability.burn",
+      "value": "Burn {0}/s, up to {1}s remaining"
+    },
+    {
+      "key": "readability.doom",
+      "value": "Doom triggers in {0}s"
+    },
+    {
+      "key": "readability.adds",
+      "value": "{0} summons: {1}/s"
+    },
+    {
+      "key": "readability.hazard",
+      "value": "Ground hazard 7/s, {0}s left (leave the red ring)"
+    },
+    {
+      "key": "readability.raw_note",
+      "value": "Raw values before armor, defense and shields."
     }
   ]
 }

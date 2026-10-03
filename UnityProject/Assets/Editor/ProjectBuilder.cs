@@ -38,6 +38,7 @@ namespace Ember.Editor
         public static void BuildReleaseRefuge(){RefugeValidation.Run();BuildPlayer(false,"../Builds/RefugeExploration/Windows/Ember.exe");}
         public static void BuildRefugePair(){RefugeValidation.Run();BuildPlayer(true,"../Builds/RefugeExploration/Development/Ember.exe");BuildPlayer(false,"../Builds/RefugeExploration/Windows/Ember.exe");}
         public static void BuildAgentInspectionPair(){LocalizationValidation.Run();BuildPlayer(true,"../Builds/AgentInspection/Development/Ember.exe");BuildPlayer(false,"../Builds/AgentInspection/Windows/Ember.exe");}
+        public static void BuildCombatReadabilityPair(){LocalizationValidation.Run();BuildPlayer(true,"../Builds/CombatReadability/Development/Ember.exe");BuildPlayer(false,"../Builds/CombatReadability/Windows/Ember.exe");}
         static void BuildPlayer(bool development,string output=null)
         {
             Debug.Log("BUILD START / development="+development+" / UTC="+DateTime.UtcNow.ToString("O"));

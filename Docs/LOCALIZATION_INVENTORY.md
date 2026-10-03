@@ -444,3 +444,6 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 
 
 2026-10-04 Agent inspection：新增 41 個 `inspect.*` 雙語鍵，涵蓋背包、物品效果、記憶類別與來源、相機操作及技能提示。總計 599 鍵，872 種驗證字元覆蓋。
+
+
+2026-10-04 Combat readability：新增 13 個 `readability.*` 雙語鍵，涵蓋持續傷害來源、減傷前數值提示、遺書作者與翻頁、空資料。總計 612 鍵、879 種驗證字元。

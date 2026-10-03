@@ -190,6 +190,7 @@ namespace Ember.Presentation
             if(Button(177,622,128,Loc.T("inspect.memories")))OpenInspection(Inspection.Memories);
             Bottom(w);
             DrawSkillTooltip(a);
+            DrawOngoingDamage(w);
             Text(32,861,1230,29,Loc.T(tower!=null?"p2.footer":"ui.footer"),small);
             if(Button(1350,843,222,Loc.T("ui.language"))){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");PlayerPrefs.SetString("locale",Loc.Locale);PlayerPrefs.Save();}
             if(tower!=null&&Button(900,843,200,Loc.T("codex.boss")))OpenInspection(Inspection.Boss);
@@ -224,9 +225,8 @@ namespace Ember.Presentation
             }
             else if(tab==1)
             {
-                if(Button(1020,713,201,Loc.T("codex.open_book")))OpenInspection(Inspection.Book);
-                if(w.book.Count==0)Text(46,757,1140,55,Loc.T("ui.book_empty"),label);
-                else {var e=w.book[w.book.Count-1];Text(46,718,945,25,Loc.T("ui.book_author",e.run,w.agents[e.author].name),subtitle);Text(46,751,1140,77,RenderForUI(e.text).Split('\n')[0],small);}
+                DrawBookPreview(w);
+
             }
             else if(tab==2)
             {

@@ -14,7 +14,7 @@ namespace Ember.Presentation
             {
                 agents[0].personality.curiosity=1;agents[1].personality.empathy=1;
                 tower.Die(agents[0],Loc.Token("p2.cause.ability",Loc.Token(tower.Data.Ability(g.boss.ability).nameKey)));
-                tower.Die(agents[1],Loc.Token("p2.cause.status",Loc.Token("p2.status.Burn")));OpenInspection(Inspection.Book);
+                tower.Die(agents[1],Loc.Token("p2.cause.status",Loc.Token("p2.status.Burn")));OpenInspection(Inspection.Book);bookAll=true;
             }
             else if(scenario=="codex_legacy"){tower.State.world.book.Add(new Epitaph{run=1,author=0,text=Loc.Token("epitaph.death")});OpenInspection(Inspection.Book);}
             else if(scenario=="codex_empty")OpenInspection(Inspection.Book);

@@ -8,11 +8,13 @@ namespace Ember.Presentation
     public sealed partial class WitnessGame
     {
         enum Inspection { None,Book,Boss,Skills,Inventory,Memories }
+        bool bookAll;
         Inspection inspection;Vector2 codexScroll;float codexHeight=1000;bool inspectionWasPaused;
         Profession inspectedClass;string inspectedSkill="";
         void OpenInspection(Inspection mode)
         {
             if(inspection==Inspection.None)inspectionWasPaused=paused;inspection=mode;paused=true;codexScroll=Vector2.zero;codexHeight=1000;
+            if(mode==Inspection.Book)bookAll=false;
             inspectedClass=simulation.State.agents[selected].profession;inspectedSkill=simulation.Catalog.skills.First(s=>s.profession==inspectedClass).id;
         }
         void CloseInspection(){inspection=Inspection.None;paused=inspectionWasPaused;}
@@ -40,6 +42,12 @@ namespace Ember.Presentation
             Text(344,90,780,43,heading,title);if(Button(1150,94,102,Loc.T("codex.close")))CloseInspection();
             Text(344,137,895,46,Loc.T(inspection==Inspection.Inventory||inspection==Inspection.Memories?"inspect.observer":"codex.observer"),small);
             float top=190;
+            if(inspection==Inspection.Book)
+            {
+                for(int i=0;i<4;i++)if(Button(344+i*180,190,168,(!bookAll&&selected==i?"• ":"")+simulation.State.agents[i].name)){selected=i;bookAll=false;codexScroll=Vector2.zero;}
+                if(Button(1064,190,168,(bookAll?"• ":"")+Loc.T("readability.all_authors"))){bookAll=true;codexScroll=Vector2.zero;}
+                top=231;
+            }
             if(inspection==Inspection.Skills||inspection==Inspection.Inventory||inspection==Inspection.Memories)
             {
                 for(int i=0;i<4;i++)if(Button(344+i*225,190,213,(selected==i?"• ":"")+simulation.State.agents[i].name))
@@ -56,8 +64,9 @@ namespace Ember.Presentation
         void DrawLegacyPages(ref float y)
         {
             CodexLine(ref y,Loc.T("codex.book_help"),small);var w=simulation.State;
-            if(w.book.Count==0){CodexLine(ref y,Loc.T("ui.book_empty"));return;}
-            foreach(var e in w.book.AsEnumerable().Reverse())
+            var pages=w.book.Where(e=>bookAll||e.author==selected).Reverse().ToArray();
+            if(pages.Length==0){CodexLine(ref y,Loc.T(bookAll?"ui.book_empty":"readability.no_legacy",w.agents[selected].name));return;}
+            foreach(var e in pages)
             {
                 CodexLine(ref y,Loc.T("ui.book_author",e.run,w.agents[e.author].name),subtitle);
                 if(e.floor>0&&tower!=null&&tower.Data.Boss(e.boss)!=null)
