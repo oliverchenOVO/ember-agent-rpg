@@ -19,3 +19,24 @@ Artifacts/*-encounters.csv
 
 Artifacts/Phase31/
 Artifacts/Phase311/
+
+# Local audit findings may contain machine paths and identity metadata.
+Artifacts/PublicAudit/
+
+# Unity caches and local-only diagnostics.
+UnityProject/Obj/
+UnityProject/MemoryCaptures/
+MemoryCaptures/
+*.pdb
+*.dmp
+*.raw
+*.trace
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
