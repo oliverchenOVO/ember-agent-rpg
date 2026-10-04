@@ -447,3 +447,6 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 
 
 2026-10-04 Combat readability：新增 13 個 `readability.*` 雙語鍵，涵蓋持續傷害來源、減傷前數值提示、遺書作者與翻頁、空資料。總計 612 鍵、879 種驗證字元。
+
+
+2026-10-04 Pressure cores：新增 16 個 `pressure.*` 雙語鍵，涵蓋核心生命、階段、預警、超時規則、傷害來源與角色記憶。總計 628 鍵、886 種驗證字元。

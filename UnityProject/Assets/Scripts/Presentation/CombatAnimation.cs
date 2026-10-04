@@ -48,7 +48,7 @@ namespace Ember.Presentation
         void EmitSkillAnimation(World w,SkillPresentation e)
         {
             if(e.agent<0||e.agent>=4)return;var a=w.agents[e.agent];if(!a.alive||a.escaped||!observedGroup.members.Contains(a.id))return;
-            SkillAnimationsPlayed++;castPoses[a.id]=.7f;var from=new Vector3(e.x,1.6f,e.z);var to=e.target>=0?new Vector3(w.agents[e.target].x,.15f,w.agents[e.target].z):new Vector3(observedGroup.boss.x,1.8f,observedGroup.boss.z);string id=e.skill;
+            SkillAnimationsPlayed++;castPoses[a.id]=.7f;var from=new Vector3(e.x,1.6f,e.z);var to=e.target>=0?new Vector3(w.agents[e.target].x,.15f,w.agents[e.target].z):new Vector3(observedGroup.boss.x,1.8f,observedGroup.boss.z);string id=e.skill;if(e.pressureAttack&&e.pressureTarget>=0&&observedGroup.boss.pressureCores!=null&&e.pressureTarget<observedGroup.boss.pressureCores.Count){var node=observedGroup.boss.pressureCores[e.pressureTarget];to=new Vector3(node.x,1.5f,node.z);}
             var mat=SpellMaterial(id,e.element);
             string mode=id=="basic"?(e.origin=="Sword"||e.origin=="Greatsword"?"slash":e.origin=="Bow"?"arrow":"orb"):id=="slash"||id=="wave"||id=="counter"?"slash":id=="shot"||id=="pierce"||id=="snipe"||id=="poison"?"arrow":id=="fireball"||id=="frost"||id=="holy"?"orb":id=="lightning"?"lightning":id=="meteor"?"meteor":id=="rain"?"rain":id=="trap"?"trap":id=="heal"||id=="cleanse"||id=="revive"?"heal":"aura";
             if(id=="guard"||id=="shield"||id=="rage"||id=="enchant"||id=="taunt")to=new Vector3(a.x,.1f,a.z);

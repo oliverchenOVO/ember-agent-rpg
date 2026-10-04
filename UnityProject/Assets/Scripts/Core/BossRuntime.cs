@@ -11,6 +11,7 @@ namespace Ember.Core.Phase2
         [NonSerialized] public Action<Agent,float> diagnosticDrain;
         void Damage(Action<Agent,float,string> fallback,Agent a,float raw,string text,DamageSource source,string id="")
         {if(diagnosticDamage!=null)diagnosticDamage(a,raw,text,source,id);else fallback(a,raw,text);}
+        public int pressureVersion; public List<PressureCore> pressureCores;
         public string definition,ability=""; public BossState visible=new BossState();
         public int phase,casts,interrupts,adds,target=-1; public float elapsed,phaseTime,phaseStartHp,x,z=1,shield,survivalLeft,hazardLeft,hazardX,hazardZ;
         public bool transitioned,deathResolved; public List<StatusState> statuses=new List<StatusState>();
@@ -25,7 +26,7 @@ namespace Ember.Core.Phase2
             presentationEvents.Add(new BossPresentationEvent{serial=++presentationSerial,kind=kind,ability=ability,phase=phase,target=target,x=x,z=z,targetX=visible.targetX,targetZ=visible.targetZ,radius=cue.radius,length=cue.length,innerRadius=cue.innerRadius,angle=cue.angle,shape=cue.shape});
             if(presentationEvents.Count>64)presentationEvents.RemoveAt(0);
         }
-        public static BossRuntime Create(BossDefinition def)=>new BossRuntime{definition=def.id,visible=new BossState{hp=def.hp,maxHp=def.hp,timer=2},phaseStartHp=def.hp};
+        public static BossRuntime Create(BossDefinition def)=>new BossRuntime{definition=def.id,visible=new BossState{hp=def.hp,maxHp=def.hp,timer=2},phaseStartHp=def.hp,pressureVersion=1,pressureCores=PressureField.Create(def)};
         public float Radius(TowerContent data)=>string.IsNullOrEmpty(ability)?3:data.Ability(ability).radius;
         public void Tick(TowerContent data,List<Agent> members,World events,float dt,Action<Agent,float,string> hurt)
         {
@@ -42,9 +43,9 @@ namespace Ember.Core.Phase2
             }
             recoveryWindow=Mathf.Max(0,recoveryWindow-dt);var p=def.phases[phase];b.enraged=elapsed>=p.enrageAfter;
             if(p.dpsDeadline>0&&phaseTime>=p.dpsDeadline&&phaseStartHp-b.hp<b.maxHp*p.requiredDamage){b.enraged=true;shield=0;}
-            if(def.ambientPressure>0)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,def.ambientPressure*dt*(recoveryWindow>0?.2f:1)*(1+Mathf.Max(0,elapsed-p.enrageAfter)/20),Loc.Token("p3.cause.pressure"),DamageSource.Pressure);
-            // Enrage escalation prevents indefinitely sustainable recovery-only strategies.
-            if(elapsed>240)foreach(var a in members)if(a.alive&&!a.escaped)Damage(hurt,a,a.MaxHp*dt*(elapsed-240)*.015f,Loc.Token("p3.cause.enrage"),DamageSource.Enrage);
+            if(pressureVersion==0||pressureCores==null){pressureCores=PressureField.Create(def);pressureVersion=1;} // Old saves gain explicit sources.
+            PressureField.Tick(this,dt);
+            if(b.hp>0)foreach(var a in members)if(a.alive&&!a.escaped){float damage=PressureField.DamageDuringTick(data,this,a);if(damage>0)Damage(hurt,a,damage,Loc.Token("pressure.cause"),DamageSource.Pressure);}
             for(int i=statuses.Count-1;i>=0;i--)
             {
                 var s=statuses[i];s.left-=dt;var a=members.Find(v=>v.id==s.agent);

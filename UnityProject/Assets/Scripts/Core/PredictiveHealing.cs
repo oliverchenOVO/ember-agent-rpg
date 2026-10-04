@@ -9,12 +9,11 @@ namespace Ember.Core.Phase2
         float IncomingDamage(GroupState g,Agent target,float horizon)
         {
             if(horizon<=0)return 0;var b=g.boss;var phase=Data.Boss(b.definition).phases[b.phase];
-            float incoming=Data.Boss(b.definition).ambientPressure*horizon*(b.recoveryWindow>0?.2f:1)*(1+Mathf.Max(0,b.elapsed-phase.enrageAfter)/20),burst=0;
+            float incoming=PressureField.Forecast(Data,b,target,horizon),burst=0;
             if(b.visible.telegraph&&b.visible.windup<=horizon){var attack=Data.Ability(b.ability);bool hit=attack.mechanic==Mechanic.Drain?b.target==target.id:b.cue.radius>0?b.cue.Contains(target.x,target.z):Simulation.Distance(target.x,target.z,b.visible.targetX,b.visible.targetZ)<attack.radius;if(hit)burst+=attack.damage*(b.visible.enraged?1.2f:1);}
             foreach(var status in b.statuses)if(status.agent==target.id){if(status.kind=="Burn")incoming+=status.power*Mathf.Min(horizon,status.left);if(status.kind=="Doom"&&status.left<=horizon)burst+=target.MaxHp*1.2f;}
             if(b.hazardLeft>0&&Simulation.Distance(target.x,target.z,b.hazardX,b.hazardZ)<3)incoming+=7*Mathf.Min(horizon,b.hazardLeft);
             foreach(var id in g.members){var v=State.world.agents[id];if(v.alive&&!v.escaped){if(id==target.id)incoming+=b.adds*2*horizon;break;}}
-            if(b.elapsed>240)incoming+=target.MaxHp*horizon*(b.elapsed-240)*.015f;
             incoming=incoming*100/(100+Mathf.Max(0,target.armor)*8)*(1-Mathf.Clamp(target.guard,0,.8f));if(burst>0)incoming+=Simulation.Damage(burst,target.armor,target.guard);
             var shield=Effect(b,target.id,"Shield");return Mathf.Max(0,incoming-(shield?.power??0));
         }

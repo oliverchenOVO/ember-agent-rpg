@@ -22,3 +22,8 @@ M7：長時間穩定性、效能、可及性、完整音畫製作与 release。
 ## Phase 3.1.1 收尾（2026-10-03）
 
 Build pipeline 已恢復；新 Development／Release 與成品 SHA 完整保存。3,500 個診斷 seed-runs 顯示預測治療降低 overheal，但 H3 的法師 7/100、弓箭手 15/100、補師 100/100 突破 10F，組成平衡仍 FAIL。雙語主要 UI／遊戲中切換與七種 Save/Load replay 有通過證據；Native 根因與完整效能 Gate 仍有量測限制。沒有 RC／FINAL，沒有啟動新版正式 500／1000／5000 或 120 分鐘 soak；不進入 Phase 4。最新資料與限制見 [Phase 3.1.1 驗證](PHASE3_1_1_VALIDATION.md)。
+
+
+## 持續扣血玩法改版（2026-10-04）
+
+全場壓力與超時耗損改為可預警、可離開、可摧毀的壓力核心；整合 Agent 閃避、普攻目標、預測治療與存檔。僅進行受控短測與畫面回歸，不重跑長時間測試，不更新歷史 Balance Gate 為通過。見 [驗證紀錄](PRESSURE_CORE_VALIDATION.md)。

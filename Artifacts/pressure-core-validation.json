@@ -1,0 +1,145 @@
+{
+  "candidate": "pressure-cores",
+  "base_commit": "6d0fc3f",
+  "build_manifest": "Artifacts/pressure-core-build-manifest.json",
+  "presentation_source_hash": "0d491db4b5d7a1d91c787a038295f3b5eb44f5634e6a92754ac8c4c406eedbaa",
+  "unit_checks": 21,
+  "ai_fixtures": [
+    {
+      "seed": 1729,
+      "seconds": 40,
+      "initial_core_hp": 270,
+      "remaining_core_hp": 0
+    },
+    {
+      "seed": 1730,
+      "seconds": 40,
+      "initial_core_hp": 270,
+      "remaining_core_hp": 0
+    }
+  ],
+  "fixture_limit": "Boss scheduled abilities suppressed in AI source-disabling fixtures; not a progression or balance gate.",
+  "galleries": [
+    {
+      "label": "pressure-gallery-dev-zh-final",
+      "screenshots": 12,
+      "layout": "Phase2 scenarios: 12 / 1600x900 / issues: 0",
+      "process": {
+        "elapsed": 48.860484,
+        "exitCode": 0,
+        "managedAssemblyHash": "C698CC171367A4EDB9615B6693C91373C276E45FD34C132F2EADDE0AF0D8D255",
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "configHash": "",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\PressureCores\\Development\\Ember.exe",
+        "state": "COMPLETE",
+        "utc": "2026-10-04T06:04:24.3670194Z"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "checks": "pressure_idle / PASS / cores=3 / warnings=0 / pulses=0\npressure_warning / PASS / cores=3 / warnings=1 / pulses=0\npressure_active / PASS / cores=3 / warnings=0 / pulses=1\npressure_outside / PASS / cores=3 / warnings=0 / pulses=1\npressure_overtime / PASS / cores=3 / warnings=0 / pulses=1\npressure_broken / PASS / cores=3 / warnings=0 / pulses=0\npressure_disabled / PASS / cores=3 / warnings=0 / pulses=0\npressure_combined / PASS / cores=3 / warnings=0 / pulses=1\npressure_attack / PASS / cores=3 / warnings=0 / pulses=0\npressure_saved / PASS / cores=3 / warnings=1 / pulses=0\npressure_refuge / PASS / cores=0 / warnings=0 / pulses=0\npressure_dossier / PASS / cores=3 / warnings=0 / pulses=0\n"
+    },
+    {
+      "label": "pressure-gallery-dev-en-final",
+      "screenshots": 12,
+      "layout": "Phase2 scenarios: 12 / 1280x720 / issues: 0",
+      "process": {
+        "state": "COMPLETE",
+        "utc": "2026-10-04T06:04:24.5176258Z",
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\PressureCores\\Development\\Ember.exe",
+        "configHash": "",
+        "exitCode": 0,
+        "elapsed": 47.1798509,
+        "managedAssemblyHash": "C698CC171367A4EDB9615B6693C91373C276E45FD34C132F2EADDE0AF0D8D255"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "checks": "pressure_idle / PASS / cores=3 / warnings=0 / pulses=0\npressure_warning / PASS / cores=3 / warnings=1 / pulses=0\npressure_active / PASS / cores=3 / warnings=0 / pulses=1\npressure_outside / PASS / cores=3 / warnings=0 / pulses=1\npressure_overtime / PASS / cores=3 / warnings=0 / pulses=1\npressure_broken / PASS / cores=3 / warnings=0 / pulses=0\npressure_disabled / PASS / cores=3 / warnings=0 / pulses=0\npressure_combined / PASS / cores=3 / warnings=0 / pulses=1\npressure_attack / PASS / cores=3 / warnings=0 / pulses=0\npressure_saved / PASS / cores=3 / warnings=1 / pulses=0\npressure_refuge / PASS / cores=0 / warnings=0 / pulses=0\npressure_dossier / PASS / cores=3 / warnings=0 / pulses=0\n"
+    },
+    {
+      "label": "pressure-gallery-release-zh-final",
+      "screenshots": 12,
+      "layout": "Phase2 scenarios: 12 / 1600x900 / issues: 0",
+      "process": {
+        "utc": "2026-10-04T06:04:24.6389169Z",
+        "configHash": "",
+        "elapsed": 47.1772849,
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "state": "COMPLETE",
+        "managedAssemblyHash": "3E49D30B1A55E35CDB17554F87421BDFFAE5B4753F92D8199378F529652784C9",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\PressureCores\\Windows\\Ember.exe",
+        "exitCode": 0
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "checks": "pressure_idle / PASS / cores=3 / warnings=0 / pulses=0\npressure_warning / PASS / cores=3 / warnings=1 / pulses=0\npressure_active / PASS / cores=3 / warnings=0 / pulses=1\npressure_outside / PASS / cores=3 / warnings=0 / pulses=1\npressure_overtime / PASS / cores=3 / warnings=0 / pulses=1\npressure_broken / PASS / cores=3 / warnings=0 / pulses=0\npressure_disabled / PASS / cores=3 / warnings=0 / pulses=0\npressure_combined / PASS / cores=3 / warnings=0 / pulses=1\npressure_attack / PASS / cores=3 / warnings=0 / pulses=0\npressure_saved / PASS / cores=3 / warnings=1 / pulses=0\npressure_refuge / PASS / cores=0 / warnings=0 / pulses=0\npressure_dossier / PASS / cores=3 / warnings=0 / pulses=0\n"
+    },
+    {
+      "label": "pressure-codex-release",
+      "screenshots": 13,
+      "layout": "Phase2 scenarios: 13 / 1280x720 / issues: 0",
+      "process": {
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\PressureCores\\Windows\\Ember.exe",
+        "exitCode": 0,
+        "elapsed": 22.4760548,
+        "configHash": "",
+        "managedAssemblyHash": "3E49D30B1A55E35CDB17554F87421BDFFAE5B4753F92D8199378F529652784C9",
+        "state": "COMPLETE",
+        "utc": "2026-10-04T06:05:54.4532132Z"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "checks": null
+    },
+    {
+      "label": "pressure-readability-release",
+      "screenshots": 12,
+      "layout": "Phase2 scenarios: 12 / 1280x720 / issues: 0",
+      "process": {
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\PressureCores\\Windows\\Ember.exe",
+        "configHash": "",
+        "managedAssemblyHash": "3E49D30B1A55E35CDB17554F87421BDFFAE5B4753F92D8199378F529652784C9",
+        "utc": "2026-10-04T06:05:53.5694212Z",
+        "elapsed": 21.4860386,
+        "state": "COMPLETE",
+        "exitCode": 0
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "checks": null
+    },
+    {
+      "label": "pressure-inspection-release",
+      "screenshots": 14,
+      "layout": "Phase2 scenarios: 14 / 1280x720 / issues: 0",
+      "process": {
+        "configHash": "",
+        "utc": "2026-10-04T06:05:54.5755550Z",
+        "elapsed": 22.4871424,
+        "managedAssemblyHash": "3E49D30B1A55E35CDB17554F87421BDFFAE5B4753F92D8199378F529652784C9",
+        "exitCode": 0,
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\PressureCores\\Windows\\Ember.exe",
+        "state": "COMPLETE"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0,
+      "checks": null
+    }
+  ],
+  "screenshots": 75,
+  "long_tests": {
+    "5000_seed": "not run for this candidate",
+    "120_minute_soak": "not run for this candidate",
+    "balance_gate": "historical FAIL; new balance not certified"
+  },
+  "performance_certification": false,
+  "prior_attempts": [
+    "pressure-build-pair-1: test used zero-pressure floor",
+    "pressure-build-pair-2: legacy list normalization exposed",
+    "pressure-build-pair-3: invalid-source fixture left legacy version flag",
+    "pressure-build-pair-4: successful initial candidate; panel moved aside and inner wave animation added before final build"
+  ]
+}

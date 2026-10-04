@@ -95,7 +95,7 @@ namespace Ember.Presentation
             CodexLine(ref y,Loc.T("codex.boss_stats",CodexText.N(b.visible.hp),CodexText.N(b.visible.maxHp),CodexText.N(def.armor),Loc.T("codex.element."+def.weaknessElement),Loc.T("codex.element."+def.resistElement)));
             CodexLine(ref y,Loc.T("codex.boss_state",Loc.T(def.phases[b.phase].nameKey),Loc.T(b.visible.enraged?"codex.yes":"codex.no"),CodexText.N(b.shield*100),b.adds),small);
             CodexLine(ref y,Loc.T("codex.boss_note"),small);
-            CodexLine(ref y,Loc.T("codex.pressure",CodexText.N(def.ambientPressure)),small);
+            if(def.ambientPressure>0)CodexLine(ref y,Loc.T("pressure.rules",CodexText.N(def.ambientPressure)),small);
             if(def.deathMechanic=="FinalPulse")CodexLine(ref y,Loc.T("codex.death_pulse"),small);
             for(int phase=0;phase<def.phases.Length;phase++)
             {

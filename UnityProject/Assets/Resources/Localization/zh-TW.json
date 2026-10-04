@@ -2448,6 +2448,70 @@
     {
       "key": "readability.raw_note",
       "value": "以上為減傷前數值；護甲、防禦與護盾影響實際扣血。"
+    },
+    {
+      "key": "pressure.cause",
+      "value": "壓力核心的地面脈衝"
+    },
+    {
+      "key": "pressure.dodge",
+      "value": "先離開壓力核心的預警區。"
+    },
+    {
+      "key": "pressure.disable",
+      "value": "摧毀第 {0} 座壓力核心。"
+    },
+    {
+      "key": "pressure.destroyed",
+      "value": "第 {0} 座壓力核心已摧毀，這場戰鬥不會再啟動。"
+    },
+    {
+      "key": "pressure.memory",
+      "value": "摧毀第 {0} 座壓力核心，可以消除它的地面脈衝。"
+    },
+    {
+      "key": "pressure.damage",
+      "value": "核心脈衝 {0}／秒（離開紅色區域）"
+    },
+    {
+      "key": "pressure.warning",
+      "value": "核心正在蓄能：離開橘色預警區。"
+    },
+    {
+      "key": "pressure.rules",
+      "value": "壓力核心：預警 3 秒、脈衝 5 秒、半徑 3，基礎 {0}／秒。圈外免傷；摧毀核心可停用。狂暴傷害 ×1.5；240 秒後週期由 20 縮至 14 秒。"
+    },
+    {
+      "key": "pressure.header",
+      "value": "壓力核心 {0} / 3｜{1}"
+    },
+    {
+      "key": "pressure.normal",
+      "value": "摧毀核心或離開預警範圍"
+    },
+    {
+      "key": "pressure.overtime",
+      "value": "超時：脈衝間隔縮短"
+    },
+    {
+      "key": "pressure.node",
+      "value": "核心 {0}｜{1} / {2}｜{3}"
+    },
+    {
+      "key": "pressure.charging",
+      "value": "蓄能"
+    },
+    {
+      "key": "pressure.active",
+      "value": "脈衝中"
+    },
+    {
+      "key": "pressure.idle",
+      "value": "冷卻"
+    },
+    {
+      "key": "pressure.broken",
+      "value": "已摧毀"
     }
   ]
 }

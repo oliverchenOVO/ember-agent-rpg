@@ -61,6 +61,9 @@ namespace Ember.Core.Phase2
             {if(p.knownRooms==null)p.knownRooms=new List<int>();if(p.route==null)p.route=new RefugeRoute();if(p.route.points==null)p.route.points=new List<Vector2>();if(p.knownRooms.Count>6||p.knownRooms.Any(i=>i<0||i>5)||!Finite(p.discussionLeft)||p.discussionLeft<0||!Finite(p.route.target.x)||!Finite(p.route.target.y)||p.route.points.Count>1024||p.route.index<0||p.route.index>p.route.points.Count||p.route.points.Any(v=>!Finite(v.x)||!Finite(v.y)))throw new InvalidDataException("Invalid refuge plan");}
             foreach(var g in s.groups)
             {
+                if(g.boss!=null&&g.boss.pressureVersion==0&&data.Boss(g.boss.definition)!=null){g.boss.pressureCores=PressureField.Create(data.Boss(g.boss.definition));g.boss.pressureVersion=1;}
+                if(g.boss!=null&&(g.boss.pressureVersion!=1||g.boss.pressureCores==null))throw new InvalidDataException("Invalid pressure version");
+                if(g.boss!=null&&g.boss.pressureCores!=null&&(g.boss.pressureCores.Count>3||g.boss.pressureCores.Any(n=>n==null||!Finite(n.x)||!Finite(n.z)||Mathf.Abs(n.x)>9||Mathf.Abs(n.z)>7||!Finite(n.hp)||!Finite(n.maxHp)||n.maxHp<=0||n.hp<0||n.hp>n.maxHp||n.stage<0||n.stage>2||!Finite(n.left)||n.left<0||n.left>30)))throw new InvalidDataException("Invalid pressure cores");
                 if(g.refugeVersion<0||g.refugeVersion>1||g.refugeVariant<0||g.refugeVariant>5)throw new InvalidDataException("Invalid refuge layout version");
                 if(g.boss!=null){if(g.boss.skillEvents==null)g.boss.skillEvents=new List<SkillPresentation>();if(g.boss.presentationEvents==null)g.boss.presentationEvents=new List<BossPresentationEvent>();if(g.boss.skillEvents.Count>64||g.boss.presentationEvents.Count>64)throw new InvalidDataException("Unbounded presentation events");}
                 if(g.availableRestSites==null)g.availableRestSites=new List<string>();

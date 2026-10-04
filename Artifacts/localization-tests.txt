@@ -1,2 +1,2 @@
-PASS: 612 keys in each locale; placeholder parity; 879 distinct glyphs covered; nested language switching; legacy records; catalog/enum coverage.
+PASS: 628 keys in each locale; placeholder parity; 886 distinct glyphs covered; nested language switching; legacy records; catalog/enum coverage.
 TextMeshPro installed: False; current UI: IMGUI; embedded dynamic Noto Sans CJK TC font.

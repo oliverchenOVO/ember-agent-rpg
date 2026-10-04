@@ -50,7 +50,7 @@ namespace Ember.Core.Phase2
             bool urgentHealing=Rules.predictiveHealing&&a.intent.kind==ActionKind.Skill&&Catalog.Skill(a.intent.skill).effect=="Heal"&&State.world.agents.Exists(v=>v.id==a.intent.target&&v.alive&&v.hp<v.MaxHp*.35f);
             if(Rules.defensiveAI&&g.boss.visible.telegraph&&g.boss.target!=a.id&&CanUseSkill(a,"taunt",false))
             {var target=State.world.agents.Find(v=>v.id==g.boss.target);if(target!=null&&target.hp<target.MaxHp*.6f&&(g.boss.cue.shape==CueShape.Circle||Data.Ability(g.boss.ability).mechanic==Mechanic.Drain)){a.intent=new Intent{kind=ActionKind.Skill,skill="taunt",reason=Loc.Token("p31.reason.intercept")};}}
-            if(Rules.defensiveAI&&!urgentHealing&&Data.Boss(g.boss.definition).ambientPressure>0&&a.hp<a.MaxHp*.8f&&a.guard<.15f&&Effect(g.boss,a.id,"Shield")==null)
+            if(Rules.defensiveAI&&!urgentHealing&&PressureField.Rate(Data,g.boss,a.x,a.z)>0&&a.hp<a.MaxHp*.8f&&a.guard<.15f&&Effect(g.boss,a.id,"Shield")==null)
             {foreach(var id in a.equipped)if((id=="guard"||id=="shield"||id=="ward")&&CanUseSkill(a,id,false)){a.intent=new Intent{kind=ActionKind.Skill,skill=id,reason=Loc.Token("p31.reason.defense")};break;}}
             if(a.intent.kind!=ActionKind.Skill)return;var skill=Catalog.Skill(a.intent.skill);
             bool burstBlocked=Rules.shieldPriority&&skill.effect=="Damage"&&(g.boss.shield>.25f||g.boss.adds>0)&&skill.mana>Catalog.Skill(Catalog.Class(a.profession).starter).mana*1.5f;

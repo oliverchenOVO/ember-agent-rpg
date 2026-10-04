@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Ember.Core.Phase2
 {
     [Serializable] public class CombatEffect { public int agent,source;public string kind,element;public float left,power,x,z,radius; }
-    [Serializable] public class SkillPresentation { public int agent,target,serial;public string skill,origin,element;public float x,z;public bool infused; }
+    [Serializable] public class SkillPresentation { public bool pressureAttack; public int pressureTarget=-1; public int agent,target,serial;public string skill,origin,element;public float x,z;public bool infused; }
     public sealed partial class TowerSimulation
     {
         public bool CanUseSkill(Agent a,string id,bool infused)

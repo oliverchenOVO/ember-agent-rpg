@@ -29,14 +29,13 @@ namespace Ember.Presentation
                 if(scenario=="read_burn"||scenario=="read_combined")b.statuses.Add(new StatusState{agent=0,kind="Burn",power=2,left=5,ability="extract"});
                 if(scenario=="read_summons"||scenario=="read_combined")b.adds=2;
                 if(scenario=="read_hazard"||scenario=="read_combined"){b.hazardLeft=4;b.hazardX=agents[0].x;b.hazardZ=agents[0].z;}
+                var node=b.pressureCores[0];node.stage=1;node.left=5;agents[0].x=node.x;agents[0].z=node.z;
                 string before=JsonUtility.ToJson(tower.State);var lines=DamageDescriptions(tower.Data,g,agents[0]);
-                if(!lines.Any(l=>l==Loc.T("readability.pressure",(tower.Data.Boss(b.definition).ambientPressure*(1+Mathf.Max(0,b.elapsed-tower.Data.Boss(b.definition).phases[b.phase].enrageAfter)/20)).ToString("F1"))))throw new Exception("Pressure display absent");
-                if(scenario=="read_overtime"&&!lines.Any(l=>l.Contains(Loc.T("readability.attrition",(agents[0].MaxHp*10*.015f).ToString("F1")))))throw new Exception("Overtime display absent");
+                if(!lines.Any(l=>l==Loc.T("pressure.damage",PressureField.Rate(tower.Data,b,agents[0].x,agents[0].z).ToString("F1"))))throw new Exception("Localized source pressure display absent");
                 if(before!=JsonUtility.ToJson(tower.State))throw new Exception("Damage UI mutated simulation");
-                view.SetExpedition(tower.Data,g);simulation.Restore(tower.Observe(0));view.Update(simulation.State,.1f,0);if(!view.PressureAuraVisible)throw new Exception("Pressure aura invisible without cast");
-                // Exercise the actual Boss tick with no scheduled cast: pressure must still hurt.
-                if(scenario=="read_pressure"){float hp=agents[0].hp;b.Tick(tower.Data,g.members.Select(id=>agents[id]).ToList(),tower.State.world,.1f,(a,raw,cause)=>a.hp-=raw);if(agents[0].hp>=hp||b.casts!=0||b.visible.telegraph)throw new Exception("No-cast pressure fixture failed");}
-                File.WriteAllText(Path.Combine(artifactPath,"readability-check.txt"),"PASS: no-cast pressure damage, visible persistent aura, overtime labels and observation state unchanged; author-specific legacy fixtures.");
+                view.SetExpedition(tower.Data,g);simulation.Restore(tower.Observe(0));view.Update(simulation.State,.1f,0);if(view.VisiblePressurePulses!=1||view.PressureAuraVisible)throw new Exception("Local pulse visual failed");
+                if(scenario=="read_pressure"){float hp=agents[0].hp;b.Tick(tower.Data,g.members.Select(id=>agents[id]).ToList(),tower.State.world,.1f,(agent,raw,cause)=>agent.hp-=raw);if(agents[0].hp>=hp||b.casts!=0||b.visible.telegraph)throw new Exception("Local pulse fixture failed");}
+                File.WriteAllText(Path.Combine(artifactPath,"readability-check.txt"),"PASS: localized ground pulse, no global pressure aura, observation state unchanged; author-specific legacy fixtures.");
             }
         }
     }

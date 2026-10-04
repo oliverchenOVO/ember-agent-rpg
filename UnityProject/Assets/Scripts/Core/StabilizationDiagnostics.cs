@@ -21,7 +21,7 @@ namespace Ember.Core.Phase2
     {
         // Diagnostics are opt-in and never consume random numbers or alter decisions.
         public bool DiagnosticsEnabled;
-        public const string SimulationVersion="phase3.1-diagnostics-1", BalanceVersion="P3.1.1-EXP2.1";
+        public const string SimulationVersion="phase3.1-diagnostics-1", BalanceVersion="P3-PressureCores-1";
         static SourceAmount Source(List<SourceAmount> rows,string id)
         {var r=rows.Find(v=>v.id==id);if(r==null){r=new SourceAmount{id=id};rows.Add(r);}return r;}
         PhaseDiagnostic DiagnosticPhase(GroupState g)

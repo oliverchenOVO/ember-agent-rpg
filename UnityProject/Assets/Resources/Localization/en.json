@@ -2448,6 +2448,70 @@
     {
       "key": "readability.raw_note",
       "value": "Raw values before armor, defense and shields."
+    },
+    {
+      "key": "pressure.cause",
+      "value": "Pressure-core ground pulse"
+    },
+    {
+      "key": "pressure.dodge",
+      "value": "Leave the pressure-core warning zone first."
+    },
+    {
+      "key": "pressure.disable",
+      "value": "Disable pressure core {0}."
+    },
+    {
+      "key": "pressure.destroyed",
+      "value": "Pressure core {0} destroyed; it will not reactivate this fight."
+    },
+    {
+      "key": "pressure.memory",
+      "value": "Destroying pressure core {0} removes its ground pulses."
+    },
+    {
+      "key": "pressure.damage",
+      "value": "Core pulse {0}/s (leave the red zone)"
+    },
+    {
+      "key": "pressure.warning",
+      "value": "Core charging: leave the orange warning zone."
+    },
+    {
+      "key": "pressure.rules",
+      "value": "Pressure cores: 3s warning, 5s pulse, radius 3, base {0}/s. Safe outside; destroy cores to disable. Enrage damage x1.5; cycle shortens from 20s to 14s after 240s."
+    },
+    {
+      "key": "pressure.header",
+      "value": "Pressure cores {0} / 3 | {1}"
+    },
+    {
+      "key": "pressure.normal",
+      "value": "Destroy cores or leave warning zones"
+    },
+    {
+      "key": "pressure.overtime",
+      "value": "Overtime: shorter pulse intervals"
+    },
+    {
+      "key": "pressure.node",
+      "value": "Core {0} | {1} / {2} | {3}"
+    },
+    {
+      "key": "pressure.charging",
+      "value": "Charging"
+    },
+    {
+      "key": "pressure.active",
+      "value": "Pulsing"
+    },
+    {
+      "key": "pressure.idle",
+      "value": "Cooling down"
+    },
+    {
+      "key": "pressure.broken",
+      "value": "Destroyed"
     }
   ]
 }
