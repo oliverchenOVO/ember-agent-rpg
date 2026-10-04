@@ -36,3 +36,14 @@ LLM 不控制逐幀操作。外部回覆時序不保證可重現，決定性主�
 This separation makes decision failures observable and testable. A screenshot can explain what an Agent chose; a seeded fixture can test whether that action was legal; telemetry can compare the resulting damage, healing and resources. The intended research question is how bounded autonomous policies behave together—not whether an LLM can operate a game controller.
 
 [Action logic](AGENT_DECISION_LOGIC.md) · [Algorithms](ALGORITHMS.md) · [Memory](MEMORY_RELATIONSHIPS.md) · [Evidence](ENGINEERING_EVIDENCE.md).
+
+## 圖表語言與重新產生
+
+預設圖表位於 `Media/Diagrams`，使用繁體中文；英文版位於 `Media/Diagrams/en`。架構、行動流程、記憶傳承與平衡比較圖皆由 [圖表產生腳本](../Tools/generate-portfolio-diagrams.py) 繪製，使用專案內附的 Noto CJK 字型；實機截圖不受影響。
+
+安裝 Pillow 與 matplotlib 後，可執行：
+
+```sh
+python Tools/generate-portfolio-diagrams.py --locale zh-TW
+python Tools/generate-portfolio-diagrams.py --locale en
+```

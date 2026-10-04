@@ -31,7 +31,7 @@ Four autonomous adventurers fight, build relationships, leave memories behind, a
 
 The runtime separates high-level goals from local combat execution. A rule-based reasoner proposes a goal; the engine checks legality and applies safety, resource and team-coordination policies. An optional asynchronous LLM gateway proposes bounded decisions and falls back to local rules. It does not control animation or movement each frame.
 
-![System architecture: state, decisions, simulation, presentation and evidence](Media/Diagrams/architecture.png)
+![System architecture: state, decisions, simulation, presentation and evidence](Media/Diagrams/en/architecture.png)
 
 Read the [architecture](Docs/ARCHITECTURE.md), [Agent action pipeline](Docs/AGENT_DECISION_LOGIC.md), [worked algorithm examples](Docs/ALGORITHMS.md), or [memory and relationship design](Docs/MEMORY_RELATIONSHIPS.md).
 
