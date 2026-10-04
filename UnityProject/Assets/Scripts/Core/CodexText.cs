@@ -4,10 +4,10 @@ namespace Ember.Core.Phase2
     public static class CodexText
     {
         public static string N(float n)=>n.ToString("0.##",CultureInfo.InvariantCulture);
-        public static float Power(Agent a,SkillDef s)=>s.power+a.stats.str*.4f+(s.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.8f;
+        public static float Power(Agent a,SkillDef s)=>TeamBalance.Power(a,s);
         public static string SkillEffect(Agent a,SkillDef s,bool holyExtra=true)
         {
-            float p=Power(a,s);return Loc.T("codex.skill."+s.id,N(p),N(p*.4f),N(p*.6f),N(p*.65f),N(p*1.2f),N(p*1.15f),N(35+a.stats.intel*2),N(15+a.stats.vit),N(20+a.stats.wis*2),N(5+a.stats.wis*.3f),holyExtra?2:0);
+            float p=Power(a,s);return Loc.T("codex.skill."+s.id,N(p),N(p*.4f),N(p*.6f),N(p*.65f),N(p*1.2f),N(p*1.15f),N(35+a.stats.intel*2),N(15+a.stats.vit),N(20+a.stats.wis*2),N(TeamBalance.HolyRecovery(a)),holyExtra?2:0);
         }
         public static string AbilityEffect(AbilityDefinition a,bool reducedDrain=false)
         {

@@ -49,7 +49,7 @@ namespace Ember.Core.Phase2
                     else if(ally!=null)Heal(a,ally,p,s.id);return true;
                 case "cleanse":
                     if(ally==null)ally=a;b.statuses.RemoveAll(e=>e.agent==ally.id);Heal(a,ally,p,s.id);return true;
-                case "ward":foreach(var id in g.members)if(State.world.agents[id].alive)ApplyEffect(b,id,a.id,"Shield",8,20+a.stats.wis*2);return true;
+                case "ward":foreach(var id in g.members)if(State.world.agents[id].alive&&!State.world.agents[id].escaped)ApplyEffect(b,id,a.id,"Shield",8,20+a.stats.wis*2);return true;
                 case "shield":ApplyEffect(b,a.id,a.id,"Shield",8,35+a.stats.intel*2);return true;
                 case "guard":a.guard=.65f;ApplyEffect(b,a.id,a.id,"Shield",5,15+a.stats.vit);return true;
                 case "counter":a.guard=.5f;ApplyEffect(b,a.id,a.id,"Counter",5,p);Deal(a,g,p*.4f,"Physical",true);return true;
@@ -63,9 +63,9 @@ namespace Ember.Core.Phase2
                 case "rain":case "lightning":b.adds=Mathf.Max(0,b.adds-3);Deal(a,g,p,s.id=="lightning"?"Arcane":"Physical",true);return true;
                 case "meteor":Deal(a,g,p,"Fire",true);ApplyEffect(b,-1,a.id,"Zone",4,8,"Fire");return true;
                 case "fireball":Deal(a,g,p,"Fire",true);ApplyEffect(b,-1,a.id,"Burn",4,4,"Fire");return true;
-                case "holy":Deal(a,g,p,"Light",true);Agent lowest=null;foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&(lowest==null||other.hp/other.MaxHp<lowest.hp/lowest.MaxHp))lowest=other;}if(lowest!=null){float raw=5+a.stats.wis*.3f,amount=Mathf.Min(raw,lowest.MaxHp-lowest.hp);float cost=Rules.holyRecoveryCost&&amount>0?2*amount/raw:0;if(a.mp>=cost){a.mp-=cost;RecordMana(a,cost);Heal(a,lowest,raw,"HolyAttack");}}return true;
+                case "holy":Deal(a,g,p,"Light",true);Agent lowest=null;foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&!other.escaped&&(lowest==null||other.hp/other.MaxHp<lowest.hp/lowest.MaxHp))lowest=other;}if(lowest!=null){float raw=TeamBalance.HolyRecovery(a),amount=Mathf.Min(raw,lowest.MaxHp-lowest.hp);float cost=Rules.holyRecoveryCost&&amount>0?2*amount/raw:0;if(amount>0&&a.mp>=cost){a.mp-=cost;RecordMana(a,cost);Heal(a,lowest,raw,"HolyAttack");}}return true;
                 case "heal":if(ally!=null){Heal(a,ally,p);ApplyEffect(b,ally.id,a.id,"Regen",4,3);}return true;
-                case "groupheal":foreach(var id in g.members){var other=State.world.agents[id];if(other.alive){Heal(a,other,p*.65f,"GroupHeal");ApplyEffect(b,id,a.id,"Shield",3,12);}}return true;
+                case "groupheal":foreach(var id in g.members){var other=State.world.agents[id];if(other.alive&&!other.escaped){Heal(a,other,p*.65f,"GroupHeal");ApplyEffect(b,id,a.id,"Shield",3,12);}}return true;
                 case "shot":Deal(a,g,p*(Simulation.Distance(a.x,a.z,b.x,b.z)>5?1.15f:1),"Physical",false);ApplyEffect(b,a.id,a.id,"Haste",2,.3f);return true;
                 case "snipe":Deal(a,g,p*1.2f,"Physical",false);a.attackTimer=1.2f;return true;
                 case "slash":Deal(a,g,p,"Physical",true);b.x=Mathf.Clamp(b.x+(b.x-a.x)*.08f,-8,8);return true;

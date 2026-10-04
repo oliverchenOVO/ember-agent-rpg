@@ -450,3 +450,6 @@ WorldView GameObject/材質/動畫名稱、debug log、Editor 測試輸出、技
 
 
 2026-10-04 Pressure cores：新增 16 個 `pressure.*` 雙語鍵，涵蓋核心生命、階段、預警、超時規則、傷害來源與角色記憶。總計 628 鍵、886 種驗證字元。
+
+
+2026-10-04 Team balance：新增 10 個 `balance.*` 雙語鍵，涵蓋角色定位、主要屬性公式、支援意圖與護盾協作。638 鍵、895 種驗證字元。

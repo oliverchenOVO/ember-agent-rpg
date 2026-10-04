@@ -1,0 +1,3 @@
+RuntimeHash=f2887a1ef236059437932c296940a6f8fd4bd15fd9f7d06fb819fcc5b789c6bc
+Balance=P3-PressureCores-1
+36 controlled encounters, 180 simulated seconds each, 60 wall seconds total; no progression/soak gate.

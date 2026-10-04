@@ -4,7 +4,7 @@ namespace Ember.Core.Phase2
 {
     public sealed partial class TowerSimulation
     {
-        float HealPower(Agent a,SkillDef s)=>s.power+a.stats.str*.4f+(s.profession==Profession.Healer?a.stats.wis:a.stats.intel)*.8f;
+        float HealPower(Agent a,SkillDef s)=>TeamBalance.Power(a,s);
         float HealTravel(Agent a,Agent target,SkillDef s)=>Mathf.Max(0,Simulation.Distance(a.x,a.z,target.x,target.z)-s.range)/(Simulation.MoveSpeed*Mathf.Max(.1f,State.GroupOf(a.id).boss.MovementMultiplier(a.id)));
         float IncomingDamage(GroupState g,Agent target,float horizon)
         {
@@ -18,7 +18,7 @@ namespace Ember.Core.Phase2
             var shield=Effect(b,target.id,"Shield");return Mathf.Max(0,incoming-(shield?.power??0));
         }
         float PredictedMissing(Agent a,GroupState g,Agent target,SkillDef s)
-        {float travel=Mathf.Clamp(HealTravel(a,target,s),0,1.5f),regen=0;foreach(var effect in g.boss.effects)if(effect.agent==target.id&&effect.kind=="Regen")regen+=effect.power*Mathf.Min(travel,effect.left);return Mathf.Clamp(target.MaxHp-target.hp+IncomingDamage(g,target,travel)-regen,0,target.MaxHp);}
+        {float travel=Mathf.Clamp(HealTravel(a,target,s),0,1.5f),regen=0;foreach(var effect in g.boss.effects)if(effect.agent==target.id&&effect.kind=="Regen")regen+=effect.power*Mathf.Min(travel,effect.left);return Mathf.Clamp(target.MaxHp-target.hp+IncomingDamage(g,target,travel)-regen-CommittedHealing(a,g,target),0,target.MaxHp);}
         bool HealingUrgent(GroupState g,Agent target)=>target.hp<target.MaxHp&&(target.hp-IncomingDamage(g,target,.5f))<target.MaxHp*.35f;
         Agent ChooseHealingTarget(Agent a,GroupState g,SkillDef s)
         {
@@ -36,13 +36,13 @@ namespace Ember.Core.Phase2
         bool PredictedHealUseful(Agent a,GroupState g,SkillDef s,Agent target)
         {
             if(target==null)return false;
-            if(s.id=="revive")return !target.alive&&!State.revivedAgents.Contains(target.id);
+            if(s.id=="revive"&&!target.alive)return !State.revivedAgents.Contains(target.id);
             if(s.id=="cleanse"&&g.boss.statuses.Exists(e=>e.agent==target.id))return true;
             float power=HealPower(a,s);
             if(s.id=="groupheal")
             {
-                float missing=0,raw=0;bool urgent=false;foreach(var id in g.members){var v=State.world.agents[id];if(!v.alive||v.escaped)continue;raw+=power*.65f;missing+=Mathf.Min(power*.65f,PredictedMissing(a,g,v,s));urgent|=HealingUrgent(g,v);}
-                return urgent||missing>=raw*.55f;
+                float missing=0,raw=0;int needy=0;bool urgent=false;foreach(var id in g.members){var v=State.world.agents[id];if(!v.alive||v.escaped)continue;raw+=power*.65f;float deficit=PredictedMissing(a,g,v,s);missing+=Mathf.Min(power*.65f,deficit);if(deficit>=power*.65f*.25f)needy++;urgent|=HealingUrgent(g,v);}
+                return needy>=2&&(urgent||missing>=raw*.55f);
             }
             return HealingUrgent(g,target)||PredictedMissing(a,g,target,s)>=power*.55f;
         }

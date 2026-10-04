@@ -40,6 +40,7 @@ namespace Ember.Editor
         public static void BuildAgentInspectionPair(){LocalizationValidation.Run();BuildPlayer(true,"../Builds/AgentInspection/Development/Ember.exe");BuildPlayer(false,"../Builds/AgentInspection/Windows/Ember.exe");}
         public static void BuildCombatReadabilityPair(){LocalizationValidation.Run();BuildPlayer(true,"../Builds/CombatReadability/Development/Ember.exe");BuildPlayer(false,"../Builds/CombatReadability/Windows/Ember.exe");}
         public static void BuildPressurePair(){PressureValidation.Run();LocalizationValidation.Run();BuildPlayer(true,"../Builds/PressureCores/Development/Ember.exe");BuildPlayer(false,"../Builds/PressureCores/Windows/Ember.exe");}
+        public static void BuildTeamBalancePair(){TeamBalanceValidation.Unit();PressureValidation.Run();LocalizationValidation.Run();TeamBalanceValidation.Candidate();BuildPlayer(true,"../Builds/TeamBalance/Development/Ember.exe");BuildPlayer(false,"../Builds/TeamBalance/Windows/Ember.exe");}
         static void BuildPlayer(bool development,string output=null)
         {
             Debug.Log("BUILD START / development="+development+" / UTC="+DateTime.UtcNow.ToString("O"));

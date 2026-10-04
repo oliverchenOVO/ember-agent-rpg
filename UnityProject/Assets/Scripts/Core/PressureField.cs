@@ -66,14 +66,14 @@ namespace Ember.Core.Phase2
             for(int i=0;i<b.pressureCores.Count;i++){var n=b.pressureCores[i];float d=Simulation.Distance(a.x,a.z,n.x,n.z);if(n.hp>0&&d<distance){index=i;distance=d;}}
             if(index<0)return false;
             // Critical healing takes precedence over disabling a source.
-            if(a.equipped.Any(id=>Catalog.Skill(id).effect=="Heal")&&State.Members(g).Any(v=>v.alive&&v.hp<v.MaxHp*.35f))return false;
+            if(TeamSupportIntent(a,g,out var support)){a.intent=support;return false;}
             var core=b.pressureCores[index];var weapon=Catalog.Item(a.weapon.id);float range=weapon.weapon=="Bow"||weapon.weapon=="Staff"?9:2.8f;
             // Approach a point outside the pulse, never the center of its danger area.
             var away=new Vector2(a.x-core.x,a.z-core.z).normalized;if(away==Vector2.zero)away=Vector2.down;var stand=new Vector2(core.x,core.z)+away*Mathf.Min(range-.2f,3.8f);
             a.intent=new Intent{kind=ActionKind.Attack,reason=Loc.Token("pressure.disable",index+1)};
             if(distance>range){Move(a,stand.x,stand.y,dt,speed);return true;}
             if(a.attackTimer>0)return true;float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
-            float hit=(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f)*Simulation.Proficiency(a,Catalog);core.hp=Mathf.Max(0,core.hp-hit);a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
+            float hit=TeamBalance.BasicPower(a,Catalog);core.hp=Mathf.Max(0,core.hp-hit);a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);
             RecordSkillVisual(a,g,"basic",-1,false,"Physical");b.skillPresentation.pressureAttack=true;b.skillPresentation.pressureTarget=index;
             if(core.hp==0){State.world.Say(a.id,Loc.Token("pressure.destroyed",index+1),"boss");State.Memory(a.id).Add(new Knowledge{key="pressure:"+b.definition+":"+index,text=Loc.Token("pressure.memory",index+1),scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=.8f});}
             return true;

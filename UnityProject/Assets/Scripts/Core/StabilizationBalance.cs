@@ -11,7 +11,7 @@ namespace Ember.Core.Phase2
         public bool recoveryWindow=true,windowManaRecovery=true,reducedManaDrain=true;
         public bool potionBeforeMovement=true,manaReserve=true,defensiveAI=true;
         public bool shieldPriority=true,retryInvalidCasts=true,healTiming=true,roleLoadout=true;
-        public bool predictiveHealing=false;
+        public bool predictiveHealing=true;
         public int clinicStockLimit=2,clinicKitCost=1;
     }
     public sealed partial class TowerSimulation

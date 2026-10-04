@@ -33,7 +33,6 @@ namespace Ember.Core.Phase2
                 string skill=RuleBasedReasoner.SelectSkill(a,Catalog,State.Profile(a.id));if(skill!=null)Adapter.Unlock(a,skill);
                 // Keep only four active skills, choosing a strategy rather than growing slots.
                 if(a.unlocked.Count>4){var choice=a.unlocked.Select(id=>Catalog.Skill(id)).OrderByDescending(s=>s.effect=="Heal"?a.personality.empathy*80:s.power+(s.effect=="Guard"?State.Profile(a.id).caution*40:0)).Take(4).Select(s=>s.id).ToList();var attack=a.unlocked.FirstOrDefault(id=>Catalog.Skill(id).effect=="Damage");if(attack!=null&&!choice.Any(id=>Catalog.Skill(id).effect=="Damage")){choice[3]=attack;}if(a.unlocked.Contains("revive")&&a.personality.empathy>.35f&&State.Members(g).Any(v=>!v.alive)&&!choice.Contains("revive")){int replace=choice.FindIndex(id=>id!="holy"&&id!="heal");if(replace>=0)choice[replace]="revive";}a.equipped=choice;}
-                if(Rules.combatRecovery&&Rules.roleLoadout&&g.floor>=5){string role=a.profession==Profession.Warrior?"taunt":a.profession==Profession.Healer?"revive":a.profession==Profession.Mage?"shield":"";foreach(string reserve in new[]{role,a.profession==Profession.Warrior?"guard":""}){if(string.IsNullOrEmpty(reserve)||!a.unlocked.Contains(reserve)||a.equipped.Contains(reserve))continue;if(a.equipped.Count<4)a.equipped.Add(reserve);else {string starter=Catalog.Class(a.profession).starter;int replace=a.equipped.FindLastIndex(id=>id!=starter&&id!="heal"&&id!=role);if(replace>=0)a.equipped[replace]=reserve;}}}
                 foreach(string tableId in f.lootTables)
                 {
                     var table=Array.Find(Data.loot,l=>l.id==tableId);a.materials+=table.materials;
@@ -45,6 +44,7 @@ namespace Ember.Core.Phase2
                 State.Memory(a.id).Add(new Knowledge{key="victory:"+g.floor,text=Loc.Token("p2.memory.victory",g.floor),scope=MemoryScope.Run,source=KnowledgeSource.OwnExperience,run=State.world.run,confidence=1,importance=.8f});
                 foreach(var other in State.Members(g).Where(o=>o.alive&&o!=a))Relate(a,other,RelationshipEventKind.TacticSuccess,.5f);
             }
+            if(Rules.combatRecovery&&Rules.roleLoadout)foreach(var member in State.Members(g).Where(v=>v.alive))EquipRoleSkills(member,g);
         }
         void ExecuteRest(Agent a,GroupState g,float dt)
         {

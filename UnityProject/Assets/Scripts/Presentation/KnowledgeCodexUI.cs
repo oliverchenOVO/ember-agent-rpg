@@ -140,13 +140,14 @@ namespace Ember.Presentation
             }
             y=baseY+row*154+8;var skill=c.Skill(inspectedSkill);if(skill==null)return;
             CodexLine(ref y,Loc.Skill(skill.id),subtitle);
+            CodexLine(ref y,Loc.T("balance.role."+skill.profession),small);
             CodexLine(ref y,Loc.T("codex.prerequisite",string.IsNullOrEmpty(skill.prerequisite)?Loc.T("ui.none"):Loc.Skill(skill.prerequisite)),small);
             CodexLine(ref y,Loc.T("codex.skill_cost",skill.mana,skill.cooldown,skill.id=="trap"?8:skill.range,skill.cost),small);
             if(a.profession!=skill.profession)CodexLine(ref y,Loc.T("codex.other_class"),small);
             else if(!a.unlocked.Contains(skill.id))CodexLine(ref y,Loc.T(a.skillPoints>=skill.cost&&(string.IsNullOrEmpty(skill.prerequisite)||a.unlocked.Contains(skill.prerequisite))?"codex.unlockable":"codex.not_ready"),small);
             CodexLine(ref y,Loc.T("codex.weapon",string.IsNullOrEmpty(skill.weapon)?Loc.T("codex.no_weapon"):Loc.T("codex.weapon."+skill.weapon)),small);
             CodexLine(ref y,CodexText.SkillEffect(a,skill,tower==null||tower.Rules.holyRecoveryCost));
-            if(skill.effect=="Damage"||skill.effect=="Heal")CodexLine(ref y,Loc.T("codex.formula",skill.power,Loc.T(skill.profession==Profession.Healer?"codex.wis":"codex.int"),CodexText.N(CodexText.Power(a,skill))),small);
+            if(skill.effect=="Damage"||skill.effect=="Heal")CodexLine(ref y,Loc.T("balance.formula",skill.power,Loc.T(skill.profession==Profession.Warrior?"balance.str":skill.profession==Profession.Archer?"balance.dex":skill.profession==Profession.Healer?"codex.wis":"codex.int"),CodexText.N(TeamBalance.Settings.skillScaling[(int)skill.profession]),CodexText.N(skill.profession==Profession.Healer&&skill.effect=="Damage"?TeamBalance.Settings.healerAttackMultiplier:1),CodexText.N(CodexText.Power(a,skill))),small);
             CodexLine(ref y,Loc.T("codex.skill_note"),small);
             if(!string.IsNullOrEmpty(a.weapon.infusion)&&a.weapon.infusion!=skill.id)
             {var infused=c.Skill(a.weapon.infusion);if(infused!=null){CodexLine(ref y,Loc.T("codex.infused")+" / "+Loc.Skill(infused.id),subtitle);CodexLine(ref y,CodexText.SkillEffect(a,infused,tower==null||tower.Rules.holyRecoveryCost),small);}}

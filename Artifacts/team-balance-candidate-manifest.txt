@@ -1,0 +1,3 @@
+RuntimeHash=3dababf1731b435606fc5b8f1f05260039c8e97b53ae77a97904286deceecb17
+Balance=P3-TeamBalance-1
+36 controlled encounters, 180 simulated seconds each, 60 wall seconds total; no progression/soak gate.

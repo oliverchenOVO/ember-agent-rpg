@@ -70,6 +70,7 @@ namespace Ember.Core.Phase2
                 }
             }
             StabilizeIntent(a,g);
+            CoordinateTeamIntent(a,g);
             ObserveRevive(a,g,dt,false);
             if(a.intent.kind==ActionKind.GiveUp){a.intent.kind=ActionKind.Attack;}
             if(a.intent.kind==ActionKind.Protect&&plan.decision.intent=="Fight")a.intent.kind=ActionKind.Attack;
@@ -95,7 +96,7 @@ namespace Ember.Core.Phase2
                     RecordSkillVisual(a,g,"basic",-1,false,a.enchant>0?"Fire":"Physical");
                     BeginBasicEconomy(a,Mathf.Max(.65f,1.7f-a.stats.dex*.025f));
                     float stat=weapon.weapon=="Bow"?a.stats.dex:weapon.weapon=="Staff"?(a.profession==Profession.Healer?a.stats.wis:a.stats.intel):a.stats.str;
-                    Deal(a,g,(weapon.power*a.weapon.quality+a.weapon.upgrade*3+stat*.9f+(a.enchant>0?12:0))*Simulation.Proficiency(a,Catalog)*(a.weapon.affix=="Astral"?1.1f:1),a.enchant>0?"Fire":"Physical",a.weapon.affix=="Break");
+                    Deal(a,g,TeamBalance.BasicPower(a,Catalog),a.enchant>0?"Fire":"Physical",a.weapon.affix=="Break");
                     if(a.weapon.affix=="Scorch")ApplyEffect(b,-1,a.id,"Burn",3,3,"Fire");
                     a.attackTimer=Mathf.Max(.65f,1.7f-a.stats.dex*.025f);EndCastEconomy();
                 }

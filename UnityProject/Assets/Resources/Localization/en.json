@@ -2512,6 +2512,46 @@
     {
       "key": "pressure.broken",
       "value": "Destroyed"
+    },
+    {
+      "key": "balance.support",
+      "value": "Support {0} before attacking."
+    },
+    {
+      "key": "balance.no_duplicate",
+      "value": "Avoid redundant support; continue attacking."
+    },
+    {
+      "key": "balance.formula",
+      "value": "Base {0} + {1} × {2}; attack multiplier {3}; current power {4}."
+    },
+    {
+      "key": "balance.role.Warrior",
+      "value": "Frontline / intercept threats and break openings"
+    },
+    {
+      "key": "balance.role.Archer",
+      "value": "Ranged / sustained damage and armor breaks"
+    },
+    {
+      "key": "balance.role.Mage",
+      "value": "Caster / burst damage and control"
+    },
+    {
+      "key": "balance.role.Healer",
+      "value": "Support / healing first, modest attack damage"
+    },
+    {
+      "key": "balance.str",
+      "value": "Strength"
+    },
+    {
+      "key": "balance.dex",
+      "value": "Dexterity"
+    },
+    {
+      "key": "balance.shield_team",
+      "value": "Shield threatened teammates before attacking."
     }
   ]
 }

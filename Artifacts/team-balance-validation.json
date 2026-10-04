@@ -1,0 +1,224 @@
+{
+  "candidate": "team-balance",
+  "base_commit": "bd4c9ac",
+  "summary": [
+    {
+      "composition": "Warrior",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 93.09550690649235,
+        "mean_mana_fraction": 0.16067600001891455,
+        "mean_seconds": 88.46588897705078,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 115.24262669116354,
+        "mean_mana_fraction": 0.21205450346072516,
+        "mean_seconds": 71.1994857788086,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 23.789676344870614
+    },
+    {
+      "composition": "Archer",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 134.8610090209784,
+        "mean_mana_fraction": 0.2684573804338773,
+        "mean_seconds": 60.799644470214844,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 154.53256108114962,
+        "mean_mana_fraction": 0.23091680308183035,
+        "mean_seconds": 53.26642608642578,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 14.586537801382748
+    },
+    {
+      "composition": "Mage",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 102.99979513732171,
+        "mean_mana_fraction": 0.20074825982252756,
+        "mean_seconds": 81.81599044799805,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 134.3866104473592,
+        "mean_mana_fraction": 0.169843556980292,
+        "mean_seconds": 63.28293991088867,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 30.472696832252776
+    },
+    {
+      "composition": "Healer",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 97.49166105295139,
+        "mean_mana_fraction": 0.9363213976224264,
+        "mean_seconds": 84.54928207397461,
+        "mean_living": 4,
+        "mean_overheal": 1191.2330729166667
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 75.75211416990363,
+        "mean_mana_fraction": 0.9353305697441101,
+        "mean_seconds": 108.46610005696614,
+        "mean_living": 4,
+        "mean_overheal": 2.2066776752471924
+      },
+      "dps_change_percent": -22.298878333030125
+    },
+    {
+      "composition": "Mixed",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 119.75574240336914,
+        "mean_mana_fraction": 0.3782271395126979,
+        "mean_seconds": 69.54951095581055,
+        "mean_living": 4,
+        "mean_overheal": 220.33330790201822
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 144.03690557124,
+        "mean_mana_fraction": 0.3723408083120982,
+        "mean_seconds": 57.666358947753906,
+        "mean_living": 4,
+        "mean_overheal": 0.6866666475931803
+      },
+      "dps_change_percent": 20.275573162984916
+    },
+    {
+      "composition": "NoHealer",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 125.92740085255109,
+        "mean_mana_fraction": 0.19346102327108383,
+        "mean_seconds": 66.34955978393555,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 164.52899697473597,
+        "mean_mana_fraction": 0.21537496894598007,
+        "mean_seconds": 50.91646194458008,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 30.653849647372343
+    }
+  ],
+  "paired_encounters": 36,
+  "analyzed_encounters": 72,
+  "fixture": "Two seeds, floors 6/8/10, identical controlled attributes, gear and four-skill loadouts; actual Boss abilities enabled; no progression/rest validation in the benchmark. Each encounter capped at 180 simulated seconds; each invocation capped at 60 wall seconds.",
+  "unit_checks": {
+    "team": 22,
+    "pressure_regression": 21
+  },
+  "galleries": [
+    {
+      "label": "team-gallery-dev-zh-verified",
+      "screenshots": 13,
+      "layout": "Phase2 scenarios: 13 / 1600x900 / issues: 0",
+      "process": {
+        "configHash": "",
+        "elapsed": 39.0362688,
+        "managedAssemblyHash": "391C46458D3EBE88357160C250AD5FAB6E8AE38C562F2540C21770D873483288",
+        "utc": "2026-10-04T06:55:49.2776069Z",
+        "executableHash": "11444A2F6337FFEF61386DC175A68948A78D798873A7FB45FA126E53FB5057F9",
+        "state": "COMPLETE",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\TeamBalance\\Development\\Ember.exe",
+        "exitCode": 0
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0
+    },
+    {
+      "label": "team-gallery-release-en-verified",
+      "screenshots": 13,
+      "layout": "Phase2 scenarios: 13 / 1280x720 / issues: 0",
+      "process": {
+        "elapsed": 35.7085745,
+        "configHash": "",
+        "exitCode": 0,
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\TeamBalance\\Windows\\Ember.exe",
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "state": "COMPLETE",
+        "utc": "2026-10-04T06:55:45.8589359Z",
+        "managedAssemblyHash": "4A75A1E04A804BBDC3639554D4D87C784602B8FA05E2E5A909F096BCC1F2A60D"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0
+    },
+    {
+      "label": "team-pressure-release-verified",
+      "screenshots": 12,
+      "layout": "Phase2 scenarios: 12 / 1600x900 / issues: 0",
+      "process": {
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\TeamBalance\\Windows\\Ember.exe",
+        "utc": "2026-10-04T06:55:45.4619290Z",
+        "configHash": "",
+        "managedAssemblyHash": "4A75A1E04A804BBDC3639554D4D87C784602B8FA05E2E5A909F096BCC1F2A60D",
+        "elapsed": 35.19282,
+        "exitCode": 0,
+        "state": "COMPLETE",
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5"
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0
+    },
+    {
+      "label": "team-inspection-release-verified",
+      "screenshots": 14,
+      "layout": "Phase2 scenarios: 14 / 1280x720 / issues: 0",
+      "process": {
+        "exitCode": 0,
+        "managedAssemblyHash": "4A75A1E04A804BBDC3639554D4D87C784602B8FA05E2E5A909F096BCC1F2A60D",
+        "executableHash": "7DD8B5F0BED481869A0D5907E97FB0792A0F05EB9B990DB49E0C59F830295CA5",
+        "state": "COMPLETE",
+        "utc": "2026-10-04T06:55:49.7609195Z",
+        "executable": "F:\\CodeX開發小東東\\Agent RPG\\Builds\\TeamBalance\\Windows\\Ember.exe",
+        "elapsed": 39.5873708,
+        "configHash": ""
+      },
+      "exceptions": 0,
+      "job_temp_warnings": 0
+    }
+  ],
+  "screenshots": 52,
+  "presentation_hash": "cfca39ea88522ebdca7f8ab834102cc917f6b37b502e1598b9a1feb4ce51d533",
+  "build_manifest": "Artifacts/team-balance-build-manifest.json",
+  "limits": {
+    "balance_gate": "historical FAIL; current full gate not run",
+    "5000_seed": "not run",
+    "120_minute_soak": "not run",
+    "performance": "not certified; UI galleries overlap"
+  },
+  "intermediate_benchmarks": [
+    "team-balance-candidate-1",
+    "team-balance-build-pair-1",
+    "team-balance-build-pair-final"
+  ],
+  "overheal_note": "Much of the decrease removes zero-effective HolyAttack recovery events at full health; it is not equivalent to mana savings."
+}

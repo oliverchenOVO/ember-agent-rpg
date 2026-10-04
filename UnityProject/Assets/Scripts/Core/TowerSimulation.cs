@@ -42,7 +42,7 @@ namespace Ember.Core.Phase2
                 {
                     if(!a.alive||a.escaped||State.GroupOf(a.id)!=g)continue;
                     a.attackTimer=Mathf.Max(0,a.attackTimer-dt);a.guard=Mathf.Max(0,a.guard-dt*.04f);a.enchant=Mathf.Max(0,a.enchant-dt);
-                    a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+(a.weapon.affix=="Recovery"?.6f:0)+(Rules.phaseWindows&&Rules.windowManaRecovery&&g.phase==Phase.Battle&&g.boss.recoveryWindow>0?1.5f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
+                    a.mp=Mathf.Min(a.MaxMp,a.mp+dt*(.75f+a.stats.wis*.035f+TeamBalance.Settings.manaRecoveryBonus[(int)a.profession]+(a.weapon.affix=="Recovery"?.6f:0)+(Rules.phaseWindows&&Rules.windowManaRecovery&&g.phase==Phase.Battle&&g.boss.recoveryWindow>0?1.5f:0)));foreach(var cd in a.cooldowns)cd.left=Mathf.Max(0,cd.left-dt);
                     var plan=State.Plan(a.id);if(plan.nextDecision<=w.clock&&plan.workLeft<=0&&plan.discussionLeft<=0)Decide(a,g,plan);
                     if(!State.groups.Contains(g)||State.GroupOf(a.id)!=g)continue;
                     if(g.phase==Phase.Battle)ExecuteCombat(a,g,dt);else {RecordRestTime(a,g,dt);ExecuteRest(a,g,dt);}

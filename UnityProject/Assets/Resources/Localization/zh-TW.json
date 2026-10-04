@@ -2512,6 +2512,46 @@
     {
       "key": "pressure.broken",
       "value": "已摧毀"
+    },
+    {
+      "key": "balance.support",
+      "value": "優先支援 {0}，再投入攻擊。"
+    },
+    {
+      "key": "balance.no_duplicate",
+      "value": "避免重複支援，繼續攻擊。"
+    },
+    {
+      "key": "balance.formula",
+      "value": "基礎 {0} + {1} × {2}；攻擊倍率 {3}；目前威力 {4}。"
+    },
+    {
+      "key": "balance.role.Warrior",
+      "value": "前線／攔截威脅、創造破綻"
+    },
+    {
+      "key": "balance.role.Archer",
+      "value": "遠攻／持續輸出、破甲支援"
+    },
+    {
+      "key": "balance.role.Mage",
+      "value": "施法／爆發輸出、控場"
+    },
+    {
+      "key": "balance.role.Healer",
+      "value": "支援／優先治療、輔助輸出"
+    },
+    {
+      "key": "balance.str",
+      "value": "力量"
+    },
+    {
+      "key": "balance.dex",
+      "value": "敏捷"
+    },
+    {
+      "key": "balance.shield_team",
+      "value": "先替受威脅的隊友施加護盾。"
     }
   ]
 }
