@@ -9,6 +9,6 @@ Status: Playable Research / Portfolio Build, as of Team Balance revision 43a2f70
 - **Performance:** clean short Player logs do not prove that historical native-allocation warnings are permanently fixed. Historical warning causes and complete latest long-session behavior are not fully established.
 - **AI:** default behavior is rule/utility based. Optional LLM integration is bounded and non-final; no neural-policy training or reinforcement-learning result is claimed. External timing is not unconditionally deterministic.
 - **Healer value:** no-healer parties were faster in the latest controlled fixture; healer usefulness across natural progression needs further study.
-- **Distribution:** the full development source/history is available for portfolio review. Public executable distribution requires security remediation, runtime notices and extracted-build verification; see [distribution status](Docs/DISTRIBUTION.md).
+- **Distribution:** the full development source/history is available for portfolio review. the Windows portfolio package includes official security remediation, notices and bounded extracted-build checks. Compatibility and production readiness remain limited; see [distribution status](Docs/DISTRIBUTION.md).
 
 以上限制保留研究版本的實際邊界；不把已修正的舊 UI bug 列為現在仍存在的功能缺陷。[Evidence](Docs/ENGINEERING_EVIDENCE.md).

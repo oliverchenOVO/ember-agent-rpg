@@ -7,7 +7,9 @@ Four autonomous adventurers fight, build relationships, leave memories behind, a
 
 **[繁體中文](README.zh-TW.md) · [Game gallery](Docs/SCREENSHOTS.md) · [Architecture](Docs/ARCHITECTURE.md) · [Decision logic](Docs/AGENT_DECISION_LOGIC.md) · [Algorithms](Docs/ALGORITHMS.md)**
 
-> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. The Windows download is being checked separately; see [distribution status](Docs/DISTRIBUTION.md).
+> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. A security-remediated Windows package is prepared and verified. Public launch remains blocked on the requested video/social-preview gates; see [publication status](Docs/PUBLIC_REPOSITORY_SETTINGS.md).
+
+**[Windows x64 portfolio prerelease (private until publication Gate)](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · Extract the entire zip, then run Ember.exe. [Package hashes and verification](Docs/DISTRIBUTION.md).
 
 ## Why EMBER?
 
@@ -53,7 +55,7 @@ The mixed party's mean DPS rose by **20.3%** in this controlled fixture. This is
 
 - Core 1–25F scheduling, Agent systems and independent party states are implemented.
 - Floors 6–10 have dedicated Theme B content, with prototype art and effects.
-- A local Windows Player is playable; public distribution status is tracked separately.
+- Windows x64 portfolio prerelease: verified extracted package with official runtime security remediation.
 - Balance, later-floor content, animation and audio are still being iterated.
 
 [Known limitations](KNOWN_LIMITATIONS.md) · [Engineering case study](Docs/PORTFOLIO_CASE_STUDY.md) · [Evidence matrix](Docs/ENGINEERING_EVIDENCE.md).

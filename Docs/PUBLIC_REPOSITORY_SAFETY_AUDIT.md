@@ -2,9 +2,9 @@
 
 Date: 2026-10-04. Audited development revision: `43a2f70`.
 
-**SOURCE PUBLICATION STATUS: PREPARED; remote verification pending.** The user authorized preserving the original local history and creating a repository when no existing remote could be identified. The initial repository will be private for verification, then made public. No separate showcase repository is being uploaded.
+**PUBLICATION STATUS: BLOCKED — requested portfolio presentation gates incomplete.** The original development repository is connected to a new private GitHub repository, with complete history preserved. Secret/source-asset review and Windows packaging/remediation checks are complete; no confirmed credential was found. The social preview is not configured and the attempted dynamic demo was rejected for frozen frames.
 
-Windows binary distribution has an additional security gate: the recorded Unity 6000.2.0f1 Player needs CVE-2025-59489 remediation. See [distribution status](DISTRIBUTION.md). Historical gameplay Balance Gate failure and incomplete long tests remain unchanged.
+See [verified repository settings and remaining gates](PUBLIC_REPOSITORY_SETTINGS.md). No public/anonymous access or completed demo is claimed. [Windows distribution evidence](DISTRIBUTION.md) records official CVE-2025-59489 remediation, runtime/font notices and extracted-Player checks. Historical gameplay Balance Gate failure and incomplete long tests remain unchanged.
 
 ## Scope and method
 
@@ -42,7 +42,7 @@ Secret values, email addresses and usernames are not reproduced here.
 | --- | --- | --- |
 | Local absolute project/tool paths in historical verification documents and manifests | Publishes local machine layout; links are not usable on GitHub | New portfolio documents, media provenance and selected summaries contain relative repository links and no local drive paths. Historical machine-layout records remain under the explicit history-preservation instruction; these are not credentials. |
 | Author/committer identity contains one non-GitHub-noreply email identity | Git history publicly exposes the identity; it is not an API secret | Retain original metadata under the user’s explicit full-history requirement; no history rewrite. New publication commits use GitHub noreply attribution. |
-| Windows runtime attribution/package review incomplete | Source assets and redistributable runtime binaries have different conditions | Review the final zip's actual dependencies and include font/runtime notices; test the extracted zip and record SHA-256 before releasing. |
+| Windows runtime attribution/package review | Source assets and redistributable runtime binaries have different conditions | Completed matching notices, official security patch and 25 extracted UI checks; hashes are recorded in the distribution report. |
 | Portfolio README/media/release/GitHub settings gate has not been performed | Does not yet satisfy the requested portfolio release gate | Portfolio documents and diagrams prepared; API settings, anonymous checks and executable packaging are recorded separately. |
 
 The verified local-path inventory contains 82 historical blob versions and
@@ -74,11 +74,11 @@ security-motivated history cleanup. Do not upload raw local audit outputs.
 | Sounds / music | `EmberAudio.cs` / `WitnessGame.cs` generate AudioClip samples | No tracked external audio/music file found. |
 | Shaders | Shader.Find uses Unity built-in shaders | No separately vendored shader source found; Unity runtime terms still apply. |
 | Libraries / packages | Eight manifest modules, one additional locked imageconversion module; all built-in 1.0.0 | No third-party registry/Asset Store dependency found in manifest/lock. Do not publish installed Unity caches. |
-| Windows runtime DLLs | Local ignored Builds contain Unity/Mono/graphics runtime files | Actual release-file notices review pending. No blanket redistribution clearance given. |
+| Windows runtime DLLs | Local ignored Builds contain Unity/Mono/graphics runtime files | Matching Unity Windows Mono notice PDF and font OFL included; official runtime remediation and extracted package checks passed. Unity subscription eligibility is not independently certified. |
 
 See [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) for source links,
 font hash and preservation requirements. No forbidden paid asset was found
-in the repository inventory; the final packaged binary audit remains separate.
+in the repository inventory; the separate packaged-runtime evidence is recorded in DISTRIBUTION.md.
 
 ## Size and tracking review
 

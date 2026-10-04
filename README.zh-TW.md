@@ -7,7 +7,9 @@
 
 **[English](README.md) · [實機圖集](Docs/SCREENSHOTS.md) · [系統架構](Docs/ARCHITECTURE.md) · [角色行動邏輯](Docs/AGENT_DECISION_LOGIC.md) · [演算法](Docs/ALGORITHMS.md)**
 
-> **可遊玩的研究／作品集版本。** 這是原本的開發倉庫，保留完整本機 commit history、原始碼、實機畫面與工程證據，由作者單獨維護。Windows 下載版另行核對安全修補與封裝；詳見[散布狀態](Docs/DISTRIBUTION.md)。
+> **可遊玩的研究／作品集版本。** 這是原本的開發倉庫，保留完整本機 commit history、原始碼、實機畫面與工程證據，由作者單獨維護。Windows 展示版已完成官方安全修補與解壓短測；公開仍待影片與社群預覽 Gate 完成。詳見[公開狀態](Docs/PUBLIC_REPOSITORY_SETTINGS.md)。
+
+**[Windows x64 展示版（公開 Gate 完成前僅作者可存取）](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · 完整解壓縮後執行 Ember.exe。[成品雜湊與驗證](Docs/DISTRIBUTION.md)。
 
 ## 作品亮點
 
@@ -56,7 +58,7 @@
 
 ## 狀態與作者
 
-1–25 樓流程、Agent 自主決策、分隊、記憶與關係系統已實作，6–10 樓有專屬 Theme B 內容；11–25 樓仍有程序化／佔位內容，動畫、音效與平衡持續調整。本機 Windows 成品可遊玩，公開下載狀態另列於散布文件。
+1–25 樓流程、Agent 自主決策、分隊、記憶與關係系統已實作，6–10 樓有專屬 Theme B 內容；11–25 樓仍有程序化／佔位內容，動畫、音效與平衡持續調整。本機 Windows 成品可遊玩，Windows 展示版已完成修補與封裝短測，詳見散布文件。
 
 [已知限制](KNOWN_LIMITATIONS.md) · [工程案例](Docs/PORTFOLIO_CASE_STUDY.md) · [網站與推甄介紹](Docs/PORTFOLIO_COPY.md)。
 

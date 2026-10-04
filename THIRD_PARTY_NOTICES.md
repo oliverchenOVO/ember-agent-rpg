@@ -36,10 +36,7 @@ and the author's applicable subscription terms. This audit does not verify
 the author's subscription or financial tier eligibility.
 
 Windows Player binaries contain Unity, Mono/.NET and graphics runtime
-components. They are not original project code. Before releasing a zip,
-inventory the actual packaged files and include applicable runtime notices
-from the matching Unity installation. That release-binary review is pending;
-this document is not a blanket redistribution approval for every DLL.
+components. They are not original project code. The portfolio package includes the matching [Unity Windows Mono Player notices](https://unity.com/releases/editor/whats-new/6000.2.0f1) as a complete PDF, including Unity's declared Mono and Direct3D components. It also includes this file and the complete font OFL notice. The Unity Application Patcher is an internal audit tool and is not distributed. File inventory and extracted-package verification are recorded in `Docs/DISTRIBUTION.md`; no Unity Editor/cache/account files are shipped.
 
 ## Project-generated content
 

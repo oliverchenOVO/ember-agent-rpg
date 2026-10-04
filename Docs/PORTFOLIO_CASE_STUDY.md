@@ -35,6 +35,6 @@ Oliver Chen 主導問題拆解、玩法目標、架構方向、驗證標準、�
 
 ## Current limitations / Next steps
 
-持續改善後段內容與 rig／音效；以完整自然進度重新評估補師價值及 10F 門檻；補齊最新版完整 Gate 與長時間 soak；設計可重現的 LLM 決策紀錄；完成獨立 Windows 發佈包授權與封裝驗證。這些是後續方向，並非本次展示已完成事項。
+持續改善後段內容與 rig／音效；以完整自然進度重新評估補師價值及 10F 門檻；補齊最新版完整 Gate 與長時間 soak；設計可重現的 LLM 決策紀錄；持續擴充 Windows 封裝版本的相容性驗證。這些是後續方向，並非本次展示已完成事項。
 
 [Architecture](ARCHITECTURE.md) · [Algorithms](ALGORITHMS.md) · [Evidence](ENGINEERING_EVIDENCE.md) · [Limitations](../KNOWN_LIMITATIONS.md).
