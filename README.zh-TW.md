@@ -5,9 +5,9 @@
 
 ![Windows Player：四名 Agent 面對星晶織母](Media/Portfolio/hero-combat.png)
 
-**[English](README.md) · [實機圖集](Docs/SCREENSHOTS.md) · [系統架構](Docs/ARCHITECTURE.md) · [角色行動邏輯](Docs/AGENT_DECISION_LOGIC.md) · [演算法](Docs/ALGORITHMS.md)**
+**[English](README.en.md) · [實機圖集](Docs/SCREENSHOTS.md) · [系統架構](Docs/ARCHITECTURE.md) · [角色行動邏輯](Docs/AGENT_DECISION_LOGIC.md) · [演算法](Docs/ALGORITHMS.md)**
 
-> **可遊玩的研究／作品集版本。** 這是原本的開發倉庫，保留完整本機 commit history、原始碼、實機畫面與工程證據，由作者單獨維護。Windows 展示版已公開，並完成官方安全修補與解壓短測；依作者明確同意，動態影片與 GitHub 社群預覽稍後補齊。詳見[公開狀態](Docs/PUBLIC_REPOSITORY_SETTINGS.md)。
+> **可遊玩的研究／作品集版本。** 這是原本的開發倉庫，保留完整開發提交紀錄、原始碼、實機畫面與工程證據，由作者單獨維護。Windows 展示版已公開，並完成官方安全修補與解壓短測；依作者明確同意，動態影片與 GitHub 社群預覽稍後補齊。詳見[公開狀態](Docs/PUBLIC_REPOSITORY_SETTINGS.md)。
 
 **[下載 Windows x64 展示版](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · 完整解壓縮後執行 Ember.exe。[成品雜湊與驗證](Docs/DISTRIBUTION.md)。
 
@@ -26,9 +26,9 @@
 
 ## 技術重點
 
-**Unity 6／C#、效用決策、資料驅動內容、固定種子模擬、來源記憶、結構化 telemetry。**
+**Unity 6／C#、效用決策、資料驅動內容、固定種子模擬、來源記憶、結構化遙測資料。**
 
-高階 Reasoner 決定「做什麼」，低階執行器處理移動、閃避與技能。引擎負責檢查合法性、安全與資源，再協調全隊支援；可選的非同步 LLM 只能提出受限制的決策，失敗時回退本機規則，不逐幀控制角色。
+高階決策器決定「做什麼」，低階執行器處理移動、閃避與技能。引擎負責檢查合法性、安全與資源，再協調全隊支援；可選的非同步 LLM 只能提出受限制的決策，失敗時回退本機規則，不逐幀控制角色。
 
 ![系統架構圖](Media/Diagrams/architecture.png)
 
@@ -42,19 +42,19 @@
 | --- | --- | --- |
 | 機制與回歸 | 43 項通過 | 隊伍 22 項、壓力核心 21 項 |
 | 中文化 | 638 個鍵／895 個字元 | zh-TW 與英文 |
-| 成品 | Development＋Windows Release 成功 | 有 runtime／assembly 雜湊 |
+| 成品 | 開發版與 Windows 發佈版建置成功 | 記錄執行環境與程式組件的雜湊 |
 | 介面 | 52 張最終截圖檢查 | 兩種尺寸，未記錄版面問題或例外 |
-| 編成比較 | 六種編成、36 組配對／72 場 | 兩個 seed，6／8／10 樓，受控裝備與技能 |
+| 編成比較 | 六種編成、36 組配對／72 場 | 兩個固定種子，6／8／10 樓，受控裝備與技能 |
 
 短測中混合隊平均輸出提升 **20.3%**，但無補師隊仍較快，四補師隊則降低輸出以回到支援定位。這不是完整爬塔勝率，也不是全職業平衡已認證。[分析與限制](Docs/ENGINEERING_EVIDENCE.md)。
 
-**最新完整 Balance Gate、5000-seed 與 120 分鐘 soak 尚未重新執行；歷史 Gate FAIL 保留。**
+**最新完整平衡驗收（Balance Gate）、5000 個種子樣本模擬與 120 分鐘穩定性測試尚未重新執行；歷史平衡驗收未通過的結果仍保留。**
 
 ## 開啟專案
 
-以 Unity Hub 開啟 `UnityProject`，載入 `Assets/Scenes/Witness.unity`。現有成品的 Unity 版本為 **6000.2.0f1**；重新散布前須使用已修補版本或官方修補工具。[散布狀態](Docs/DISTRIBUTION.md)。預設規則決策不需要 API key。
+以 Unity Hub 開啟 `UnityProject`，載入 `Assets/Scenes/Witness.unity`。現有成品的 Unity 版本為 **6000.2.0f1**；重新散布前須使用已修補版本或官方修補工具。[散布狀態](Docs/DISTRIBUTION.md)。預設規則決策不需要 API 金鑰。
 
-`Tools/build.ps1 -TestsOnly` **會執行 5000 seeds**，不是短測命令；本次公開不重新啟動該批次或 120 分鐘 soak。[文件索引](Docs/INDEX.md)。
+`Tools/build.ps1 -TestsOnly` **會執行 5000 個種子樣本**，不是短測命令；本次公開不重新啟動該批次或 120 分鐘穩定性測試。[文件索引](Docs/INDEX.md)。
 
 ## 狀態與作者
 
@@ -64,4 +64,4 @@
 
 **Oliver Chen 設計與開發。** 開發使用 AI 協作；架構、設計方向、驗證標準、整合、測試與迭代由作者主導。
 
-本倉庫用於作品展示與教學審閱，**不是開源專案，目前不接受外部程式碼貢獻**。著作權保留；第三方元件依各自授權。[著作權](COPYRIGHT.md) · [第三方聲明](THIRD_PARTY_NOTICES.md)。
+本倉庫用於作品展示與教學審閱，**不是開源專案，目前不接受外部程式碼貢獻**。著作權保留；第三方元件依各自授權。[著作權](COPYRIGHT.md) · [第三方聲明](THIRD_PARTY_NOTICES.md) · [圖片來源紀錄](Media/Portfolio/PROVENANCE.json) · [倉庫設定與公開狀態](Docs/PUBLIC_REPOSITORY_SETTINGS.md)。

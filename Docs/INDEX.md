@@ -1,6 +1,6 @@
 # Documentation index
 
-Start with the [English README](../README.md) or [繁體中文介紹](../README.zh-TW.md).
+從[繁體中文 README](../README.md)開始，或閱讀 [English README](../README.en.md)。
 
 ## Portfolio and current implementation
 
