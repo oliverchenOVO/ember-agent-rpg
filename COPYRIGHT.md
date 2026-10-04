@@ -14,5 +14,4 @@ Third-party components remain subject to their respective licenses.
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Source available for portfolio review. Not an open-source project.
-This notice describes the intended public repository; publication is pending
-the audit and release gates.
+GitHub visibility does not grant an open-source license.

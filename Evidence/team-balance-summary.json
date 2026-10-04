@@ -1,0 +1,156 @@
+{
+  "game_revision": "43a2f70",
+  "date": "2026-10-04",
+  "balance_version": "P3-TeamBalance-1",
+  "runtime_hash": "3dababf1731b435606fc5b8f1f05260039c8e97b53ae77a97904286deceecb17",
+  "assembly_sha256": {
+    "development": "391c46458d3ebe88357160c250ad5fab6e8ae38c562f2540c21770d873483288",
+    "release": "4a75a1e04a804bbdc3639554d4d87c784602b8fa05e2e5a909f096bcc1f2a60d"
+  },
+  "mechanism_checks": {
+    "team": 22,
+    "pressure_regression": 21
+  },
+  "localization": {
+    "keys": 638,
+    "glyphs": 895
+  },
+  "ui_screenshots": 52,
+  "paired_encounters": 36,
+  "analyzed_encounters": 72,
+  "composition_summary": [
+    {
+      "composition": "Warrior",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 93.09550690649235,
+        "mean_mana_fraction": 0.16067600001891455,
+        "mean_seconds": 88.46588897705078,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 115.24262669116354,
+        "mean_mana_fraction": 0.21205450346072516,
+        "mean_seconds": 71.1994857788086,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 23.789676344870614
+    },
+    {
+      "composition": "Archer",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 134.8610090209784,
+        "mean_mana_fraction": 0.2684573804338773,
+        "mean_seconds": 60.799644470214844,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 154.53256108114962,
+        "mean_mana_fraction": 0.23091680308183035,
+        "mean_seconds": 53.26642608642578,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 14.586537801382748
+    },
+    {
+      "composition": "Mage",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 102.99979513732171,
+        "mean_mana_fraction": 0.20074825982252756,
+        "mean_seconds": 81.81599044799805,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 134.3866104473592,
+        "mean_mana_fraction": 0.169843556980292,
+        "mean_seconds": 63.28293991088867,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 30.472696832252776
+    },
+    {
+      "composition": "Healer",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 97.49166105295139,
+        "mean_mana_fraction": 0.9363213976224264,
+        "mean_seconds": 84.54928207397461,
+        "mean_living": 4,
+        "mean_overheal": 1191.2330729166667
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 75.75211416990363,
+        "mean_mana_fraction": 0.9353305697441101,
+        "mean_seconds": 108.46610005696614,
+        "mean_living": 4,
+        "mean_overheal": 2.2066776752471924
+      },
+      "dps_change_percent": -22.298878333030125
+    },
+    {
+      "composition": "Mixed",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 119.75574240336914,
+        "mean_mana_fraction": 0.3782271395126979,
+        "mean_seconds": 69.54951095581055,
+        "mean_living": 4,
+        "mean_overheal": 220.33330790201822
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 144.03690557124,
+        "mean_mana_fraction": 0.3723408083120982,
+        "mean_seconds": 57.666358947753906,
+        "mean_living": 4,
+        "mean_overheal": 0.6866666475931803
+      },
+      "dps_change_percent": 20.275573162984916
+    },
+    {
+      "composition": "NoHealer",
+      "samples_per_version": 6,
+      "baseline": {
+        "clear": 6,
+        "mean_dps": 125.92740085255109,
+        "mean_mana_fraction": 0.19346102327108383,
+        "mean_seconds": 66.34955978393555,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "candidate": {
+        "clear": 6,
+        "mean_dps": 164.52899697473597,
+        "mean_mana_fraction": 0.21537496894598007,
+        "mean_seconds": 50.91646194458008,
+        "mean_living": 4,
+        "mean_overheal": 0.0
+      },
+      "dps_change_percent": 30.653849647372343
+    }
+  ],
+  "limits": {
+    "balance_gate": "historical FAIL; current full gate not run",
+    "5000_seed": "not run",
+    "120_minute_soak": "not run",
+    "performance": "not certified; UI galleries overlap"
+  },
+  "overheal_note": "Much of the decrease removes zero-effective HolyAttack recovery events at full health; it is not equivalent to mana savings."
+}

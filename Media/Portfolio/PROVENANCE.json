@@ -1,0 +1,137 @@
+[
+  {
+    "file": "Media/Portfolio/hero-combat.png",
+    "origin_artifact_basename": "pressure_combined.png",
+    "origin_stage": "Team Balance, final Windows Release QA",
+    "caption": "Four Agents, Boss and actionable ongoing threats",
+    "sha256": "81a04b6a7f7a67a3ddbece88fbbfb8fdc1e3c97812126149f289cbb2ae1eda0f",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/boss-model.png",
+    "origin_artifact_basename": "art_boss_10.png",
+    "origin_stage": "Historical CombatArt QA",
+    "caption": "Astrolabe guardian model, Theme B",
+    "sha256": "d5c367bbb2cb34f6d1b83623ba3fcbb577a80dbc6b00bf6c7d677f3eb42ebb09",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/boss-rootcrown.png",
+    "origin_artifact_basename": "art_boss_1.png",
+    "origin_stage": "Historical CombatArt QA",
+    "caption": "Rootcrown silhouette and environment",
+    "sha256": "b9bb13ab5aab33dc1ece517857a89cb9ee4a2944b38b353d7aac460a29a29785",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/skill-vfx.png",
+    "origin_artifact_basename": "art_skill_lightning.png",
+    "origin_stage": "Historical CombatArt QA",
+    "caption": "Lightning skill effect fixture",
+    "sha256": "bee5090cea4248ad6fc6266c3bef501aa97adc2da6291a08c909f03b49433223",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/rest-area.png",
+    "origin_artifact_basename": "refuge_overview_forest.png",
+    "origin_stage": "Historical RefugeExploration QA",
+    "caption": "Six-building forest refuge",
+    "sha256": "612d375895b949f58b3a2bc423dbe2779674769450578c9aa507575fc6a1d83a",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/rest-foundry.png",
+    "origin_artifact_basename": "refuge_interior_foundry.png",
+    "origin_stage": "Historical RefugeExploration QA",
+    "caption": "Foundry interior and facilities",
+    "sha256": "86b270bbf43e4dd75cf6a44da928edc492b7794f165810aeae5557718d018900",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/agent-mind.png",
+    "origin_artifact_basename": "inspect_camera_orbit.png",
+    "origin_stage": "Historical AgentInspection QA",
+    "caption": "Mind/status panels and observer camera",
+    "sha256": "b3b5f441078a14b50a02c2cf0eedb2a365841c5d159f6fee783574b7d78d85e5",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/inventory.png",
+    "origin_artifact_basename": "inspect_bag.png",
+    "origin_stage": "Historical AgentInspection QA",
+    "caption": "Inventory details",
+    "sha256": "47494e15655ad72b033929b47e8699a0b005d7782d4b33685080fe1eec49dacf",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/memory-inspection.png",
+    "origin_artifact_basename": "inspect_memory.png",
+    "origin_stage": "Historical AgentInspection QA",
+    "caption": "Source-aware memory inspection",
+    "sha256": "6b99ca8732985ef4c1796a5811cd9e288848c0d71e4038e551642fcd70a0dc41",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/skill-tree.png",
+    "origin_artifact_basename": "codex_mage.png",
+    "origin_stage": "Team Balance, final Development QA",
+    "caption": "Mage skill tree",
+    "sha256": "20117a6b6a473dd6bd2daeb67b8118f32f220b483fc18ee6a877986d93d19acc",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/skill-detail.png",
+    "origin_artifact_basename": "codex_healer_detail.png",
+    "origin_stage": "Team Balance, final Development QA",
+    "caption": "Healer role and actual skill power",
+    "sha256": "efa86a866cd8adee2ba08534b35578c677b6347da55246c93ee4e982f0d7116a",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/boss-dossier.png",
+    "origin_artifact_basename": "codex_boss.png",
+    "origin_stage": "Team Balance, final Development QA",
+    "caption": "Boss abilities and numeric information",
+    "sha256": "9c4979c1c6b5157be24338420da6e01afd660ad481dd43da1ea6a23225a4b3df",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/book-of-the-dead.png",
+    "origin_artifact_basename": "codex_book.png",
+    "origin_stage": "Team Balance, final Development QA",
+    "caption": "Book of the Dead reader",
+    "sha256": "8b4c5b9609e4f316a81ad692f11bfdb556bee06b078af11a396dca4c1eeb0f2f",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/relationships.png",
+    "origin_artifact_basename": "relationships.png",
+    "origin_stage": "Historical Phase 3.1.1 EXP2.1 QA",
+    "caption": "Directed relationship UI fixture",
+    "sha256": "4f8b1839fade6f8ec56e2f871fee66fa8fefc498cae058e307d57f8358b61a96",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  },
+  {
+    "file": "Media/Portfolio/party-split.png",
+    "origin_artifact_basename": "foundry_split.png",
+    "origin_stage": "Historical Phase 3.1.1 EXP2.1 QA",
+    "caption": "Separate groups at different floors in Theme B",
+    "sha256": "d26ac45b13f0600e5f1371f47a678634c023a4eeb2766017112d16aabec57e00",
+    "kind": "Windows Player capture / QA fixture",
+    "altered": false
+  }
+]

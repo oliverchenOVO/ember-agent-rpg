@@ -2,9 +2,9 @@
 
 Date: 2026-10-04. Audited development revision: `43a2f70`.
 
-**PUBLICATION STATUS: BLOCKED.** This is the first, explicitly requested
-safety-audit stage. No repository has been created, pushed or made public.
-The project has no Git remote. Repository URL and Release URL are not available.
+**SOURCE PUBLICATION STATUS: PREPARED; remote verification pending.** The user authorized preserving the original local history and creating a repository when no existing remote could be identified. The initial repository will be private for verification, then made public. No separate showcase repository is being uploaded.
+
+Windows binary distribution has an additional security gate: the recorded Unity 6000.2.0f1 Player needs CVE-2025-59489 remediation. See [distribution status](DISTRIBUTION.md). Historical gameplay Balance Gate failure and incomplete long tests remain unchanged.
 
 ## Scope and method
 
@@ -36,14 +36,14 @@ and verified against that release's SHA-256 checksum. Raw reports, detailed
 privacy findings and scanner files stay under ignored `Artifacts/PublicAudit/`.
 Secret values, email addresses and usernames are not reproduced here.
 
-## Publication blockers
+## Findings and disposition
 
 | Finding | Risk | Action before public |
 | --- | --- | --- |
-| Local absolute project/tool paths in historical verification documents and manifests | Publishes local machine layout; links are not usable on GitHub | Sanitize the current public-facing documents and build manifests; decide whether existing historical path disclosure is acceptable. Removing HEAD tracking does not remove old blobs. Do not silently rewrite history. |
-| Author/committer identity contains one non-GitHub-noreply email identity | Git history publicly exposes the identity; it is not an API secret | Confirm that the existing author name/email is intended for public attribution. Changing future Git config does not change earlier commits. |
+| Local absolute project/tool paths in historical verification documents and manifests | Publishes local machine layout; links are not usable on GitHub | New portfolio documents, media provenance and selected summaries contain relative repository links and no local drive paths. Historical machine-layout records remain under the explicit history-preservation instruction; these are not credentials. |
+| Author/committer identity contains one non-GitHub-noreply email identity | Git history publicly exposes the identity; it is not an API secret | Retain original metadata under the user’s explicit full-history requirement; no history rewrite. New publication commits use GitHub noreply attribution. |
 | Windows runtime attribution/package review incomplete | Source assets and redistributable runtime binaries have different conditions | Review the final zip's actual dependencies and include font/runtime notices; test the extracted zip and record SHA-256 before releasing. |
-| Portfolio README/media/release/GitHub settings gate has not been performed | Does not yet satisfy the requested portfolio release gate | Complete release preparation after resolving audit findings. |
+| Portfolio README/media/release/GitHub settings gate has not been performed | Does not yet satisfy the requested portfolio release gate | Portfolio documents and diagrams prepared; API settings, anonymous checks and executable packaging are recorded separately. |
 
 The verified local-path inventory contains 82 historical blob versions and
 40 currently tracked files. Examples at audited commit `43a2f70` include
@@ -91,9 +91,7 @@ Only one historical blob exceeds 10 MiB:
 No historical EXE, PDB, zip or video blob exceeds these thresholds. Local
 Builds occupy approximately 3.57 GB and Artifacts approximately 3.11 GB
 (decimal bytes, measured before audit outputs). These belong on local disk,
-not in a source push. Several small JSONL/CSV evidence files are currently
-tracked; their size is acceptable, but public selection/privacy review is
-still needed. Windows zip belongs in GitHub Releases.
+not in a source push. Existing small JSONL/CSV evidence was included in the history/working-tree scans; new selected summaries omit machine paths. Windows zip belongs in GitHub Releases.
 
 ## Changes made in this stage
 
@@ -106,9 +104,7 @@ still needed. Windows zip belongs in GitHub Releases.
   files, environment files and common private-key/keystore extensions.
 - No tracked evidence was deleted or untracked. No local Build, telemetry,
   log or capture was deleted. No Git history was rewritten.
-- No collaborator invitation, external PR merge, permission change or remote
-  publication occurred. Main protection and GitHub feature settings are
-  **not configured**, because no target repository is connected.
+- This section records the initial audit stage. Current remote settings and publication outcomes are tracked in [repository settings](PUBLIC_REPOSITORY_SETTINGS.md). No collaborator invitation or external PR merge is authorized.
 
 ## Reproduction and limits
 

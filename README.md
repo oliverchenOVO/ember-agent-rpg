@@ -1,42 +1,73 @@
-# EMBER — The Witness Tower
-四名自主 Agent 的 3D Roguelite 觀察型 RPG，Unity 6000.2.0f1。
+# EMBER
+### Autonomous Agent Tower RPG · 見證之塔
 
-最新追加：60×40 大型休息層、六棟可進入的建築、五種場景與九類設施造型；Agent 花時間搜尋房間、討論與繞過障礙，可能趕不上逃生。可切換全區／跟隨視角並查看小地圖。成品在 `Builds/RefugeExploration/Windows/Ember.exe`，詳見 [大型休息層驗證](Docs/REFUGE_EXPLORATION_VALIDATION.md)。
+Four autonomous adventurers fight, build relationships, leave memories behind, and attempt a 25-floor tower again.
 
-前次追加：Boss 名稱對應造型、關節出招、24 技能演出與場景細節；同時施法事件不再互相覆蓋。該版成品在 `Builds/CombatArt/Windows/Ember.exe`，畫面與驗證見 [戰鬥演出驗證](Docs/COMBAT_ART_VALIDATION.md)。
+![Four Agents facing the Starcrystal Weaver in a real Windows Player](Media/Portfolio/hero-combat.png)
 
-前次功能：死者之書依個性與實際見證留下 Boss 招式線索，閱讀能影響下一輪準備；新增 Boss 招式／數值與四職業技能樹，詳見 [遺書與觀察資料驗證](Docs/KNOWLEDGE_CODEX_VALIDATION.md)。
+**[繁體中文](README.zh-TW.md) · [Game gallery](Docs/SCREENSHOTS.md) · [Architecture](Docs/ARCHITECTURE.md) · [Decision logic](Docs/AGENT_DECISION_LOGIC.md) · [Algorithms](Docs/ALGORITHMS.md)**
 
-前次修正：休息區會抽選可用設施（可完全沒有設施），並修正死亡來源持續傷害造成的假彈幕。可執行版本在 `Builds/RestInteraction/Windows/Ember.exe`，功能、存檔相容性與畫面驗證見 [休息區與彈幕驗證](Docs/REST_INTERACTION_VALIDATION.md)。這次局部修正沒有重跑完整平衡 Gate；下方 Phase 3.1.1 結果保留為該版紀錄。
+> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. The Windows download is being checked separately; see [distribution status](Docs/DISTRIBUTION.md).
 
-Phase 3.1.1 **Gate FAIL，不進入 Phase 4**。Build pipeline 已恢復，Development／Release 成功，3,500 個診斷 seed-runs、治療改善、雙語畫面及存讀檔證據見 [最新驗證報告](Docs/PHASE3_1_1_VALIDATION.md)。H3 法師／弓箭手編成仍不合格，沒有 RC／FINAL；500／1000／5000 正式批次未啟動。本輪成品另存 `Builds/Phase311/EXP2.1-R1`，完整 SHA 見 `Artifacts/phase3_1_1_exp21_r1_build-manifest.json`；原 `Builds/Windows` 是歷史成品。舊 700 樣本與當時停滯記錄保留在 [Phase 3.1 報告](Docs/PHASE3_1_VALIDATION.md)。`Tools/build.ps1 -TestsOnly` 包含 5000 seeds，非本輪收尾短測指令。
+## Why EMBER?
 
-目前預設執行 Phase 3：25 層流程、原五種 Boss 與 6–10F「廢棄星鑄工坊」五個專屬 Boss、分隊爬塔、來源記憶及可選 LLM gateway。技能效果、跨職業灌注、觀察鏡頭、聲音事件與難度 telemetry 已深化；11–25F 仍有佔位內容，並非 25 套最終製作。
-設計與內容 authoring 文件在 Docs；執行與測試命令在 Tools。架構審查見 Docs/PHASE2_ARCHITECTURE.md；內容與 LLM 設定見 Docs/PHASE2_CONTENT_PIPELINE.md。
+- **Observe autonomous lives.** Four Agents choose goals and tactics; the player observes rather than issuing combat orders.
+- **A tower with consequences.** The 25-floor simulation supports independent party progression, four classes, equipment, crafting and skill infusion.
+- **Relationships change decisions.** Help, abandonment and shared events update directed bonds used in utility scoring.
+- **Death leaves imperfect information.** Witnessed Boss abilities can enter the Book of the Dead; an Agent must read it in-game to inherit that knowledge.
+- **Rest is a time-budget problem.** Search buildings, discover variable facilities, discuss plans, navigate obstacles—and leave before collapse.
+- **Inspect the causes.** Mind, inventory, memories, skill details and Boss information are visible in zh-TW and English.
 
-用 Unity Hub 開啟 UnityProject，開啟 Assets/Scenes/Witness.unity，按 Play。
-最新 Windows 成品：Builds/RefugeExploration/Windows/Ember.exe（Builds/Windows/Ember.exe 是歷史成品）。空白鍵暫停，1/2/3 切換速度，方向鍵環繞鏡頭。
-HUD 可查看角色、遺書、歷史、遠征分隊、Agent 觀察與存讀檔。點選角色可追蹤其分隊，其他隊伍會繼續模擬。F8 在 Agent 觀察頁顯示推理來源。
-預設自主選職；Ember.exe --showcase 可在首輪展示四種職業。Ember.exe --vertical-slice 保留原第一階段模式。
+| Combat and named Boss models | Explore a dangerous refuge |
+| --- | --- |
+| ![Astrolabe guardian, historical CombatArt capture](Media/Portfolio/boss-model.png) | ![Six-building forest refuge, historical Refuge capture](Media/Portfolio/rest-area.png) |
+| [Bosses and visible pressure](Docs/AGENT_DECISION_LOGIC.md#combat) | [Navigation and escape budgets](Docs/ALGORITHMS.md#navigation) |
 
-重新建置：powershell -ExecutionPolicy Bypass -File Tools/build.ps1
-只跑測試：powershell -ExecutionPolicy Bypass -File Tools/build.ps1 -TestsOnly
-實際畫面驗證：powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual
-坍塌畫面情境：powershell -ExecutionPolicy Bypass -File Tools/playtest.ps1 -Visual -Collapse
-Blender 原創面具：blender --background --python Tools/create_mask.py
+## Technical highlights
 
-smoke 使用 Artifacts 內獨立存檔，不覆蓋一般遊戲存檔。一般存檔位於 LocalLow/WitnessWorks/Ember - The Witness Tower。
+**Unity 6 / C# · Utility-based AI · Data-driven content · Seeded simulation · Source-aware memory · Telemetry**
 
-Phase 2 實測與限制請見 Docs/PHASE2_VALIDATION.md；第一階段紀錄保留於 Artifacts/VALIDATION.md。
-Phase 2 畫面檢查：powershell -ExecutionPolicy Bypass -File Tools/phase2_playtest.ps1
-Phase 2 完整實際輪迴：powershell -ExecutionPolicy Bypass -File Tools/phase2_playtest.ps1 -Lifecycle
+The runtime separates high-level goals from local combat execution. A rule-based reasoner proposes a goal; the engine checks legality and applies safety, resource and team-coordination policies. An optional asynchronous LLM gateway proposes bounded decisions and falls back to local rules. It does not control animation or movement each frame.
 
-Phase 3 設計：Docs/THEME_B_DESIGN.md；難度：Docs/DIFFICULTY_CURVE.md；內容與重現：Docs/PHASE3_CONTENT_PIPELINE.md；驗證：Docs/PHASE3_VALIDATION.md；效能：Docs/PERFORMANCE.md。
-Phase 3 畫面：powershell -ExecutionPolicy Bypass -File Tools/phase3_playtest.ps1
-Phase 3 TestsOnly 包含既有回歸、新增斷言與 5000 seeds。Development Build 及長程 profiling 指令見內容指南。
+![System architecture: state, decisions, simulation, presentation and evidence](Media/Diagrams/architecture.png)
 
-遊戲預設繁體中文（zh-TW），右下角語言按鈕可即時切換英文。完整字串盤點見 Docs/LOCALIZATION_INVENTORY.md；語系、舊存檔及字型架構見 Docs/LOCALIZATION.md。
-中文化畫面測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1
-較小視窗測試：powershell -ExecutionPolicy Bypass -File Tools/localization_playtest.ps1 -Width 1280 -Height 720
+Read the [architecture](Docs/ARCHITECTURE.md), [Agent action pipeline](Docs/AGENT_DECISION_LOGIC.md), [worked algorithm examples](Docs/ALGORITHMS.md), or [memory and relationship design](Docs/MEMORY_RELATIONSHIPS.md).
 
-Phase 3 歷史資料、編成比較與待修項見 Docs/PHASE3_VALIDATION.md，該版證據不能沿用為新版通過。大型休息層候選沒有重新執行 5000-seed 或 120-minute soak，兩項對本候選均未完成；完整 Balance Gate 未重跑，原 Phase 3.1.1 FAIL 維持。
+## Engineering evidence
+
+Latest tested gameplay revision: **Team Balance / 43a2f70 / 2026-10-04**.
+
+| Evidence | Observed result | Scope |
+| --- | --- | --- |
+| Mechanisms and regressions | 43 checks passed | 22 team checks + 21 pressure-core checks |
+| Localization | 638 keys / 895 glyphs checked | zh-TW and English |
+| Builds | Development + Windows Release succeeded | Bound to recorded runtime and assembly hashes |
+| UI captures | 52 final captures checked | Two resolutions; no recorded layout issue or exception |
+| Controlled party comparison | Six compositions, 36 matched pairs / 72 encounters | Two seeds; floors 6, 8 and 10; controlled gear and loadouts |
+
+The mixed party's mean DPS rose by **20.3%** in this controlled fixture. This is not a full-progression win-rate claim: the no-healer party was still faster, and the healer-only party traded damage for support. [Data and interpretation](Docs/ENGINEERING_EVIDENCE.md).
+
+**The latest full Balance Gate, 5000-seed simulation and 120-minute soak have not been rerun for this revision. Historical Balance Gate failure remains recorded.**
+
+## Project status
+
+- Core 1–25F scheduling, Agent systems and independent party states are implemented.
+- Floors 6–10 have dedicated Theme B content, with prototype art and effects.
+- A local Windows Player is playable; public distribution status is tracked separately.
+- Balance, later-floor content, animation and audio are still being iterated.
+
+[Known limitations](KNOWN_LIMITATIONS.md) · [Engineering case study](Docs/PORTFOLIO_CASE_STUDY.md) · [Evidence matrix](Docs/ENGINEERING_EVIDENCE.md).
+
+## Open the project
+
+Use Unity Hub to open `UnityProject`, then open `Assets/Scenes/Witness.unity`. The recorded gameplay build used Unity **6000.2.0f1**; use a patched Unity version for any new redistribution. See [distribution status](Docs/DISTRIBUTION.md). No API key is required for the default rule-based Agent.
+
+Build and historical verification scripts are in `Tools`. **`Tools/build.ps1 -TestsOnly` includes 5000 seeds**; it is not a quick smoke test. This publication does not rerun that batch or the 120-minute soak. [Documentation index](Docs/INDEX.md).
+
+## Author and use
+
+**Designed and developed by Oliver Chen.** Development was AI-assisted, with architecture, design direction, validation criteria, integration, testing and iteration directed by the project author.
+
+Materials are available for portfolio and educational review. **Not an open-source project. Contributions are currently closed.** This repository is maintained by the author; external code contributions are not part of the development workflow.
+
+[Copyright](COPYRIGHT.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [Media provenance](Media/Portfolio/PROVENANCE.json) · [Repository settings](Docs/PUBLIC_REPOSITORY_SETTINGS.md).
