@@ -2,9 +2,9 @@
 
 Date: 2026-10-04. Audited development revision: `43a2f70`.
 
-**PUBLICATION STATUS: BLOCKED — requested portfolio presentation gates incomplete.** The original development repository is connected to a new private GitHub repository, with complete history preserved. Secret/source-asset review and Windows packaging/remediation checks are complete; no confirmed credential was found. The social preview is not configured and the attempted dynamic demo was rejected for frozen frames.
+**PUBLICATION STATUS: READY — public repository and verified Windows prerelease.** The user explicitly approved publishing first and deferring the dynamic video and GitHub social preview. The complete development history is preserved; no confirmed credential was found. The deferred presentation items are not marked passed.
 
-See [verified repository settings and remaining gates](PUBLIC_REPOSITORY_SETTINGS.md). No public/anonymous access or completed demo is claimed. [Windows distribution evidence](DISTRIBUTION.md) records official CVE-2025-59489 remediation, runtime/font notices and extracted-Player checks. Historical gameplay Balance Gate failure and incomplete long tests remain unchanged.
+See [verified repository settings](PUBLIC_REPOSITORY_SETTINGS.md) and [Windows distribution evidence](DISTRIBUTION.md). Official CVE-2025-59489 remediation, matching runtime/font notices, extracted-Player checks and public download integrity are recorded separately. Historical gameplay Balance Gate failure and incomplete long tests remain unchanged.
 
 ## Scope and method
 
@@ -115,8 +115,6 @@ long patterns crossing more than that overlap, encrypted data, and unknown
 credential formats remain scanner limitations. Source inventory is not a
 legal opinion or a certification of asset ownership or Unity tier eligibility.
 
-Do not convert the publication gate to READY solely because secret scan
-hits are false positives. Resolve privacy decisions, binary notices and all
-portfolio/release/settings gates first. The latest game Balance Gate,
+Publication readiness covers the reviewed source and verified Windows package. The video/social-preview requirements are deferred by explicit user instruction, not silently treated as successful. The latest game Balance Gate,
 5000-seed rerun and 120-minute soak remain pending as documented in
 [Team Balance validation](TEAM_BALANCE_VALIDATION.md).

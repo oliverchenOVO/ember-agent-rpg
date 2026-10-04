@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-04",
+  "repository": "https://github.com/oliverchenOVO/ember-agent-rpg",
+  "visibility": "public",
+  "release": "https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio",
+  "gameplayRevision": "43a2f70",
+  "verifiedPublishedRevision": "371eeb5",
+  "anonymousHttpChecks": [
+    {
+      "url": "https://github.com/oliverchenOVO/ember-agent-rpg",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/README.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/README.zh-TW.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/COPYRIGHT.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/THIRD_PARTY_NOTICES.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/KNOWN_LIMITATIONS.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Docs/ARCHITECTURE.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Docs/AGENT_DECISION_LOGIC.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Docs/ALGORITHMS.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Docs/PORTFOLIO_CASE_STUDY.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Docs/ENGINEERING_EVIDENCE.md",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Media/Portfolio/hero-combat.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Media/Diagrams/architecture.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Media/Diagrams/decision-flow.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Media/Diagrams/memory-lifecycle.png",
+      "status": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/oliverchenOVO/ember-agent-rpg/main/Media/Diagrams/balance-comparison.png",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/oliverchenOVO/ember-agent-rpg/releases/download/v0.3.0-portfolio/EMBER-Windows-x64.zip",
+      "status": 200
+    }
+  ],
+  "anonymousZipSha256": "8461c758236a226e0aa8735272ffcba5689aedcb220ac6f0783df0532d4e46dc",
+  "matchesPackageSha256": true,
+  "ownerOnly": true,
+  "mainForcePushesAllowed": false,
+  "mainDeletionAllowed": false,
+  "issuesEnabled": false,
+  "discussionsEnabled": false,
+  "wikiEnabled": false,
+  "autoMergeEnabled": false,
+  "deferredByExplicitUserApproval": [
+    "dynamic action video",
+    "GitHub social preview configuration"
+  ],
+  "latestFullBalanceGate": "not rerun; historical failure retained",
+  "latest5000Seed": "not run",
+  "latest120MinuteSoak": "not run"
+}

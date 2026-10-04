@@ -1,6 +1,6 @@
 # Windows portfolio distribution
 
-Release: [v0.3.0-portfolio](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio). Packaging verification completed on 2026-10-04; the prerelease remains owner-only while the repository is private. Public launch is blocked on the presentation gates in [repository settings](PUBLIC_REPOSITORY_SETTINGS.md).
+Release: [v0.3.0-portfolio](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio). Packaging verification completed on 2026-10-04; the prerelease is public. The user explicitly approved deferring the action video and social preview; see [repository settings](PUBLIC_REPOSITORY_SETTINGS.md).
 
 ## Version and security remediation
 
@@ -30,3 +30,7 @@ The patcher executable's Authenticode signature is valid and identifies Unity Te
 Both logs contain no recorded exception or JobTempAlloc warning. Representative zh-TW Book and combat screens were visually inspected. This validates the packaged runtime in these short samples; it does not prove universal compatibility, natural tower completion or long-session stability. [Machine-readable package evidence](../Evidence/portfolio-package-validation.json).
 
 **Not run:** latest full Balance Gate, 5000-seed simulation, 120-minute soak. Historical Gate FAIL remains recorded. The Release is a portfolio prerelease, not a production-ready certification.
+
+## Public download check
+
+An unauthenticated download of the complete Release zip returned the same 47,341,444 bytes and SHA-256 as the locally tested archive. Public repository, Release, documents and diagram URLs return HTTP 200 without credentials. See the [publication receipt](../Evidence/publication-verification.json).

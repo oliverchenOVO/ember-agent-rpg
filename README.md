@@ -7,9 +7,9 @@ Four autonomous adventurers fight, build relationships, leave memories behind, a
 
 **[繁體中文](README.zh-TW.md) · [Game gallery](Docs/SCREENSHOTS.md) · [Architecture](Docs/ARCHITECTURE.md) · [Decision logic](Docs/AGENT_DECISION_LOGIC.md) · [Algorithms](Docs/ALGORITHMS.md)**
 
-> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. A security-remediated Windows package is prepared and verified. Public launch remains blocked on the requested video/social-preview gates; see [publication status](Docs/PUBLIC_REPOSITORY_SETTINGS.md).
+> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. The security-remediated Windows demo is publicly available. A valid action video and configured social preview are deferred with the author’s explicit approval; see [publication status](Docs/PUBLIC_REPOSITORY_SETTINGS.md).
 
-**[Windows x64 portfolio prerelease (private until publication Gate)](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · Extract the entire zip, then run Ember.exe. [Package hashes and verification](Docs/DISTRIBUTION.md).
+**[Download Windows x64 demo](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · Extract the entire zip, then run Ember.exe. [Package hashes and verification](Docs/DISTRIBUTION.md).
 
 ## Why EMBER?
 

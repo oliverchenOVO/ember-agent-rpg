@@ -2,7 +2,7 @@
 
 Verified on 2026-10-04.
 
-**PUBLICATION STATUS: BLOCKED.** [oliverchenOVO/ember-agent-rpg](https://github.com/oliverchenOVO/ember-agent-rpg) has been created as **private** and the complete original local development history is pushed. No separate showcase repository was created on GitHub.
+**PUBLICATION STATUS: READY (public repository and Windows prerelease; two presentation items explicitly deferred).** [oliverchenOVO/ember-agent-rpg](https://github.com/oliverchenOVO/ember-agent-rpg) was initially created private for review, then changed to **public** after the user explicitly approved deferring the video and social preview. The complete original local development history is pushed. No separate showcase repository was created on GitHub.
 
 The user requested preserving existing history and creating the repository when no remote existed. There were no prior remote Releases, Actions runs, stars or forks to transfer. Current main includes the actual Team Balance/Phase 3 development state; it is not relabeled Phase 2A.
 
@@ -21,15 +21,15 @@ The user requested preserving existing history and creating the repository when 
 | About | Autonomous Agent RPG, Unity/C#, utility AI, finite memories, party coordination; solo portfolio |
 | Topics | unity, csharp, game-ai, ai-agents, roguelite, simulation, portfolio, game-development |
 
-Protection was successfully applied even while private. It does not prevent others from forking or opening a PR once public; repository write access remains with the owner. No external PR was merged.
+Protection was successfully applied while private and rechecked after changing to public. It does not prevent others from forking or opening a PR once public; repository write access remains with the owner. No external PR was merged.
 
-## Remaining gates
+## Deferred presentation items
 
 - **Social preview:** 1280×640 image is prepared at [social-preview.png](../Media/Portfolio/social-preview.png), but not configured. Chrome requests fail with “Unable to load browser request-header policy”; the in-app browser navigation timed out. No authentication workaround or undocumented upload endpoint was used.
 - **Dynamic demo:** a 20-second Player recording completed, but extracted samples showed frozen window content. It is rejected and remains in ignored local diagnostics; no static sequence is presented as continuous gameplay. A valid 15–30-second action clip is still needed.
-- **Anonymous verification:** not performed because visibility is still private. Public README/image/Release access cannot be claimed.
+- **Anonymous verification:** public repository, Release page, bilingual README, copyright, third-party notices, key documents and diagrams return HTTP 200 without credentials. The complete public zip download SHA-256 matches the local package. [Publication receipt](../Evidence/publication-verification.json).
 
-The original publication instruction says: “只有上面 Gate 全部確認後，才把 GitHub Repository 從 Private 改成 Public。” Accordingly, the missing gates are not marked passed and visibility has not been changed.
+The original instruction required all gates before public. The user subsequently explicitly answered: “先改 public，影片與社群預覽稍後補。” This authorizes publication with these two items deferred; neither item is marked completed. It does not waive secret, attribution, package integrity or historical validation accuracy.
 
 ## Completed preparation
 
