@@ -45,6 +45,7 @@ namespace Ember.Presentation
         void CheckPortfolioObserver(string scenario)
         {
             void Require(bool value,string message){if(!value)throw new Exception("Portfolio regression: "+message);}
+            string fixture=JsonUtility.ToJson(tower.State);Inspection originalMode=inspection;int originalSelected=selected,originalSpeaker=journalSpeaker;string originalQuery=journalQuery;
             string locale=Loc.Locale;CloseInspection();paused=false;speed=4;OpenInspection(Inspection.Chronicle);
             string state=JsonUtility.ToJson(tower.State);journalSpeaker=-2;journalQuery="";
             Require(JournalMessages().Length==100&&JournalMessages().Last().time==25,"125 events retain latest 100");
@@ -67,8 +68,8 @@ namespace Ember.Presentation
             Require(tower.State.world.history.Count==0||HistoryBuild(tower.State.world.history[0].builds[1]).Contains(Loc.Skill("heal")),"legacy names after load");
             TogglePause();Require(!paused,"resume control");TogglePause();CycleSpeed();Require(speed==1,"speed cycle control");
             int run=tower.State.world.run;NewLife();Require(tower.State.world.run==run+1,"new life");
-            selected=0;simulation.Restore(tower.Observe(selected));OpenInspection(scenario.Contains("history")?Inspection.History:Inspection.Chronicle);
-            journalSpeaker=scenario=="journal_combined"?1:-2;journalQuery=scenario=="journal_combined"?Loc.Item("greatsword"):scenario=="journal_input"?"123 巨劍":"";
+            tower.Restore(ExpeditionStore.Parse(fixture,simulation.Catalog,tower.Data));selected=originalSelected;simulation.Restore(tower.Observe(selected));OpenInspection(originalMode);
+            journalSpeaker=scenario=="journal_combined"?1:originalSpeaker;journalQuery=scenario=="journal_combined"?Loc.Item("greatsword"):scenario=="journal_input"?"123 巨劍":originalQuery;
             Debug.Log("EMBER PORTFOLIO OBSERVER ASSERTIONS PASSED / "+scenario+" / retention, combined search, locale cache, input dispatch, pause/speed, schema 1/2, save/load/new life");
         }
         void SetupInspectionQA(string scenario,GroupState g)
