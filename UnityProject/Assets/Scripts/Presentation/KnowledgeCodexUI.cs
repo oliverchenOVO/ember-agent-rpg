@@ -7,7 +7,7 @@ namespace Ember.Presentation
 {
     public sealed partial class WitnessGame
     {
-        enum Inspection { None,Book,Boss,Skills,Inventory,Memories }
+        enum Inspection { None,Book,Boss,Skills,Inventory,Memories,Chronicle,History }
         bool bookAll;
         Inspection inspection;Vector2 codexScroll;float codexHeight=1000;bool inspectionWasPaused;
         Profession inspectedClass;string inspectedSkill="";
@@ -15,6 +15,7 @@ namespace Ember.Presentation
         {
             if(inspection==Inspection.None)inspectionWasPaused=paused;inspection=mode;paused=true;codexScroll=Vector2.zero;codexHeight=1000;
             if(mode==Inspection.Book)bookAll=false;
+            if(mode==Inspection.Chronicle){journalSpeaker=selected;journalQuery="";}
             inspectedClass=simulation.State.agents[selected].profession;inspectedSkill=simulation.Catalog.skills.First(s=>s.profession==inspectedClass).id;
         }
         void CloseInspection(){inspection=Inspection.None;paused=inspectionWasPaused;}
@@ -38,10 +39,11 @@ namespace Ember.Presentation
         {
             if(inspection==Inspection.None)return;
             Box(0,0,1600,900,new Color(0,0,0,.68f));Box(320,75,960,747,new Color(.035f,.065f,.08f,.99f));
-            string heading=Loc.T(inspection==Inspection.Book?"ui.book":inspection==Inspection.Boss?"codex.boss":inspection==Inspection.Inventory?"inspect.inventory":inspection==Inspection.Memories?"inspect.memories":"codex.skills");
+            string heading=Loc.T(inspection==Inspection.Chronicle?"ui.chronicle":inspection==Inspection.History?"ui.history":inspection==Inspection.Book?"ui.book":inspection==Inspection.Boss?"codex.boss":inspection==Inspection.Inventory?"inspect.inventory":inspection==Inspection.Memories?"inspect.memories":"codex.skills");
             Text(344,90,780,43,heading,title);if(Button(1150,94,102,Loc.T("codex.close")))CloseInspection();
             Text(344,137,895,46,Loc.T(inspection==Inspection.Inventory||inspection==Inspection.Memories?"inspect.observer":"codex.observer"),small);
             float top=190;
+            if(inspection==Inspection.Chronicle)top=DrawChronicleControls();
             if(inspection==Inspection.Book)
             {
                 for(int i=0;i<4;i++)if(Button(344+i*180,190,168,(!bookAll&&selected==i?"• ":"")+simulation.State.agents[i].name)){selected=i;bookAll=false;codexScroll=Vector2.zero;}
@@ -58,7 +60,7 @@ namespace Ember.Presentation
             }
             if(towerQA&&(qaScenario.EndsWith("bottom")||qaScenario.EndsWith("detail")))codexScroll.y=codexHeight;
             codexScroll=GUI.BeginScrollView(new Rect(340,top,920,800-top),codexScroll,new Rect(0,0,890,codexHeight));float y=10;
-            if(inspection==Inspection.Book)DrawLegacyPages(ref y);else if(inspection==Inspection.Boss)DrawBossDossier(ref y);else if(inspection==Inspection.Skills)DrawSkillTree(ref y);else if(inspection==Inspection.Inventory)DrawInventory(ref y);else if(inspection==Inspection.Memories)DrawMemories(ref y);
+            if(inspection==Inspection.Chronicle)DrawChronicle(ref y);else if(inspection==Inspection.History)DrawRunHistory(ref y);else if(inspection==Inspection.Book)DrawLegacyPages(ref y);else if(inspection==Inspection.Boss)DrawBossDossier(ref y);else if(inspection==Inspection.Skills)DrawSkillTree(ref y);else if(inspection==Inspection.Inventory)DrawInventory(ref y);else if(inspection==Inspection.Memories)DrawMemories(ref y);
             codexHeight=Mathf.Max(y+20,800-top);GUI.EndScrollView();
         }
         void DrawLegacyPages(ref float y)

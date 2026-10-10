@@ -20,6 +20,7 @@ namespace Ember.Editor
         public static void BuildDevelopment(){BuildPlayer(true);}
         public static void BuildRelocated(){Validation.Run();Phase3Validation.Unit();LocalizationValidation.Run();BuildPlayer(false);}
         public static void BuildReleaseDiagnostics(){BuildPlayer(false);}
+        public static void BuildJournal(){LocalizationValidation.Run();BuildPlayer(true,"../Builds/ObserverJournal/Development/Ember.exe");}
         public static void BuildDevelopmentRecovery(){BuildPlayer(true,"../Builds/Phase311/Development/Ember.exe");}
         public static void BuildReleaseRecovery(){BuildPlayer(false,"../Builds/Phase311/Windows/Ember.exe");}
         public static void BuildDevelopmentExperiment(){BuildPlayer(true,"../Builds/Phase311/EXP1/Development/Ember.exe");}

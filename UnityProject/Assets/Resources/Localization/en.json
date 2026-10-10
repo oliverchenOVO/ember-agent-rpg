@@ -2552,6 +2552,58 @@
     {
       "key": "balance.shield_team",
       "value": "Shield threatened teammates before attacking."
+    },
+    {
+      "key": "journal.open",
+      "value": "Read chronicle"
+    },
+    {
+      "key": "journal.open_history",
+      "value": "Read run history"
+    },
+    {
+      "key": "journal.preview",
+      "value": "{0} messages retained. Open the chronicle to search and filter."
+    },
+    {
+      "key": "journal.all",
+      "value": "All"
+    },
+    {
+      "key": "journal.search",
+      "value": "Search"
+    },
+    {
+      "key": "journal.clear",
+      "value": "Clear search"
+    },
+    {
+      "key": "journal.help",
+      "value": "{0} matches / {1} retained, newest first. Only the latest 100 messages are retained; this is not a permanent archive."
+    },
+    {
+      "key": "journal.empty",
+      "value": "No matching messages. Try another speaker or clear the search."
+    },
+    {
+      "key": "journal.history_help",
+      "value": "{0} retained runs, newest first."
+    },
+    {
+      "key": "journal.progress",
+      "value": "Highest floor {0} / {1} deaths"
+    },
+    {
+      "key": "journal.composition",
+      "value": "Composition: {0}"
+    },
+    {
+      "key": "journal.survivors",
+      "value": "Survivors: {0}"
+    },
+    {
+      "key": "journal.build",
+      "value": "Build: {0}"
     }
   ]
 }

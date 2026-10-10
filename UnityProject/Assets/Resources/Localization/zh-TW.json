@@ -2552,6 +2552,58 @@
     {
       "key": "balance.shield_team",
       "value": "先替受威脅的隊友施加護盾。"
+    },
+    {
+      "key": "journal.open",
+      "value": "查看完整紀事"
+    },
+    {
+      "key": "journal.open_history",
+      "value": "查看完整紀錄"
+    },
+    {
+      "key": "journal.preview",
+      "value": "目前保留 {0} 筆紀事；可開啟完整紀事搜尋與篩選。"
+    },
+    {
+      "key": "journal.all",
+      "value": "全部"
+    },
+    {
+      "key": "journal.search",
+      "value": "搜尋內容"
+    },
+    {
+      "key": "journal.clear",
+      "value": "清除搜尋"
+    },
+    {
+      "key": "journal.help",
+      "value": "符合條件 {0} 筆／保留 {1} 筆，依新到舊排列。僅保留最近 100 筆，不是永久紀錄。"
+    },
+    {
+      "key": "journal.empty",
+      "value": "沒有符合條件的紀事。試著切換角色或清除搜尋。"
+    },
+    {
+      "key": "journal.history_help",
+      "value": "保留 {0} 輪挑戰紀錄，依新到舊排列。"
+    },
+    {
+      "key": "journal.progress",
+      "value": "最高樓層 {0}／死亡 {1} 人"
+    },
+    {
+      "key": "journal.composition",
+      "value": "隊伍編成：{0}"
+    },
+    {
+      "key": "journal.survivors",
+      "value": "存活者：{0}"
+    },
+    {
+      "key": "journal.build",
+      "value": "配置：{0}"
     }
   ]
 }

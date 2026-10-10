@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-11",
+  "feature": "Observer journal and run history",
+  "build_exit_code": 0,
+  "build_elapsed_seconds": 84.2415946,
+  "managed_assembly_sha256": "b5805291954a6a290bf96a23debb2cbad2221c12e201103e967ad1d9d7d6784e",
+  "localization_keys": 651,
+  "covered_glyphs": 899,
+  "player_runs": [
+    {
+      "case_set": "observer-journal-zh-verified-20261011",
+      "captures": 9,
+      "exit_code": 0,
+      "layout_issues": 0,
+      "native_allocation_warnings": 0,
+      "exceptions_observed": 0,
+      "journal_assertion_scenarios": 9,
+      "resolution": "1600x900",
+      "elapsed_seconds": 22.6328214
+    },
+    {
+      "case_set": "observer-journal-en-verified-20261011",
+      "captures": 9,
+      "exit_code": 0,
+      "layout_issues": 0,
+      "native_allocation_warnings": 0,
+      "exceptions_observed": 0,
+      "journal_assertion_scenarios": 9,
+      "resolution": "1280x720",
+      "elapsed_seconds": 15.329583
+    },
+    {
+      "case_set": "observer-journal-codex-regression-20261011",
+      "captures": 13,
+      "exit_code": 0,
+      "layout_issues": 0,
+      "native_allocation_warnings": 0,
+      "exceptions_observed": 0,
+      "journal_assertion_scenarios": 0,
+      "resolution": "1600x900",
+      "elapsed_seconds": 26.0884671
+    },
+    {
+      "case_set": "observer-journal-inspection-regression-20261011",
+      "captures": 14,
+      "exit_code": 0,
+      "layout_issues": 0,
+      "native_allocation_warnings": 0,
+      "exceptions_observed": 0,
+      "journal_assertion_scenarios": 0,
+      "resolution": "1280x720",
+      "elapsed_seconds": 25.4548133
+    }
+  ],
+  "total_captures": 45,
+  "manual_review": "Representative zh-TW chronicle/search/bottom/history and en chronicle/history reviewed; history must contain actual equipment/skill names",
+  "assets": [
+    {
+      "file": "Docs/Media/ObserverJournal/chronicle.png",
+      "sha256": "ca394d7d5c4b3e58ab959be20301f041d5948bfe26476f82898f861ad21588c5",
+      "origin": "journal_all.png",
+      "kind": "Unaltered Windows Development Player controlled QA capture; injected messages/history, not natural gameplay"
+    },
+    {
+      "file": "Docs/Media/ObserverJournal/search.png",
+      "sha256": "2cf03f37fb893bd46997d3eeb8dd3dbc6b41de01465e9a3f7c249f2f2d2154bc",
+      "origin": "journal_search.png",
+      "kind": "Unaltered Windows Development Player controlled QA capture; injected messages/history, not natural gameplay"
+    },
+    {
+      "file": "Docs/Media/ObserverJournal/history.png",
+      "sha256": "f5efd1a1ac82eaaeca0477dd3c2c4874cfd8d6427d76f0c0b19eebacb9c49ba3",
+      "origin": "journal_history.png",
+      "kind": "Unaltered Windows Development Player controlled QA capture; injected messages/history, not natural gameplay"
+    }
+  ],
+  "excluded_attempts": "First two builds timed out (240s/480s); intermediate layout passes excluded after manual detection of unavailable build text; final rebuilt Player used for all reported cases",
+  "scope_limitations": "Development build only; no new public binary, complete balance Gate, 5000-seed simulation or 120-minute soak"
+}

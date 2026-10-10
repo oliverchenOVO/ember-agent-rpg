@@ -9,6 +9,38 @@ namespace Ember.Presentation
     public sealed partial class WitnessGame
     {
         bool inspectionCameraQA;
+        void SetupJournalQA(string scenario)
+        {
+            var w=tower.State.world;w.messages.Clear();w.history.Clear();
+            for(int i=0;i<100;i++)
+            {
+                int speaker=i%5-1;w.clock=i;
+                w.Say(speaker,Loc.Token("event.gift",speaker<0?"KAEL":w.agents[speaker].name,Loc.Ref("item","greatsword"),Loc.Ref("skill","heal")));
+            }
+            for(int i=1;i<=8;i++)w.history.Add(new RunRecord{run=i,floor=i+2,deaths=2,seconds=i*62,damage=i*140,healing=i*30,outcome=Outcome.Wipe,
+                composition=new System.Collections.Generic.List<string>{Loc.Token("ui.agent_class","KAEL",Loc.Ref("class",Profession.Mage))},
+                survivors=new System.Collections.Generic.List<string>{"LYRA","SERA"},builds=new System.Collections.Generic.List<string>{"greatsword:meteor","KAEL: greatsword [meteor] / heal,fireball"}});
+            simulation.Restore(tower.Observe(selected));string before=JsonUtility.ToJson(tower.State);
+            paused=false;OpenInspection(Inspection.Chronicle);if(!paused)throw new Exception("Journal must pause simulation");CloseInspection();if(paused)throw new Exception("Journal must restore running state");
+            paused=true;OpenInspection(Inspection.Chronicle);CloseInspection();if(!paused)throw new Exception("Journal must preserve paused state");
+            OpenInspection(Inspection.Chronicle);journalSpeaker=-2;
+            if(JournalMessages().Length!=100||JournalMessages()[0].time!=99)throw new Exception("Journal retention/order");
+            journalSpeaker=1;if(JournalMessages().Length!=20||JournalMessages().Any(m=>m.speaker!=1))throw new Exception("Journal speaker filter");
+            journalSpeaker=-1;if(JournalMessages().Length!=20)throw new Exception("Journal system filter");
+            journalSpeaker=-2;journalQuery="  "+Loc.Item("greatsword")+"  ";if(JournalMessages().Length!=100)throw new Exception("Journal localized search/trim");
+            journalQuery="__none__";if(JournalMessages().Length!=0)throw new Exception("Journal empty search");
+            journalQuery="";journalSpeaker=scenario=="journal_agent"?1:scenario=="journal_system"?-1:-2;
+            if(scenario=="journal_search")journalQuery="kael";
+            if(scenario=="journal_empty")journalQuery="__none__";
+            if(scenario.StartsWith("journal_history")){if(scenario.EndsWith("empty"))w.history.Clear();simulation.Restore(tower.Observe(selected));OpenInspection(Inspection.History);}
+            if(scenario=="journal_history_empty")before=JsonUtility.ToJson(tower.State);
+            if(before!=JsonUtility.ToJson(tower.State))throw new Exception("Inspection changed simulation");
+            string renderedBuild=HistoryBuild("greatsword:meteor");
+            if(!renderedBuild.Contains(Loc.Item("greatsword"))||!renderedBuild.Contains(Loc.Skill("meteor")))throw new Exception("History build must show actual equipment and infusion");
+            string legacyBuild=HistoryBuild("KAEL: greatsword [meteor] / heal,fireball");
+            if(!legacyBuild.Contains("KAEL")||!legacyBuild.Contains(Loc.Skill("heal"))||!legacyBuild.Contains(Loc.Skill("fireball")))throw new Exception("Legacy history build must show actual equipped skills");
+            Debug.Log("EMBER JOURNAL QA / "+scenario+" / filters, order, localized search, pause restoration and state isolation passed");
+        }
         void SetupInspectionQA(string scenario,GroupState g)
         {
             inspectionQAMouse=null;tooltipQA=false;view.ResetRefugeCamera();view.RefugeOverview=false;inspectionCameraQA=scenario.StartsWith("inspect_camera");

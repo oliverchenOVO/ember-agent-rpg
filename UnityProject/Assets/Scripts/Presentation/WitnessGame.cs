@@ -59,7 +59,7 @@ namespace Ember.Presentation
             if(Input.GetKeyDown(KeyCode.F8))reasonerDebug=!reasonerDebug;
             if(inspection!=Inspection.None&&Input.GetKeyDown(KeyCode.Escape))CloseInspection();
             if(inspection==Inspection.None&&Input.GetKeyDown(KeyCode.Space))paused=!paused;
-            if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;
+            if(inspection==Inspection.None){if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;}
             if(!paused)
             {
                 using var allocationStep=new AllocationScope(stepAlloc,profile&&profileDetailed);var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
@@ -216,10 +216,12 @@ namespace Ember.Presentation
             if(tower!=null&&tab>=4){DrawExpeditionDetail();return;}
             if(tab==0)
             {
-                int start=Mathf.Max(0,w.messages.Count-4);
+                if(Button(1020,710,200,Loc.T("journal.open")))OpenInspection(Inspection.Chronicle);
+                Text(46,715,950,24,Loc.T("journal.preview",w.messages.Count),small);
+                int start=Mathf.Max(0,w.messages.Count-3);
                 for(int i=start;i<w.messages.Count;i++)
                 {
-                    var m=w.messages[i];float y=714+(i-start)*27;Text(46,y,55,22,TimeText(m.time),small);
+                    var m=w.messages[i];float y=751+(i-start)*27;Text(46,y,55,22,TimeText(m.time),small);
                     Text(109,y,83,24,m.speaker<0?Loc.T("ui.tower"):w.agents[m.speaker].name,subtitle);Text(199,y,1022,26,RenderForUI(m.text),label);
                 }
             }
@@ -230,8 +232,10 @@ namespace Ember.Presentation
             }
             else if(tab==2)
             {
-                int start=Mathf.Max(0,w.history.Count-4);if(w.history.Count==0)Text(46,721,1100,55,Loc.T("ui.history_empty"),label);
-                for(int i=start;i<w.history.Count;i++) {var r=w.history[i];Text(46,714+(i-start)*27,1130,24,Loc.T("ui.history_row",r.run,Loc.Outcome(r.outcome),TimeText(r.seconds),r.survivors.Count,(int)r.damage,(int)r.healing),label);}
+                if(Button(1020,710,200,Loc.T("journal.open_history")))OpenInspection(Inspection.History);
+                Text(46,715,950,24,Loc.T("journal.history_help",w.history.Count),small);
+                int start=Mathf.Max(0,w.history.Count-3);if(w.history.Count==0)Text(46,755,1100,55,Loc.T("ui.history_empty"),label);
+                for(int i=start;i<w.history.Count;i++) {var r=w.history[i];Text(46,751+(i-start)*27,1130,24,Loc.T("ui.history_row",r.run,Loc.Outcome(r.outcome),TimeText(r.seconds),r.survivors.Count,(int)r.damage,(int)r.healing),label);}
             }
             else
             {

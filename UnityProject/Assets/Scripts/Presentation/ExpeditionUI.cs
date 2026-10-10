@@ -33,6 +33,7 @@ namespace Ember.Presentation
             if(Array.IndexOf(args,"--readability-qa")>=0){towerQA=true;towerCases=new[]{"read_pressure","read_overtime","read_burn","read_summons","read_hazard","read_combined","read_book_kael","read_book_lyra","read_book_missing","read_book_old","read_book_full","read_book_all"};}
             if(Array.IndexOf(args,"--pressure-qa")>=0){towerQA=true;towerCases=new[]{"pressure_idle","pressure_warning","pressure_active","pressure_outside","pressure_overtime","pressure_broken","pressure_disabled","pressure_combined","pressure_attack","pressure_saved","pressure_refuge","pressure_dossier"};}
             if(Array.IndexOf(args,"--inspection-qa")>=0){towerQA=true;towerCases=new[]{"inspect_bag","inspect_bag_bottom","inspect_bag_empty","inspect_memory","inspect_memory_bottom","inspect_memory_empty","inspect_camera","inspect_camera_zoom","inspect_camera_orbit","inspect_camera_pan","inspect_camera_reset","inspect_hover_blank","inspect_hover_skill","inspect_hover_infusion"};}
+            if(Array.IndexOf(args,"--journal-qa")>=0){towerQA=true;towerCases=new[]{"journal_all","journal_agent","journal_system","journal_search","journal_empty","journal_bottom","journal_history","journal_history_bottom","journal_history_empty"};}
             if(Array.IndexOf(args,"--rest-interaction-qa")>=0){towerQA=true;towerCases=new[]{"foundry_empty","foundry_partial","crossing_empty","crossing_partial","foundry_dead_mage"};}
         }
         void LoadExpedition()
@@ -129,6 +130,7 @@ namespace Ember.Presentation
             if(scenario.StartsWith("pressure_"))SetupPressureQA(scenario,g);
             if(scenario.StartsWith("read_"))SetupReadabilityQA(scenario,g);
             if(scenario.StartsWith("inspect_"))SetupInspectionQA(scenario,g);
+            if(scenario.StartsWith("journal_"))SetupJournalQA(scenario);
             if(scenario.StartsWith("codex_"))SetupKnowledgeQA(scenario,g);
             if(scenario.StartsWith("art_"))SetupCombatArtQA(scenario,g);
             if(scenario.StartsWith("refuge_"))SetupRefugeQA(scenario,g);

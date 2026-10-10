@@ -41,6 +41,10 @@ The runtime separates high-level goals from local combat execution. A rule-based
 
 Read the [architecture](Docs/ARCHITECTURE.md), [Agent action pipeline](Docs/AGENT_DECISION_LOGIC.md), [worked algorithm examples](Docs/ALGORITHMS.md), or [memory and relationship design](Docs/MEMORY_RELATIONSHIPS.md).
 
+## Observer journal update · 2026-10-11
+
+The current source adds a scrollable journal with speaker filters and localized-content search (latest 100 messages), plus retained run composition, survivor and build details. Inspection pauses simulation and restores its prior pause state. The local Development build passed 45 UI scenarios across two locales/resolutions, including existing inspection regressions. [Validation and controlled captures](Docs/OBSERVER_JOURNAL_VALIDATION.md). The public Windows Release still contains the previous demo, not this update.
+
 ## Engineering evidence
 
 Latest tested gameplay revision: **Team Balance / 43a2f70 / 2026-10-04**.

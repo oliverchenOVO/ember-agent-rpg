@@ -9,6 +9,10 @@
 - [工程證據](ENGINEERING_EVIDENCE.md)、[工程案例](PORTFOLIO_CASE_STUDY.md)、[網站與推甄介紹](PORTFOLIO_COPY.md)。
 - [已知限制](../KNOWN_LIMITATIONS.md)、[散布狀態](DISTRIBUTION.md)、[公開安全檢查](PUBLIC_REPOSITORY_SAFETY_AUDIT.md)、[倉庫設定](PUBLIC_REPOSITORY_SETTINGS.md)。
 
+## 最新觀察介面改善
+
+[觀察紀事與挑戰紀錄](OBSERVER_JOURNAL_VALIDATION.md)：角色篩選、內容搜尋、完整捲動閱讀與歷史配置顯示。
+
 ## 最新遊戲機制驗證
 
 [隊伍平衡驗證](TEAM_BALANCE_VALIDATION.md)對應遊戲版本 `43a2f70`。後續作品集提交沒有新增遊戲機制，也不代表重新取得完整平衡認證。最新 5000 個種子模擬與 120 分鐘穩定性測試未執行。
