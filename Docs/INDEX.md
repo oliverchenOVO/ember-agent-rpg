@@ -27,3 +27,10 @@
 - [休息層互動](REST_INTERACTION_VALIDATION.md)、[知識與圖鑑](KNOWLEDGE_CODEX_VALIDATION.md)、[戰鬥演出](COMBAT_ART_VALIDATION.md)、[避難層探索](REFUGE_EXPLORATION_VALIDATION.md)。
 
 Unity 原始碼位於 `UnityProject`；建置、短程 Player 檢查與歷史模擬腳本位於 `Tools`。**執行前先閱讀腳本：`build.ps1 -TestsOnly` 包含 5000 個種子樣本批次。**
+
+## Portfolio RC 0.3.1
+
+- [候選版驗證與發布 Gate](PORTFOLIO_RC_VALIDATION.md)
+- [發布前倉庫設定快照](PORTFOLIO_RC_REPOSITORY_SNAPSHOT.md)
+- [正式 Player 候選圖集](PORTFOLIO_RC_SCREENSHOTS.md)
+- [網站介紹文案](PORTFOLIO_WEBSITE_COPY.md)

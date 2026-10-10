@@ -1,0 +1,197 @@
+[
+  {
+    "file": "Media/Portfolio/RC-0.3.1/main-combat.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "guardian.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "主觀察介面：四名 Agent 與根冠之主",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "137d9e660f1db3ecc26301af0c0ebef60c926b44375e6ba214b9554e2c4d77d8",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/boss-fight.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "phase_transition.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "Boss 階段轉換",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "f2ac579d3a18932c5276772ae04de7bc62ff9042933fe9e46a8e763208028225",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/agent-thought.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "memory.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "角色思緒與目標",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "987c2d32326410c9dfbd7149a12846ef02b0ee93c3fb56731143f972a4061201",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/chronicle-filter.png",
+    "origin_label": "portfolio-rc-observer-zh-20261011",
+    "origin_artifact_basename": "journal_agent.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "角色篩選（125 筆注入事件，保留 100 筆）",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "b2837f300c2302a01b2897c40369a34df1103d82a33446318d83f8d43e89634c",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/chronicle-search.png",
+    "origin_label": "portfolio-rc-observer-zh-20261011",
+    "origin_artifact_basename": "journal_search.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "紀事搜尋（受控 fixture）",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "530fd093c2d36650bd48d5949d01545fc584be2b2a4d2319d178947db5d7617b",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/run-history.png",
+    "origin_label": "portfolio-rc-observer-zh-20261011",
+    "origin_artifact_basename": "journal_history.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "歷史隊伍與配置（八筆受控 fixture）",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "84c944b1b202f7d36081e7fddc79fda11b1ebc3ba5e01e9ebc6831b56252f90b",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/relationships.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "relationships.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "關係資料",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "3726db5d2b411fa0980c75afe28a9e7ab25858bb5c94454a2bfcb06c343c9b24",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/book.png",
+    "origin_label": "portfolio-rc-knowledge-zh-20261011",
+    "origin_artifact_basename": "codex_book.png",
+    "dimensions": [
+      1600,
+      900
+    ],
+    "caption": "死者之書完整內容（受控 fixture）",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "4dcc05d0e354f287007be478202dcee203ebe5866f2c0698a1ec7fa17f5a9ef3",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/rest.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "refuge.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "休息層建築探索",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "740bea38ad3ac90a4314ce9c08861d1d313adb5d58e9dcf116c28033f45c80a8",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/skills.png",
+    "origin_label": "portfolio-rc-knowledge-zh-20261011",
+    "origin_artifact_basename": "codex_mage.png",
+    "dimensions": [
+      1600,
+      900
+    ],
+    "caption": "法師技能樹與數值",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "3ab91da047ef76a3e14584d286a2fc3b713b482cc6cba00c400feb4f51d09ead",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/theme-b.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "ice.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "第二主題區",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "986b449aa4055b4d56a4cd62e593d0cc47ffc51c59c9d38a535c03988be77776",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/four-agents.png",
+    "origin_label": "portfolio-rc-gallery-zh-20261011",
+    "origin_artifact_basename": "summoner.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "四名 Agent、Boss 與施法預警",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "2aee3c466aa9b0ccd54d88c963b8f4df3bb005e86dc0d8426df18c89671c2286",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  },
+  {
+    "file": "Media/Portfolio/RC-0.3.1/hero.png",
+    "origin_label": "portfolio-rc-hero-20261011",
+    "origin_artifact_basename": "pressure_combined.png",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "caption": "四名 Agent、星晶織母與持續威脅；正式 Release 的受控 fixture",
+    "kind": "Windows Release Player / controlled QA fixture",
+    "altered": false,
+    "sha256": "38a5ba44623ebd2029c2ebcf8bbb50e5b92764060155c33f8a1f42a4c96c26fb",
+    "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+    "development": false
+  }
+]

@@ -1,6 +1,6 @@
 # Known limitations · 已知限制
 
-Status: Playable Research / Portfolio Build, as of Team Balance revision 43a2f70 (2026-10-04).
+Status: public download remains Team Balance / v0.3.0-portfolio. Source Portfolio RC 0.3.1 (2026-10-11) passed 119 UI scenarios and one 30-minute observation, but publication is BLOCKED by unverified real Windows IME composition/candidate selection. See [RC validation](Docs/PORTFOLIO_RC_VALIDATION.md).
 
 - **Later-floor content:** 11–25F art/content remains partly procedural or placeholder. Twenty-five-floor architecture is not twenty-five fully authored final Boss productions.
 - **Balance:** the latest full Balance Gate has not been rerun. Historical Phase 3.1.1 Gate FAIL remains recorded. The six-composition fixture is not a full-progression success claim.

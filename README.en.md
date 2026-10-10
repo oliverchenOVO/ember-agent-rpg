@@ -3,7 +3,7 @@
 
 Four autonomous adventurers fight, build relationships, leave memories behind, and attempt a 25-floor tower again.
 
-![Four Agents facing the Starcrystal Weaver in a real Windows Player](Media/Portfolio/hero-combat.png)
+![Release candidate: four Agents and the Starcrystal Weaver, controlled Player fixture](Media/Portfolio/RC-0.3.1/hero.png)
 
 **[繁體中文](README.md) · [Game gallery](Docs/SCREENSHOTS.md) · [Architecture](Docs/ARCHITECTURE.md) · [Decision logic](Docs/AGENT_DECISION_LOGIC.md) · [Algorithms](Docs/ALGORITHMS.md)**
 
@@ -24,6 +24,7 @@ Four autonomous adventurers fight, build relationships, leave memories behind, a
 - **Relationships change decisions.** Help, abandonment and shared events update directed bonds used in utility scoring.
 - **Death leaves imperfect information.** Witnessed Boss abilities can enter the Book of the Dead; an Agent must read it in-game to inherit that knowledge.
 - **Rest is a time-budget problem.** Search buildings, discover variable facilities, discuss plans, navigate obstacles—and leave before collapse.
+- **Trace events and history.** Search and filter Agent/Tower events, and inspect compositions, survivors, damage, healing and retained builds without losing prior playback state.
 - **Inspect the causes.** Mind, inventory, memories, skill details and Boss information are visible in zh-TW and English.
 
 | Combat and named Boss models | Explore a dangerous refuge |
@@ -41,9 +42,13 @@ The runtime separates high-level goals from local combat execution. A rule-based
 
 Read the [architecture](Docs/ARCHITECTURE.md), [Agent action pipeline](Docs/AGENT_DECISION_LOGIC.md), [worked algorithm examples](Docs/ALGORITHMS.md), or [memory and relationship design](Docs/MEMORY_RELATIONSHIPS.md).
 
-## Observer journal update · 2026-10-11
+## Portfolio RC 0.3.1 · current status
 
-The current source adds a scrollable journal with speaker filters and localized-content search (latest 100 messages), plus retained run composition, survivor and build details. Inspection pauses simulation and restores its prior pause state. The local Development build passed 45 UI scenarios across two locales/resolutions, including existing inspection regressions. [Validation and controlled captures](Docs/OBSERVER_JOURNAL_VALIDATION.md). The public Windows Release still contains the previous demo, not this update.
+A fresh non-Development Windows candidate adds reader keyboard isolation, including camera arrows and Escape during IME composition. The patched Release Player passed **45 existing UI scenarios + 28 bilingual observer scenarios + 25 gallery scenarios = 98**, followed by 12 pressure-display checks and 9 extracted-ZIP scenarios (**119 total**), with zero recorded layout issues. Checks cover retention of the latest 100 out of 125 events, combined queries, pause/speed restoration and schema 1/2 save compatibility.
+
+**The public download remains v0.3.0-portfolio. The 30-minute observation completed with exit 0 and no recorded Player exception/JobTempAlloc. The RC gate remains BLOCKED because real OS IME composition/candidate selection is unverified.** [Candidate validation](Docs/PORTFOLIO_RC_VALIDATION.md) · [fresh Release captures](Docs/PORTFOLIO_RC_SCREENSHOTS.md).
+
+Observer-safe inspection keeps simulation state and RNG unchanged while reading, restores prior playback state and prevents text focus from affecting playback or camera hotkeys. Run history is data inspection, not a timeline replay.
 
 ## Engineering evidence
 

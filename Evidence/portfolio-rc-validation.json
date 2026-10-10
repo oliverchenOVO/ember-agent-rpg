@@ -1,0 +1,235 @@
+{
+  "candidate": "0.3.1",
+  "runtime_source_commit": "fca13ac",
+  "metadata_commit": "ddce826",
+  "assembly_sha256": "bc6b54e40d4b549cb4a8476c974feed1d5e443041bb04e7138fac1e8e5c3e083",
+  "development": false,
+  "ui": [
+    {
+      "label": "portfolio-rc-gallery-zh-20261011",
+      "scenarios": 25,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 28.2999588,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-hero-20261011",
+      "scenarios": 12,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 17.1898495,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-inspection-zh-20261011",
+      "scenarios": 14,
+      "resolution": [
+        1280,
+        720
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 18.2004034,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-journal-en-20261011",
+      "scenarios": 9,
+      "resolution": [
+        1280,
+        720
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 14.1344991,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-journal-zh-20261011",
+      "scenarios": 9,
+      "resolution": [
+        1600,
+        900
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 14.2319419,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-knowledge-zh-20261011",
+      "scenarios": 13,
+      "resolution": [
+        1600,
+        900
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 17.1829734,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-observer-en-20261011",
+      "scenarios": 14,
+      "resolution": [
+        1600,
+        900
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 19.2747464,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-observer-zh-20261011",
+      "scenarios": 14,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 19.2250125,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    },
+    {
+      "label": "portfolio-rc-zip-20261011",
+      "scenarios": 9,
+      "resolution": [
+        1600,
+        900
+      ],
+      "issues": 0,
+      "exit_code": 0,
+      "wall_seconds": 15.2409185,
+      "assembly_matches": true,
+      "exception_occurrences": 0,
+      "job_temp_alloc_occurrences": 0,
+      "error_line_count": 0
+    }
+  ],
+  "ui_scenario_total": 119,
+  "stability": {
+    "exit_code": 0,
+    "process_wall_seconds": 1807.4138683,
+    "sampled_seconds": 1801.004,
+    "frames": 283894,
+    "event_counts": {
+      "restart": 1,
+      "floor": 15,
+      "groups": 1,
+      "vfx_burst": 2447,
+      "boss_phase": 30,
+      "observer_open": 30,
+      "observer_close_restore": 30,
+      "observer_save_load": 10,
+      "observer_locale": 7,
+      "scene_cleanup_begin": 1,
+      "scene_cleanup_end": 1
+    },
+    "observed_runs": [
+      1
+    ],
+    "observed_floors": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "performance_windows": [
+      {
+        "seconds": [
+          300,
+          480
+        ],
+        "frames": 28140,
+        "mean_fps": 156.33216318709188,
+        "playing_mean_fps": 157.76066280048997,
+        "median_frame_ms": 6.0649,
+        "p95_frame_ms": 7.7627,
+        "median_total_used_mib": 226.44925737380981,
+        "median_gc_used_mib": 4.5
+      },
+      {
+        "seconds": [
+          1620,
+          1800
+        ],
+        "frames": 28260,
+        "mean_fps": 156.999238553693,
+        "playing_mean_fps": 159.8596933473354,
+        "median_frame_ms": 6.0746,
+        "p95_frame_ms": 8.3207,
+        "median_total_used_mib": 239.50980043411255,
+        "median_gc_used_mib": 5.2734375
+      }
+    ],
+    "peak_process_working_set_mib": 807.3984375,
+    "last_process_working_set_mib": 784.9453125,
+    "exception_occurrences": 0,
+    "job_temp_alloc_occurrences": 0,
+    "error_line_count": 0,
+    "complete_receipt": "elapsed=1801.01; rows=283894; runs=1; maintenance=0"
+  },
+  "package": {
+    "bytes": 47346533,
+    "sha256": "c52c63f561b246f6e4c6e4689961083b1ee687848f73e2654a199d96568a3523"
+  },
+  "scope": "One 1x natural Release observation with periodic UI inspection; not a balance cohort or 120-minute soak",
+  "ime": {
+    "unicode_text_input": "PASS",
+    "hotkey_dispatch_during_composition": "PASS",
+    "os_candidate_window": "UNVERIFIED"
+  },
+  "release_gate": {
+    "status": "BLOCKED",
+    "blockers": [
+      "Real Windows IME composition/candidate selection remains unverified"
+    ],
+    "public_release_updated": false
+  }
+}

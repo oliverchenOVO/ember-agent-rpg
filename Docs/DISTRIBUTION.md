@@ -34,3 +34,7 @@ Both logs contain no recorded exception or JobTempAlloc warning. Representative 
 ## Public download check
 
 An unauthenticated download of the complete Release zip returned the same 47,341,444 bytes and SHA-256 as the locally tested archive. Public repository, Release, documents and diagram URLs return HTTP 200 without credentials. See the [publication receipt](../Evidence/publication-verification.json).
+
+## Portfolio RC 0.3.1 — not published
+
+A fresh non-Development Windows build passed 119 UI scenarios, one 30-minute normal observation and extracted-ZIP checks on 2026-10-11. Real Windows IME composition/candidate selection remains unverified, so no new public Release or tag was created. The older Release above is unchanged. [Candidate hashes, analysis and gate](PORTFOLIO_RC_VALIDATION.md).

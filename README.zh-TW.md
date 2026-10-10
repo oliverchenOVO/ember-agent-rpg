@@ -3,7 +3,7 @@
 
 四名冒險者自行戰鬥、建立關係、留下記憶，並在死亡之後再次挑戰二十五層高塔。
 
-![Windows Player：四名 Agent 面對星晶織母](Media/Portfolio/hero-combat.png)
+![Release 候選版：四名 Agent 面對星晶織母（受控實機畫面）](Media/Portfolio/RC-0.3.1/hero.png)
 
 **[審閱指南](Docs/REVIEW_GUIDE.md) · [English](README.en.md) · [實機圖集](Docs/SCREENSHOTS.md) · [系統架構](Docs/ARCHITECTURE.md) · [角色行動邏輯](Docs/AGENT_DECISION_LOGIC.md) · [演算法](Docs/ALGORITHMS.md)**
 
@@ -24,6 +24,7 @@
 - **有因果的關係：** 施救、被拋下與共同經歷更新有向關係，進而影響候選行動分數。
 - **有限的死亡記憶：** 遺書記錄真正見證的 Boss 招式；下一輪仍須在遊戲內閱讀才能取得資訊。
 - **有風險的休息層：** 搜尋建築、發現不固定的設施、討論與繞路都消耗時間，可能趕不上撤離。
+- **可追蹤的紀事與歷史：** 依角色／高塔篩選與搜尋最近事件，查看歷史編成、存活者、輸出、治療與留存配置；閱讀後恢復原播放狀態。
 - **看得見的內部狀態：** 玩家可查看思緒、背包、記憶、技能數值與 Boss 資料，支援繁體中文／英文。
 
 | Boss 造型與戰鬥演出 | 建築、探索與逃生 |
@@ -40,11 +41,13 @@
 
 閱讀：[架構與模組分工](Docs/ARCHITECTURE.md)、[行動流程](Docs/AGENT_DECISION_LOGIC.md)、[效用／路徑／預測治療演算法](Docs/ALGORITHMS.md)、[記憶與關係](Docs/MEMORY_RELATIONSHIPS.md)。
 
-## 最新觀察介面更新
+## Portfolio RC 0.3.1 · 目前狀態
 
-即時紀事可開啟完整閱讀介面，依角色／高塔篩選、搜尋目前語言的內容及捲動查看最近 100 筆訊息；挑戰紀錄可查看編成、存活者及記錄中留存的配置。閱讀時暫停，關閉後恢復原狀態。
+已重新建置非 Development 的 Windows 候選版，加入閱讀視窗的方向鍵隔離與 IME 組字期間 Escape 保護。正式 Player 完成 **45 個既有介面案例 + 28 個雙語觀察介面案例 + 25 個展示案例，共 98 個**；另補 12 個持續威脅展示及 9 個 ZIP 解壓成品案例，**合計 119 個**，未記錄版面問題。125 筆紀事保留最近 100 筆，並檢查組合搜尋、播放狀態／速度回復及 schema 1／2 存檔相容性。
 
-2026-10-11 本機開發成品完成 45 個介面案例檢查，涵蓋中英文與兩種解析度，並回歸死者之書、Boss、技能樹、背包、記憶與鏡頭。[功能與驗證文件](Docs/OBSERVER_JOURNAL_VALIDATION.md)。**公開 Windows Release 仍是原展示版，尚未包含這次介面更新。**
+**公開下載目前仍為 v0.3.0-portfolio。30 分鐘觀察已完成，退出 0，未記錄 Player 例外或 JobTempAlloc；實際 IME 組字／候選字流程仍未驗證，RC Gate 為 BLOCKED，不發布新版。** [完整 RC 狀態](Docs/PORTFOLIO_RC_VALIDATION.md) · [正式 Player 候選圖集](Docs/PORTFOLIO_RC_SCREENSHOTS.md)。
+
+觀察介面的技術重點在於狀態隔離：玩家可閱讀行為原因與歷史資料，閱讀期間保持模擬狀態及 RNG，文字焦點也不會污染播放與鏡頭控制。挑戰紀錄是資料檢視，沒有時間軸重播。
 
 ## 已有的工程證據
 
