@@ -8,7 +8,7 @@ namespace Ember.Presentation
     public sealed partial class WitnessGame
     {
         enum Inspection { None,Book,Boss,Skills,Inventory,Memories,Chronicle,History }
-        bool bookAll;
+        bool bookAll,inspectionClearFocus;
         Inspection inspection;Vector2 codexScroll;float codexHeight=1000;bool inspectionWasPaused;
         Profession inspectedClass;string inspectedSkill="";
         void OpenInspection(Inspection mode)
@@ -18,7 +18,7 @@ namespace Ember.Presentation
             if(mode==Inspection.Chronicle){journalSpeaker=selected;journalQuery="";}
             inspectedClass=simulation.State.agents[selected].profession;inspectedSkill=simulation.Catalog.skills.First(s=>s.profession==inspectedClass).id;
         }
-        void CloseInspection(){inspection=Inspection.None;paused=inspectionWasPaused;}
+        void CloseInspection(){inspection=Inspection.None;paused=inspectionWasPaused;inspectionClearFocus=true;}
         void CodexLine(ref float y,string text,GUIStyle style=null)
         {
             var s=style??label;float height=Mathf.Max(24,s.CalcHeight(new GUIContent(text),850));

@@ -57,7 +57,7 @@ namespace Ember.Presentation
         string HistoryBuild(string build)
         {
             if(journalBuildLocale!=Loc.Locale){journalBuildCache.Clear();journalBuildLocale=Loc.Locale;}
-            build=build??"";if(journalBuildCache.TryGetValue(build,out string cached))return cached;
+            build=build??"";if(string.IsNullOrWhiteSpace(build))return Loc.T("p2.none");if(journalBuildCache.TryGetValue(build,out string cached))return cached;
             string result=build.StartsWith("@")?RenderForUI(build):build;
             foreach(var item in simulation.Catalog.items)result=System.Text.RegularExpressions.Regex.Replace(result,"(?<![\\w])"+System.Text.RegularExpressions.Regex.Escape(item.id)+"(?![\\w])",m=>Loc.Item(item.id));
             foreach(var skill in simulation.Catalog.skills)result=System.Text.RegularExpressions.Regex.Replace(result,"(?<![\\w])"+System.Text.RegularExpressions.Regex.Escape(skill.id)+"(?![\\w])",m=>Loc.Skill(skill.id));

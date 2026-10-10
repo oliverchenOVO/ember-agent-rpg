@@ -74,10 +74,33 @@ namespace Ember.Presentation
             int i=Array.IndexOf(args,"--profile-seconds");if(i<0)return;profile=true;int duration=int.Parse(args[i+1]);if(duration<1||duration>1800)throw new ArgumentOutOfRangeException("profile duration must be 1..1800 seconds");int m=Array.IndexOf(args,"--profile-mode");profileMode=m>=0?args[m+1]:"extreme";if(profileMode!="baseline"&&profileMode!="gameplay"&&profileMode!="extreme")throw new ArgumentException("Unknown profile mode");speed=profileMode=="extreme"?16:1;Directory.CreateDirectory(artifactPath);
             profileDetailed=Array.IndexOf(args,"--diagnostics-off")<0;profileLocaleSwitch=Array.IndexOf(args,"--locale-switch-smoke")>=0;CalibrateAllocationCounter();
             savePath=Path.Combine(artifactPath,"soak-save.json");tower.TelemetryEnabled=profileMode=="extreme";tower.TelemetrySeed=1729;
+            portfolioObservation=Array.IndexOf(args,"--portfolio-observation")>=0;
             profileSession=gameObject.AddComponent<PerformanceSession>();profileSession.Initialize(this,artifactPath,duration,profileMode);
+        }
+        bool portfolioObservation,portfolioReading;int portfolioCycle;float portfolioReadUntil;string portfolioReadState;bool portfolioPriorPaused;float portfolioPriorSpeed;
+        void PortfolioObservation(float elapsed)
+        {
+            if(!portfolioObservation)return;
+            if(portfolioReading)
+            {
+                if(portfolioReadState!=JsonUtility.ToJson(tower.State)||!paused||speed!=portfolioPriorSpeed)throw new InvalidOperationException("Observer stability state corruption");
+                if(elapsed<portfolioReadUntil)return;
+                CloseInspection();if(paused!=portfolioPriorPaused||speed!=portfolioPriorSpeed)throw new InvalidOperationException("Observer stability playback restoration");
+                portfolioReading=false;profileSession.Mark("observer_close_restore","cycle="+portfolioCycle);return;
+            }
+            if(elapsed<12+portfolioCycle*60)return;
+            portfolioCycle++;selected=portfolioCycle%4;simulation.Restore(tower.Observe(selected));
+            if(portfolioCycle%3==0){SaveGame();LoadGame();profileSession.Mark("observer_save_load");}
+            if(portfolioCycle%4==0){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");profileSession.Mark("observer_locale",Loc.Locale);}
+            tab=portfolioCycle%3==0?3:0;portfolioPriorPaused=paused;portfolioPriorSpeed=speed;
+            OpenInspection(portfolioCycle%2==0?Inspection.History:Inspection.Chronicle);
+            if(inspection==Inspection.Chronicle){journalSpeaker=portfolioCycle%3==0?-1:portfolioCycle%3==1?selected:-2;journalQuery=portfolioCycle%5==0?"KAEL":"";}
+            codexScroll=new Vector2(0,portfolioCycle%2==0?500:0);portfolioReadState=JsonUtility.ToJson(tower.State);portfolioReading=true;portfolioReadUntil=elapsed+8;
+            profileSession.Mark("observer_open","cycle="+portfolioCycle+";reader="+inspection+";speaker="+journalSpeaker+";query="+journalQuery);
         }
         public void ProfileNaturalActions(float elapsed)
         {
+            PortfolioObservation(elapsed);
             if(profileLocaleSwitch&&profileLocaleStage<2&&elapsed>=30+profileLocaleStage*30){Loc.SetLocale(Loc.Locale=="zh-TW"?"en":"zh-TW");profileLocaleStage++;profileSession.Mark("locale_switch",Loc.Locale);StartCoroutine(CaptureLocaleAfterRender());}
             if(profileMode=="gameplay"&&!profileSplitDone){var g=tower.State.groups.Find(v=>v.phase==Phase.Rest&&!v.terminal&&v.members.Count>1);if(g!=null){profileSplitDone=tower.Split(g.id,new[]{g.members[0]})!=null;profileSession.Mark("split_natural",profileSplitDone.ToString());}}
         }

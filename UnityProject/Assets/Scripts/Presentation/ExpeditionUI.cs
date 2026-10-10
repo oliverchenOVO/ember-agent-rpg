@@ -34,6 +34,7 @@ namespace Ember.Presentation
             if(Array.IndexOf(args,"--pressure-qa")>=0){towerQA=true;towerCases=new[]{"pressure_idle","pressure_warning","pressure_active","pressure_outside","pressure_overtime","pressure_broken","pressure_disabled","pressure_combined","pressure_attack","pressure_saved","pressure_refuge","pressure_dossier"};}
             if(Array.IndexOf(args,"--inspection-qa")>=0){towerQA=true;towerCases=new[]{"inspect_bag","inspect_bag_bottom","inspect_bag_empty","inspect_memory","inspect_memory_bottom","inspect_memory_empty","inspect_camera","inspect_camera_zoom","inspect_camera_orbit","inspect_camera_pan","inspect_camera_reset","inspect_hover_blank","inspect_hover_skill","inspect_hover_infusion"};}
             if(Array.IndexOf(args,"--journal-qa")>=0){towerQA=true;towerCases=new[]{"journal_all","journal_agent","journal_system","journal_search","journal_empty","journal_bottom","journal_history","journal_history_bottom","journal_history_empty"};}
+            if(Array.IndexOf(args,"--portfolio-qa")>=0){portfolioQA=true;towerQA=true;towerCases=new[]{"journal_all","journal_agent","journal_system","journal_search","journal_empty","journal_bottom","journal_history","journal_history_bottom","journal_history_empty","journal_combined","journal_locale","journal_save","journal_legacy","journal_input"};}
             if(Array.IndexOf(args,"--rest-interaction-qa")>=0){towerQA=true;towerCases=new[]{"foundry_empty","foundry_partial","crossing_empty","crossing_partial","foundry_dead_mage"};}
         }
         void LoadExpedition()

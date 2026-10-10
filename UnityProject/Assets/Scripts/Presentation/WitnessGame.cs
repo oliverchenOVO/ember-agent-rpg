@@ -56,10 +56,10 @@ namespace Ember.Presentation
         {
             if(simulation==null)return;
             if(towerQA)UpdateTowerQA();else if(qaEnabled)UpdateLocalizationQA();
-            if(Input.GetKeyDown(KeyCode.F8))reasonerDebug=!reasonerDebug;
-            if(inspection!=Inspection.None&&Input.GetKeyDown(KeyCode.Escape))CloseInspection();
-            if(inspection==Inspection.None&&Input.GetKeyDown(KeyCode.Space))paused=!paused;
-            if(inspection==Inspection.None){if(Input.GetKeyDown(KeyCode.Alpha1))speed=1;if(Input.GetKeyDown(KeyCode.Alpha2))speed=2;if(Input.GetKeyDown(KeyCode.Alpha3))speed=4;}
+            if(inspection==Inspection.None&&Input.GetKeyDown(KeyCode.F8))reasonerDebug=!reasonerDebug;
+            float orbit=ObserverHotkeys(Input.GetKeyDown(KeyCode.Escape),Input.GetKeyDown(KeyCode.Space),
+                Input.GetKeyDown(KeyCode.Alpha3)?4:Input.GetKeyDown(KeyCode.Alpha2)?2:Input.GetKeyDown(KeyCode.Alpha1)?1:0,
+                (Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0),Input.compositionString.Length>0);
             if(!paused)
             {
                 using var allocationStep=new AllocationScope(stepAlloc,profile&&profileDetailed);var stepWatch=profile?System.Diagnostics.Stopwatch.StartNew():null;
@@ -73,7 +73,6 @@ namespace Ember.Presentation
             if(signature!=weaponSignature){weaponSignature=signature;view.RebuildCharacters(w,simulation.Catalog);}
             if(w.run!=lastRun) {lastRun=w.run;view.RebuildCharacters(w,simulation.Catalog);TrySave();}
             if((int)w.outcome!=lastOutcome) {lastOutcome=(int)w.outcome;if(w.outcome!=Outcome.None)TrySave();}
-            float orbit=(Input.GetKey(KeyCode.RightArrow)?1:0)-(Input.GetKey(KeyCode.LeftArrow)?1:0);
             if(!nativeUIOnly)using(var allocationView=new AllocationScope(viewAlloc,profile&&profileDetailed)){view.RefugeSelected=selected;UpdateRefugeMouse(w);view.Update(w,paused&&!towerQA?0:Time.unscaledDeltaTime,orbit);view.ShowInfusions(w,simulation.Catalog);}noticeTimer-=Time.unscaledDeltaTime;
             if(towerSmoke)UpdateTowerSmoke();
             UpdateAudio();
@@ -98,7 +97,14 @@ namespace Ember.Presentation
         }
         void TrySave(){if(nativeNoSave)return;try{if(tower!=null)ExpeditionStore.Save(savePath,tower.State);else SaveStore.Save(savePath,simulation.State);}catch(Exception e){Debug.LogException(e);Notice(Loc.Token("notice.save_failed"));}}
         void LocalizeWindowTitle(){PlayerWindow.LocalizeTitle();}
-        void RefreshLanguage(){title=null;LocalizeWindowTitle();}
+        void RefreshLanguage(){title=null;codexScroll=Vector2.zero;LocalizeWindowTitle();}
+        // A modal reader owns keyboard input, including IME composition and caret arrows.
+        float ObserverHotkeys(bool escape,bool space,int requestedSpeed,float orbit,bool composing)
+        {
+            if(inspection!=Inspection.None){if(escape&&!composing)CloseInspection();return 0;}
+            if(composing)return 0;
+            if(space)paused=!paused;if(requestedSpeed>0)speed=requestedSpeed;return orbit;
+        }
         void OnDestroy(){CloseGlyphDiagnostics();Application.wantsToQuit-=CloseWindow;Loc.Changed-=RefreshLanguage;tower?.Dispose();llmTransport?.Dispose();view?.Dispose();if(strike!=null)Destroy(strike);if(heal!=null)Destroy(heal);}
         void Notice(string text){notice=text;noticeTimer=5;}
         void Styles()
@@ -127,6 +133,7 @@ namespace Ember.Presentation
             GUI.matrix=Matrix4x4.TRS(new Vector3(ox,oy,0),Quaternion.identity,new Vector3(scale,scale,1));
             if(refugeQA&&qaScenario!="refuge_hud"){DrawRefugeCaption();return;}
             if(combatArtQA&&qaScenario!="art_hud"){DrawArtCaption();return;}
+            if(inspectionClearFocus){GUI.FocusControl(null);inspectionClearFocus=false;}
             GUI.enabled=inspection==Inspection.None;
             var w=simulation.State;var a=w.agents[selected];
             Box(0,0,1600,86,new Color(.035f,.065f,.08f,.96f));Box(0,85,1600,1,new Color(.25f,.36f,.36f,.6f));
