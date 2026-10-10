@@ -1,102 +1,108 @@
-# Real Player gallery · 實機圖集
+# 實機圖集
 
-All images are real Windows Player captures. Several are scripted QA fixtures with controlled state, not uninterrupted natural-play recordings. Historical presentation captures are explicitly labeled; they are not evidence that the latest build passed those historical tests.
+靜態遊戲圖片皆來自 Windows Player。部分圖片使用腳本設定的受控測試狀態，並非連續自然遊玩的錄影。歷史畫面均標示當時版本，不代表最新版再次通過那些歷史測試。
 
 所有遊戲畫面均為實機截圖，未使用 AI 生成或修改遊戲內容。歷史版本、受控 fixture 與最新 Team Balance 畫面分開標示；範例狀態不代表自然遊玩通關。
 
-## Four Agents, Boss and actionable ongoing threats
+## 休息層連續動態
 
-*Team Balance, final Windows Release QA*
+![探索後走向出口](../Media/Portfolio/refuge-demo.gif)
 
-![Four Agents, Boss and actionable ongoing threats](../Media/Portfolio/hero-combat.png)
+[MP4 原片](../Media/Portfolio/refuge-demo.mp4)：2026-10-11，已修補 Windows 展示版，8 秒原速無聲、局部畫面。保留連續時間，未生成或重排遊戲內容；角色移動與倒數可直接觀察。較完整的戰鬥示範仍待補齊。[檢查紀錄](../Evidence/portfolio-demo-validation.json)。
 
-## Astrolabe guardian model, Theme B
+## 四名 Agent、Boss 與可應對的持續威脅
 
-*Historical CombatArt QA*
+*Team Balance 隊伍平衡版本，最終 Windows 發佈版檢查*
 
-![Astrolabe guardian model, Theme B](../Media/Portfolio/boss-model.png)
+![四名 Agent、Boss 與可應對的持續威脅](../Media/Portfolio/hero-combat.png)
 
-## Rootcrown silhouette and environment
+## 天球鑄心：第二主題區的守護者造型
 
-*Historical CombatArt QA*
+*歷史 CombatArt 版本，戰鬥演出檢查*
 
-![Rootcrown silhouette and environment](../Media/Portfolio/boss-rootcrown.png)
+![天球鑄心：第二主題區的守護者造型](../Media/Portfolio/boss-model.png)
 
-## Lightning skill effect fixture
+## 根冠之主：造型與場景
 
-*Historical CombatArt QA*
+*歷史 CombatArt 版本，戰鬥演出檢查*
 
-![Lightning skill effect fixture](../Media/Portfolio/skill-vfx.png)
+![根冠之主：造型與場景](../Media/Portfolio/boss-rootcrown.png)
 
-## Six-building forest refuge
+## 雷擊技能效果
 
-*Historical RefugeExploration QA*
+*歷史 CombatArt 版本，戰鬥演出檢查*
 
-![Six-building forest refuge](../Media/Portfolio/rest-area.png)
+![雷擊技能效果](../Media/Portfolio/skill-vfx.png)
 
-## Foundry interior and facilities
+## 六棟建築的林間避難層
 
-*Historical RefugeExploration QA*
+*歷史 RefugeExploration 版本，避難層探索檢查*
 
-![Foundry interior and facilities](../Media/Portfolio/rest-foundry.png)
+![六棟建築的林間避難層](../Media/Portfolio/rest-area.png)
 
-## Mind/status panels and observer camera
+## 鑄造區內部與設施
 
-*Historical AgentInspection QA*
+*歷史 RefugeExploration 版本，避難層探索檢查*
 
-![Mind/status panels and observer camera](../Media/Portfolio/agent-mind.png)
+![鑄造區內部與設施](../Media/Portfolio/rest-foundry.png)
 
-## Inventory details
+## 思緒、狀態與觀察視角
 
-*Historical AgentInspection QA*
+*歷史 AgentInspection 版本，角色資訊檢查*
 
-![Inventory details](../Media/Portfolio/inventory.png)
+![思緒、狀態與觀察視角](../Media/Portfolio/agent-mind.png)
 
-## Source-aware memory inspection
+## 背包內容
 
-*Historical AgentInspection QA*
+*歷史 AgentInspection 版本，角色資訊檢查*
 
-![Source-aware memory inspection](../Media/Portfolio/memory-inspection.png)
+![背包內容](../Media/Portfolio/inventory.png)
 
-## Mage skill tree
+## 記憶內容與來源
 
-*Team Balance, final Development QA*
+*歷史 AgentInspection 版本，角色資訊檢查*
 
-![Mage skill tree](../Media/Portfolio/skill-tree.png)
+![記憶內容與來源](../Media/Portfolio/memory-inspection.png)
 
-## Healer role and actual skill power
+## 法師技能樹
 
-*Team Balance, final Development QA*
+*Team Balance 隊伍平衡版本，最終開發版檢查*
 
-![Healer role and actual skill power](../Media/Portfolio/skill-detail.png)
+![法師技能樹](../Media/Portfolio/skill-tree.png)
 
-## Boss abilities and numeric information
+## 補師定位與技能實際數值
 
-*Team Balance, final Development QA*
+*Team Balance 隊伍平衡版本，最終開發版檢查*
 
-![Boss abilities and numeric information](../Media/Portfolio/boss-dossier.png)
+![補師定位與技能實際數值](../Media/Portfolio/skill-detail.png)
 
-## Book of the Dead reader
+## Boss 招式與數值
 
-*Team Balance, final Development QA*
+*Team Balance 隊伍平衡版本，最終開發版檢查*
 
-![Book of the Dead reader](../Media/Portfolio/book-of-the-dead.png)
+![Boss 招式與數值](../Media/Portfolio/boss-dossier.png)
 
-## Directed relationship UI fixture
+## 死者之書完整閱讀介面
 
-*Historical Phase 3.1.1 EXP2.1 QA*
+*Team Balance 隊伍平衡版本，最終開發版檢查*
 
-![Directed relationship UI fixture](../Media/Portfolio/relationships.png)
+![死者之書完整閱讀介面](../Media/Portfolio/book-of-the-dead.png)
 
-## Separate groups at different floors in Theme B
+## 有向關係介面
 
-*Historical Phase 3.1.1 EXP2.1 QA*
+*歷史 Phase 3.1.1 EXP2.1 版本，分隊與關係檢查*
 
-![Separate groups at different floors in Theme B](../Media/Portfolio/party-split.png)
+![有向關係介面](../Media/Portfolio/relationships.png)
 
-## Technical graphics
+## 第二主題區的分隊與獨立樓層
 
-Architecture, decision and memory diagrams are explanatory graphics, not game screenshots. The balance plot uses only the latest controlled fixture data.
+*歷史 Phase 3.1.1 EXP2.1 版本，分隊與關係檢查*
+
+![第二主題區的分隊與獨立樓層](../Media/Portfolio/party-split.png)
+
+## 技術圖解
+
+架構、行動與記憶流程圖是技術說明圖，不是遊戲截圖。平衡比較圖僅使用最新受控測試資料。
 
 ![Architecture](../Media/Diagrams/architecture.png)
 
@@ -104,4 +110,4 @@ Architecture, decision and memory diagrams are explanatory graphics, not game sc
 
 ![Memory](../Media/Diagrams/memory-lifecycle.png)
 
-[README](../README.md) · [Evidence](ENGINEERING_EVIDENCE.md)
+[README](../README.md) · [工程證據](ENGINEERING_EVIDENCE.md) · [審閱指南](REVIEW_GUIDE.md)

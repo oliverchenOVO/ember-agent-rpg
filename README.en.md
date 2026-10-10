@@ -7,9 +7,15 @@ Four autonomous adventurers fight, build relationships, leave memories behind, a
 
 **[繁體中文](README.md) · [Game gallery](Docs/SCREENSHOTS.md) · [Architecture](Docs/ARCHITECTURE.md) · [Decision logic](Docs/AGENT_DECISION_LOGIC.md) · [Algorithms](Docs/ALGORITHMS.md)**
 
-> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. The security-remediated Windows demo is publicly available. A valid action video and configured social preview are deferred with the author’s explicit approval; see [publication status](Docs/PUBLIC_REPOSITORY_SETTINGS.md).
+> **Playable Research / Portfolio Build.** This is the original development repository, with its complete local commit history, source, real game captures and engineering evidence. Maintained by one author for portfolio review. The security-remediated Windows demo is publicly available. A short refuge clip is available; the full action video and configured social preview are deferred with the author’s explicit approval; see [publication status](Docs/PUBLIC_REPOSITORY_SETTINGS.md).
 
 **[Download Windows x64 demo](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · Extract the entire zip, then run Ember.exe. [Package hashes and verification](Docs/DISTRIBUTION.md).
+
+## Refuge in motion
+
+![Agents move from buildings toward the exit](Media/Portfolio/refuge-demo.gif)
+
+[Watch the MP4](Media/Portfolio/refuge-demo.mp4) · Eight seconds, real time, silent, from the officially patched Windows demo. Continuous partial-viewport capture of movement and the evacuation countdown; not combat or completion evidence. The full action clip and configured social preview remain pending. [Media validation](Evidence/portfolio-demo-validation.json) · [Chinese review guide](Docs/REVIEW_GUIDE.md).
 
 ## Why EMBER?
 

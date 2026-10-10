@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-11",
+  "gameplay_revision": "43a2f70",
+  "player": "Officially patched v0.3.0-portfolio Windows Player",
+  "duration_seconds": 8,
+  "fps": 15,
+  "decoded_frames": 120,
+  "unique_frames": 120,
+  "unique_scene_frames": 120,
+  "scene_crop": [
+    300,
+    180,
+    680,
+    360
+  ],
+  "size": [
+    1068,
+    584
+  ],
+  "audio": false,
+  "playback_speed": 1,
+  "capture": "Continuous desktop-region capture",
+  "edits": "First 8 seconds retained; titlebar/edge cropped; MP4 encoded and GIF downsampled",
+  "manual_review": "Eight one-second samples reviewed: moving Agents, advancing clock, no other app visible",
+  "limitations": "Partial viewport; no combat clip, full UI review, balance Gate, 5000-seed or 120-minute soak",
+  "local_links_checked": 154,
+  "assets": [
+    {
+      "file": "Media/Portfolio/refuge-demo.mp4",
+      "bytes": 718483,
+      "sha256": "0a61f93eb6ea14dd6ddfbea31f912cf94ef1e7a7d0a9e26bb6f858adbbe952de"
+    },
+    {
+      "file": "Media/Portfolio/refuge-demo.gif",
+      "bytes": 2835844,
+      "sha256": "86b0237ec46a9620d47714bb29076727d15ddec05184e31e4e320defe12315fa"
+    }
+  ]
+}

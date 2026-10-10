@@ -133,5 +133,31 @@
     "sha256": "d26ac45b13f0600e5f1371f47a678634c023a4eeb2766017112d16aabec57e00",
     "kind": "Windows Player capture / QA fixture",
     "altered": false
+  },
+  {
+    "file": "Media/Portfolio/refuge-demo.mp4",
+    "bytes": 718483,
+    "sha256": "0a61f93eb6ea14dd6ddfbea31f912cf94ef1e7a7d0a9e26bb6f858adbbe952de",
+    "origin_stage": "Patched v0.3.0-portfolio Windows Player, gameplay revision 43a2f70",
+    "capture_date": "2026-10-11",
+    "caption": "休息層探索後移動與撤離倒數；8 秒原速無聲局部畫面",
+    "kind": "Continuous Windows Player recording; GIF derived from MP4",
+    "altered": true,
+    "edits": "Trimmed to clean first 8 seconds, cropped window edge, encoded; GIF resized and downsampled",
+    "generated_gameplay": false,
+    "validation": "Evidence/portfolio-demo-validation.json"
+  },
+  {
+    "file": "Media/Portfolio/refuge-demo.gif",
+    "bytes": 2835844,
+    "sha256": "86b0237ec46a9620d47714bb29076727d15ddec05184e31e4e320defe12315fa",
+    "origin_stage": "Patched v0.3.0-portfolio Windows Player, gameplay revision 43a2f70",
+    "capture_date": "2026-10-11",
+    "caption": "休息層探索後移動與撤離倒數；8 秒原速無聲局部畫面",
+    "kind": "Continuous Windows Player recording; GIF derived from MP4",
+    "altered": true,
+    "edits": "Trimmed to clean first 8 seconds, cropped window edge, encoded; GIF resized and downsampled",
+    "generated_gameplay": false,
+    "validation": "Evidence/portfolio-demo-validation.json"
   }
 ]

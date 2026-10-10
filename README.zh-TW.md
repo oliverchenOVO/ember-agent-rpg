@@ -5,11 +5,17 @@
 
 ![Windows Player：四名 Agent 面對星晶織母](Media/Portfolio/hero-combat.png)
 
-**[English](README.en.md) · [實機圖集](Docs/SCREENSHOTS.md) · [系統架構](Docs/ARCHITECTURE.md) · [角色行動邏輯](Docs/AGENT_DECISION_LOGIC.md) · [演算法](Docs/ALGORITHMS.md)**
+**[審閱指南](Docs/REVIEW_GUIDE.md) · [English](README.en.md) · [實機圖集](Docs/SCREENSHOTS.md) · [系統架構](Docs/ARCHITECTURE.md) · [角色行動邏輯](Docs/AGENT_DECISION_LOGIC.md) · [演算法](Docs/ALGORITHMS.md)**
 
-> **可遊玩的研究／作品集版本。** 這是原本的開發倉庫，保留完整開發提交紀錄、原始碼、實機畫面與工程證據，由作者單獨維護。Windows 展示版已公開，並完成官方安全修補與解壓短測；依作者明確同意，動態影片與 GitHub 社群預覽稍後補齊。詳見[公開狀態](Docs/PUBLIC_REPOSITORY_SETTINGS.md)。
+> **可遊玩的研究／作品集版本。** 這是原本的開發倉庫，保留完整開發提交紀錄、原始碼、實機畫面與工程證據，由作者單獨維護。Windows 展示版已公開，並完成官方安全修補與解壓短測；已補上休息層動態短片；依作者明確同意，完整戰鬥影片與 GitHub 社群預覽稍後補齊。詳見[公開狀態](Docs/PUBLIC_REPOSITORY_SETTINGS.md)。
 
 **[下載 Windows x64 展示版](https://github.com/oliverchenOVO/ember-agent-rpg/releases/tag/v0.3.0-portfolio)** · 完整解壓縮後執行 Ember.exe。[成品雜湊與驗證](Docs/DISTRIBUTION.md)。
+
+## 休息層動態示範
+
+![Agent 從建築走向出口的實際動態](Media/Portfolio/refuge-demo.gif)
+
+[觀看 MP4 原片](Media/Portfolio/refuge-demo.mp4) · 8 秒、原速、無聲，擷取自已修補 Windows 展示版。這是局部畫面的連續錄影，呈現探索後的移動與撤離倒數；不是完整戰鬥或通關證據。完整戰鬥短片與社群預覽設定仍待補齊。[素材檢查紀錄](Evidence/portfolio-demo-validation.json)。
 
 ## 作品亮點
 
